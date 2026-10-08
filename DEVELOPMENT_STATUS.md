@@ -19,7 +19,7 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 180 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 182 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 36 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -32,7 +32,7 @@ ver "Problemas conhecidos")
 - **42 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
 - **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **180 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **182 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)

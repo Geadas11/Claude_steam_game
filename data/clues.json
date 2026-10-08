@@ -1793,6 +1793,26 @@
    "ines_calendar"
   ]
  },
+ "december_bookshop": {
+  "title": "Dezembro, à porta da livraria",
+  "desc": "IMG_1288: 20/12/2025, 01:33, Rua Direita 31 — a Livraria Maré. Ainda não trabalhavas lá. Voltaste de noite, à chuva.",
+  "source": "Galeria · IMG_1288",
+  "importance": 2,
+  "related": [
+   "night_bookshop",
+   "daniel_hides_in_books"
+  ]
+ },
+ "wall_note_0317": {
+  "title": "\"14/10 — 03:17\"",
+  "desc": "Na selfie de 21/11/2025, às 03:40, há um papel na parede atrás de ti com a hora. Um mês depois, já a sabias — e dizias que não te lembravas de nada.",
+  "source": "Galeria · IMG_0901",
+  "importance": 2,
+  "related": [
+   "old_location",
+   "secret_note_book"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

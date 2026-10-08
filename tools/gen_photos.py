@@ -51,9 +51,19 @@ photo("IMG_1433", "2026-01-14 08:12", {"preset": "pier_day", "layers": [
     {"t": "circle", "p": [0.505, 0.47], "r": 0.012, "c": "#c94a5a", "n": "flowers"},
     {"t": "circle", "p": [0.512, 0.475], "r": 0.009, "c": "#e8d24a"}]}, place="Cais Velho, Salgueira", aspect=0.75,
     hotspots=[{"r": [0.47, 0.43, 0.08, 0.08], "zoom": 2.0, "clue": "pier_flowers", "label": "Flores atadas ao poste. Alguém deixou flores no cais."}])
-photo("IMG_1288", "2025-12-20 01:33", {"preset": "street_night", "rain": True, "seed": 4}, place="Rua Direita, Salgueira", aspect=0.75)
-photo("IMG_0901", "2025-11-21 03:40", {"preset": "portrait", "bg": "#121418", "faces": [face("daniel_tired", 0.5, 0.48, 0.2)]},
-    place="Rua das Gaivotas 12, Salgueira", aspect=0.75)
+photo("IMG_1288", "2025-12-20 01:33", {"preset": "street_night", "rain": True, "seed": 4, "layers": [
+    {"t": "rect", "r": [0.03, 0.585, 0.26, 0.035], "c": "#1c140e"},
+    {"t": "text", "p": [0.045, 0.61], "s": 0.017, "c": "#a8865a", "v": "LIVRARIA MARÉ · 31", "a": 0.75},
+    {"t": "rect", "r": [0.2, 0.625, 0.05, 0.03], "c": "#2a2418"},
+    {"t": "glow", "p": [0.225, 0.64], "r": 0.03, "c": "#ffcf8a22"}]},
+    place="Rua Direita, Salgueira", aspect=0.75,
+    hotspots=[{"r": [0.0, 0.56, 0.33, 0.1], "clue": "december_bookshop", "label": "\"Livraria Maré · 31\". 20 de dezembro, 01:33. Estavas à porta da livraria, à chuva, dois meses depois."}])
+photo("IMG_0901", "2025-11-21 03:40", {"preset": "portrait", "bg": "#121418", "faces": [face("daniel_tired", 0.5, 0.48, 0.2)],
+    "layers": [{"t": "rect", "r": [0.07, 0.1, 0.13, 0.09], "c": "#8a8472", "a": 0.55},
+               {"t": "text", "p": [0.085, 0.14], "s": 0.022, "c": "#1a1a1a", "v": "14/10", "a": 0.7},
+               {"t": "text", "p": [0.085, 0.172], "s": 0.022, "c": "#5a1010", "v": "03:17", "a": 0.7}]},
+    place="Rua das Gaivotas 12, Salgueira", aspect=0.75,
+    hotspots=[{"r": [0.05, 0.08, 0.17, 0.13], "clue": "wall_note_0317", "label": "Um papel na parede atrás de ti: \"14/10 — 03:17\". Já em novembro sabias a hora."}])
 photo("IMG_0899", "2025-11-03 17:02", {"preset": "office", "layers": [
     {"t": "rect", "r": [0.36, 0.56, 0.22, 0.12], "c": "#a07a4a"}, {"t": "text", "p": [0.38, 0.63], "s": 0.025, "c": "#3a2a1a", "v": "D. REIS"},
     {"t": "rect", "r": [0.5, 0.565, 0.04, 0.03], "c": "#e8d84a"}]},

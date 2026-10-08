@@ -321,8 +321,62 @@
   "scene": {
    "preset": "street_night",
    "rain": true,
-   "seed": 4
-  }
+   "seed": 4,
+   "layers": [
+    {
+     "t": "rect",
+     "r": [
+      0.03,
+      0.585,
+      0.26,
+      0.035
+     ],
+     "c": "#1c140e"
+    },
+    {
+     "t": "text",
+     "p": [
+      0.045,
+      0.61
+     ],
+     "s": 0.017,
+     "c": "#a8865a",
+     "v": "LIVRARIA MARÉ · 31",
+     "a": 0.75
+    },
+    {
+     "t": "rect",
+     "r": [
+      0.2,
+      0.625,
+      0.05,
+      0.03
+     ],
+     "c": "#2a2418"
+    },
+    {
+     "t": "glow",
+     "p": [
+      0.225,
+      0.64
+     ],
+     "r": 0.03,
+     "c": "#ffcf8a22"
+    }
+   ]
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.0,
+     0.56,
+     0.33,
+     0.1
+    ],
+    "clue": "december_bookshop",
+    "label": "\"Livraria Maré · 31\". 20 de dezembro, 01:33. Estavas à porta da livraria, à chuva, dois meses depois."
+   }
+  ]
  },
  "IMG_0901": {
   "file": "IMG_0901.jpg",
@@ -348,8 +402,55 @@
      "cloth": "#1f252c",
      "smile": false
     }
+   ],
+   "layers": [
+    {
+     "t": "rect",
+     "r": [
+      0.07,
+      0.1,
+      0.13,
+      0.09
+     ],
+     "c": "#8a8472",
+     "a": 0.55
+    },
+    {
+     "t": "text",
+     "p": [
+      0.085,
+      0.14
+     ],
+     "s": 0.022,
+     "c": "#1a1a1a",
+     "v": "14/10",
+     "a": 0.7
+    },
+    {
+     "t": "text",
+     "p": [
+      0.085,
+      0.172
+     ],
+     "s": 0.022,
+     "c": "#5a1010",
+     "v": "03:17",
+     "a": 0.7
+    }
    ]
-  }
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.05,
+     0.08,
+     0.17,
+     0.13
+    ],
+    "clue": "wall_note_0317",
+    "label": "Um papel na parede atrás de ti: \"14/10 — 03:17\". Já em novembro sabias a hora."
+   }
+  ]
  },
  "IMG_0899": {
   "file": "IMG_0899.jpg",
