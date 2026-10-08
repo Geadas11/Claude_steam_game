@@ -179,7 +179,7 @@ func _serve(peer: StreamPeerTCP, request: String) -> void:
 	if path == "/" or path == "/index.html":
 		body = _page().to_utf8_buffer()
 	elif path.begins_with("/font/") and path.ends_with(".woff2") and not path.contains(".."):
-		body = FileAccess.get_file_as_bytes("res://assets/fonts/" + path.trim_prefix("/font/"))
+		body = FileAccess.get_file_as_bytes("res://companion/fonts/" + path.trim_prefix("/font/"))
 		if body.is_empty():
 			status = "404 Not Found"
 			ctype = "text/plain"
