@@ -411,3 +411,10 @@ static func clear(n: Node) -> void:
 	for ch in n.get_children():
 		n.remove_child(ch)
 		ch.queue_free()
+
+
+## Last-resort help after many wrong passwords: length and first letter.
+static func password_nudge(pw: String) -> String:
+	if pw == "":
+		return ""
+	return "(%d caracteres, começa por \"%s\")" % [pw.length(), pw.substr(0, 1)]

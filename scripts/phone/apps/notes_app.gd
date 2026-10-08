@@ -360,6 +360,8 @@ func _locked_note(n: Dictionary) -> void:
 			err.text = "Palavra-passe incorreta."
 			if int(GameState.get_var("pw_fail_note_" + n.id, 0)) >= 2 and str(n.hint) != "":
 				err.text += "\nDica: " + str(n.hint)
+			if int(GameState.get_var("pw_fail_note_" + n.id, 0)) >= 8:
+				err.text += "\n" + UI.password_nudge(str(Content.get_item("notes", n.id).get("locked", "")))
 	le.text_submitted.connect(attempt)
 	v.add_child(UI.pill_button("Abrir", attempt, "surf2", "accent"))
 	v.add_child(err)

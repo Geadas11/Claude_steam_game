@@ -229,6 +229,8 @@ func _archive(v: VBoxContainer, fid: String, f: Dictionary) -> void:
 			var fails := int(GameState.get_var("pw_fail_" + fid, 0))
 			if fails >= 3 and f.get("hint2", "") != "":
 				err.text += "\n" + str(f.hint2)
+			if fails >= 8:
+				err.text += "\n" + UI.password_nudge(str(f.password))
 	le.text_submitted.connect(attempt)
 	v.add_child(UI.pill_button("Extrair", attempt, "surf2", "accent"))
 	v.add_child(err)

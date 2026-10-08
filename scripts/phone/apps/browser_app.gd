@@ -292,6 +292,8 @@ func _password_gate(pid: String, pg: Dictionary) -> void:
 			Audio.play("error")
 			GameState.inc_var("pw_fail_" + pid)
 			err.text = "Palavra-passe incorreta." + ("\nDica: " + str(pg.get("hint", "")) if int(GameState.get_var("pw_fail_" + pid, 0)) >= 2 and pg.get("hint", "") != "" else "")
+			if int(GameState.get_var("pw_fail_" + pid, 0)) >= 8:
+				err.text += "\n" + UI.password_nudge(str(pg.password))
 	le.text_submitted.connect(try_pw)
 	v.add_child(UI.pill_button("Entrar", try_pw, "surf2"))
 	v.add_child(err)
