@@ -67,7 +67,8 @@ ver "Problemas conhecidos")
   interpolação `${var}`, ~55 comandos) · Clock (aceleração ×6 quando parado + opção 1–3×; bateria
   drena com avisos) · Saves (5 espaços + auto + rápido; escrita atómica + `.bak`) · Audio
   procedural (~45 sons) · Achievements (37, espelho Steam) · Settings (volumes por barramento, texto,
-  velocidade de mensagens/relógio, legendas, alto contraste, reduzir efeitos/movimento,
+  velocidade de mensagens/relógio, legendas, avisos de pistas, alto contraste, reduzir efeitos/movimento,
+  suavizar sons súbitos,
   ecrã/vsync/resolução, **remapeamento de teclas**)
 - **Menus:** pausa com **"Até agora"** (resumo de cada capítulo já jogado) e **"Decisões"**;
   ao **Continuar** aparece um cartão "Anteriormente…"; texto dos finais avança com clique/tecla;
