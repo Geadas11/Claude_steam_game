@@ -112,16 +112,27 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 - **Jun 2025** — Inês começa a desconfiar do ECO. Email a Daniel "posso confiar em ti?".
 - **14 Set 2025** — Festa de anos da Inês no Farol (fotos: grupo, Inês e Daniel).
 - **2 Out 2025** — Inês descobre o contrato com a Clínica Atlântico.
+- **13 Out 2025 18:02** — Inês deixa mensagem na linha geral do Jornal do Sul para a Clara (11 s):
+  "Se eu não aparecer, não é por ter mudado de ideias." A Clara só a ouve a 15/10.
+- **13 Out 19:40** — Inês compra na Livraria Maré um 2.º exemplar de *O Ano da Morte de Ricardo
+  Reis* (recibo no caixote que o Rui guardou). Post-it na secretária: "D. — p. 317 (a de cima)".
+  Calendário: 13 "cais 2h30 (D.)", 14 "Clara 10h!".
 - **13 Out 2025 21:40** — Inês conta tudo ao Daniel por chamada (38 min).
 - **13 Out 22:51** — Daniel envia mensagem ao Vasco (está no backup antigo).
 - **14 Out 02:38–03:06** — Daniel no Cais Velho (localização antiga).
 - **14 Out 03:09–03:17** — Gravação da Inês com Vasco.
 - **14 Out 03:17** — Inês cai.
+- **14 Out 03:41** — O João vê-o encharcado no Largo do Cais. Daniel diz só "ela chamou-me" e vai-se embora
+  (o João nunca o contou; revelado no cap. 9 se o jogador perguntar).
 - **14 Out 04:12** — Daniel na Livraria Maré (com a chave da Inês). Esconde o cartão. Deixa a porta destrancada.
+- **14 Out ~04:30** — A caminho de casa liga à mãe sem dizer nada (só se ouve o mar). Ela liga-lhe
+  de volta onze vezes; de manhã ele diz que esteve a dormir (cap. 9).
 - **14 Out 06:40** — Corpo encontrado pelo Sr. Armando.
 - **15 Out** — Notícia Jornal do Sul. Vasco liga ao Daniel.
 - **20 Out** — Daniel começa consultas com a Dra. Helena.
 - **3 Nov** — Daniel demite‑se da Lumen. Recebe o Lumen One (migração de dados).
+- **21 Nov 03:40** — Selfie IMG_0901: na parede atrás dele, um papel "14/10 — 03:17".
+- **20 Dez 01:33** — IMG_1288: Daniel à chuva à porta da Livraria Maré (n.º 31). Não entra.
 - **Jan 2026** — Daniel começa a trabalhar na Livraria Maré.
 
 ### 2026 (jogo)
