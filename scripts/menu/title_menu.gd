@@ -59,6 +59,7 @@ func _new_game() -> void:
 	for line in [
 		"Ainda Estás Acordado? é um jogo de terror psicológico.",
 		"Aborda morte, luto, perda de memória, vigilância, manipulação e menções a suicídio. Contém sons súbitos, cintilação e interferências visuais (podes reduzi-los nas Definições).",
+		"Se algum destes temas te toca de perto, há contactos de apoio em Extras → Créditos.",
 		"Para a melhor experiência: joga à noite, com auscultadores, sem pressa.",
 		"Nada neste jogo acede ao teu computador real. Se em algum momento parecer que sim — é o jogo a fazer o seu trabalho.",
 	]:

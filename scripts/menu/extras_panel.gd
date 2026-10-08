@@ -38,3 +38,33 @@ func _ready() -> void:
 		v2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h2.add_child(v2)
 		body.add_child(h2)
+	_stats()
+	_credits()
+
+
+func _stats() -> void:
+	var s: Dictionary = Achievements.stats
+	var total_endings := 0
+	for k in Achievements.endings:
+		total_endings += int(Achievements.endings[k])
+	body.add_child(UI.spacer(14))
+	body.add_child(UI.label("ESTATÍSTICAS", 13, "accent"))
+	for line in [
+		"Jogos começados: %d" % int(s.get("games", 0)),
+		"Finais vistos: %d (%d diferentes de %d)" % [total_endings, Achievements.endings.size(), Content.all("endings").size()],
+		"Pistas encontradas em todas as noites: %d / %d" % [s.get("clues_ever", {}).size(), Content.all("clues").size()],
+	]:
+		body.add_child(UI.label(line, 14, "dim"))
+
+
+func _credits() -> void:
+	body.add_child(UI.spacer(14))
+	body.add_child(UI.label("CRÉDITOS", 13, "accent"))
+	for line in [
+		"Ainda Estás Acordado? — um thriller num telemóvel.",
+		"Feito com Godot Engine (godotengine.org, licença MIT). Tipo de letra predefinido do Godot.",
+		"Todos os sons e fotografias são gerados em tempo real pelo jogo.",
+		"Salgueira, a Lumen Systems, a Clínica Atlântico e todas as pessoas desta história são fictícias.",
+		"Se estás a passar por um momento difícil, fala com alguém. Em Portugal: SNS 24 (808 24 24 24) · SOS Voz Amiga (213 544 545).",
+	]:
+		body.add_child(UI.label(line, 13, "faint", true))

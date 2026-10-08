@@ -146,6 +146,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"decisions": pause_menu.add_child(ChoicesPanel.new())
 			"recap": pause_menu.add_child(RecapPanel.new())
 			"extras": overlay.add_child(ExtrasPanel.new())
+			"scrollend":
+				for sc in find_children("*", "ScrollContainer", true, false):
+					sc.scroll_vertical = 100000
 			"pause": toggle_pause()
 			"shade": phone.open_shade()
 			"endch": Director._end_chapter()
@@ -243,6 +246,8 @@ func start_new_game(show_warning := true) -> void:
 	Audio.set_music("")
 	mode = Mode.GAME
 	Director.new_game()
+	if show_warning:
+		Achievements.record_new_game()
 	phone.refresh_all()
 	phone.show_locked_immediately()
 	room.set_mood("night")

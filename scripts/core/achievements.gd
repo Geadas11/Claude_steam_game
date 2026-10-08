@@ -58,6 +58,11 @@ func unlock(id: String) -> void:
 		unlock("all_achievements")
 
 
+func record_new_game() -> void:
+	stats["games"] = int(stats.get("games", 0)) + 1
+	_save()
+
+
 func record_ending(id: String) -> void:
 	endings[id] = int(endings.get(id, 0)) + 1
 	stats["last_ending"] = id
@@ -89,6 +94,16 @@ func on_chapter_end(ch: String) -> void:
 
 
 func check_clues() -> void:
+	# clues found across every playthrough (Extras → statistics)
+	var ever: Dictionary = stats.get("clues_ever", {})
+	var grew := false
+	for c in GameState.data.clues:
+		if not ever.has(c):
+			ever[c] = 1
+			grew = true
+	if grew:
+		stats["clues_ever"] = ever
+		_save()
 	var n := GameState.clue_count()
 	if n >= 10:
 		unlock("clues_10")
