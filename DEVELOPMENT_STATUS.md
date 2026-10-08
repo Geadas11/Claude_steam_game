@@ -19,7 +19,7 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 183 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 184 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 36 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -32,7 +32,7 @@ ver "Problemas conhecidos")
 - **42 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
 - **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **183 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **184 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -48,7 +48,7 @@ ver "Problemas conhecidos")
 | 1 | Fotografia tirada da rua 3 min antes da 1.ª mensagem; "Dorme, Daniel." |
 | 2 | Foto da porta do quarto de dentro, às 03:02; mar no correio de voz; sabe dos Saramagos; "Para de perguntar." → "Estás a assustar-me."; voz de mulher na chamada; alguém debaixo do candeeiro |
 | 3 | O número era de uma morta; "Faz quatro dias que me perguntas isso"; "Tu estavas lá."; chamada às 03:17 |
-| 4 | O pescador viu-te ir embora a pé enquanto ela te chamava |
+| 4 | O pescador viu-te ir embora a pé enquanto ela te chamava; a médica sabe quantas horas dormiste — e o que pesquisaste |
 | 5 | Mensagem antiga muda; mensagem enviada sem ti; pesquisas que não fizeste; nota do futuro; vulto no corredor; contacto muda de nome (e não o consegues bloquear); "Localização atualizada · Cais Velho"; foto tirada por trás; "Aplicação desconhecida — Algo correu mal."; a tua voz a sussurrar numa gravação; reinício + PIN = data da morte; reflexo no ecrã apagado; 17 min de silêncio; 3 pancadas; a Sofia escreve "Ainda estás acordado?"; a voz repete a tua frase |
 | 6 | Últimas mensagens restauradas ("Ele está aqui"); o fundo de ecrã ganha uma pessoa enquanto olhas; o caixote da secretária da Inês (post-it "D. — p. 317") |
 | 7 | Rosto na janela; o telemóvel escreve e envia sozinho; mensagem do João que o João não enviou; a médica sabe demais |

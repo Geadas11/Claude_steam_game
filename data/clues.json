@@ -1823,6 +1823,16 @@
    "marta_remembers_them"
   ]
  },
+ "helena_sees_sleep": {
+  "title": "A médica vê o teu sono",
+  "desc": "A Dra. Helena sabe quantas horas dormes por noite: o telemóvel partilha \"dados de bem-estar\" com a Clínica Atlântico desde novembro. E sabe o que pesquisas.",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "eco_care_mention",
+   "helena_vasco_link"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

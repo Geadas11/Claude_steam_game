@@ -218,6 +218,7 @@ clue("clara_voicemail_ines", "A mensagem na redação", "13/10/2025, 18:02, linh
 clue("december_bookshop", "Dezembro, à porta da livraria", "IMG_1288: 20/12/2025, 01:33, Rua Direita 31 — a Livraria Maré. Ainda não trabalhavas lá. Voltaste de noite, à chuva.", "Galeria · IMG_1288", 2, ["night_bookshop", "daniel_hides_in_books"])
 clue("wall_note_0317", "\"14/10 — 03:17\"", "Na selfie de 21/11/2025, às 03:40, há um papel na parede atrás de ti com a hora. Um mês depois, já a sabias — e dizias que não te lembravas de nada.", "Galeria · IMG_0901", 2, ["old_location", "secret_note_book"])
 clue("marta_saw_flowers", "As flores eram tuas", "A Marta viu-te no Cais Velho às 8h de 14 de janeiro, a atar flores a um poste com as mãos a tremer. Tu não te lembras de lá ter ido.", "Mensagens · Marta", 2, ["pier_flowers", "marta_remembers_them"])
+clue("helena_sees_sleep", "A médica vê o teu sono", "A Dra. Helena sabe quantas horas dormes por noite: o telemóvel partilha \"dados de bem-estar\" com a Clínica Atlântico desde novembro. E sabe o que pesquisas.", "Mensagens · Dra. Helena", 2, ["eco_care_mention", "helena_vasco_link"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below

@@ -362,3 +362,39 @@ unknown> Ainda não aconteceu.
 wait 4
 unknown> Ou já aconteceu tantas vezes que deixou de ter data.
 @end
+
+# ---------------------------------------------------------------- a médica vê o teu sono
+@beat helena_sleep
+@when at("16:45")
+helena> Boa tarde, Daniel. Desculpe escrever a um sábado.
+helena> Os seus registos de sono desta semana preocupam-me. Três noites com menos de duas horas. Ontem, zero.
+helena> Quer antecipar a consulta?
+@end
+
+@beat helena_sleep_reply
+@when beat("helena_sleep") and read("helena")
+wait 1
+choice helena c4_helena
+  > Desde quando é que a clínica vê o meu sono? | set helena4=ask inc trust_helena -1
+  > Sim. Preciso de falar com alguém. | set helena4=yes inc trust_helena 1
+  > Estou bem, doutora. | set helena4=fine
+end
+wait 30
+if vs("helena4") == "ask"
+  helena> Desde novembro. Está nos termos do programa de acompanhamento que assinou. O seu telemóvel partilha os dados de bem-estar connosco.
+  wait 4
+  helena> É para o proteger, Daniel. Não se esqueça de que foi o senhor que pediu ajuda.
+  clue helena_sees_sleep
+elif vs("helena4") == "yes"
+  helena> Fico contente. Segunda às 9h.
+  wait 3
+  helena> Entretanto, evite pesquisar sobre o acidente. Sabemos os dois que não lhe faz bem.
+  wait 12
+  unknown> Tu não lhe disseste que andavas a pesquisar.
+  wait 3
+  unknown> Pois não?
+  clue helena_sees_sleep
+else
+  helena> Os seus dados dizem outra coisa. Mas fica registado.
+endif
+@end
