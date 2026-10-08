@@ -144,7 +144,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
    mais pormenores escondidos nas fotografias (ainda sem *hotspots*: IMG_2190, 2155,
    1650, 3301).
    Feito nesta sessão: ~35 novos beats (Rui, Clara, Marta, Sofia, mãe, João, Sr. Armando, Helena,
-   ECO), 4 fotografias novas + 7 com pormenores escondidos, 23 pistas, 3 conquistas, epílogos para escolhas pequenas.
+   ECO), 4 fotografias novas + 6 com pormenores escondidos, 23 pistas, 3 conquistas, epílogos para escolhas pequenas.
 3. Integrar GodotSteam real + App ID; Auto-Cloud (`docs/STEAM.md`).
 4. Tradução EN (todo o texto está em `data/`).
 5. Afinar mistura de áudio por capítulo; considerar música original para o menu e finais
