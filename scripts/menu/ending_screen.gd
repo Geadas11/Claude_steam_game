@@ -35,6 +35,8 @@ func play(id: String) -> void:
 	for x in e.get("extra", []):
 		if Director.check(str(x.get("when", "false"))):
 			lines.append(str(x.line))
+	# the closing image always comes last, after the epilogue lines
+	lines.append_array(e.get("coda", []))
 	for line in lines:
 		var l := UI.label(str(line), 20, "text", true)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

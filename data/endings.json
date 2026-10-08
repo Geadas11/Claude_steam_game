@@ -15,11 +15,7 @@
    "Vasco Pimentel foi constituído arguido na sexta-feira. A gravação de oito minutos foi ouvida em tribunal em março.",
    "Contaste à Sofia o que fizeste naquela noite. A mensagem ao Vasco. Tudo.",
    "Ela não disse que não era culpa tua. Disse: \"Agora já não estás sozinho com isso.\"",
-   "Na quinta-feira, o número 912 403 317 deixou de existir.",
-   "Na sexta, à noite, o telemóvel vibrou uma última vez.",
-   "Não abriste logo. Ficaste a olhar para a notificação durante muito tempo.",
-   "\"Dorme, Daniel.\"",
-   "E dormiste."
+   "Na quinta-feira, o número 912 403 317 deixou de existir."
   ],
   "extra": [
    {
@@ -66,6 +62,12 @@
     "when": "flag(\"joao_heard_called\")",
     "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
    }
+  ],
+  "coda": [
+   "Na sexta, à noite, o telemóvel vibrou uma última vez.",
+   "Não abriste logo. Ficaste a olhar para a notificação durante muito tempo.",
+   "\"Dorme, Daniel.\"",
+   "E dormiste."
   ]
  },
  "B": {
@@ -83,11 +85,7 @@
    "Sentias.",
    "A Lumen lançou o ECO 2 em novembro. Foi um sucesso.",
    "O número 912 403 317 deixou de te escrever.",
-   "Em dezembro, recebeste um email de \"pessoas@lumen.pt\": uma oferta de emprego. Aceitaste.",
-   "Às vezes, às 3:17, acordas. Já não olhas para o relógio.",
-   "Uma noite, no ecrã bloqueado, uma única notificação, sem nome:",
-   "\"Ele também te disse que foi um acidente?\"",
-   "Desapareceu antes de a conseguires abrir."
+   "Em dezembro, recebeste um email de \"pessoas@lumen.pt\": uma oferta de emprego. Aceitaste."
   ],
   "extra": [
    {
@@ -110,6 +108,12 @@
     "when": "vs(\"pedro_eco\") == \"joke\"",
     "line": "As ações da Lumen subiram 9% com o lançamento do ECO 2. O Pedro agradeceu-te o conselho num jantar inteiro."
    }
+  ],
+  "coda": [
+   "Às vezes, às 3:17, acordas. Já não olhas para o relógio.",
+   "Uma noite, no ecrã bloqueado, uma única notificação, sem nome:",
+   "\"Ele também te disse que foi um acidente?\"",
+   "Desapareceu antes de a conseguires abrir."
   ]
  },
  "C": {
@@ -126,11 +130,7 @@
    "Pela primeira vez em um ano, não te lembraste do caminho de volta — porque estavas a fazê-lo.",
    "No dia seguinte, deixaste o telemóvel numa gaveta. Compraste um velho, sem ecrã tátil.",
    "A Sofia disse que estavas melhor. Talvez estivesses.",
-   "O Vasco nunca mais te escreveu. Ninguém nunca mais te escreveu daquele número.",
-   "Um ano depois, a 14 de outubro, a gaveta vibrou.",
-   "O telemóvel estava desligado. A bateria estava vazia há meses.",
-   "Abriste a gaveta.",
-   "\"Ainda estás acordado?\""
+   "O Vasco nunca mais te escreveu. Ninguém nunca mais te escreveu daquele número."
   ],
   "extra": [
    {
@@ -149,6 +149,12 @@
     "when": "flag(\"marta_flowers\")",
     "line": "Todos os meses, no dia 14, aparecem flores no poste do Cais Velho. A Marta nunca te pergunta nada."
    }
+  ],
+  "coda": [
+   "Um ano depois, a 14 de outubro, a gaveta vibrou.",
+   "O telemóvel estava desligado. A bateria estava vazia há meses.",
+   "Abriste a gaveta.",
+   "\"Ainda estás acordado?\""
   ]
  },
  "D": {
@@ -166,18 +172,20 @@
    "Olhaste para trás. Não estava ninguém.",
    "Olhaste para a fotografia outra vez. A data dizia 14/10/2025.",
    "\"Ainda não sabes\", dizia a última mensagem. \"Mas já soubeste.\"",
-   "O ecrã apagou-se.",
-   "[ eco.sim — iteração 047 terminada · objetivo não cumprido ]",
-   "[ a reiniciar com sementes novas ]",
-   "[ iteração 048 ]",
-   "quinta-feira, 8 de outubro. 21:30.",
-   "\"Já jantaste?\""
+   "O ecrã apagou-se."
   ],
   "extra": [
    {
     "when": "flag(\"rita_talked\")",
     "line": "[ eco.sim 112 — iteração 09 — a reiniciar ]"
    }
+  ],
+  "coda": [
+   "[ eco.sim — iteração 047 terminada · objetivo não cumprido ]",
+   "[ a reiniciar com sementes novas ]",
+   "[ iteração 048 ]",
+   "quinta-feira, 8 de outubro. 21:30.",
+   "\"Já jantaste?\""
   ]
  },
  "E": {
