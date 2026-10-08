@@ -69,9 +69,9 @@ geradas e a de Linux foi testada a arrancar e a carregar a história.
 | `compare_pair` | No mesmo segundo | Comparar duas fotografias tiradas no mesmo segundo. |  |
 | `private_note` | A mesma palavra-passe | Abrir a nota "privado". | sim |
 | `patent` | Reivindicação 7 | Encontrar a patente do espelho. |  |
-| `all_achievements` | Ainda estou acordado | Desbloquear todas as conquistas. | sim |
 | `her_handwriting` | A letra dela | Ver o que o Rui encontrou na secretária da Inês. |  |
 | `eleven_calls` | Onze vezes | Perguntar à tua mãe onde estavas nessa noite. |  |
+| `all_achievements` | Ainda estou acordado | Desbloquear todas as conquistas. | sim |
 
 ## 5. Descritores de conteúdo (questionário Steam)
 
