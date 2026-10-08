@@ -1863,6 +1863,16 @@
    "joao_saw_daniel"
   ]
  },
+ "unsent_draft": {
+  "title": "\"Vou já\"",
+  "desc": "Uma captura de ecrã do telemóvel antigo, 14/10/2025 às 03:13: na conversa com a Inês, um rascunho por enviar — \"Vou já\". Nunca o enviaste. Também nunca tiraste esta captura.",
+  "source": "Galeria · Capturas",
+  "importance": 3,
+  "related": [
+   "ines_last_messages",
+   "old_location"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

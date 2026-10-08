@@ -122,6 +122,8 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 - **14 Out 02:38–03:06** — Daniel no Cais Velho (localização antiga).
 - **14 Out 03:09–03:17** — Gravação da Inês com Vasco.
 - **14 Out 03:17** — Inês cai.
+- **14 Out 03:13** — Na EN125, Daniel escreve "Vou já" à Inês e não envia. Fica parado quatro minutos.
+  (Captura IMG_SCR_0313, do telemóvel antigo, aparece no cap. 6 — ninguém a tirou.)
 - **14 Out 03:41** — O João vê-o encharcado no Largo do Cais. Daniel diz só "ela chamou-me" e vai-se embora
   (o João nunca o contou; revelado no cap. 9 se o jogador perguntar).
 - **14 Out 04:12** — Daniel na Livraria Maré (com a chave da Inês). Esconde o cartão. Deixa a porta destrancada.

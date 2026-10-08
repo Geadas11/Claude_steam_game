@@ -222,6 +222,7 @@ clue("helena_sees_sleep", "A médica vê o teu sono", "A Dra. Helena sabe quanta
 clue("self_voicemail", "Uma chamada de ti mesmo", "Uma chamada perdida do teu próprio número, e uma mensagem de voz com a tua voz, ofegante, junto ao mar: \"Ela chamou-me e eu ia a meio da estrada...\"", "Correio de voz", 3, ["armando_saw", "joao_saw_daniel"])
 clue("eco_41_subjects", "41 espelhos", "O ECO prevê 41 pessoas em luto, cada uma com um \"espelho\" de alguém que morreu. \"Convergir\" é a palavra deles para desistir.", "Consola ECO", 3, ["other_simulations", "clinic_bought_phones"])
 clue("eco_gap", "Trinta e cinco minutos", "Entre as 03:06 e as 03:41 de 14/10/2025 o ECO não tem dados teus: o telemóvel antigo estava dentro de água. É a única parte de ti que não consegue prever.", "Consola ECO", 3, ["old_location", "joao_saw_daniel"])
+clue("unsent_draft", "\"Vou já\"", "Uma captura de ecrã do telemóvel antigo, 14/10/2025 às 03:13: na conversa com a Inês, um rascunho por enviar — \"Vou já\". Nunca o enviaste. Também nunca tiraste esta captura.", "Galeria · Capturas", 3, ["ines_last_messages", "old_location"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below

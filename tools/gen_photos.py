@@ -185,6 +185,15 @@ def _cal_layers():
 photo("IMG_RUI_CAL", "2026-10-11 17:21", {"preset": "custom", "layers": _cal_layers()},
     place="Rua do Mar 7, Salgueira", device="Galaxy A14 (Rui)", album="Mensagens", aspect=1.0,
     hotspots=[{"r": [0.06, 0.24 + 2 * 0.13, 2 * 0.88 / 7, 0.13], "clue": "ines_calendar", "label": "13: \"cais 2h30 (D.)\". 14: \"Clara 10h!\". Ela tinha tudo planeado."}])
+photo("IMG_SCR_0313", "2025-10-14 03:13", {"preset": "screen", "lines": ["Já cá estou", "Daniel volta"], "layers": [
+    {"t": "rect", "r": [0.0, 0.0, 1.0, 0.06], "c": "#14171c"},
+    {"t": "text", "p": [0.04, 0.042], "s": 0.026, "c": "#c9c6c0", "v": "03:13   Inês Matos"},
+    {"t": "rect", "r": [0.04, 0.86, 0.78, 0.07], "c": "#1d2128"},
+    {"t": "text", "p": [0.07, 0.905], "s": 0.03, "c": "#e9e6e1", "v": "Vou já|"},
+    {"t": "circle", "p": [0.9, 0.895], "r": 0.035, "c": "#3a5a78"},
+    {"t": "text", "p": [0.05, 0.83], "s": 0.018, "c": "#6a6e76", "v": "rascunho · não enviado"}]},
+    place="EN125, Salgueira", device="Pixel 7 (antigo) · captura de ecrã", album="Capturas", aspect=0.56,
+    hotspots=[{"r": [0.02, 0.8, 0.86, 0.15], "clue": "unsent_draft", "label": "\"Vou já\". Escreveste-o às 03:13. Nunca carregaste em enviar."}])
 photo("IMG_RITA", "2026-10-13 00:29", {"preset": "screen", "lines": ["/.eco", "sim_112.log", "mirror_pai.cfg", "pred_rsantos.txt", "sujeita: R.SANTOS", "espelho: pai (J.SANTOS)"]},
     place="", device="Lumen One · captura de ecrã", album="Mensagens", aspect=0.75)
 

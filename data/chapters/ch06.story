@@ -396,3 +396,20 @@ else
   clara> Eu espero. Já esperei um ano.
 endif
 @end
+
+# ---------------------------------------------------------------- uma captura que não tiraste
+@beat screenshot_0313
+@when at("18:55") and flag("read_last_messages")
+photo IMG_SCR_0313 silent Capturas
+notify gallery "Captura de ecrã guardada" "Toca para ver"
+@end
+
+@beat screenshot_0313_seen
+@when viewed("IMG_SCR_0313")
+wait 10
+unknown> Escreveste.
+wait 3
+unknown> Ficaste parado na estrada a olhar para isso durante quatro minutos.
+wait 4
+unknown> Depois ouviste-me.
+@end
