@@ -315,3 +315,31 @@ mae> e liga-me amanha. a tua irma diz que estas mais magro
 @when at("14:40")
 email meridiano_premio
 @end
+
+# ---------------------------------------------------------------- Rita (arco opcional: "os outros")
+@beat rita_open
+@when phone("rita_known") and app() == "messages:rita"
+choice rita c4_rita
+  > Olá. Vi o teu comentário. Também recebo mensagens às 3:17. | set rita_intro=true
+  > [Fechar a conversa] | set rita_intro=false
+end
+if flag("rita_intro")
+  wait 30
+  rita> finalmente...
+  rita> pensei que estava a ficar louca
+  wait 4
+  rita> as minhas vêm do número do meu pai. morreu em março do ano passado
+  rita> "ainda estás acordada?" sempre que acordo. sempre
+  wait 5
+  choice rita c4_rita2
+    > Tens um telemóvel Lumen? | set asked_rita_phone=true
+    > Já falaste com alguém sobre isto? | set asked_rita_help=true
+  end
+  wait 10
+  rita> tenho... um lumen one. foi oferta da clínica onde sou seguida. "programa de apoio ao luto"
+  rita> a minha psiquiatra diz que é luto complicado. que o cérebro inventa padrões
+  rita> é a dra. sousa. clínica atlântico. conheces?
+  clue rita_same_doctor
+  set rita_talked=true
+endif
+@end

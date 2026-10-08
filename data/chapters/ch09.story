@@ -239,3 +239,22 @@ else
   sofia> Ok. Estou aqui
 endif
 @end
+
+# ---------------------------------------------------------------- Rita
+@beat rita_proof
+@when flag("rita_talked") and at("00:30")
+if flag("rita_keep")
+  rita> fiz o que disseste. pus "mostrar ficheiros ocultos"
+  rita> olha isto
+  rita> [photo:IMG_RITA]
+  wait 5
+  rita> sim 112. sujeita r.santos. espelho: "pai"
+  rita> daniel quantas pessoas há nesta lista
+  clue other_simulations
+else
+  rita> {typing=6} A Rita está bem. Obrigado pela preocupação.
+  wait 8
+  rita> {instant} Este número será desativado.
+  clue rita_silenced
+endif
+@end

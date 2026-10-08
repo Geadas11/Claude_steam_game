@@ -384,3 +384,28 @@ sofia: Que foi? Estás com uma voz horrível. | 2
 - (ela espera que digas alguma coisa)
 sofia: Olha, amanhã ligo-te com calma. Vai dormir. | 3
 @end
+
+# ---------------------------------------------------------------- Rita
+@beat rita_night5
+@when flag("rita_talked") and at("02:20")
+rita> estás acordado?
+rita> desculpa... o meu telemóvel tirou uma fotografia sozinho. sou eu. a dormir
+rita> tirada da porta do quarto
+@end
+
+@beat rita_night5_reply
+@when beat("rita_night5") and read("rita")
+wait 1
+choice rita c5_rita
+  > Comigo também. Tiraram-me uma por trás. | set rita5=same
+  > Desliga o telemóvel, Rita. | set rita5=off
+end
+wait 12
+if vs("rita5") == "off"
+  rita> já tentei. não desliga. carrego no botão e ele diz "a reiniciar"
+  rita> e volta
+else
+  rita> então não sou só eu
+  rita> isso devia acalmar-me. não acalma
+endif
+@end

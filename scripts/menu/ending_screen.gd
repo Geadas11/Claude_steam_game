@@ -29,7 +29,12 @@ func play(id: String) -> void:
 	_v = UI.vbox(18)
 	_v.custom_minimum_size = Vector2(760, 0)
 	center.add_child(_v)
-	for line in e.get("lines", []):
+	var lines: Array = e.get("lines", []).duplicate()
+	# conditional epilogue lines (consequences of side choices)
+	for x in e.get("extra", []):
+		if Director.check(str(x.get("when", "false"))):
+			lines.append(str(x.line))
+	for line in lines:
 		var l := UI.label(str(line), 20, "text", true)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.modulate.a = 0.0

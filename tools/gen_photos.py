@@ -121,6 +121,9 @@ photo("IMG_6800", "2026-10-12 11:30", {"preset": "screen", "lines": [">Vasco, el
     place="", device="Lumen One · captura de ecrã", album="Capturas", aspect=0.75,
     hotspots=[{"r": [0.0, 0.0, 1.0, 0.5], "clue": "daniel_told_vasco", "label": "Foste tu. Foste tu que lhe disseste onde ela estava."}])
 
+photo("IMG_RITA", "2026-10-13 00:29", {"preset": "screen", "lines": ["/.eco", "sim_112.log", "mirror_pai.cfg", "pred_rsantos.txt", "sujeita: R.SANTOS", "espelho: pai (J.SANTOS)"]},
+    place="", device="Lumen One · captura de ecrã", album="Mensagens", aspect=0.75)
+
 # ---------------------------------------------------------------- web images
 photo("IMG_4410", "2025-06-02 12:00", {"preset": "portrait", "bg": "#3a4a5a", "faces": [face("ines", 0.5, 0.48, 0.22)]}, album="Web", aspect=0.75)
 photo("IMG_4415", "2025-10-14 09:30", {"preset": "pier_day", "layers": [

@@ -14,8 +14,8 @@ func _ready() -> void:
 
 
 ## Tests write to a separate folder so they never touch a player's saves.
-func use_test_dir() -> void:
-	DIR = "user://test_saves/"
+func use_test_dir(suffix := "") -> void:
+	DIR = "user://test_saves%s/" % suffix
 	DirAccess.make_dir_recursive_absolute(DIR)
 
 

@@ -1568,5 +1568,56 @@
    "insurance_sale",
    "premium_jump"
   ]
+ },
+ "rita_contact": {
+  "title": "Mais alguém",
+  "desc": "No QuemLigou.pt, a \"rita.s\" deixou um número para quem estiver a passar pelo mesmo.",
+  "source": "quemligou.pt",
+  "importance": 1,
+  "related": [
+   "forum_317_calls"
+  ]
+ },
+ "rita_same_doctor": {
+  "title": "A mesma médica",
+  "desc": "A Rita recebe mensagens às 3:17 do número do pai, morto em 2025. O telemóvel foi oferecido pela Clínica Atlântico. A psiquiatra dela é a Dra. Helena Sousa.",
+  "source": "Mensagens · Rita",
+  "importance": 3,
+  "related": [
+   "helena_signed",
+   "lumen_pays_helena",
+   "forum_317_calls"
+  ]
+ },
+ "other_simulations": {
+  "title": "SIM 112",
+  "desc": "No telemóvel da Rita: \"sim 112, sujeita R.SANTOS, espelho: pai\". Tu és o 47. Há pelo menos 112.",
+  "source": "Mensagens · Rita",
+  "importance": 3,
+  "related": [
+   "sim_046",
+   "mirror_config",
+   "forty_one"
+  ]
+ },
+ "rita_silenced": {
+  "title": "\"A Rita está bem\"",
+  "desc": "Depois de entregar o telemóvel à clínica, a Rita deixou de escrever. Quem respondeu do número dela escreve com maiúsculas e pontos finais.",
+  "source": "Mensagens · Rita",
+  "importance": 3,
+  "related": [
+   "helena_admission",
+   "admission_no_phone"
+  ]
+ },
+ "forty_one": {
+  "title": "Quarenta e um",
+  "desc": "A clínica ofereceu 41 telemóveis Lumen a utentes em luto. Quarenta e um mortos a escrever às 3:17.",
+  "source": "Mensagens · Rita",
+  "importance": 3,
+  "related": [
+   "other_simulations",
+   "insurance_sale"
+  ]
  }
 }

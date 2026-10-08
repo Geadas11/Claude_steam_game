@@ -234,3 +234,9 @@ joao: pronto. diz | 1.5
 - (falam. ele ouve mais do que fala.)
 joao: se precisares, a porta das traseiras fica aberta até às 2 | 3
 @end
+
+@beat g_contact_rita
+@when clue("rita_contact") and not phone("rita_known")
+contact rita silent
+setting rita_known true
+@end

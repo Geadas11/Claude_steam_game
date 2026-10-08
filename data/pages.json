@@ -450,6 +450,18 @@
    },
    {
     "comment": {
+     "user": "rita.s",
+     "time": "10/10/2026 03:20",
+     "text": "se alguém estiver a passar pelo mesmo... falem comigo. 925 330 117 (só mensagens). não estou maluca. pois não?"
+    },
+    "when": "v(\"chapter_n\") >= 4"
+   },
+   {
+    "clue": "rita_contact",
+    "when": "v(\"chapter_n\") >= 4"
+   },
+   {
+    "comment": {
      "user": "d.r.",
      "time": "09/10/2026 03:17",
      "text": "eu respondi.",

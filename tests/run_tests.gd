@@ -14,11 +14,16 @@ var passes := 0
 var _policy := "A"
 var _only := ""
 var _log_choices := false
+var _with_ui := false
 
 
 func _ready() -> void:
 	Audio.muted_for_tests = true
-	Saves.use_test_dir()
+	var suffix := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--policy=") or a.begins_with("--only="):
+			suffix += "_" + a.split("=")[1]
+	Saves.use_test_dir(suffix)
 	Achievements.persist = false
 	Achievements.unlocked.clear()
 	Achievements.endings.clear()
@@ -29,6 +34,8 @@ func _ready() -> void:
 			_policy = a.substr(9)
 		elif a == "--verbose":
 			_log_choices = true
+		elif a == "--ui":
+			_with_ui = true
 	await get_tree().process_frame
 	if _only == "" or _only == "validate":
 		_validate()
@@ -41,7 +48,7 @@ func _ready() -> void:
 		var policies := ["A", "B", "C", "D", "E"] if _only == "" else [_policy]
 		for p in policies:
 			await _playthrough(p)
-			if p == "A" or p == "E":
+			if _only == "" and (p == "A" or p == "E") or _with_ui:
 				await _ui_smoke(p)
 	print("")
 	print("==== %d passed, %d failed ====" % [passes, failures.size()])
@@ -144,6 +151,8 @@ func _validate() -> void:
 			_check_expr(l.when, "system_log")
 	for e in Content.all("endings"):
 		ok(Content.has_item("achievements", Content.get_item("endings", e).get("achievement", "")), "ending %s achievement" % e)
+		for x in Content.get_item("endings", e).get("extra", []):
+			_check_expr(str(x.get("when", "")), "ending %s extra" % e)
 	for c in clue_refs:
 		ok(Content.has_item("clues", c), "clue '%s' referenced by %s is not defined" % [c, clue_refs[c]])
 	for c in Content.all("clues"):

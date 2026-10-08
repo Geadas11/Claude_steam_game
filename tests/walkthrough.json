@@ -153,6 +153,14 @@
     [
      "hotspot",
      "IMG_2044:saramago_spine"
+    ],
+    [
+     "visit",
+     "quemligou"
+    ],
+    [
+     "app",
+     "messages:rita"
     ]
    ]
   },
@@ -177,6 +185,10 @@
     [
      "flag",
      "viewed_history"
+    ],
+    [
+     "app",
+     "messages:rita"
     ]
    ]
   },
@@ -229,6 +241,10 @@
     [
      "camera",
      "window"
+    ],
+    [
+     "app",
+     "messages:rita"
     ]
    ]
   },

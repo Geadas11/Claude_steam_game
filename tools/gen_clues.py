@@ -188,6 +188,12 @@ clue("premium_jump", "O seguro mais do que duplicou", "O teu seguro de saúde pa
 clue("admission_no_phone", "Sem telemóvel", "A vaga de internamento foi pedida pela Dra. Helena. \"O dispositivo ficará à guarda da instituição.\"", "Email · Clínica Atlântico", 2, ["helena_admission", "vasco_knows_recording"])
 clue("exclusion_2208", "Lote 3 · ID 2208", "A Meridiano exclui da tua apólice doenças psiquiátricas. Referência interna: lote 3, ID 2208.", "Email · Seguros Meridiano", 3, ["daniel_in_list", "insurance_sale", "premium_jump"])
 
+clue("rita_contact", "Mais alguém", "No QuemLigou.pt, a \"rita.s\" deixou um número para quem estiver a passar pelo mesmo.", "quemligou.pt", 1, ["forum_317_calls"])
+clue("rita_same_doctor", "A mesma médica", "A Rita recebe mensagens às 3:17 do número do pai, morto em 2025. O telemóvel foi oferecido pela Clínica Atlântico. A psiquiatra dela é a Dra. Helena Sousa.", "Mensagens · Rita", 3, ["helena_signed", "lumen_pays_helena", "forum_317_calls"])
+clue("other_simulations", "SIM 112", "No telemóvel da Rita: \"sim 112, sujeita R.SANTOS, espelho: pai\". Tu és o 47. Há pelo menos 112.", "Mensagens · Rita", 3, ["sim_046", "mirror_config", "forty_one"])
+clue("rita_silenced", "\"A Rita está bem\"", "Depois de entregar o telemóvel à clínica, a Rita deixou de escrever. Quem respondeu do número dela escreve com maiúsculas e pontos finais.", "Mensagens · Rita", 3, ["helena_admission", "admission_no_phone"])
+clue("forty_one", "Quarenta e um", "A clínica ofereceu 41 telemóveis Lumen a utentes em luto. Quarenta e um mortos a escrever às 3:17.", "Mensagens · Rita", 3, ["other_simulations", "insurance_sale"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

@@ -356,3 +356,12 @@ endif
 @when at("16:20")
 email meridiano_exclusao
 @end
+
+# ---------------------------------------------------------------- Rita
+@beat rita_count
+@when flag("rita_keep") and (flag("sent_clara") or flag("sent_rui")) and at("19:10")
+rita> a jornalista falou comigo. a clara
+rita> somos quarenta e um. quarenta e um telemóveis oferecidos pela clínica
+rita> quarenta e um mortos a escrever às 3:17
+clue forty_one
+@end

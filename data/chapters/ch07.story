@@ -378,3 +378,29 @@ else
   pedro> de nada. e Daniel, apaga esta conversa. o meu primo precisa do emprego
 endif
 @end
+
+# ---------------------------------------------------------------- Rita
+@beat rita_admission
+@when flag("rita_talked") and at("00:05")
+rita> a dra. sousa quer internar-me. "uns dias". diz que estou a piorar
+rita> diz que devo entregar o telemóvel à clínica. para "desintoxicar"
+rita> o que faço daniel
+@end
+
+@beat rita_admission_reply
+@when beat("rita_admission") and read("rita")
+wait 1
+choice rita c7_rita
+  > Não entregues o telemóvel. Guarda tudo o que lá está. | set rita_keep=true
+  > Talvez seja melhor descansares. Confia nela. | set rita_keep=false
+end
+wait 15
+if flag("rita_keep")
+  rita> ok. ok. vou dizer que o perdi
+  rita> obrigada. és a primeira pessoa que não me diz que estou a inventar
+else
+  rita> ok... se calhar tens razão
+  rita> amanhã vou. depois digo-te
+  set rita_gave_phone=true
+endif
+@end
