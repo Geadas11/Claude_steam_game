@@ -77,8 +77,13 @@ photo("IMG_0899", "2025-11-03 17:02", {"preset": "office", "layers": [
     hotspots=[{"r": [0.34, 0.54, 0.26, 0.16], "zoom": 2.0, "clue": "daniel_postit", "label": "Na tampa da caixa, um post-it com a tua letra: \"NÃO testar o espelho com dados reais. Falar com a I.\""}])
 
 # ---------------------------------------------------------------- recovered (cloud backup, ch06)
-photo("IMG_3010", "2025-03-21 13:22", {"preset": "portrait", "bg": "#5a4a3a", "faces": [face("ines", 0.33, 0.55, 0.14), face("daniel", 0.67, 0.57, 0.14)]},
-    place="Tasca do Zé, Faro", album="Recuperadas", aspect=1.0, device="Pixel 7 (antigo)")
+photo("IMG_3010", "2025-03-21 13:22", {"preset": "portrait", "bg": "#5a4a3a", "faces": [face("ines", 0.33, 0.55, 0.14), face("daniel", 0.67, 0.57, 0.14)],
+    "layers": [{"t": "rect", "r": [0.0, 0.86, 1.0, 0.14], "c": "#6b4f35"},
+               {"t": "rect", "r": [0.42, 0.88, 0.16, 0.08], "c": "#2e4a7a"},
+               {"t": "text", "p": [0.435, 0.915], "s": 0.014, "c": "#d9c9a0", "v": "O ANO DA MORTE"},
+               {"t": "text", "p": [0.435, 0.94], "s": 0.014, "c": "#d9c9a0", "v": "DE RICARDO REIS"}]},
+    place="Tasca do Zé, Faro", album="Recuperadas", aspect=1.0, device="Pixel 7 (antigo)",
+    hotspots=[{"r": [0.38, 0.85, 0.24, 0.14], "clue": "their_book", "label": "Em cima da mesa, entre vocês dois: \"O Ano da Morte de Ricardo Reis\". Discutiam-no ao almoço."}])
 photo("IMG_3102", "2025-04-30 16:10", {"preset": "portrait", "bg": "#dfe3e6", "faces": [face("ines", 0.5, 0.5, 0.2)],
     "layers": [{"t": "rect", "r": [0.72, 0.08, 0.25, 0.17], "c": "#1d2430"},
                {"t": "text", "p": [0.735, 0.12], "s": 0.016, "c": "#8fd18f", "v": "espelho v0.3"},

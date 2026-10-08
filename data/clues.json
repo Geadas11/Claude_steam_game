@@ -1924,6 +1924,16 @@
    "mirror_config"
   ]
  },
+ "their_book": {
+  "title": "O livro de vocês",
+  "desc": "IMG_3010, março de 2025: no primeiro almoço fotografado, \"O Ano da Morte de Ricardo Reis\" em cima da mesa, entre ti e a Inês.",
+  "source": "Galeria · IMG_3010",
+  "importance": 1,
+  "related": [
+   "saramago_spine",
+   "ines_receipt"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

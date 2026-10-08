@@ -19,7 +19,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente); epílogos antes da imagem final (`coda`) |
-| Investigação | ✅ 193 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 194 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 37 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -32,7 +32,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - **43 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
 - **30 emails**, **25 ficheiros**, **11 notas** (1 protegida), **8 mensagens de voz**, mapa com 12 locais
-- **193 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **194 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -142,9 +142,9 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
    investigações secundárias com recompensa (ex.: o "aquário" da Lumen como capítulo opcional),
    mais pormenores escondidos nas fotografias (ainda sem *hotspots*: IMG_2190, 2155,
-   1650, 3010, 3301).
+   1650, 3301).
    Feito nesta sessão: ~35 novos beats (Rui, Clara, Marta, Sofia, mãe, João, Sr. Armando, Helena,
-   ECO), 4 fotografias novas/escondidas, 19 pistas, 3 conquistas, epílogos para escolhas pequenas.
+   ECO), 4 fotografias novas + 7 com pormenores escondidos, 23 pistas, 3 conquistas, epílogos para escolhas pequenas.
 3. Integrar GodotSteam real + App ID; Auto-Cloud (`docs/STEAM.md`).
 4. Tradução EN (todo o texto está em `data/`).
 5. Afinar mistura de áudio por capítulo; considerar música original para o menu e finais
