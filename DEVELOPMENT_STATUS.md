@@ -73,7 +73,8 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
   ecrã/vsync/resolução, **remapeamento de teclas**)
 - **Menus:** pausa com **"Até agora"** (resumo de cada capítulo já jogado) e **"Decisões"**;
   ao **Continuar** aparece um cartão "Anteriormente…"; texto dos finais avança com clique/tecla;
-  Extras com estatísticas entre partidas e créditos (com contactos de apoio).
+  Extras com estatísticas entre partidas e créditos (com contactos de apoio); epígrafes de Pessoa nos
+  cartões de capítulo.
 - **Música procedural:** menu, memória e uma caixa de música desafinada (finais C/D e título depois deles).
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.

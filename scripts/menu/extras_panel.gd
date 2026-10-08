@@ -64,6 +64,7 @@ func _credits() -> void:
 		"Ainda Estás Acordado? — um thriller num telemóvel.",
 		"Feito com Godot Engine (godotengine.org, licença MIT). Tipo de letra predefinido do Godot.",
 		"Todos os sons e fotografias são gerados em tempo real pelo jogo.",
+		"Epígrafes dos capítulos: Fernando Pessoa, Ricardo Reis e Álvaro de Campos (domínio público).",
 		"Salgueira, a Lumen Systems, a Clínica Atlântico e todas as pessoas desta história são fictícias.",
 		"Se estás a passar por um momento difícil, fala com alguém. Em Portugal: SNS 24 (808 24 24 24) · SOS Voz Amiga (213 544 545).",
 	]:
