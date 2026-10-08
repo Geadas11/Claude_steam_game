@@ -78,6 +78,8 @@ func set_value(key: String, v) -> void:
 
 
 func load_settings() -> void:
+	if not FileAccess.file_exists(PATH):
+		return
 	var cfg := ConfigFile.new()
 	if cfg.load(PATH) != OK:
 		return

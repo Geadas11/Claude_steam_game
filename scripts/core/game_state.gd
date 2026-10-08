@@ -19,6 +19,7 @@ func reset() -> void:
 		"version": VERSION,
 		"chapter": "",
 		"chapter_start": 0.0,
+		"chapter_complete": false,
 		"time": 0.0,
 		"playtime": 0.0,
 		"flags": {},

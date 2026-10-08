@@ -151,7 +151,7 @@ func _display(v: VBoxContainer) -> void:
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.value_changed.connect(func(val):
 		GameState.data.phone.brightness = val
-		phone.screen.modulate = Color(val, val, val) * 1.0 + Color(0, 0, 0, 1))
+		phone.screen.modulate = Color(val, val, val, 1.0))
 	h.add_child(s)
 	var m := UI.margin(18, 10, 18, 10)
 	m.add_child(h)

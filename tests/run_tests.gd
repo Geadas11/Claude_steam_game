@@ -30,10 +30,15 @@ func _ready() -> void:
 		_validate()
 	if _only == "" or _only == "save":
 		await _test_save_load()
+	if _only == "ui":
+		await _playthrough("A")
+		await _ui_smoke("A")
 	if _only == "" or _only == "play":
 		var policies := ["A", "B", "C", "D", "E"] if _only == "" else [_policy]
 		for p in policies:
 			await _playthrough(p)
+			if p == "A" or p == "E":
+				await _ui_smoke(p)
 	print("")
 	print("==== %d passed, %d failed ====" % [passes, failures.size()])
 	for f in failures:
@@ -447,3 +452,107 @@ class BrowserCheck:
 	static func available(pid: String) -> bool:
 		var b = load("res://scripts/phone/apps/browser_app.gd")
 		return b.page_available(pid)
+
+
+# =================================================================== UI smoke
+## Opens every app and every sub-view with the rich end-of-game state, so that
+## runtime errors in app code show up as SCRIPT ERRORs in the log
+## (tools/run_tests.sh fails the run if any appear).
+func _ui_smoke(policy: String) -> void:
+	print("-- ui smoke (%s)" % policy)
+	Director.stop()
+	GameState.in_game = true
+	var phone := Phone.new()
+	add_child(phone)
+	await _frames(2)
+	phone.refresh_all()
+	phone.unlock(true)
+	var opened := 0
+	for app_id in Phone.APPS:
+		phone.open_app(app_id, {"forced": true})
+		await _frames(2)
+		var app = phone.current_app
+		ok(app != null, "app %s opened" % app_id)
+		if app == null:
+			continue
+		opened += 1
+		match app_id:
+			"messages":
+				for th in GameState.data.threads:
+					app._open_thread(th)
+					await _frames(1)
+				app._show_list()
+			"gallery":
+				for pid in GameState.data.photo_order:
+					app._show_photo(pid)
+					app._meta_sheet(pid)
+					await _frames(1)
+			"email":
+				for i in 3:
+					app._folder = ["Entrada", "Enviados", "Lixo"][i]
+					app._show_list()
+					await _frames(1)
+				for e in GameState.data.emails:
+					app._show_email(e.id)
+					await _frames(1)
+			"files":
+				phone.current_app._render()
+				for fid in Content.all("files"):
+					app._open_file(fid)
+					await _frames(1)
+			"notes":
+				for t in 3:
+					app._tab = t
+					app._render()
+					await _frames(1)
+				for n in app._all_notes():
+					app._show_note(n)
+					await _frames(1)
+			"settings":
+				for pg in ["wifi", "display", "sound", "battery", "storage", "accounts", "files", "about", "dev", "dev_proc", "dev_log", "dev_eco"]:
+					app._page = pg
+					app._render()
+					await _frames(1)
+			"browser":
+				for pid in Content.all("pages"):
+					GameState.set_var("unlocked_page_" + pid, true)
+					app.open_page(pid)
+					await _frames(1)
+				for q in ["ines matos", "912 403 317", "lumen", "cais velho", "nada disto existe"]:
+					app._search(q)
+					await _frames(1)
+				app._show_history()
+				app._show_start()
+			"maps":
+				for loc in Content.all("map").get("locations", {}):
+					app.show_location(loc)
+					await _frames(1)
+				app._tab = 1
+				app._render()
+				await _frames(1)
+			"phone":
+				for t in 4:
+					app._tab = t
+					app._render()
+					await _frames(1)
+			"contacts":
+				for c in Content.all("characters"):
+					app._show_contact(c)
+					await _frames(1)
+			"clock":
+				for t in 3:
+					app._tab = t
+					app._render()
+					await _frames(1)
+		phone.go_home()
+		await _frames(1)
+	phone.lock()
+	await _frames(2)
+	phone.queue_free()
+	await _frames(2)
+	ok(opened == Phone.APPS.size(), "all apps opened in ui smoke")
+
+
+func _frames(n: int) -> void:
+	for i in n:
+		await get_tree().process_frame

@@ -332,12 +332,12 @@ func _face(L: Dictionary, r: Rect2, a: float) -> void:
 			top.append(c + Vector2(cos(ang2) * rad * 0.88, sin(ang2) * rad * 1.08))
 	draw_colored_polygon(top, hair)
 	if style == "beard":
+		# lower half-ellipse, starting just below the cheekbones
 		var beard := PackedVector2Array()
 		for i in 17:
 			var ang3 := i * PI / 16.0
-			beard.append(c + Vector2(cos(ang3) * rad * 0.86, sin(ang3) * rad * 1.05))
-		beard.append(c + Vector2(-rad * 0.86, rad * 0.25))
-		draw_colored_polygon(beard, hair)
+			beard.append(c + Vector2(cos(ang3) * rad * 0.86, rad * 0.12 + sin(ang3) * rad * 0.93))
+		draw_colored_polygon(beard, hair.darkened(0.1))
 	# features
 	if not L.get("noface", false):
 		var eye := Color(0.08, 0.06, 0.05, a)

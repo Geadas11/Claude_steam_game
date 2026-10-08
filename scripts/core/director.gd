@@ -60,6 +60,7 @@ func start_chapter(ch_id: String) -> void:
 	GameState.data.running = {}
 	GameState.data.choices = {}
 	GameState.data.chapter_opened = {}
+	GameState.data.chapter_complete = false
 	if ch.start != "":
 		Clock.set_time(Clock.parse_datetime(ch.start))
 	GameState.data.chapter_start = Clock.now()
@@ -93,6 +94,9 @@ func resume_from_state() -> void:
 			continue
 		_run_beat(b, int(running[beat_id]), g)
 	Events.state_loaded.emit()
+	# a save taken between "endchapter" and the next chapter must not softlock
+	if GameState.data.get("chapter_complete", false):
+		_end_chapter.call_deferred()
 
 
 func _index_beats() -> void:
@@ -892,6 +896,7 @@ func add_clue(id: String, silent := false) -> void:
 
 func _end_chapter() -> void:
 	var cur: String = GameState.data.chapter
+	GameState.data.chapter_complete = true
 	active = false
 	Clock.running = false
 	Events.chapter_ended.emit(cur)

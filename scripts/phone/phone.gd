@@ -316,6 +316,20 @@ func _refresh_home() -> void:
 	_build_home()
 
 
+## Rebuild everything that depends on GameState (after new game / load).
+func refresh_all() -> void:
+	_close_current()
+	var br := float(GameState.data.phone.get("brightness", 1.0))
+	screen.modulate = Color(br, br, br, 1.0)
+	_update_wallpaper()
+	_build_home()
+	_update_status()
+	_status_icons.queue_redraw()
+	_call_ui.visible = false
+	off_layer.visible = false
+	fx_layer.visible = false
+
+
 # ================================================================= status
 func _update_status() -> void:
 	if _status_time == null:

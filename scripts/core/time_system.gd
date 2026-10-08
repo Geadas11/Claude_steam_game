@@ -82,14 +82,16 @@ func next_occurrence(hhmm: String, from_unix: float) -> float:
 
 
 static func parse_datetime(s: String) -> float:
-	## "2026-10-08 21:30" -> unix seconds
+	## "2026-10-08 21:30" -> unix seconds. Malformed input returns 0.
 	var parts := s.strip_edges().split(" ")
 	var d := parts[0].split("-")
+	if d.size() != 3 or not d[0].is_valid_int():
+		return 0.0
 	var dict := {"year": int(d[0]), "month": int(d[1]), "day": int(d[2]), "hour": 0, "minute": 0, "second": 0}
 	if parts.size() > 1:
 		var hm := parts[1].split(":")
 		dict.hour = int(hm[0])
-		dict.minute = int(hm[1])
+		dict.minute = int(hm[1]) if hm.size() > 1 else 0
 	return float(Time.get_unix_time_from_datetime_dict(dict))
 
 

@@ -122,6 +122,7 @@ func start_new_game(show_warning := true) -> void:
 	Audio.set_music("")
 	mode = Mode.GAME
 	Director.new_game()
+	phone.refresh_all()
 	phone.show_locked_immediately()
 	room.set_mood("night")
 	Audio.set_ambient("room")
@@ -139,6 +140,7 @@ func continue_game(slot: String) -> bool:
 
 
 func _on_state_loaded() -> void:
+	phone.refresh_all()
 	phone.show_locked_immediately()
 	room.set_mood("night")
 	Audio.set_ambient(_chapter_ambient(GameState.data.chapter))

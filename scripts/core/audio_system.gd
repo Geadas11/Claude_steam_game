@@ -105,6 +105,8 @@ func set_ambient(sound_name: String, fade := 2.0) -> void:
 		_amb_tween.kill()
 	var old := _amb_a if _amb_a.playing else _amb_b
 	var new_p := _amb_b if old == _amb_a else _amb_a
+	if not old.playing and sound_name == "":
+		return
 	_amb_tween = create_tween().set_parallel(true)
 	if old.playing:
 		_amb_tween.tween_property(old, "volume_db", -60.0, fade)
@@ -148,6 +150,8 @@ func set_music(sound_name: String, fade := 3.0) -> void:
 	_music_name = sound_name
 	if _music_tween:
 		_music_tween.kill()
+	if not _music.playing and sound_name == "":
+		return
 	_music_tween = create_tween()
 	if _music.playing:
 		_music_tween.tween_property(_music, "volume_db", -60.0, fade * 0.5)
