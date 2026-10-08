@@ -227,6 +227,7 @@ clue("eco_weekly_report", "O resumo semanal", "O ECO Care envia um relatório do
 clue("train_ticket", "Faro–Lisboa, 07:10", "Junto com o telemóvel antigo, a Sofia encontrou um bilhete de comboio para Lisboa, comprado a 14/10/2025 às 05:12 para o dia seguinte. Nunca foi usado.", "Mensagens · Sofia", 1, ["old_location", "sofia_old_phone"])
 clue("red_coat_chair", "O casaco na cadeira", "IMG_2101, quiz de agosto no Farol: ao teu lado, uma cadeira vazia com um casaco vermelho. A Inês foi encontrada com um casaco vermelho.", "Galeria · IMG_2101", 2, ["armando_saw", "red_figure_beach"])
 clue("red_figure_beach", "Alguém dentro de água", "IMG_1980, praia, julho: ao fundo, dentro de água até aos joelhos, uma figura de casaco vermelho, virada para ti e para a Sofia.", "Galeria · IMG_1980", 2, ["red_coat_chair", "pier_flowers"])
+clue("mirror_grandmother", "A primeira voz", "IMG_3102, abril de 2025: no monitor da Inês, o espelho v0.3 a falar com a voz da avó dela. Ela ajudou a fazê-lo — e testou-o em si própria primeiro.", "Galeria · IMG_3102", 3, ["ines_coinventor", "mirror_config"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below

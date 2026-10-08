@@ -1914,6 +1914,16 @@
    "pier_flowers"
   ]
  },
+ "mirror_grandmother": {
+  "title": "A primeira voz",
+  "desc": "IMG_3102, abril de 2025: no monitor da Inês, o espelho v0.3 a falar com a voz da avó dela. Ela ajudou a fazê-lo — e testou-o em si própria primeiro.",
+  "source": "Galeria · IMG_3102",
+  "importance": 3,
+  "related": [
+   "ines_coinventor",
+   "mirror_config"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

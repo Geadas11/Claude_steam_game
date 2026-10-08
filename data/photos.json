@@ -629,8 +629,72 @@
      "style": "long",
      "cloth": "#6b2f3a"
     }
+   ],
+   "layers": [
+    {
+     "t": "rect",
+     "r": [
+      0.72,
+      0.08,
+      0.25,
+      0.17
+     ],
+     "c": "#1d2430"
+    },
+    {
+     "t": "text",
+     "p": [
+      0.735,
+      0.12
+     ],
+     "s": 0.016,
+     "c": "#8fd18f",
+     "v": "espelho v0.3"
+    },
+    {
+     "t": "text",
+     "p": [
+      0.735,
+      0.15
+     ],
+     "s": 0.014,
+     "c": "#8fd18f",
+     "v": "fonte: voz_avó.m4a"
+    },
+    {
+     "t": "text",
+     "p": [
+      0.735,
+      0.18
+     ],
+     "s": 0.014,
+     "c": "#d1c08f",
+     "v": "deriva: 0,4%"
+    },
+    {
+     "t": "text",
+     "p": [
+      0.735,
+      0.21
+     ],
+     "s": 0.014,
+     "c": "#8fd18f",
+     "v": "> olá, Inês"
+    }
    ]
-  }
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.7,
+     0.06,
+     0.29,
+     0.21
+    ],
+    "clue": "mirror_grandmother",
+    "label": "No monitor atrás dela: \"espelho v0.3 · fonte: voz_avó.m4a · > olá, Inês\". Ela testou-o primeiro com a voz da avó."
+   }
+  ]
  },
  "IMG_3240": {
   "file": "IMG_3240.jpg",

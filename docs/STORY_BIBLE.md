@@ -109,6 +109,7 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 
 ### 2025
 - **Mar 2025** — Daniel e Inês começam a almoçar juntos (fotos IMG_3010, IMG_3102).
+- **30 Abr 2025** — No monitor da Inês (IMG_3102): "espelho v0.3 · fonte: voz_avó.m4a" — ela testou o espelho com a voz da avó.
 - **Jun 2025** — Inês começa a desconfiar do ECO. Email a Daniel "posso confiar em ti?".
 - **14 Set 2025** — Festa de anos da Inês no Farol (fotos: grupo, Inês e Daniel).
 - **2 Out 2025** — Inês descobre o contrato com a Clínica Atlântico.
