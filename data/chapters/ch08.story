@@ -369,3 +369,37 @@ else
   joao> ok dani
 endif
 @end
+
+# ---------------------------------------------------------------- Rui e o caixote
+@beat rui_box8
+@when at("15:25") and flag("rui_ally_seed")
+rui> Continuei a ver o caixote dela.
+rui> Há um recibo da Livraria Maré. 13 de outubro, 19:40. Um livro só.
+rui> "O Ano da Morte de Ricardo Reis". Ela já o tinha. Lia-o todos os anos.
+rui> Porque é que se compra um livro que já se tem, na véspera de morrer?
+clue ines_receipt
+@end
+
+@beat rui_box8_reply
+@when beat("rui_box8") and read("rui")
+wait 1
+choice rui c8_rui
+  > Para esconder alguma coisa dentro. | set rui8=hide inc trust_rui 1
+  > Para o oferecer a alguém. | set rui8=gift
+  > Não sei, Rui. | set rui8=none
+end
+wait 25
+if vs("rui8") == "hide"
+  rui> Página 317.
+  wait 4
+  rui> O post-it. "D. — p. 317".
+  rui> Daniel, o livro não era para ela.
+  set rui_thinks_book=true
+elif vs("rui8") == "gift"
+  rui> A quem? A ti?
+  wait 5
+  rui> Então onde é que está?
+else
+  rui> Ninguém sabe nada sobre a minha irmã. Nem eu.
+endif
+@end

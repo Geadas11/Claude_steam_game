@@ -215,6 +215,7 @@ clue("daniel_forum_account", "ex_lumen_qa eras tu", "A conta que avisava no fór
 clue("postit_p317", "\"D. — p. 317\"", "Na secretária da Inês, um post-it com a letra dela: \"D. — p. 317 (a de cima)\".", "Fotografia do Rui", 3, ["saramago_spine", "daniel_hides_in_books", "ines_blog_lastpost"])
 clue("ines_calendar", "O calendário dela", "13 de outubro: \"cais 2h30 (D.)\". 14 de outubro: \"Clara 10h!\"", "Fotografia do Rui", 2, ["clara_meeting", "ines_last_messages"])
 clue("clara_voicemail_ines", "A mensagem na redação", "13/10/2025, 18:02, linha geral do Jornal do Sul: \"Clara, é a Inês. Amanhã às dez levo tudo. Se eu não aparecer, não é por ter mudado de ideias.\"", "Clara Neves", 3, ["clara_meeting", "ines_calendar"])
+clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below
 for cid in list(C):

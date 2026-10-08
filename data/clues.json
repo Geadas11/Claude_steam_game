@@ -1792,5 +1792,15 @@
    "clara_meeting",
    "ines_calendar"
   ]
+ },
+ "ines_receipt": {
+  "title": "O recibo da Livraria Maré",
+  "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",
+  "source": "Rui Matos",
+  "importance": 2,
+  "related": [
+   "postit_p317",
+   "saramago_spine"
+  ]
  }
 }
