@@ -162,7 +162,47 @@ func _validate() -> void:
 		if not clue_refs.has(c):
 			print("  note: clue '%s' defined but never awarded" % c)
 	ok(Content.all("achievements").size() >= 20, "at least 20 achievements")
+	_check_delivery(all_beats)
 	print("   validated %d beats, %d clue references" % [all_beats.size(), clue_refs.size()])
+
+
+## Every photo/email/file/note/voicemail must reach the player somehow.
+func _check_delivery(all_beats: Array) -> void:
+	var got := {"photos": {}, "emails": {}, "files": {}, "notes": {}, "voicemails": {}}
+	var cmd_kind := {"photo": "photos", "variant": "photos", "email": "emails", "file": "files", "note": "notes", "voicemail": "voicemails"}
+	var att_kind := {"photo": "photos", "file": "files", "audio": "voicemails"}
+	for pair in all_beats:
+		for op in pair[1].ops:
+			if op.op == "msg" and not op.att.is_empty() and att_kind.has(op.att.type):
+				got[att_kind[op.att.type]][op.att.id] = true
+			elif op.op == "cmd" and cmd_kind.has(op.name):
+				got[cmd_kind[op.name]][op.args[0]] = true
+	var init: Dictionary = Content.all("chapters_meta").get("initial", {})
+	for k in ["photos", "emails", "files", "notes"]:
+		for id in init.get(k, []):
+			got[k][id] = true
+	for kind in ["emails", "pages"]:
+		for id in Content.all(kind):
+			var d: Dictionary = Content.get_item(kind, id)
+			for att in d.get("attachments", []):
+				if att_kind.has(att.type):
+					got[att_kind[att.type]][att.id] = true
+			for blk in d.get("blocks", []):
+				if blk.has("img"):
+					got.photos[blk.img] = true
+				if blk.has("file"):
+					got.files[blk.file] = true
+	for fid in Content.all("files"):
+		var f: Dictionary = Content.get_item("files", fid)
+		for c in f.get("contains", []):
+			got.files[c] = true
+		if f.has("photo"):
+			got.photos[f.photo] = true
+	for kind in got:
+		for id in Content.all(kind):
+			if kind == "photos" and str(id).begins_with("CAM_"):
+				continue
+			ok(got[kind].has(id), "%s '%s' is never delivered to the player" % [kind, id])
 
 
 func _check_expr(e: String, where: String) -> void:

@@ -191,6 +191,11 @@ unknown> Foi o que ele te escreveu há um ano. Às 02:57.
 note note_final
 @end
 
+@beat eco_report
+@when flag("eco_talked") and at("03:00")
+email eco_final
+@end
+
 # ---------------------------------------------------------------- a escolha
 @beat final_choice
 @when at("03:12")
