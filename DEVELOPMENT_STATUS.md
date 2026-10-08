@@ -39,7 +39,9 @@ ver "Problemas conhecidos")
 - **Arcos secundários:** Rita (outra "sujeita" — 41 telemóveis oferecidos pela clínica), o primo do
   Pedro ("o aquário"), a patente do espelho (a Inês é coinventora), a Marta lembra-se de vocês (e viu-te pôr flores no cais),
   a mãe ao domingo, a Carla e a fotografia dentro do livro
-- **Rejogabilidade:** a voz lembra-se de iterações anteriores; o ecrã do título muda conforme o último final
+- **Rejogabilidade:** a voz lembra-se de iterações anteriores; o ecrã do título (e a música) muda conforme o último final
+- **Consequências pequenas que voltam:** o livro que recomendaste à Marta (cap. 1 → 10), as ações do
+  Pedro (cap. 1 → epílogo), a chamada da Sofia na última noite, a mãe e a chamada das 04:30
 
 ## Momentos de terror (por capítulo)
 
@@ -67,7 +69,9 @@ ver "Problemas conhecidos")
   velocidade de mensagens/relógio, legendas, alto contraste, reduzir efeitos/movimento,
   ecrã/vsync/resolução, **remapeamento de teclas**)
 - **Menus:** pausa com **"Até agora"** (resumo de cada capítulo já jogado) e **"Decisões"**;
-  texto dos finais avança com clique/tecla.
+  ao **Continuar** aparece um cartão "Anteriormente…"; texto dos finais avança com clique/tecla;
+  Extras com estatísticas entre partidas e créditos (com contactos de apoio).
+- **Música procedural:** menu, memória e uma caixa de música desafinada (finais C/D e título depois deles).
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.
 
