@@ -235,6 +235,9 @@ func _check_pin() -> void:
 		_show_hint()
 	if _pin_fails >= 8:
 		_pin_msg.text = "Dica: dia e mês. Ela sabia."
+	if _pin_fails >= 14:
+		# never leave anyone locked out of the game
+		_pin_msg.text = "14 de outubro. Escreve-o como escreves as datas: dia, mês."
 
 
 func _show_hint() -> void:
