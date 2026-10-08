@@ -67,7 +67,13 @@ func _scene_id() -> String:
 
 func _update_view() -> void:
 	var d := Content.get_item("photos", _scene_id())
-	_pv.set_scene(d.get("scene", {}), _variant)
+	var spec: Dictionary = d.get("scene", {})
+	if GameState.data.phone.get("torch", false) and not _front:
+		# the torch lights the middle of the room... and makes the corners darker
+		spec = spec.duplicate(true)
+		spec.layers = spec.get("layers", []) + [{"t": "glow", "p": [0.5, 0.6], "r": 0.55, "c": "#fff4dc2a"}]
+		spec.vignette = 0.85
+	_pv.set_scene(spec, _variant)
 	_pv.live = true
 	_pv.set_process(true)
 

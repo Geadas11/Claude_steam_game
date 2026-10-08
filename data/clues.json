@@ -1461,5 +1461,48 @@
    "sent_message_rui",
    "fake_joao_message"
   ]
+ },
+ "plate_lumen": {
+  "title": "Frota da Lumen",
+  "desc": "AX-31-PL: Audi A6 cinzento, propriedade da Lumen Systems (frota).",
+  "source": "consultamatricula.pt",
+  "importance": 3,
+  "related": [
+   "vasco_car_cctv",
+   "vasco_audi",
+   "pedro_cousin"
+  ]
+ },
+ "aquario_reviews": {
+  "title": "O aquário",
+  "desc": "Ex-colaboradores falam de um piso onde se trabalha de noite e de uma demo com a voz de uma colega morta.",
+  "source": "trabalharem.pt",
+  "importance": 2,
+  "related": [
+   "pedro_cousin",
+   "mirror_config",
+   "eco_mirror_product"
+  ]
+ },
+ "ines_coinventor": {
+  "title": "Ela ajudou a criar o espelho",
+  "desc": "A patente do \"espelho\" tem dois inventores: Vasco Pimentel e Inês Matos. Reivindicação 7: o modelo pode \"orientar o interlocutor para a recuperação de informação\".",
+  "source": "Registo de patentes",
+  "importance": 3,
+  "related": [
+   "eco_mirror_product",
+   "mirror_protocol",
+   "ines_blog_mirror"
+  ]
+ },
+ "daniel_postit": {
+  "title": "O post-it",
+  "desc": "Na caixa do teu último dia na Lumen: \"NÃO testar o espelho com dados reais. Falar com a I.\" — com a tua letra.",
+  "source": "Galeria · IMG_0899",
+  "importance": 2,
+  "related": [
+   "ines_coinventor",
+   "eco_trained_calls"
+  ]
  }
 }

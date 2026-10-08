@@ -55,8 +55,10 @@ photo("IMG_1288", "2025-12-20 01:33", {"preset": "street_night", "rain": True, "
 photo("IMG_0901", "2025-11-21 03:40", {"preset": "portrait", "bg": "#121418", "faces": [face("daniel_tired", 0.5, 0.48, 0.2)]},
     place="Rua das Gaivotas 12, Salgueira", aspect=0.75)
 photo("IMG_0899", "2025-11-03 17:02", {"preset": "office", "layers": [
-    {"t": "rect", "r": [0.36, 0.56, 0.22, 0.12], "c": "#a07a4a"}, {"t": "text", "p": [0.38, 0.63], "s": 0.025, "c": "#3a2a1a", "v": "D. REIS"}]},
-    place="Lumen Systems, Faro", aspect=1.33)
+    {"t": "rect", "r": [0.36, 0.56, 0.22, 0.12], "c": "#a07a4a"}, {"t": "text", "p": [0.38, 0.63], "s": 0.025, "c": "#3a2a1a", "v": "D. REIS"},
+    {"t": "rect", "r": [0.5, 0.565, 0.04, 0.03], "c": "#e8d84a"}]},
+    place="Lumen Systems, Faro", aspect=1.33,
+    hotspots=[{"r": [0.34, 0.54, 0.26, 0.16], "zoom": 2.0, "clue": "daniel_postit", "label": "Na tampa da caixa, um post-it com a tua letra: \"NÃO testar o espelho com dados reais. Falar com a I.\""}])
 
 # ---------------------------------------------------------------- recovered (cloud backup, ch06)
 photo("IMG_3010", "2025-03-21 13:22", {"preset": "portrait", "bg": "#5a4a3a", "faces": [face("ines", 0.33, 0.55, 0.14), face("daniel", 0.67, 0.57, 0.14)]},

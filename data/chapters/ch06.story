@@ -16,7 +16,6 @@ rate 2
 ambient room
 location casa
 battery 88
-variant IMG_2207 watcher
 set clock_extra_city=true
 @end
 
@@ -302,4 +301,23 @@ mae: Daniel! Ligaste ao domingo! | 2
 mae: Estou tão contente. Guardei-te bacalhau. | 2.5
 - (falam de nada durante dez minutos. Sabe bem.)
 mae: Quarta acendo uma vela pela menina. E outra por ti. Beijinho, filho. | 4
+@end
+
+
+# ---------------------------------------------------------------- o fundo de ecrã muda enquanto olhas
+@beat wallpaper_changes
+@when app() == "home" and since("setup", 60) and not photo_is("IMG_2207", "watcher")
+wait 8
+if app() == "home"
+  glitch 0.12 0.15
+  variant IMG_2207 watcher
+  set saw_wallpaper_change=true
+else
+  variant IMG_2207 watcher
+endif
+@end
+
+@beat wallpaper_fallback
+@when at("15:00") and not photo_is("IMG_2207", "watcher")
+variant IMG_2207 watcher
 @end

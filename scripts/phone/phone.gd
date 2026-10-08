@@ -79,6 +79,7 @@ func _ready() -> void:
 	Events.thread_read.connect(func(_a): _refresh_badges())
 	Events.content_changed.connect(func(_k): _refresh_badges())
 	Events.settings_changed.connect(_on_settings_changed)
+	Events.photo_changed.connect(func(pid): if pid == GameState.data.phone.get("wallpaper", ""): _update_wallpaper())
 	_update_status()
 
 
@@ -209,6 +210,19 @@ func _build_status_bar() -> void:
 	h.add_child(_status_icons)
 	_status_batt = UI.label("82%", 13)
 	h.add_child(_status_batt)
+	# the status bar opens the notification shade
+	var hit := Button.new()
+	hit.flat = true
+	hit.focus_mode = Control.FOCUS_NONE
+	hit.size = Vector2(UI.SCREEN.x, STATUS_H)
+	hit.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	hit.tooltip_text = "Notificações"
+	hit.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+	hit.add_theme_stylebox_override("hover", UI.box(Color(1, 1, 1, 0.04), 0))
+	hit.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
+	hit.pressed.connect(func(): open_shade())
+	status_bar.add_child(hit)
+	status_bar.mouse_filter = Control.MOUSE_FILTER_PASS
 
 
 func _build_nav_bar() -> void:
@@ -439,6 +453,9 @@ func go_home() -> void:
 
 
 func back() -> void:
+	if _shade and is_instance_valid(_shade):
+		close_shade()
+		return
 	if locked or not interactive:
 		return
 	if _call_ui.visible:
@@ -458,6 +475,7 @@ func _on_open_request(id: String, p: Dictionary) -> void:
 func lock() -> void:
 	if locked:
 		return
+	close_shade()
 	locked = true
 	_close_current()
 	home.visible = false
@@ -752,3 +770,119 @@ class Banner extends Button:
 		v.add_child(b)
 		h.add_child(v)
 		UI._ignore_mouse(h)
+
+
+
+# ================================================================= notification shade
+var _shade: Control
+
+
+func open_shade() -> void:
+	if locked or not interactive or (_call_ui and _call_ui.visible):
+		return
+	if _shade and is_instance_valid(_shade):
+		close_shade()
+		return
+	_shade = Control.new()
+	_shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_shade.mouse_filter = Control.MOUSE_FILTER_STOP
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.55)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: close_shade())
+	_shade.add_child(dim)
+	var p := UI.panel(Color(0.09, 0.1, 0.12, 0.98), 22, 14, 14, 14, 16)
+	p.position = Vector2(8, STATUS_H + 2)
+	p.size = Vector2(UI.SCREEN.x - 16, 0)
+	p.custom_minimum_size = Vector2(UI.SCREEN.x - 16, 0)
+	_shade.add_child(p)
+	var v := UI.vbox(10)
+	p.add_child(v)
+	# quick toggles
+	var qt := UI.hbox(8)
+	qt.alignment = BoxContainer.ALIGNMENT_CENTER
+	qt.add_child(_quick("wifi", "Wi-Fi", true, func(_on): toast("O Wi-Fi é gerido pela organização.")))
+	qt.add_child(_quick("speaker", "Não incomodar", GameState.data.phone.get("dnd", false), func(on):
+		GameState.data.phone.dnd = on
+		Events.phone_state_changed.emit()
+		Director.notify_player_action()))
+	qt.add_child(_quick("dot", "Lanterna", GameState.data.phone.get("torch", false), func(on):
+		GameState.data.phone.torch = on
+		Events.phone_state_changed.emit()))
+	qt.add_child(_quick("locate", "Localização", true, func(_on): toast("A localização é gerida pela organização.")))
+	v.add_child(qt)
+	var top := UI.hbox(8)
+	var t := UI.label("Notificações", 14, "dim")
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(t)
+	if not GameState.data.shade.is_empty():
+		top.add_child(UI.button("Limpar", func():
+			GameState.data.shade.clear()
+			close_shade(), 13, "accent"))
+	v.add_child(top)
+	if GameState.data.shade.is_empty():
+		v.add_child(UI.label("Sem notificações.", 13, "faint"))
+	var shown := 0
+	for n in GameState.data.shade:
+		if shown >= 7:
+			break
+		shown += 1
+		v.add_child(_shade_card(n))
+	screen.add_child(_shade)
+	screen.move_child(status_bar, -1)
+	if not Settings.get_value("reduce_motion", false):
+		p.position.y = -300
+		create_tween().tween_property(p, "position:y", STATUS_H + 2.0, 0.22).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	GameState.set_var("opened_shade", true)
+
+
+func close_shade() -> void:
+	if _shade and is_instance_valid(_shade):
+		_shade.queue_free()
+	_shade = null
+
+
+func _quick(glyph: String, label_text: String, on: bool, cb: Callable) -> Control:
+	var vb := UI.vbox(4)
+	var b := UI.icon_button(glyph, func(): pass, 52, "bg" if on else "dim")
+	b.toggle_mode = true
+	b.button_pressed = on
+	b.add_theme_stylebox_override("normal", UI.box(UI.c("accent") if on else UI.c("surf2"), 26))
+	b.add_theme_stylebox_override("pressed", UI.box(UI.c("accent"), 26))
+	b.add_theme_stylebox_override("hover_pressed", UI.box(UI.c("accent").lightened(0.1), 26))
+	b.toggled.connect(func(state):
+		var g: Glyph = b.get_child(0)
+		g.color = UI.c("bg") if state else UI.c("dim")
+		cb.call(state))
+	vb.add_child(b)
+	var l := UI.label(label_text, 10, "dim")
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.custom_minimum_size = Vector2(84, 0)
+	vb.add_child(l)
+	return vb
+
+
+func _shade_card(n: Dictionary) -> Control:
+	var info: Dictionary = APPS.get(n.get("app", ""), {"glyph": "dot", "color": "#444"})
+	var h := UI.hbox(10)
+	var ic := AppIcon.new()
+	ic.glyph = info.glyph
+	ic.bg = Color(info.color)
+	ic.custom_minimum_size = Vector2(30, 30)
+	h.add_child(ic)
+	var tv := UI.vbox(0)
+	tv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var t := UI.label(str(n.get("title", "")), 13)
+	t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	tv.add_child(t)
+	var b := UI.label(str(n.get("body", "")), 12, "dim")
+	b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	tv.add_child(b)
+	h.add_child(tv)
+	h.add_child(UI.label(Clock.fmt_relative(float(n.get("t", 0))), 11, "faint"))
+	var r := UI.row(h, func():
+		close_shade()
+		if APPS.has(n.get("app", "")):
+			open_app(n.app, n), 54)
+	r.add_theme_stylebox_override("normal", UI.box(Color(1, 1, 1, 0.04), 12))
+	return r

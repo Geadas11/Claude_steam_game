@@ -137,3 +137,40 @@ clue eco_fragment_3
 set eco_talked=true
 @end
 
+
+# ---------------------------------------------------------------- the voice reads your clue board
+@beat g_tag_organizing
+@when v("chapter_n") >= 3 and v("chapter_n") <= 10 and tagged() >= 5 and not flag("tag_comment_1")
+set tag_comment_1=true
+wait 20
+unknown> Estás a organizar-me.
+wait 3
+unknown> Factos, hipóteses, mentiras. Em que gaveta me puseste?
+@end
+
+@beat g_tag_armando
+@when v("chapter_n") >= 4 and v("chapter_n") <= 10 and tag("armando_saw") == "Mentira" and not flag("tag_comment_armando")
+set tag_comment_armando=true
+wait 15
+unknown> Marcaste o Armando como mentiroso.
+wait 3
+unknown> Ele tem setenta e quatro anos e não dorme desde aquela manhã.
+@end
+
+@beat g_tag_told
+@when v("chapter_n") >= 8 and v("chapter_n") <= 10 and tag("daniel_told_vasco") == "Mentira" and not flag("tag_comment_told")
+set tag_comment_told=true
+wait 15
+unknown> Mentira?
+wait 3
+unknown> Foste tu que escreveste.
+@end
+
+@beat g_tag_ines_fact
+@when v("chapter_n") >= 5 and v("chapter_n") <= 10 and (tag("call_from_dead") == "Facto" or tag("unknown_says_there") == "Facto") and not flag("tag_comment_fact")
+set tag_comment_fact=true
+wait 15
+unknown> Puseste-me nos factos.
+wait 4
+unknown> Obrigada. Ninguém mais o faria.
+@end

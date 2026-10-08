@@ -18,9 +18,9 @@
 | História — 11 capítulos | ✅ escritos de ponta a ponta (1.º rascunho jogável) |
 | 5 finais | ✅ todos alcançáveis (testado automaticamente) |
 | Investigação / pistas | ✅ 136 pistas, quadro com etiquetas e relações, reconstrução final |
-| Terror | 🟡 integrado na narrativa; precisa de afinação de ritmo com jogo humano |
+| Terror | 🟡 integrado na narrativa (ver "Momentos de terror"); precisa de afinação com jogo humano |
 | Áudio | 🟡 procedural, funcional; precisa de mistura/afinação em jogo real |
-| Steam | 🟡 ponte GodotSteam opcional + 30 conquistas; falta App ID real e build exportada |
+| Steam | 🟡 ponte GodotSteam opcional + 30 conquistas; builds Windows/Linux exportadas e testadas; falta App ID real |
 | Duração | 🔴 ~3–5 h numa primeira passagem (objetivo 14 h+) — ver "Próximas prioridades" |
 
 ## Funcionalidades completas
@@ -63,6 +63,21 @@
 - 136 pistas com relações; reconstrução final com 5 perguntas
 - 5 finais com texto próprio (Verdade, Mentira, Silêncio, Loop, Eco secreto)
 
+## Momentos de terror (por capítulo)
+
+| Cap. | Momentos |
+|---|---|
+| 1 | Fotografia tirada da rua 3 min antes da 1.ª mensagem; "Dorme, Daniel." |
+| 2 | Foto da porta do quarto de dentro, às 03:02; mar no correio de voz; sabe dos Saramagos; "Para de perguntar." → "Estás a assustar-me."; voz de mulher na chamada; alguém debaixo do candeeiro |
+| 3 | O número era de uma morta; "Faz quatro dias que me perguntas isso"; "Tu estavas lá."; chamada às 03:17 |
+| 4 | O pescador viu-te ir embora a pé enquanto ela te chamava |
+| 5 | Mensagem antiga muda; mensagem enviada sem ti; pesquisas que não fizeste; nota do futuro; vulto no corredor (câmara); contacto muda de nome; localização no cais; foto tirada por trás; a tua voz a sussurrar numa gravação; reinício + PIN = data da morte; reflexo no ecrã apagado; 17 min de silêncio; 3 pancadas; a Sofia escreve "Ainda estás acordado?"; a voz repete a tua frase |
+| 6 | Últimas mensagens restauradas ("Ele está aqui"); pessoa na água no fundo de ecrã |
+| 7 | Rosto na janela; o telemóvel escreve e envia sozinho; mensagem do João que o João não enviou; a médica sabe demais |
+| 8 | O registo prevê as 11:04 e acontece; o telemóvel abre a captura do que fizeste; fotografado a dormir |
+| 9 | A gravação do cais; alguém atrás de ti na câmara frontal |
+| 3–10 | Vibrações fantasma raras; recibo "Lida · 03:17"; a voz comenta as etiquetas do teu quadro de pistas |
+
 ## Decisões técnicas
 
 - **Godot 4.3, GL Compatibility**: UI 2D pesada, export simples para Windows/Linux, corre em
@@ -76,6 +91,12 @@
 - **Lambdas GDScript capturam variáveis locais por valor** — usar Dictionary/Array como caixa (bug encontrado nos testes).
 
 ## Bugs corrigidos nesta sessão
+- Deteção de inatividade usava `_unhandled_input` (cliques na UI não contavam) → `_input`.
+- Polígono degenerado (barba) gerava erros de triangulação.
+- Notas com data "?" faziam crash ao abrir as Notas.
+- Gravar entre o fim de um capítulo e o seguinte podia bloquear o jogo → `chapter_complete` retomado ao carregar.
+- Conversa da consola ECO só existia no cap. 8 → final secreto inalcançável para quem abrisse a consola mais tarde.
+- Testes escreviam no perfil e na gravação automática do jogador → pastas separadas.
 - `inc` dentro de opções de escolha era interpretado como `set` → contadores de confiança viravam booleanos
   (final B inalcançável). Corrigido no parser + validação que deteta chaves suspeitas.
 - Botões com `autowrap` expandiam verticalmente e escondiam a conversa → `UI.wrap_button` com altura calculada.
@@ -86,13 +107,15 @@
 ## Testes realizados
 - `tests/run_tests.tscn`: validação de dados (3500+ verificações), gravação/carregamento com
   ficheiro corrompido, 5 jogadas completas automáticas (uma por final) — **todas passam**.
-- Revisão visual por capturas (Xvfb): título, bloqueio, mensagens, todas as apps, chamada, final.
+- Revisão visual por capturas (Xvfb): título, bloqueio, mensagens, todas as apps, chamada, final,
+  câmara (3 eventos), menus.
+- Teste de fumo da UI: abre todas as apps e sub-ecrãs com o estado de fim de jogo; `tools/run_tests.sh`
+  falha se aparecer qualquer SCRIPT ERROR.
+- Export: builds Windows e Linux geradas com os *templates* 4.3; a build Linux arranca e carrega os dados.
 
 ## Problemas conhecidos
 - Duração real abaixo do objetivo (ver prioridades).
 - Ainda não houve teste com jogador humano real: ritmo dos capítulos diurnos (rate 2) por confirmar.
-- Export ainda não testado (precisa dos *export templates* do Godot 4.3). O `export_presets.cfg`
-  inclui `*.json, *.story` no filtro — confirmar que entram no `.pck`.
 - Fonte padrão do Godot: evitar emoji e símbolos fora de Latin-1 nos textos.
 - Sem localização para inglês (o texto está todo em `data/`, preparado para isso).
 
@@ -101,6 +124,6 @@
 2. **Mais profundidade por capítulo** (objetivo 14 h): conversas laterais com o grupo, Carla e mãe;
    mais páginas web e pistas opcionais; investigações secundárias (Lumen, clínica, fórum); um
    segundo "caminho" no cap. 4 e no cap. 7.
-3. Testar export Windows/Linux e Steam (GodotSteam + App ID).
+3. Integrar GodotSteam (GDExtension) e App ID reais; configurar Auto-Cloud para `user://saves`.
 4. Afinar mistura de áudio e ambiente por capítulo.
 5. Tradução para inglês.

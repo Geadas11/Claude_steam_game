@@ -67,7 +67,11 @@ wait 5
 if vs("c3_said") == "ines"
   typing unknown unknown 6
   wait 2
-  unknown> Faz quatro dias que me perguntas isso.
+  if v("prev_endings") >= 1
+    unknown> Faz quatro dias que me perguntas isso. E quarenta e oito vezes.
+  else
+    unknown> Faz quatro dias que me perguntas isso.
+  endif
   set loop_hint_1=true
   clue loop_hint_days
 elif vs("c3_said") == "dead"

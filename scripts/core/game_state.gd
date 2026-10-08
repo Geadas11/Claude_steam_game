@@ -56,6 +56,7 @@ func reset() -> void:
 		"alarms": [{"time": "07:30", "label": "Trabalho", "on": true}],
 		"deduction": {},
 		"notifications": [],
+		"shade": [],
 		"ending": "",
 		"endings_seen": [],
 		"msg_seq": 0,
@@ -215,6 +216,9 @@ func post_notification(app: String, title: String, body: String, extra := {}) ->
 	data.notifications.push_front(n)
 	if data.notifications.size() > 30:
 		data.notifications.resize(30)
+	data.shade.push_front(n)
+	if data.shade.size() > 30:
+		data.shade.resize(30)
 	return n
 
 

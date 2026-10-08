@@ -65,6 +65,19 @@ elif flag("asked_who2")
 endif
 @end
 
+@beat replay_hint
+@when v("prev_endings") >= 1 and beat("morning_unknown")
+wait 30
+unknown> Desta vez lembras-te mais cedo de mim.
+if flag("prev_end_B")
+  wait 4
+  unknown> Da última vez deste-lhe o cartão.
+elif flag("prev_end_C")
+  wait 4
+  unknown> Da última vez desligaste-me no fim do cais.
+endif
+@end
+
 @beat voicemail_heard
 @when file_open("vm_vm_sea")
 set heard_sea=true

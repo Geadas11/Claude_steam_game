@@ -951,6 +951,9 @@
     "p": "Há um produto novo na empresa. \"Mirror.\" Pega numa pessoa que saiu e continua-a. Mesma voz, mesma maneira de escrever. Dizem que é para \"continuidade de conhecimento\". Eu acho que é para ninguém nunca ter de dizer adeus a ninguém. Ou a nada."
    },
    {
+    "p": "Registámos a patente em fevereiro. O meu nome está lá, ao lado do dele. \"Continuação conversacional de pessoa ausente.\" Na altura achei bonito. Agora leio a reivindicação 7 e não consigo dormir."
+   },
+   {
     "meta": "2 de outubro de 2025"
    },
    {
@@ -1424,6 +1427,137 @@
     "meta": "Página atualizada a 14/10/2026 03:17.",
     "when": "v(\"chapter_n\") >= 5"
    }
+  ]
+ },
+ "matricula": {
+  "url": "consultamatricula.pt/AX-31-PL",
+  "title": "Consulta de matrícula: AX-31-PL",
+  "site": "ConsultaMatrícula",
+  "site_color": "#2a3a2a",
+  "keywords": [
+   "ax-31-pl",
+   "ax31pl",
+   "ax 31 pl",
+   "matricula ax-31-pl"
+  ],
+  "hidden": true,
+  "requires": "clue(\"vasco_car_cctv\") or clue(\"gas_station_camera\")",
+  "snippet": "Audi A6 (2021) · cinzento · frota empresarial",
+  "blocks": [
+   {
+    "h": "AX-31-PL"
+   },
+   {
+    "list": [
+     "Marca/modelo: Audi A6 Avant 2021",
+     "Cor: cinzento",
+     "Tipo: ligeiro de passageiros",
+     "Proprietário: Lumen Systems, S.A. (frota)",
+     "Inspeção: válida até 03/2027"
+    ]
+   },
+   {
+    "meta": "Dados públicos do registo automóvel. O condutor habitual não é divulgado."
+   }
+  ],
+  "clues": [
+   "plate_lumen"
+  ]
+ },
+ "aquario": {
+  "url": "trabalharem.pt/empresas/lumen-systems/avaliacoes",
+  "title": "Lumen Systems — avaliações de colaboradores (2,1★)",
+  "site": "TrabalharEm",
+  "site_color": "#3a2a4a",
+  "keywords": [
+   "aquario",
+   "aquario lumen",
+   "o aquario",
+   "avaliacoes lumen",
+   "trabalhar na lumen",
+   "lumen avaliacoes"
+  ],
+  "hidden": true,
+  "requires": "clue(\"pedro_cousin\") or v(\"chapter_n\") >= 8",
+  "snippet": "\"Há um piso onde ninguém entra. Chamam-lhe o aquário.\"",
+  "blocks": [
+   {
+    "h": "Lumen Systems — 2,1 ★"
+   },
+   {
+    "comment": {
+     "user": "Engenheiro de software (ex-colaborador)",
+     "time": "03/2026",
+     "text": "Bom salário. Mas há um piso no edifício 3 onde ninguém entra. Chamam-lhe o aquário. Trabalham de noite. Ninguém sabe o que fazem."
+    }
+   },
+   {
+    "comment": {
+     "user": "Analista de dados (ex-colaborador)",
+     "time": "06/2026",
+     "text": "Saí depois de ouvir, numa demo interna, a voz de uma colega que tinha morrido a ler o meu email em voz alta. Disseram que era 'só uma prova de conceito'."
+    }
+   },
+   {
+    "comment": {
+     "user": "QA (ex-colaborador)",
+     "time": "11/2025",
+     "text": "Não vale a pena. Eles sabem o que vais escrever antes de escreveres."
+    }
+   },
+   {
+    "meta": "A empresa respondeu: \"Lamentamos a experiência. Valorizamos a transparência.\""
+   }
+  ],
+  "clues": [
+   "aquario_reviews"
+  ]
+ },
+ "patente": {
+  "url": "patentes.pt/PT118204",
+  "title": "PT 118204 — Sistema e método para continuação conversacional de pessoa ausente",
+  "site": "Registo de Patentes",
+  "site_color": "#2a3a5a",
+  "keywords": [
+   "patente",
+   "patente eco",
+   "patente espelho",
+   "espelho",
+   "mirror patente",
+   "continuacao conversacional",
+   "pessoa ausente",
+   "eco mirror patente"
+  ],
+  "hidden": true,
+  "requires": "v(\"chapter_n\") >= 4",
+  "snippet": "Requerente: Lumen Systems, S.A. · Inventores: V. Pimentel, I. Matos",
+  "blocks": [
+   {
+    "h": "PT 118204"
+   },
+   {
+    "h2": "Sistema e método para continuação conversacional de pessoa ausente"
+   },
+   {
+    "list": [
+     "Requerente: Lumen Systems, S.A.",
+     "Inventores: Vasco Pimentel; Inês Matos",
+     "Pedido: 12/02/2025",
+     "Estado: concedida (06/2026)"
+    ]
+   },
+   {
+    "p": "Resumo: Um sistema que, a partir de registos de comunicação de uma pessoa (mensagens, chamadas, padrões de uso do dispositivo), gera um modelo capaz de continuar conversas em seu nome após a sua ausência, incluindo [b]iniciar contacto[/b] com terceiros com quem a pessoa mantinha relação próxima."
+   },
+   {
+    "p": "Reivindicação 7: o modelo pode ser instruído a orientar o interlocutor para a recuperação de informação na posse deste."
+   },
+   {
+    "meta": "Concedida a 06/2026. Oito meses depois da morte de um dos inventores."
+   }
+  ],
+  "clues": [
+   "ines_coinventor"
   ]
  }
 }

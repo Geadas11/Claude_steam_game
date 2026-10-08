@@ -174,6 +174,11 @@ clue("unknown_scared", "\"Estás a assustar-me\"", "Perguntaste quem era. \"Para
 clue("voice_repeats_you", "A tua frase, na voz dela", "Uma chamada em que a voz dela repetiu, palavra por palavra, a última coisa que escreveste.", "Chamada", 2, ["call_from_dead", "eco_trained_calls"])
 clue("phone_typed_alone", "\"estou a ver-te\"", "O telemóvel abriu a conversa e escreveu sozinho. Enviou. Em teu nome.", "Mensagens", 3, ["sent_message_rui", "fake_joao_message"])
 
+clue("plate_lumen", "Frota da Lumen", "AX-31-PL: Audi A6 cinzento, propriedade da Lumen Systems (frota).", "consultamatricula.pt", 3, ["vasco_car_cctv", "vasco_audi", "pedro_cousin"])
+clue("aquario_reviews", "O aquário", "Ex-colaboradores falam de um piso onde se trabalha de noite e de uma demo com a voz de uma colega morta.", "trabalharem.pt", 2, ["pedro_cousin", "mirror_config", "eco_mirror_product"])
+clue("ines_coinventor", "Ela ajudou a criar o espelho", "A patente do \"espelho\" tem dois inventores: Vasco Pimentel e Inês Matos. Reivindicação 7: o modelo pode \"orientar o interlocutor para a recuperação de informação\".", "Registo de patentes", 3, ["eco_mirror_product", "mirror_protocol", "ines_blog_mirror"])
+clue("daniel_postit", "O post-it", "Na caixa do teu último dia na Lumen: \"NÃO testar o espelho com dados reais. Falar com a I.\" — com a tua letra.", "Galeria · IMG_0899", 2, ["ines_coinventor", "eco_trained_calls"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

@@ -96,6 +96,10 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"choose": Director.pick_choice(kv[1], int(kv[2]))
 			"answer": Events.call_response.emit(true)
 			"arm": GameState.data.camera.armed = kv[1]
+			"settings": overlay.add_child(SettingsPanel.new())
+			"extras": overlay.add_child(ExtrasPanel.new())
+			"pause": toggle_pause()
+			"shade": phone.open_shade()
 			"flip":
 				if phone.current_app and phone.current_app.has_method("_flip"):
 					phone.current_app._flip()

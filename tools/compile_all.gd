@@ -6,7 +6,7 @@ func _ready() -> void:
 	var files := _scan("res://scripts")
 	for f in files:
 		var s = load(f)
-		if s == null:
+		if s == null or (s is GDScript and not s.can_instantiate()):
 			bad += 1
 			print("FAILED: ", f)
 	print("OK: checked %d scripts, %d failed" % [files.size(), bad])

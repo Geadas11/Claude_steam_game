@@ -181,8 +181,8 @@ func _clue_board() -> void:
 	chips.add_theme_constant_override("h_separation", 6)
 	chips.add_theme_constant_override("v_separation", 6)
 	for f in ["Todas", "Por marcar"] + TAGS:
-		var on := f == _clue_filter
-		var n := ids.size() if f == "Todas" else ids.filter(func(c): return str(GameState.data.clues[c].get("tag", "")) == ("" if f == "Por marcar" else f)).size()
+		var on: bool = f == _clue_filter
+		var n: int = ids.size() if f == "Todas" else ids.filter(func(c): return str(GameState.data.clues[c].get("tag", "")) == ("" if f == "Por marcar" else f)).size()
 		chips.add_child(UI.pill_button("%s %d" % [f, n], func():
 			_clue_filter = f
 			_render(), "accent" if on else "surf2", "bg" if on else "dim", 12))

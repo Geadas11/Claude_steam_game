@@ -44,6 +44,13 @@ func new_game() -> void:
 	GameState.reset()
 	GameState.in_game = true
 	_seed_initial_state()
+	# replay memory: the voice remembers previous iterations
+	var prev := 0
+	for e in ["A", "B", "C", "D", "E"]:
+		if Achievements.ending_seen(e):
+			GameState.set_var("prev_end_" + e, true)
+			prev += 1
+	GameState.set_var("prev_endings", prev)
 	start_chapter(Content.chapter_order[0])
 
 
@@ -266,6 +273,12 @@ func called(who: String) -> int: return int(GameState.data.called.get(who, 0))
 func loc(id: String) -> bool: return GameState.data.location == id
 func tag(clue_id: String) -> String: return str(GameState.data.clues.get(clue_id, {}).get("tag", ""))
 func ded(q: String) -> String: return str(GameState.data.deduction.get(q, ""))
+func tagged() -> int:
+	var n := 0
+	for c in GameState.data.clues.values():
+		if str(c.get("tag", "")) != "":
+			n += 1
+	return n
 func answered(call_id: String) -> bool: return GameState.get_var("call_" + call_id, "") == "answered"
 func missed(call_id: String) -> bool:
 	var s = GameState.get_var("call_" + call_id, "")

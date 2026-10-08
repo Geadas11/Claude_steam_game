@@ -380,9 +380,32 @@
      "s": 0.025,
      "c": "#3a2a1a",
      "v": "D. REIS"
+    },
+    {
+     "t": "rect",
+     "r": [
+      0.5,
+      0.565,
+      0.04,
+      0.03
+     ],
+     "c": "#e8d84a"
     }
    ]
-  }
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.34,
+     0.54,
+     0.26,
+     0.16
+    ],
+    "zoom": 2.0,
+    "clue": "daniel_postit",
+    "label": "Na tampa da caixa, um post-it com a tua letra: \"NÃO testar o espelho com dados reais. Falar com a I.\""
+   }
+  ]
  },
  "IMG_3010": {
   "file": "IMG_3010.jpg",

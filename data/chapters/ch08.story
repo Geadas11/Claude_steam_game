@@ -16,7 +16,6 @@ rate 2
 ambient room
 location casa
 battery 95
-variant IMG_0317 closer
 file eco_readme silent
 file eco_sim046 silent
 file eco_pred silent
@@ -288,4 +287,24 @@ if vs("carla8") == "ines"
 else
   carla> Fica guardada. E a Bolacha comeu um marcador amarelo, para teres notícias da loja
 endif
+@end
+
+
+# ---------------------------------------------------------------- a fotografia do cais mexe-se enquanto olhas
+@beat pier_photo_moves
+@when app() == "gallery:IMG_0317" and not photo_is("IMG_0317", "closer")
+wait 5
+if app() == "gallery:IMG_0317"
+  glitch 0.18 0.2
+  variant IMG_0317 closer
+  set saw_pier_move=true
+  clue pier_figure
+else
+  variant IMG_0317 closer
+endif
+@end
+
+@beat pier_photo_fallback
+@when at("19:30") and not photo_is("IMG_0317", "closer")
+variant IMG_0317 closer
 @end

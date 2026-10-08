@@ -71,6 +71,10 @@ func _draw() -> void:
 	var pc := s / 2.0 + Vector2(0, s.y * 0.12)
 	var pr := s.y * 0.55
 	draw_texture_rect(_radial, Rect2(pc - Vector2(pr, pr * 0.6), Vector2(pr * 2, pr * 1.2)), false, Color(0.55, 0.68, 0.9, 0.06))
+	# phone torch: a cold circle of light on the ceiling
+	if GameState.in_game and GameState.data.phone.get("torch", false):
+		var tr := s.y * 0.35
+		draw_texture_rect(_radial, Rect2(Vector2(s.x / 2 - tr * 1.2, -tr * 0.6), Vector2(tr * 2.4, tr * 1.4)), false, Color(1, 0.97, 0.9, 0.12))
 	# objects: a mug and a closed book, as silhouettes
 	var mug := Vector2(s.x * 0.78, s.y * 0.7)
 	draw_rect(Rect2(mug, Vector2(70, 84)), Color("0d0c0b"))

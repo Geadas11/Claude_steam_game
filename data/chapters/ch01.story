@@ -269,6 +269,10 @@ wait 2
 vibrate
 unknown> {instant} Ainda estás acordado?
 set first_msg=true
+if flag("prev_end_D")
+  wait 5
+  unknown> Outra vez.
+endif
 @end
 
 @beat first_nudge
