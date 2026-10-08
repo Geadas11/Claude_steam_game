@@ -19,7 +19,7 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 178 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 180 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 34 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -32,7 +32,7 @@ ver "Problemas conhecidos")
 - **42 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
 - **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **178 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **180 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -49,11 +49,11 @@ ver "Problemas conhecidos")
 | 2 | Foto da porta do quarto de dentro, às 03:02; mar no correio de voz; sabe dos Saramagos; "Para de perguntar." → "Estás a assustar-me."; voz de mulher na chamada; alguém debaixo do candeeiro |
 | 3 | O número era de uma morta; "Faz quatro dias que me perguntas isso"; "Tu estavas lá."; chamada às 03:17 |
 | 4 | O pescador viu-te ir embora a pé enquanto ela te chamava |
-| 5 | Mensagem antiga muda; mensagem enviada sem ti; pesquisas que não fizeste; nota do futuro; vulto no corredor; contacto muda de nome; "Localização atualizada · Cais Velho"; foto tirada por trás; "Aplicação desconhecida — Algo correu mal."; a tua voz a sussurrar numa gravação; reinício + PIN = data da morte; reflexo no ecrã apagado; 17 min de silêncio; 3 pancadas; a Sofia escreve "Ainda estás acordado?"; a voz repete a tua frase |
-| 6 | Últimas mensagens restauradas ("Ele está aqui"); o fundo de ecrã ganha uma pessoa enquanto olhas; o caixote da secretária da Inês (post-it "03:17") |
+| 5 | Mensagem antiga muda; mensagem enviada sem ti; pesquisas que não fizeste; nota do futuro; vulto no corredor; contacto muda de nome (e não o consegues bloquear); "Localização atualizada · Cais Velho"; foto tirada por trás; "Aplicação desconhecida — Algo correu mal."; a tua voz a sussurrar numa gravação; reinício + PIN = data da morte; reflexo no ecrã apagado; 17 min de silêncio; 3 pancadas; a Sofia escreve "Ainda estás acordado?"; a voz repete a tua frase |
+| 6 | Últimas mensagens restauradas ("Ele está aqui"); o fundo de ecrã ganha uma pessoa enquanto olhas; o caixote da secretária da Inês (post-it "D. — p. 317") |
 | 7 | Rosto na janela; o telemóvel escreve e envia sozinho; mensagem do João que o João não enviou; a médica sabe demais |
 | 8 | O registo prevê as 11:04 e acontece; o telemóvel abre sozinho a captura do que fizeste; a fotografia do cais aproxima-se enquanto olhas; fotografado a dormir; vaga de internamento "sem telemóvel" |
-| 9 | A gravação do cais; alguém atrás de ti na câmara frontal; a Rita "está bem" |
+| 9 | A gravação do cais; alguém atrás de ti na câmara frontal; a Rita "está bem"; a mãe lembra-se de uma chamada tua às 04:30, só com o mar |
 | 11 | A caminhada: "voltaste" |
 | 3–10 | Vibrações fantasma raras; recibo "Lida · 03:17"; a voz comenta as etiquetas do teu quadro de pistas |
 
@@ -66,6 +66,8 @@ ver "Problemas conhecidos")
   procedural (~45 sons) · Achievements (34, espelho Steam) · Settings (volumes por barramento, texto,
   velocidade de mensagens/relógio, legendas, alto contraste, reduzir efeitos/movimento,
   ecrã/vsync/resolução, **remapeamento de teclas**)
+- **Menus:** pausa com **"Até agora"** (resumo de cada capítulo já jogado) e **"Decisões"**;
+  texto dos finais avança com clique/tecla.
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.
 
@@ -91,6 +93,10 @@ ver "Problemas conhecidos")
 - Erro de inferência de tipos no filtro de pistas (apanhado pelo teste de UI).
 - Possíveis bloqueios no fim dos caps. 4 e 5 → *fallbacks* temporais.
 - Ecrã principal reconstruído a cada mudança de estado.
+- `app()` ficava "messages" ao abrir uma conversa a partir de uma notificação (o `open_app` escrevia
+  por cima depois do `setup`) → beats do tipo `app() == "messages:x"` não disparavam. Teste de regressão.
+- Duas escolhas na mesma conversa: a segunda apagava a primeira (beat preso) → fila por conversa.
+- Cabeçalho da conversa não mudava quando o contacto era renomeado.
 
 ## Testes
 
