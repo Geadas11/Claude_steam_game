@@ -212,7 +212,8 @@ func show_title() -> void:
 	phone.show_locked_immediately()
 	room.set_mood("title")
 	Audio.set_ambient("room")
-	Audio.set_music("menu")
+	# after the quiet endings, the title keeps their music box
+	Audio.set_music("lullaby" if str(Achievements.stats.get("last_ending", "")) in ["C", "D"] else "menu")
 
 
 ## The title screen phone: 23:47, one notification. The hook.
