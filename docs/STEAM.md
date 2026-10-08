@@ -80,7 +80,8 @@ geradas e a de Linux foi testada a arrancar e a carregar a história.
 - Temas maduros: morte, luto, menções a suicídio (contestadas pela narrativa), vigilância,
   manipulação psicológica, saúde mental. O jogo mostra contactos reais de apoio emocional
   (SOS Voz Amiga, SNS 24) se o jogador pesquisar temas de crise.
-- Sons súbitos e cintilação: opções "Reduzir efeitos visuais" e "Reduzir movimento".
+- Sons súbitos e cintilação: opções "Suavizar sons súbitos", "Reduzir efeitos visuais" e "Reduzir movimento".
+  Contactos de apoio também em Extras → Créditos.
 - Privacidade: o jogo **não** acede a câmara, microfone, ficheiros nem localização reais.
 
 ## 6. Texto da loja (rascunho)
