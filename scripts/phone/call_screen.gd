@@ -23,10 +23,19 @@ func _ready() -> void:
 	bg.color = Color("0a0c0f")
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
-	var glow := ColorRect.new()
-	glow.color = Color(0.2, 0.35, 0.3, 0.12)
-	glow.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	glow.size = Vector2(UI.SCREEN.x, 300)
+	var glow := TextureRect.new()
+	var gt := GradientTexture2D.new()
+	gt.fill_from = Vector2(0.5, 0.0)
+	gt.fill_to = Vector2(0.5, 1.0)
+	var gr := Gradient.new()
+	gr.set_color(0, Color(0.2, 0.35, 0.3, 0.16))
+	gr.set_color(1, Color(0.2, 0.35, 0.3, 0.0))
+	gt.gradient = gr
+	glow.texture = gt
+	glow.stretch_mode = TextureRect.STRETCH_SCALE
+	glow.position = Vector2.ZERO
+	glow.size = Vector2(UI.SCREEN.x, 420)
+	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(glow)
 	var v := UI.vbox(10)
 	v.set_anchors_preset(Control.PRESET_FULL_RECT)

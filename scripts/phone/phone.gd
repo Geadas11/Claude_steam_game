@@ -150,8 +150,8 @@ func _build_screen() -> void:
 	call_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
 	call_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen.add_child(call_layer)
-	# status bar must stay above lock + apps
-	status_bar.reparent(screen)
+	# status bar must stay above lock screen, apps and calls
+	screen.move_child(status_bar, -1)
 	toast_label = UI.label("", 14)
 	var tp := UI.panel(Color(0.12, 0.13, 0.15, 0.95), 16, 14, 8, 14, 8)
 	tp.name = "Toast"
@@ -461,6 +461,9 @@ func unlock(silent := false) -> void:
 	_refresh_badges()
 	Events.unlocked.emit()
 	Director.notify_player_action()
+	if not Settings.get_value("seen_controls_hint", false) and GameState.in_game:
+		Settings.set_value("seen_controls_hint", true)
+		toast("Backspace: voltar · H: ecrã principal · Esc: pausa")
 
 
 func show_locked_immediately() -> void:

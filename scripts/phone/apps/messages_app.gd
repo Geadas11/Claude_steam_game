@@ -22,6 +22,7 @@ func build() -> void:
 	Events.message_changed.connect(_on_message_changed)
 	Events.thread_typing.connect(_on_typing)
 	Events.choice_offered.connect(_on_choice_offered)
+	Events.choice_offered.connect(func(_t): if _thread == "": _fill_list())
 	Events.choice_cleared.connect(_on_choice_cleared)
 	Events.autotype_requested.connect(_on_autotype)
 	Events.content_changed.connect(func(k): if k == "threads" and _thread == "": _show_list())
@@ -100,7 +101,10 @@ func _thread_row(th_id: String, last: Dictionary, unread: int) -> Control:
 		preview = "a escrever…"
 	else:
 		preview = _preview(last, th_id)
-	var pl := UI.label(preview, 14, "accent" if _typing_who.has(th_id) else ("text" if unread > 0 else "dim"))
+	var waiting: bool = GameState.data.choices.has(th_id) and not _typing_who.has(th_id)
+	if waiting and unread == 0:
+		preview = "À espera da tua resposta"
+	var pl := UI.label(preview, 14, "accent" if (_typing_who.has(th_id) or (waiting and unread == 0)) else ("text" if unread > 0 else "dim"))
 	pl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	pl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	bottom.add_child(pl)

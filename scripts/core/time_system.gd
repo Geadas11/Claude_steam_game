@@ -22,9 +22,13 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton or event is InputEventKey:
+func _input(event: InputEvent) -> void:
+	# _input sees GUI clicks too (unlike _unhandled_input), so tapping around
+	# the phone counts as activity.
+	if event is InputEventMouseButton or event is InputEventKey or event is InputEventJoypadButton:
 		_idle_time = 0.0
+	elif event is InputEventMouseMotion and event.relative.length() > 4.0:
+		_idle_time = minf(_idle_time, 10.0)
 
 
 func notify_activity() -> void:

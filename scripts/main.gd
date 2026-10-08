@@ -93,6 +93,8 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"time": Clock.set_clock(kv[1] + ":" + kv[2])
 			"beat": GameState.data.beats_done[kv[1]] = 0.0
 			"flag": GameState.set_var(kv[1], true)
+			"choose": Director.pick_choice(kv[1], int(kv[2]))
+			"answer": Events.call_response.emit(true)
 
 
 func _layout() -> void:

@@ -90,3 +90,11 @@ achieve no_reply
 @when flag("pin_ok") and v("pin_fails") == 0
 achieve pin_first_try
 @end
+
+# ---------------------------------------------------------------- phantom vibrations
+# From chapter 5 on, very rarely, the phone vibrates with nothing to show for it.
+@beat g_phantom
+@repeat
+@when v("chapter_n") >= 5 and (not beat("g_phantom") or since("g_phantom", 420)) and since("setup", 240) and app() != "lock" and not flag("final")
+vibrate
+@end

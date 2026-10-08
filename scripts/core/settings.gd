@@ -20,6 +20,7 @@ var values := {
 	"vsync": true,
 	"resolution": "1600x900",
 	"seen_warning": false,
+	"seen_controls_hint": false,
 	"language": "pt",
 }
 
