@@ -55,7 +55,10 @@ set confirmed_told=true
 wait 20
 file ines_cais_rec silent
 file ines_notas silent
+email lumen_eco_memo silent
 notify files "Sincronização" "ines.matos@lumen.pt · 2 ficheiros sincronizados"
+wait 4
+notify email "Sincronização" "ines.matos@lumen.pt · 1 email recuperado do Lixo"
 set ines_files_synced=true
 @end
 

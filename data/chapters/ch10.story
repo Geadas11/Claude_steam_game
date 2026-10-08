@@ -406,3 +406,10 @@ wait 3
 unknown> Não fui eu que a tirei há cinco dias. Mas também não foi ele.
 clue vasco_sent_window
 @end
+
+
+# ---------------------------------------------------------------- uma mensagem de voz
+@beat voice_note
+@when at("10:25") and not flag("found_card")
+unknown> [audio:vm_audio_ines]
+@end
