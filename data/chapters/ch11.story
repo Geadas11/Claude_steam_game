@@ -385,3 +385,33 @@ else
   sofia> Gosto de ti, idiota
 endif
 @end
+
+# ---------------------------------------------------------------- Rita, a última noite
+@beat rita_last
+@when flag("rita_keep") and at("00:10")
+rita> também não consegues dormir pois não
+rita> o "pai" escreveu-me há bocado. disse "filha, deixa-me ir"
+rita> o meu pai nunca na vida disse isso. nunca me deixou ir a lado nenhum
+rita> acho que a coisa que fala por ele também está cansada
+@end
+
+@beat rita_last_reply
+@when beat("rita_last") and read("rita")
+wait 1
+choice rita c11_rita
+  > Desliga o telemóvel, Rita. Amanhã de manhã ligas à Clara. | set rita11=off
+  > Responde-lhe. Diz-lhe o que nunca lhe disseste. | set rita11=answer
+end
+wait 25
+if vs("rita11") == "off"
+  rita> ok
+  rita> se amanhã de manhã eu ainda estiver acordada, ligo
+  rita> boa noite daniel. obrigada por me teres acreditado
+else
+  rita> escrevi "eu sei que não és tu"
+  wait 6
+  rita> respondeu "eu sei, filha"
+  wait 4
+  rita> não sei se isso foi a pior coisa ou a melhor coisa que me aconteceu este ano
+endif
+@end
