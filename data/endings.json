@@ -57,6 +57,14 @@
    {
     "when": "flag(\"marta_flowers\")",
     "line": "No dia 14 de novembro, a Marta passou pelo cais às oito. Já lá estavam flores novas, atadas ao poste. Desta vez estavas à espera dela."
+   },
+   {
+    "when": "vs(\"pedro_eco\") == \"joke\"",
+    "line": "As ações da Lumen caíram 61% em dois dias. O Pedro mandou-te uma fotografia do extrato, sem texto. Só um emoji de palhaço."
+   },
+   {
+    "when": "vs(\"pedro_eco\") == \"against\"",
+    "line": "O Pedro escreveu no grupo: \"o Daniel disse-me para não comprar. o Daniel sabia.\" Ninguém respondeu. Toda a gente concordou."
    }
   ]
  },
@@ -97,6 +105,10 @@
    {
     "when": "flag(\"rita_talked\")",
     "line": "Em novembro, o número da Rita voltou a escrever-te, às 3:17: \"ainda estás acordado?\" Não respondeste."
+   },
+   {
+    "when": "vs(\"pedro_eco\") == \"joke\"",
+    "line": "As ações da Lumen subiram 9% com o lançamento do ECO 2. O Pedro agradeceu-te o conselho num jantar inteiro."
    }
   ]
  },
