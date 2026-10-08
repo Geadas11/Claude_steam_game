@@ -111,6 +111,10 @@
    {
     "when": "vs(\"pedro_eco\") == \"joke\"",
     "line": "As ações da Lumen subiram 9% com o lançamento do ECO 2. O Pedro agradeceu-te o conselho num jantar inteiro."
+   },
+   {
+    "when": "flag(\"heard_sofia11\")",
+    "line": "A Sofia deixou de te ligar às onze e vinte. Disse que já não era preciso. Tinha razão, dizias tu."
    }
   ],
   "coda": [
@@ -152,6 +156,10 @@
    {
     "when": "flag(\"marta_flowers\")",
     "line": "Todos os meses, no dia 14, aparecem flores no poste do Cais Velho. A Marta nunca te pergunta nada."
+   },
+   {
+    "when": "flag(\"heard_sofia11\")",
+    "line": "Durante um mês, a Sofia ligou-te todas as noites às onze e vinte. Não dizias quase nada. Ela falava pelos dois."
    }
   ],
   "coda": [
