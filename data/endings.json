@@ -39,6 +39,10 @@
     "line": "No domingo seguinte, ligaste à tua mãe às quatro e meia da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
    },
    {
+    "when": "vs(\"sofia7\") == \"honest\"",
+    "line": "Em novembro apanhaste o comboio das 07:10 para Lisboa. A Sofia estava na estação, com o bilhete velho na mão."
+   },
+   {
     "when": "flag(\"told_carla_card\")",
     "line": "A Carla tirou o Ricardo Reis da estante e pô-lo na montra, com um papel escrito à mão: \"Não está à venda. Nunca esteve.\""
    },
