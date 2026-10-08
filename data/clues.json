@@ -1750,5 +1750,37 @@
    "went_back",
    "armando_saw"
   ]
+ },
+ "daniel_forum_account": {
+  "title": "ex_lumen_qa eras tu",
+  "desc": "A conta que avisava no fórum que o ECO ouvia as chamadas era a tua (\"dani_reads\", mudada em abril de 2025). Um rascunho de 13/10/2025, 22:44: \"Deixem-na em paz.\" Sete minutos depois, escreveste ao Vasco.",
+  "source": "Salgueira Noturna · perfil",
+  "importance": 3,
+  "related": [
+   "forum_eco_warning",
+   "daniel_told_vasco",
+   "daniel_postit"
+  ]
+ },
+ "postit_p317": {
+  "title": "\"D. — p. 317\"",
+  "desc": "Na secretária da Inês, um post-it com a letra dela: \"D. — p. 317 (a de cima)\".",
+  "source": "Fotografia do Rui",
+  "importance": 3,
+  "related": [
+   "saramago_spine",
+   "daniel_hides_in_books",
+   "ines_blog_lastpost"
+  ]
+ },
+ "ines_calendar": {
+  "title": "O calendário dela",
+  "desc": "13 de outubro: \"cais 2h30 (D.)\". 14 de outubro: \"Clara 10h!\"",
+  "source": "Fotografia do Rui",
+  "importance": 2,
+  "related": [
+   "clara_meeting",
+   "ines_last_messages"
+  ]
  }
 }

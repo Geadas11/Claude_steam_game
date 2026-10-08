@@ -211,6 +211,10 @@ clue("badge_log", "O registo de acessos", "Edifício 3: V.PIMENTEL sai às 02:31
 clue("therapy_notes", "As tuas notas de sessão", "\"Reforçada versão de que esteve em casa. Desencorajada a reconstrução.\" \"Partilhado com parceiro (Lumen) conforme protocolo MIRROR-2.\" \"Recomendado ao parceiro aumentar a frequência de contacto do espelho.\"", "Portal do Utente · Clínica Atlântico", 3, ["helena_signed", "helena_dont_tell", "lumen_pays_helena", "exclusion_2208"])
 clue("ines_last_photo", "A última fotografia dela", "03:05 de 14/10/2025, tirada pelo telemóvel dela: tu, de costas, a ir-te embora pelo cais. Como a fotografia que apareceu na tua galeria — tirada por trás.", "Ficheiros · Inês (sincronizado)", 3, ["photo_from_behind", "went_back", "armando_saw"])
 
+clue("daniel_forum_account", "ex_lumen_qa eras tu", "A conta que avisava no fórum que o ECO ouvia as chamadas era a tua (\"dani_reads\", mudada em abril de 2025). Um rascunho de 13/10/2025, 22:44: \"Deixem-na em paz.\" Sete minutos depois, escreveste ao Vasco.", "Salgueira Noturna · perfil", 3, ["forum_eco_warning", "daniel_told_vasco", "daniel_postit"])
+clue("postit_p317", "\"D. — p. 317\"", "Na secretária da Inês, um post-it com a letra dela: \"D. — p. 317 (a de cima)\".", "Fotografia do Rui", 3, ["saramago_spine", "daniel_hides_in_books", "ines_blog_lastpost"])
+clue("ines_calendar", "O calendário dela", "13 de outubro: \"cais 2h30 (D.)\". 14 de outubro: \"Clara 10h!\"", "Fotografia do Rui", 2, ["clara_meeting", "ines_last_messages"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

@@ -1675,5 +1675,44 @@
   "clues": [
    "therapy_notes"
   ]
+ },
+ "forum_profile": {
+  "url": "salgueiranoturna.forum.pt/u/ex_lumen_qa",
+  "title": "Perfil: ex_lumen_qa — Salgueira Noturna",
+  "site": "Salgueira Noturna",
+  "site_color": "#1f2a3a",
+  "keywords": [
+   "ex_lumen_qa",
+   "ex lumen qa",
+   "perfil ex_lumen_qa"
+  ],
+  "hidden": true,
+  "snippet": "Membro desde 2019 · 41 mensagens",
+  "blocks": [
+   {
+    "h": "ex_lumen_qa"
+   },
+   {
+    "list": [
+     "Membro desde: março de 2019 (como \"dani_reads\")",
+     "Nome de utilizador alterado: abril de 2025",
+     "Mensagens: 41",
+     "Último acesso: 13/10/2025, 22:45",
+     "Email associado: d****.r***@mail.pt"
+    ]
+   },
+   {
+    "h2": "Última mensagem (rascunho não publicado)"
+   },
+   {
+    "quote": "\"Se alguém da Lumen estiver a ler isto: eu sei o que o ECO ouve. Ela também sabe. Deixem-na em paz.\""
+   },
+   {
+    "meta": "Rascunho guardado a 13/10/2025 às 22:44. Sete minutos antes da mensagem ao Vasco."
+   }
+  ],
+  "clues": [
+   "daniel_forum_account"
+  ]
  }
 }

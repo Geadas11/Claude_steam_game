@@ -131,6 +131,31 @@ photo("IMG_INES_LAST", "2025-10-14 03:05", {"preset": "pier_night", "grain": 0.1
         {"t": "glow", "p": [0.46, 0.6], "r": 0.06, "c": "#ffdca822"}]},
     place="Cais Velho, Salgueira", device="Pixel 8 (I.M.)", album="Transferências", aspect=0.75, file="IMG_20251014_030540.jpg",
     hotspots=[{"r": [0.35, 0.5, 0.18, 0.38], "clue": "ines_last_photo", "label": "Tu. De costas. A ir-te embora pelo cais. A última fotografia que ela tirou."}])
+photo("IMG_RUI_DESK", "2026-10-11 17:20", {"preset": "custom", "layers": [
+        {"t": "grad", "c": ["#4a3524", "#2e2016"]},
+        {"t": "rect", "r": [0.18, 0.3, 0.42, 0.5], "c": "#2e4a7a"},
+        {"t": "rect", "r": [0.2, 0.32, 0.38, 0.46], "c": "#34548a"},
+        {"t": "text", "p": [0.22, 0.42], "s": 0.032, "c": "#e8e0c8", "v": "O ANO DA MORTE"},
+        {"t": "text", "p": [0.22, 0.47], "s": 0.032, "c": "#e8e0c8", "v": "DE RICARDO REIS"},
+        {"t": "text", "p": [0.22, 0.72], "s": 0.022, "c": "#c8c0a8", "v": "José Saramago"},
+        {"t": "rect", "r": [0.58, 0.22, 0.24, 0.2], "c": "#e8d84a"},
+        {"t": "text", "p": [0.6, 0.3], "s": 0.032, "c": "#3a3010", "v": "D. — p. 317"},
+        {"t": "text", "p": [0.6, 0.36], "s": 0.024, "c": "#3a3010", "v": "(a de cima)"},
+        {"t": "ellipse", "p": [0.78, 0.8], "rx": 0.08, "ry": 0.05, "c": "#c94a5a"},
+        {"t": "glow", "p": [0.3, 0.1], "r": 0.6, "c": "#ffe0b012"}]},
+    place="Rua do Mar 7, Salgueira", device="Galaxy A14 (Rui)", album="Mensagens", aspect=1.0,
+    hotspots=[{"r": [0.56, 0.2, 0.28, 0.24], "clue": "postit_p317", "label": "Um post-it com a letra dela: \"D. — p. 317 (a de cima)\"."}])
+photo("IMG_RUI_CAL", "2026-10-11 17:21", {"preset": "custom", "layers": [
+        {"t": "grad", "c": ["#d8d2c4", "#bdb6a6"]},
+        {"t": "text", "p": [0.08, 0.1], "s": 0.05, "c": "#2a2a2a", "v": "OUTUBRO 2025"},
+        {"t": "lines", "r": [0.08, 0.16, 0.84, 0.74], "seed": 3, "step": 0.12, "c": "#9a9488"},
+        {"t": "text", "p": [0.62, 0.53], "s": 0.045, "c": "#2a2a2a", "v": "14"},
+        {"t": "circle", "p": [0.655, 0.515], "r": 0.06, "c": "#c0303040"},
+        {"t": "text", "p": [0.56, 0.6], "s": 0.026, "c": "#a02020", "v": "Clara 10h!"},
+        {"t": "text", "p": [0.28, 0.53], "s": 0.045, "c": "#2a2a2a", "v": "13"},
+        {"t": "text", "p": [0.2, 0.6], "s": 0.022, "c": "#2a3a8a", "v": "cais 2h30 (D.)"}]},
+    place="Rua do Mar 7, Salgueira", device="Galaxy A14 (Rui)", album="Mensagens", aspect=1.0,
+    hotspots=[{"r": [0.15, 0.45, 0.65, 0.2], "clue": "ines_calendar", "label": "13: \"cais 2h30 (D.)\". 14: \"Clara 10h!\". Ela tinha tudo planeado."}])
 photo("IMG_RITA", "2026-10-13 00:29", {"preset": "screen", "lines": ["/.eco", "sim_112.log", "mirror_pai.cfg", "pred_rsantos.txt", "sujeita: R.SANTOS", "espelho: pai (J.SANTOS)"]},
     place="", device="Lumen One · captura de ecrã", album="Mensagens", aspect=0.75)
 

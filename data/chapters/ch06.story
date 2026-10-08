@@ -220,11 +220,25 @@ if vs("rui6") == "honest"
   wait 3
   rui> Quer dizer que agora sei mais do que a polícia.
   set rui_ally_seed=true
+  wait 40
+  rui> Os pais dela deram-me um caixote com as coisas da secretária. Nunca o abri até hoje.
+  wait 4
+  rui> Tirei-te fotografias. Tu é que sabes ler a letra dela.
+  rui> [photo:IMG_RUI_DESK]
+  wait 2
+  rui> [photo:IMG_RUI_CAL]
 elif vs("rui6") == "forgot"
   rui> Tu não te lembras de nada. Que conveniente.
 else
   rui> Vais dever. Mais cedo ou mais tarde.
 endif
+@end
+
+@beat forum_nudge
+@when at("16:10") and visited("forum_lumen") and not visited("forum_profile")
+unknown> ex_lumen_qa.
+wait 3
+unknown> Nunca te perguntaste quem avisava toda a gente?
 @end
 
 # ---------------------------------------------------------------- final
