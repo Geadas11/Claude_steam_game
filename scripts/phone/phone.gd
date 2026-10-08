@@ -430,8 +430,9 @@ func open_app(id: String, p := {}) -> void:
 	current_app = app
 	current_app_id = id
 	app_layer.add_child(app)
-	app.setup(self, p)
+	# set before setup(): an app may refine it (e.g. "messages:<thread>")
 	GameState.current_app = id
+	app.setup(self, p)
 	GameState.data.opened[id] = int(GameState.data.opened.get(id, 0)) + 1
 	GameState.data.chapter_opened[id] = int(GameState.data.chapter_opened.get(id, 0)) + 1
 	home.visible = false

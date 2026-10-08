@@ -174,6 +174,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 					phone.current_app._tab = int(kv[1])
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
+			"dump": print("DUMP ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"))
 			"press":
 				var ev := InputEventKey.new()
 				ev.keycode = KEY_SPACE

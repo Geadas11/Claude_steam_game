@@ -534,6 +534,13 @@ func _ui_smoke(policy: String) -> void:
 		await _frames(2)
 		ok(panel.body.get_child_count() > 0, "%s has content" % panel.get_script().get_global_name())
 		panel.queue_free()
+	# opening straight into a conversation must report it to the story (app())
+	var th0: String = GameState.data.threads.keys()[0]
+	phone.open_app("messages", {"forced": true, "param": th0})
+	await _frames(2)
+	ok(GameState.current_app == "messages:" + th0, "open_app with thread sets app() (got %s)" % GameState.current_app)
+	phone.go_home()
+	await _frames(1)
 	var opened := 0
 	for app_id in Phone.APPS:
 		phone.open_app(app_id, {"forced": true})

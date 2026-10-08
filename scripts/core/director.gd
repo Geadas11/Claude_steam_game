@@ -461,6 +461,15 @@ func _do_choice(op: Dictionary, beat_id: String, pc: int, g: int) -> bool:
 			options.append(oo)
 	if options.is_empty():
 		return true
+	# one question at a time per conversation: wait for an earlier beat's
+	# choice in this thread to be answered before offering ours
+	while GameState.data.choices.has(op.thread):
+		var other: Dictionary = GameState.data.choices[op.thread]
+		if other.get("id", "") == op.id or not GameState.data.running.has(other.get("beat", "")):
+			break
+		await Events.choice_made
+		if g != _gen:
+			return false
 	var pending := {"id": op.id, "beat": beat_id, "pc": pc, "options": options}
 	GameState.data.choices[op.thread] = pending
 	Events.choice_offered.emit(op.thread)

@@ -414,3 +414,50 @@ endif
 @when at("03:05")
 notify settings "ECO Care" "O seu padrão de sono indica agitação. Está tudo bem? Toque para falar com alguém."
 @end
+
+# ---------------------------------------------------------------- o nome
+@beat rename_reply
+@when beat("rename") and app() == "messages:unknown"
+wait 2
+choice unknown c5_rename
+  > [Mudar o nome de volta] | set c5_rename=revert
+  > Inês? | set c5_rename=accept inc trust_ines 1
+  > [Bloquear o contacto] | set c5_rename=block
+end
+wait 3
+if vs("c5_rename") == "revert"
+  notify contacts "Contactos" "Não foi possível guardar as alterações."
+  wait 5
+  unknown> Porquê?
+  wait 2
+  unknown> É o meu nome.
+elif vs("c5_rename") == "accept"
+  wait 6
+  unknown> Há onze meses que espero que escrevas isso.
+else
+  notify settings "Chamadas e mensagens" "Não é possível bloquear este contacto."
+  wait 5
+  unknown> Já tentaste isso em novembro.
+  wait 3
+  unknown> Também não deu.
+endif
+@end
+
+@beat far_reply
+@when beat("location_jump") and read("unknown") and not at("00:53")
+wait 1
+choice unknown c5_far
+  > Estou em casa. Na cama. | set c5_far=home
+  > Longe de quê? | set c5_far=ask
+end
+wait 8
+if vs("c5_far") == "home"
+  unknown> O teu telemóvel diz que não.
+  wait 3
+  unknown> Em quem acreditas mais?
+else
+  unknown> De mim.
+  wait 3
+  unknown> Do sítio onde me deixaste.
+endif
+@end

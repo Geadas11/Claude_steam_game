@@ -26,6 +26,8 @@ func build() -> void:
 	Events.choice_cleared.connect(_on_choice_cleared)
 	Events.autotype_requested.connect(_on_autotype)
 	Events.content_changed.connect(func(k): if k == "threads" and _thread == "": _show_list())
+	# a contact renamed while its conversation is open (the header shows the name)
+	Events.content_changed.connect(func(k): if k == "contacts" and _thread != "": _open_thread(_thread))
 	var th: String = params.get("thread", params.get("param", ""))
 	if th != "" and GameState.data.threads.has(th):
 		_open_thread(th)
