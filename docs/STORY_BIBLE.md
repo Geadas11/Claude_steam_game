@@ -161,6 +161,11 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 - Cais Velho → casa do Daniel: 2,4 km (30 min a pé).
 - Livraria Maré → Cais Velho: 1,1 km.
 - Clínica Atlântico, Faro.
+- O ECO não tem dados do Daniel entre **03:06 e 03:41** de 14/10/2025 (telemóvel antigo na água):
+  é a única parte dele que o modelo não prevê (consola, 2.ª sessão).
+- **14/01/2026 08:09** — Daniel ata flores a um poste do cais (IMG_1433). A Marta viu-o, nunca disse.
+- **13/10/2026 21:04** (cap. 10) — chamada perdida do próprio número; a mensagem de voz é a voz do
+  Daniel junto ao mar ("ela chamou-me"). Origem nunca explicada (gravação de 2025? o ECO?).
 - Lumen Systems, Parque Tecnológico de Faro, Edifício 3.
 
 ## Finais
