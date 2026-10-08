@@ -203,6 +203,8 @@ clue("wrote_old_thread", "Número inativo", "Escreveste-lhe na conversa antiga: 
 clue("shop_unlocked", "A porta destrancada", "Na manhã de 14/10/2025, a porta da livraria estava destrancada. A Inês tinha uma chave. Tu ainda não trabalhavas lá.", "Mensagens · Carla", 3, ["night_bookshop", "old_location", "card_found"])
 clue("vasco_sent_window", "A mesma fotografia", "Depois de recusares, o Vasco enviou-te a fotografia da tua janela — a primeira de todas. \"Descanse, Daniel.\"", "Mensagens · Vasco", 3, ["photo_window", "photo_window_meta", "vasco_monitors_phone"])
 
+clue("pier_watcher_2025", "Alguém na água (2025)", "Duas fotografias tiradas no mesmo segundo, a 28/09/2025. Na segunda, alguém de pé dentro de água, ao fundo, a olhar para vocês. Duas semanas antes. Como no teu fundo de ecrã.", "Galeria · IMG_3302", 2, ["wallpaper_watcher", "pier_figure", "street_watcher"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

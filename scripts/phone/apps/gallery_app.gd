@@ -168,7 +168,11 @@ func _show_photo(pid: String) -> void:
 		phone.toast("Definida como fundo"), 40, "dim")
 	wall_b.tooltip_text = "Definir como fundo"
 	wall_b.visible = Content.has_item("photos", pid)
-	_root.add_child(UI.header(str(info.get("file", pid)), on_back_btn, [wall_b, info_b]))
+	var pair := str(info.get("pair", ""))
+	var cmp_b := UI.icon_button("gallery", func(): _compare(pid, pair), 40, "dim")
+	cmp_b.tooltip_text = "Comparar com " + pair + ".jpg"
+	cmp_b.visible = pair != "" and GameState.data.photos.has(pair)
+	_root.add_child(UI.header(str(info.get("file", pid)), on_back_btn, [cmp_b, wall_b, info_b]))
 	_viewer = PhotoViewer.new()
 	_viewer.pid = pid
 	_viewer.app = self
@@ -183,6 +187,41 @@ func _show_photo(pid: String) -> void:
 	var bm := UI.margin(8, 4, 8, 6)
 	bm.add_child(bar)
 	_root.add_child(bm)
+
+
+## Two near-identical photos, one above the other.
+func _compare(a: String, b: String) -> void:
+	GameState.set_var("compared_" + a, true)
+	GameState.set_var("compared_" + b, true)
+	var sheet := Control.new()
+	sheet.set_anchors_preset(Control.PRESET_FULL_RECT)
+	sheet.mouse_filter = Control.MOUSE_FILTER_STOP
+	var bg := ColorRect.new()
+	bg.color = Color(0, 0, 0, 0.97)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	sheet.add_child(bg)
+	var v := UI.vbox(6)
+	v.set_anchors_preset(Control.PRESET_FULL_RECT)
+	v.offset_top = Phone.STATUS_H + 6
+	v.offset_bottom = -Phone.NAV_H
+	sheet.add_child(v)
+	var top := UI.hbox(6)
+	top.add_child(UI.icon_button("close", func(): sheet.queue_free(), 40, "text"))
+	top.add_child(UI.label("Comparar", 18))
+	v.add_child(top)
+	for pid in [a, b]:
+		var info := photo_info(pid)
+		v.add_child(UI.label("%s · %s" % [info.get("file", pid), _fmt_date(str(info.get("date", "")))], 12, "faint"))
+		var pv := PhotoView.new()
+		var h := 330.0
+		pv.custom_minimum_size = Vector2(h * float(info.get("aspect", 1.0)), h)
+		pv.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		pv.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		v.add_child(pv)
+		_set_pv(pv, pid)
+	v.add_child(UI.label("Toca numa fotografia na galeria e amplia para ver pormenores.", 11, "faint", true))
+	add_child(sheet)
+	Director.notify_player_action()
 
 
 func on_back_btn() -> void:

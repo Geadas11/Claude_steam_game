@@ -71,7 +71,11 @@ photo("IMG_3240", "2025-09-14 23:31", {"preset": "group", "bg": "bar", "faces": 
     hotspots=[{"r": [0.7, 0.4, 0.24, 0.35], "clue": "joao_knew_ines", "label": "O João está na fotografia. Ele conhecia-a."},
               {"r": [0.05, 0.4, 0.24, 0.35], "clue": "rui_at_party", "label": "O Rui também lá estava."}])
 photo("IMG_3301", "2025-09-28 19:12", {"preset": "portrait", "bg": "beach", "faces": [face("ines", 0.38, 0.56, 0.15, closed=True), face("daniel", 0.64, 0.58, 0.15)]},
-    place="Cais Velho, Salgueira", album="Recuperadas", aspect=1.0, device="Pixel 7 (antigo)")
+    place="Cais Velho, Salgueira", album="Recuperadas", aspect=1.0, device="Pixel 7 (antigo)", pair="IMG_3302")
+photo("IMG_3302", "2025-09-28 19:12", {"preset": "portrait", "bg": "beach", "faces": [face("ines", 0.38, 0.56, 0.15), face("daniel", 0.64, 0.58, 0.15)],
+    "layers": [{"t": "figure", "p": [0.9, 0.44], "h": 0.07, "c": "#14100e", "a": 0.85}]},
+    place="Cais Velho, Salgueira", album="Recuperadas", aspect=1.0, device="Pixel 7 (antigo)", pair="IMG_3301",
+    hotspots=[{"r": [0.85, 0.34, 0.1, 0.12], "zoom": 1.8, "clue": "pier_watcher_2025", "label": "Ao fundo, de pé dentro de água, alguém a olhar para vocês. Na fotografia anterior — tirada no mesmo segundo — não está lá ninguém."}])
 photo("IMG_3366", "2025-10-02 22:47", {"preset": "document", "title": "LUMEN SYSTEMS · CONFIDENCIAL", "seed": 33,
     "text": ["Acordo de partilha de dados", "Clínica Atlântico, Lda.", "Objeto: dados de 3.412 utentes", "Finalidade: treino do modelo ECO", "Assinado: V. Pimentel"], "stamp": "CONFIDENCIAL"},
     place="Lumen Systems, Faro", album="Recuperadas", aspect=0.75, device="Pixel 7 (antigo)",

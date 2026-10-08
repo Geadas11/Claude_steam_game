@@ -1693,5 +1693,16 @@
    "photo_window_meta",
    "vasco_monitors_phone"
   ]
+ },
+ "pier_watcher_2025": {
+  "title": "Alguém na água (2025)",
+  "desc": "Duas fotografias tiradas no mesmo segundo, a 28/09/2025. Na segunda, alguém de pé dentro de água, ao fundo, a olhar para vocês. Duas semanas antes. Como no teu fundo de ecrã.",
+  "source": "Galeria · IMG_3302",
+  "importance": 2,
+  "related": [
+   "wallpaper_watcher",
+   "pier_figure",
+   "street_watcher"
+  ]
  }
 }

@@ -102,6 +102,21 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"shade": phone.open_shade()
 			"endch": Director._end_chapter()
 			"phoneset": GameState.data.phone[kv[1]] = true
+			"email": GameState.data.emails.push_front({"id": kv[1], "t": Clock.now()})
+			"file": GameState.data.files.append(kv[1])
+			"page":
+				if phone.current_app and phone.current_app.has_method("open_page"):
+					phone.current_app.open_page(kv[1])
+			"mail":
+				if phone.current_app and phone.current_app.has_method("_show_email"):
+					phone.current_app._show_email(kv[1])
+			"compare":
+				if phone.current_app and phone.current_app.has_method("_compare"):
+					phone.current_app._compare(kv[1], kv[2])
+			"addphoto": GameState.add_photo(kv[1], "Recuperadas")
+			"openfile":
+				if phone.current_app and phone.current_app.has_method("_open_file"):
+					phone.current_app._open_file(kv[1])
 			"clue": Director.add_clue(kv[1], true)
 			"tab":
 				if phone.current_app:

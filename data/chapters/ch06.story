@@ -25,6 +25,7 @@ set clock_extra_city=true
 email lumen_cloud_restore
 photo IMG_3398 silent Recuperadas
 photo IMG_3366 silent Recuperadas
+photo IMG_3302 silent Recuperadas
 photo IMG_3301 silent Recuperadas
 photo IMG_3240 silent Recuperadas
 photo IMG_3102 silent Recuperadas
