@@ -261,3 +261,21 @@ achieve private_note
 @when visited("patente")
 achieve patent
 @end
+
+@beat g_wall_note
+@when clue("wall_note_0317") and v("chapter_n") >= 3 and v("chapter_n") <= 10 and not flag("final") and not flag("said_wall_note")
+set said_wall_note=true
+wait 20
+unknown> Escreveste a hora na parede para não te esqueceres.
+wait 4
+unknown> E depois esqueceste-te de que a tinhas escrito.
+@end
+
+@beat g_december
+@when clue("december_bookshop") and v("chapter_n") >= 4 and v("chapter_n") <= 10 and not flag("final") and not flag("said_december")
+set said_december=true
+wait 25
+unknown> Em dezembro ficaste vinte minutos à chuva à porta da livraria.
+wait 3
+unknown> Não entraste. Eu vi.
+@end
