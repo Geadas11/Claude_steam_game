@@ -74,4 +74,20 @@ func _new_game() -> void:
 
 
 func _confirm_overwrite() -> void:
-	main.start_new_game()
+	if Saves.slot_meta("auto").is_empty():
+		main.start_new_game()
+		return
+	var w := MenuPanel.new()
+	add_child(w)
+	w.make("Começar de novo?", 560)
+	var m := Saves.slot_meta("auto")
+	w.body.add_child(UI.label("A gravação automática (%s) será substituída. As gravações manuais e as conquistas mantêm-se." % m.get("chapter_title", ""), 16, "text", true))
+	var h := UI.hbox(12)
+	var yes := UI.pill_button("Começar jogo novo", func():
+		w.queue_free()
+		main.start_new_game(), "surf2", "accent")
+	h.add_child(yes)
+	h.add_child(UI.pill_button("Cancelar", w.close, "surf", "dim"))
+	w.body.add_child(UI.spacer(8))
+	w.body.add_child(h)
+	yes.call_deferred("grab_focus")
