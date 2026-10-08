@@ -76,7 +76,8 @@
    "Não abriste logo. Ficaste a olhar para a notificação durante muito tempo.",
    "\"Dorme, Daniel.\"",
    "E dormiste."
-  ]
+  ],
+  "how": "Encontra o que ela te deixou, reconstrói a noite e entrega-o a quem ela confiava. Depois, vai até ao cais."
  },
  "B": {
   "name": "Mentira",
@@ -126,7 +127,8 @@
    "Uma noite, no ecrã bloqueado, uma única notificação, sem nome:",
    "\"Ele também te disse que foi um acidente?\"",
    "Desapareceu antes de a conseguires abrir."
-  ]
+  ],
+  "how": "Confia em quem diz que cuida de ti. Dá-lhe o que ele pede."
  },
  "C": {
   "name": "Silêncio",
@@ -171,7 +173,8 @@
    "O telemóvel estava desligado. A bateria estava vazia há meses.",
    "Abriste a gaveta.",
    "\"Ainda estás acordado?\""
-  ]
+  ],
+  "how": "Às 03:17 há sempre um botão para desligar."
  },
  "D": {
   "name": "Loop",
@@ -214,7 +217,8 @@
    "[ iteração 048 ]",
    "quinta-feira, 8 de outubro. 21:30.",
    "\"Já jantaste?\""
-  ]
+  ],
+  "how": "Às vezes basta esperar."
  },
  "E": {
   "name": "Eco",
@@ -239,6 +243,7 @@
    "Enviado.",
    "Algures, às 03:17, um telemóvel vibrou numa mesa de cabeceira.",
    "E alguém, que podia ser tu, acendeu a luz."
-  ]
+  ],
+  "how": "Há uma consola escondida no telemóvel. Junta os três fragmentos e fala com ela antes do fim."
  }
 }

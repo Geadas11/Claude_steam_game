@@ -16,6 +16,9 @@ func _ready() -> void:
 		v.add_child(UI.label(e.get("name", id) if seen else "???", 16, "text" if seen else "faint"))
 		if seen:
 			v.add_child(UI.label(e.get("summary", ""), 13, "dim", true))
+		elif not Achievements.endings.is_empty() and e.get("how", "") != "":
+			# after the first ending, unseen ones get a gentle pointer
+			v.add_child(UI.label("Pista: " + str(e.how), 12, "faint", true))
 		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h.add_child(v)
 		body.add_child(h)
