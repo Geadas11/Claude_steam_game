@@ -691,7 +691,9 @@ func toast(text: String) -> void:
 		return
 	var tp: Control = screen.get_node("Toast")
 	toast_label.text = text
-	tp.mouse_filter = Control.MOUSE_FILTER_STOP if text.begins_with("Nova pista") else Control.MOUSE_FILTER_IGNORE
+	# clickable only where it can't swallow a tap meant for a reply button or a call
+	var clickable := text.begins_with("Nova pista") and not GameState.current_app.begins_with("messages") and not _call_ui.visible
+	tp.mouse_filter = Control.MOUSE_FILTER_STOP if clickable else Control.MOUSE_FILTER_IGNORE
 	tp.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	_toast_tw = create_tween()
 	_toast_tw.tween_property(tp, "modulate:a", 1.0, 0.2)
