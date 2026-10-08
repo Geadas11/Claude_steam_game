@@ -43,11 +43,11 @@ func _show_list() -> void:
 		var c := GameState.contact(id)
 		if c.get("saved", false) and not c.get("group", false) and not c.get("hidden", false):
 			ids.append(id)
-	ids.sort_custom(func(a, b): return Browserish.norm(GameState.contact_name(a)) < Browserish.norm(GameState.contact_name(b)))
+	ids.sort_custom(func(a, b): return UI.norm(GameState.contact_name(a)) < UI.norm(GameState.contact_name(b)))
 	var last_letter := ""
 	for id in ids:
 		var nm := GameState.contact_name(id)
-		var letter := Browserish.norm(nm).left(1).to_upper()
+		var letter := UI.norm(nm).left(1).to_upper()
 		if letter != last_letter:
 			last_letter = letter
 			var ll := UI.label(letter, 13, "accent")
@@ -130,11 +130,3 @@ func _field(v: VBoxContainer, k: String, val: String) -> void:
 	if k != "":
 		v.add_child(UI.label(k, 12, "faint"))
 	v.add_child(UI.label(val, 15, "text", true))
-
-
-class Browserish:
-	static func norm(s: String) -> String:
-		var t := s.to_lower()
-		for pair in [["á", "a"], ["é", "e"], ["í", "i"], ["ó", "o"], ["ú", "u"], ["ç", "c"], ["ã", "a"], ["õ", "o"], ["â", "a"], ["ê", "e"], ["+", "~"]]:
-			t = t.replace(pair[0], pair[1])
-		return t

@@ -392,6 +392,21 @@ static func empty_state(text: String, glyph_name := "") -> Control:
 	return v
 
 
+## Lowercase, strip accents and punctuation: for search, sorting and passwords.
+static func norm(s: String, strip_spaces := false) -> String:
+	var t := s.to_lower().strip_edges()
+	var rep := {"á": "a", "à": "a", "â": "a", "ã": "a", "é": "e", "ê": "e", "í": "i", "ó": "o", "ô": "o", "õ": "o", "ú": "u", "ç": "c", "\"": "", "?": "", "!": "", ",": " ", ".": " "}
+	for k in rep:
+		t = t.replace(k, rep[k])
+	if strip_spaces:
+		for k in [" ", "-", "/"]:
+			t = t.replace(k, "")
+		return t
+	while t.contains("  "):
+		t = t.replace("  ", " ")
+	return t.strip_edges()
+
+
 static func clear(n: Node) -> void:
 	for ch in n.get_children():
 		n.remove_child(ch)

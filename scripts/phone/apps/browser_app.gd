@@ -8,6 +8,7 @@ var _body: VBoxContainer
 var _scroll: ScrollContainer
 var _page := ""
 var _back_stack: Array = []
+var _current := {"kind": "start", "id": ""}
 
 
 func build() -> void:
@@ -58,12 +59,7 @@ func on_back() -> bool:
 	return false
 
 
-func _push(kind: String, id: String) -> void:
-	if _page != "" or _body.get_child_count() > 0:
-		_back_stack.append(_current)
-	_current = {"kind": kind, "id": id}
 
-var _current := {"kind": "start", "id": ""}
 
 
 # ---------------------------------------------------------------- start
@@ -112,13 +108,7 @@ func _recent_searches() -> Array:
 
 # ---------------------------------------------------------------- search
 static func normalize(s: String) -> String:
-	var t := s.to_lower().strip_edges()
-	var rep := {"á": "a", "à": "a", "â": "a", "ã": "a", "é": "e", "ê": "e", "í": "i", "ó": "o", "ô": "o", "õ": "o", "ú": "u", "ç": "c", "\"": "", "?": "", "!": "", ",": " ", ".": " "}
-	for k in rep:
-		t = t.replace(k, rep[k])
-	while t.contains("  "):
-		t = t.replace("  ", " ")
-	return t.strip_edges()
+	return UI.norm(s)
 
 
 func _submit(text: String) -> void:

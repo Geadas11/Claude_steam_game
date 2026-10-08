@@ -220,7 +220,7 @@ func _archive(v: VBoxContainer, fid: String, f: Dictionary) -> void:
 	v.add_child(le)
 	var err := UI.label("", 13, "danger", true)
 	var attempt := func(_t = ""):
-		if BrowserNorm.n(le.text) == BrowserNorm.n(str(f.password)):
+		if UI.norm(le.text, true) == UI.norm(str(f.password), true):
 			_extract(fid, f)
 		else:
 			Audio.play("error")
@@ -244,11 +244,3 @@ func _extract(fid: String, f: Dictionary) -> void:
 	phone.toast("%d ficheiros extraídos" % f.get("contains", []).size())
 	Director.notify_player_action()
 	_open_file(fid)
-
-
-class BrowserNorm:
-	static func n(s: String) -> String:
-		var t := s.to_lower().strip_edges()
-		for pair in [["á", "a"], ["é", "e"], ["í", "i"], ["ó", "o"], ["ú", "u"], ["ç", "c"], ["ã", "a"], ["õ", "o"], ["â", "a"], ["ê", "e"], [" ", ""], ["-", ""], ["/", ""], [".", ""]]:
-			t = t.replace(pair[0], pair[1])
-		return t
