@@ -74,7 +74,7 @@ visualizações.
 ## Steam
 
 `scripts/core/achievements.gd` usa o singleton `Steam` do
-[GodotSteam](https://godotsteam.com) quando presente (36 conquistas, ids iguais
+[GodotSteam](https://godotsteam.com) quando presente (37 conquistas, ids iguais
 aos de `data/achievements.json`). Sem Steam, tudo funciona localmente.
 As gravações ficam em `user://saves/` (pasta `AindaEstasAcordado`) — configurar
 o Steam Auto-Cloud para esse caminho. Ver `DEVELOPMENT_STATUS.md`.

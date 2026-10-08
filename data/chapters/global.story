@@ -289,4 +289,5 @@ wait 3
 - (alguém respira do outro lado, ao mesmo ritmo que tu)
 wait 3
 - (quando paras de respirar, também para)
+achieve call_self
 @end

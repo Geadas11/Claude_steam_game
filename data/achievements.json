@@ -140,11 +140,6 @@
   "name": "Reivindicação 7",
   "desc": "Encontrar a patente do espelho."
  },
- "all_achievements": {
-  "name": "Ainda estou acordado",
-  "desc": "Desbloquear todas as conquistas.",
-  "secret": true
- },
  "her_handwriting": {
   "name": "A letra dela",
   "desc": "Ver o que o Rui encontrou na secretária da Inês."
@@ -152,5 +147,15 @@
  "eleven_calls": {
   "name": "Onze vezes",
   "desc": "Perguntar à tua mãe onde estavas nessa noite."
+ },
+ "call_self": {
+  "name": "Ao mesmo ritmo",
+  "desc": "Ligar para o teu próprio número.",
+  "secret": true
+ },
+ "all_achievements": {
+  "name": "Ainda estou acordado",
+  "desc": "Desbloquear todas as conquistas.",
+  "secret": true
  }
 }
