@@ -23,6 +23,8 @@ battery 47
 @when since("setup", 6)
 if flag("sofia_knows")
   sofia> Saí de Lisboa às 22h. Chego por volta das 2. Não faças nada estúpido até eu chegar
+elif flag("sofia_call11")
+  sofia> Saio às onze e vinte. Tens o telemóvel com bateria? Atende
 else
   sofia> Boa noite mano. Amanhã ligo-te depois da consulta. Gosto de ti
 endif
@@ -359,5 +361,27 @@ if flag("sofia_coming_pier")
   sofia> Já te vejo ao fundo. Não te mexas
 else
   sofia> Estou à tua porta. Cheguei, mano. Desta vez cheguei mesmo
+endif
+@end
+
+# ---------------------------------------------------------------- a voz da Sofia
+@beat sofia_call11
+@when flag("sofia_call11") and not flag("sofia_knows") and at("23:20")
+call sofia id=c11_sofia ring=20
+  sofia: Atendeste. Ainda bem. | 2
+  sofia: Não precisas de dizer nada. Eu falo. | 2.5
+  wait 1
+  sofia: Lembras-te de quando tinhas nove anos e te perdeste na praia da Salgueira? Estiveste duas horas desaparecido. | 5
+  sofia: A mãe chorava. O pai gritava o teu nome. Eu fui a única que pensou em ir ao fim do paredão. | 4.5
+  sofia: Estavas lá sentado, a ver o mar. Disseste que estavas à espera que alguém te viesse buscar. | 4.5
+  wait 1.5
+  sofia: Ainda estou aqui, Daniel. Se te perderes, eu sei onde procurar. | 3.5
+end
+if answered("c11_sofia")
+  set heard_sofia11=true
+else
+  wait 5
+  sofia> Não atendeste. Vou fingir que estavas no duche
+  sofia> Gosto de ti, idiota
 endif
 @end

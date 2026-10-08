@@ -474,3 +474,28 @@ else
   marta> está bem. eu digo por ti
 endif
 @end
+
+# ---------------------------------------------------------------- Sofia, a véspera
+@beat sofia_eve
+@when at("20:40") and not flag("sofia_knows")
+sofia> Estive o turno todo a pensar em ti
+sofia> Amanhã faz um ano. Não te vou perguntar como estás porque vais dizer "bem"
+@end
+
+@beat sofia_eve_reply
+@when beat("sofia_eve") and read("sofia")
+wait 1
+choice sofia c10_sofia_eve
+  > Liga-me amanhã à noite. Só quero ouvir a tua voz. | set sofia_call11=true inc trust_sofia 1
+  > Bem. | set sofia_call11=false
+end
+wait 15
+if flag("sofia_call11")
+  sofia> Combinado. Às onze e vinte, quando sair do turno
+  sofia> Se não atenderes, ligo outra vez. E outra. Estou a avisar
+else
+  sofia> ...
+  wait 3
+  sofia> Eu sabia
+endif
+@end
