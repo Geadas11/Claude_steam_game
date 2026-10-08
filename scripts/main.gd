@@ -180,6 +180,17 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"ending": _on_ending(kv[1])
 			"continue": continue_game(kv[1])
 			"call": Director.player_call(kv[1])
+			"clicktoast":
+				var tpc: Control = phone.screen.get_node("Toast")
+				var pos: Vector2 = get_tree().root.get_final_transform() * (tpc.get_global_transform_with_canvas() * (tpc.size / 2))
+				for pressed in [true, false]:
+					var mb := InputEventMouseButton.new()
+					mb.button_index = MOUSE_BUTTON_LEFT
+					mb.pressed = pressed
+					mb.position = pos
+					mb.global_position = pos
+					Input.parse_input_event(mb)
+				await get_tree().process_frame
 			"dumptoast":
 				var tp: Control = phone.screen.get_node("Toast")
 				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())

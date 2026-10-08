@@ -184,6 +184,12 @@ func _build_screen() -> void:
 	toast_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tp.modulate.a = 0.0
 	tp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	toast_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# clue toasts are clickable: they open the clue board
+	tp.gui_input.connect(func(e: InputEvent):
+		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT and toast_label.text.begins_with("Nova pista"):
+			tp.accept_event()
+			open_app("notes", {"param": "clues"}))
 	screen.add_child(tp)
 	fx_layer = ColorRect.new()
 	fx_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -685,11 +691,14 @@ func toast(text: String) -> void:
 		return
 	var tp: Control = screen.get_node("Toast")
 	toast_label.text = text
+	tp.mouse_filter = Control.MOUSE_FILTER_STOP if text.begins_with("Nova pista") else Control.MOUSE_FILTER_IGNORE
+	tp.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	_toast_tw = create_tween()
 	_toast_tw.tween_property(tp, "modulate:a", 1.0, 0.2)
 	_toast_tw.tween_interval(2.4 + text.length() * 0.02)
 	_toast_tw.tween_property(tp, "modulate:a", 0.0, 0.4)
 	_toast_tw.finished.connect(func():
+		tp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not _toast_queue.is_empty():
 			toast(_toast_queue.pop_front()))
 
