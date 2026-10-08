@@ -162,6 +162,17 @@
 - Rede aberta e chave aceite. **Bloqueado:** a conta não tem créditos (`not_enough_credits`); ainda
   não foi gerado nada.
 
+## Fotografias realistas (sessão 2)
+
+- **50 fotografias reais no jogo** (40 + 10 variantes que mudam enquanto se olha), geradas com o
+  OpenArt (Nano Banana Pro, 2K, plano Starter, sem marca de água) em `art/photos/`.
+- **10 retratos de referência** das personagens em `art/refs/` (fora da build: `.gdignore`); todas as
+  fotos com pessoas usam-nos, por isso as caras são as mesmas em todo o jogo.
+- Fotos de noite demasiado claras passam por `tools/night_grade.py`; `tools/fetch_image.py` descarrega
+  e normaliza. As zonas de pistas (`data/photos.json`) foram reposicionadas foto a foto.
+- Continuam desenhadas pelo jogo: IMG_6800, IMG_RITA, IMG_SCR_0313 (capturas de ecrã).
+- Custo: cerca de 2 560 créditos (64 gerações de 40 + 1 de teste).
+
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
