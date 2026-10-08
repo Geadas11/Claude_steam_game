@@ -11,6 +11,7 @@ var values := {
 	"voice_volume": 1.0,
 	"text_scale": 1.0,          # 0.85 .. 1.5
 	"text_speed": 1.0,          # message pacing multiplier (higher = faster)
+	"clock_speed": 1.0,         # how fast the in-game clock runs (1x..3x)
 	"subtitles": true,          # captions for calls / recordings / sound cues
 	"sound_captions": false,    # [respiração], [estática] ...
 	"high_contrast": false,

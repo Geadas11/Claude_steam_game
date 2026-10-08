@@ -174,3 +174,63 @@ unknown> Puseste-me nos factos.
 wait 4
 unknown> Obrigada. Ninguém mais o faria.
 @end
+
+# ---------------------------------------------------------------- people answer the phone (fallbacks)
+@call marta g_call_marta_day
+@repeat
+@when hour() >= 8 and hour() < 18
+marta: Daniel? Estou entre aulas, tenho três minutos. | 2.5
+marta: Está tudo bem? Pareces cansado até pelo telefone. | 3
+- (conversam um pouco. Ela ri-se de uma coisa que disseste.)
+marta: Tenho de ir, o 9.º B está a tentar pegar fogo a um caderno. Beijinho! | 3.5
+@end
+
+@call marta g_call_marta_night
+@repeat
+@when hour() >= 18 or hour() < 8
+marta: Estou? Daniel? | 1.5
+marta: São horas estranhas para ligar. Aconteceu alguma coisa? | 3
+- (dizes que não. Ela não acredita, mas deixa estar.)
+marta: Liga-me amanhã a uma hora de gente. Prometes? | 2.5
+@end
+
+@call pedro g_call_pedro
+@repeat
+pedro: Daniel? Estás a ligar-me? Ninguém liga a ninguém desde 2015. | 3
+pedro: Aconteceu alguma coisa? Morreu alguém? | 2.5
+- (silêncio)
+pedro: Desculpa. Isso foi... desculpa. Diz. | 2.5
+- (falam de nada. É bom falar de nada.)
+@end
+
+@call carla g_call_carla
+@repeat
+@when hour() >= 9 and hour() < 20
+carla: Livraria Maré, bom d— ah, és tu, querido! | 2.5
+carla: A Bolacha manda cumprimentos. Está a dormir em cima dos policiais outra vez. | 3.5
+- (ela conta-te uma história comprida sobre um cliente que queria "um livro azul")
+carla: Vai descansar. A loja aguenta-se. | 2
+@end
+
+@call sofia g_call_sofia_day
+@repeat
+@when hour() >= 9 and hour() < 17
+- (o telefone toca muito tempo)
+sofia: ...tô? | 1.5
+sofia: Daniel, saí do turno às oito. Estava a dormir. | 3
+sofia: Não faz mal. Diz. Estás bem? | 2
+- (dizes-lhe que sim)
+sofia: Ok. Eu vou fingir que acredito e voltar a dormir. Amo-te. | 3
+@end
+
+@call joao g_call_joao
+@repeat
+@when hour() >= 18 or hour() < 3
+- (barulho de copos e conversa)
+joao: farol, diga. | 1.5
+joao: ah és tu. espera que vou lá fora | 2
+- (a porta fecha-se. o barulho desaparece. ouve-se o mar.)
+joao: pronto. diz | 1.5
+- (falam. ele ouve mais do que fala.)
+joao: se precisares, a porta das traseiras fica aberta até às 2 | 3
+@end

@@ -27,7 +27,7 @@ func _ready() -> void:
 	phone = Phone.new()
 	phone_holder.add_child(phone)
 	phone.position = -phone.custom_minimum_size / 2.0
-	caption = UI.label("", 22, "dim")
+	caption = UI.label("", 24, "text")
 	caption.set_anchors_preset(Control.PRESET_CENTER_LEFT)
 	caption.position = Vector2(120, -40)
 	caption.modulate.a = 0.0
@@ -100,6 +100,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"extras": overlay.add_child(ExtrasPanel.new())
 			"pause": toggle_pause()
 			"shade": phone.open_shade()
+			"endch": Director._end_chapter()
 			"flip":
 				if phone.current_app and phone.current_app.has_method("_flip"):
 					phone.current_app._flip()

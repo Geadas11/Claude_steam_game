@@ -43,7 +43,8 @@ func _process(delta: float) -> void:
 	idle_boost = 1.0
 	if _idle_time > 25.0 and Director.waiting_on_clock():
 		idle_boost = 6.0
-	var speed := rate * idle_boost / maxf(seconds_per_minute, 0.01)
+	var user_speed := clampf(float(Settings.get_value("clock_speed", 1.0)), 0.5, 3.0)
+	var speed := rate * idle_boost * user_speed / maxf(seconds_per_minute, 0.01)
 	GameState.data.time = float(GameState.data.time) + delta * speed * 60.0
 	var m := int(GameState.data.time / 60.0)
 	if m != _last_minute:

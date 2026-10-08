@@ -185,5 +185,14 @@ func stop_ring() -> void:
 	_ring.stop()
 
 
+## Faint line hiss while a call is connected (sells the "phone call").
+func start_line_noise() -> void:
+	if muted_for_tests:
+		return
+	_ring.stream = _get_stream("static")
+	_ring.volume_db = -26.0
+	_ring.play()
+
+
 func caption(sound_name: String) -> String:
 	return CAPTIONS.get(sound_name, sound_name)

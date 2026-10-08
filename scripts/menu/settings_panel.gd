@@ -14,6 +14,8 @@ func _ready() -> void:
 	_section("Texto")
 	_slider("Tamanho do texto", "text_scale", 0.85, 1.5, 0.05)
 	_slider("Velocidade das mensagens", "text_speed", 0.5, 3.0, 0.25)
+	_slider("Velocidade do relógio do jogo", "clock_speed", 1.0, 3.0, 0.25)
+	body.add_child(UI.label("O relógio também acelera sozinho quando ficas parado e a história só está à espera da hora certa.", 12, "faint", true))
 	_toggle("Legendas em chamadas e gravações", "subtitles")
 	_toggle("Legendas de sons ([respiração], [estática]…)", "sound_captions")
 	_section("Acessibilidade")
@@ -66,7 +68,7 @@ func _slider(label_text: String, key: String, mn: float, mx: float, step := 0.05
 
 
 func _fmt(key: String, v: float) -> String:
-	if key == "text_scale" or key == "text_speed":
+	if key == "text_scale" or key == "text_speed" or key == "clock_speed":
 		return "%.2fx" % v
 	return "%d%%" % int(round(v * 100))
 

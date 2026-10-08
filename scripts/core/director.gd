@@ -37,6 +37,7 @@ func stop() -> void:
 	in_call = false
 	current_call = {}
 	Clock.running = false
+	Audio.stop_ring()
 
 
 func new_game() -> void:
@@ -68,6 +69,7 @@ func start_chapter(ch_id: String) -> void:
 	GameState.data.choices = {}
 	GameState.data.chapter_opened = {}
 	GameState.data.chapter_complete = false
+	GameState.clear_notifications()   # a new day: yesterday's banners are gone
 	if ch.start != "":
 		Clock.set_time(Clock.parse_datetime(ch.start))
 	GameState.data.chapter_start = Clock.now()
@@ -569,6 +571,7 @@ func _do_call(op: Dictionary, g: int) -> bool:
 	if not outgoing:
 		Events.call_started.emit(call)
 	Audio.play("call_connect")
+	Audio.start_line_noise()
 	var start_t := Clock.now()
 	for line in op.lines:
 		if _hangup:
@@ -582,6 +585,7 @@ func _do_call(op: Dictionary, g: int) -> bool:
 			in_call = false
 			return false
 	_log_call(call, call.dir, int(max(Clock.now() - start_t, 4.0)))
+	Audio.stop_ring()
 	Audio.play("call_end")
 	in_call = false
 	current_call = {}
@@ -609,6 +613,8 @@ func _do_call_line(op: Dictionary, g: int) -> bool:
 		return true
 	var line_text := interp(op.text)
 	Events.call_line.emit(op.who, line_text)
+	if op.who in ["ines", "unknown", "eco"]:
+		Audio.play("whisper", -16.0, randf_range(0.85, 1.05))
 	var dur: float = op.dur if op.dur > 0.0 else clampf(1.2 + line_text.length() * 0.055, 1.5, 7.0)
 	var waited := 0.0
 	while waited < dur:
@@ -654,6 +660,7 @@ func player_call(who: String, number := "") -> void:
 		_finish_out(call, g)
 		return
 	Audio.play("call_connect")
+	Audio.start_line_noise()
 	GameState.data.beats_done[handler.id] = float(GameState.data.playtime)
 	var start_t := Clock.now()
 	for op in handler.ops:
@@ -684,6 +691,7 @@ func _finish_out(call: Dictionary, g: int) -> void:
 	if g != _gen:
 		return
 	_log_call(call, "out", int(call.get("dur", 0)))
+	Audio.stop_ring()
 	Audio.play("call_end")
 	in_call = false
 	current_call = {}
