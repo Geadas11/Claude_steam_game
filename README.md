@@ -40,7 +40,11 @@ atende chamadas e escolhe ao acaso durante N segundos):
 xvfb-run -a godot --rendering-driver opengl3 -- --chapter=ch05 --autoplay=300
 ```
 
-Capturas de ecrã para revisão visual (precisa de X/Xvfb):
+Capturas de ecrã para revisão visual (precisa de X/Xvfb). `--do=` aceita passos
+separados por vírgulas, entre outros: `wait:s`, `unlock`, `open:app[:param]`,
+`time:HH:MM`, `choose:thread:i`, `showphoto:id`, `clueloud:id`, `call:who`,
+`pause`, `recap`, `extras`, `ending:A`, `press`, `continue:auto`, `dump`
+(ver `_debug_script` em `scripts/main.gd`):
 
 ```bash
 xvfb-run -a godot --rendering-driver opengl3 -- --newgame \
