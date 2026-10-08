@@ -1,0 +1,507 @@
+{
+ "order": [
+  "ch01",
+  "ch02",
+  "ch03",
+  "ch04",
+  "ch05",
+  "ch06",
+  "ch07",
+  "ch08",
+  "ch09",
+  "ch10",
+  "ch11"
+ ],
+ "titles": {
+  "ch01": "Vida Normal",
+  "ch02": "O Contacto",
+  "ch03": "A Pessoa Que Morreu",
+  "ch04": "Investigação",
+  "ch05": "O Telefone Começa a Mudar",
+  "ch06": "A Investigação Torna-se Pessoal",
+  "ch07": "Confiança",
+  "ch08": "O Sistema",
+  "ch09": "A Verdade",
+  "ch10": "Consequências",
+  "ch11": "Final"
+ },
+ "eco_key": "mare",
+ "special_numbers": {
+  "112": "emergency",
+  "144": "emergency",
+  "808242424": "sns24",
+  "1410": "pinnumber",
+  "0317": "pinnumber"
+ },
+ "initial": {
+  "photos": [
+   "IMG_2207",
+   "IMG_2190",
+   "IMG_2155",
+   "IMG_2101",
+   "IMG_2044",
+   "IMG_1980",
+   "IMG_1702",
+   "IMG_1650",
+   "IMG_1433",
+   "IMG_1288",
+   "IMG_0901",
+   "IMG_0899"
+  ],
+  "emails": [
+   "spam_lumen",
+   "sofia_fotos",
+   "carla_boasvindas",
+   "clinica_primeira",
+   "lumen_dispositivo",
+   "lumen_saida",
+   "sent_carla_cv"
+  ],
+  "files": [
+   "cv_daniel",
+   "contrato_mare",
+   "gravacao_001",
+   "manual_lumen"
+  ],
+  "notes": [
+   "note_compras",
+   "note_encomendas",
+   "note_sonho",
+   "note_helena",
+   "note_quiz"
+  ],
+  "bookmarks": [
+   "jornal_home",
+   "livraria_site",
+   "meteo"
+  ],
+  "history": [
+   "horario farmacia salgueira",
+   "insónia acordar sempre à mesma hora",
+   "clonazepam e álcool",
+   "maré salgueira hoje",
+   "o ano da morte de ricardo reis primeira edição",
+   "como dormir sem pensar",
+   "vagas livraria algarve"
+  ],
+  "calls": [
+   {
+    "who": "sofia",
+    "dir": "in",
+    "t": 1791407520.0,
+    "dur": 742,
+    "seen": true
+   },
+   {
+    "who": "mae",
+    "dir": "missed",
+    "t": 1791203400.0,
+    "dur": 0,
+    "seen": true
+   },
+   {
+    "who": "carla",
+    "dir": "out",
+    "t": 1791021540.0,
+    "dur": 95,
+    "seen": true
+   },
+   {
+    "who": "joao",
+    "dir": "in",
+    "t": 1790964720.0,
+    "dur": 31,
+    "seen": true
+   },
+   {
+    "who": "vasco",
+    "dir": "in",
+    "t": 1760521200.0,
+    "dur": 412,
+    "seen": true
+   }
+  ],
+  "threads": {
+   "sofia": [
+    {
+     "t": "2026-09-30 22:14",
+     "from": "sofia",
+     "text": "Mano, mandei-te as fotos da praia por email porque o WhatsApp come a qualidade"
+    },
+    {
+     "t": "2026-09-30 22:20",
+     "from": "me",
+     "text": "Vi. Estou com cara de quem não dorme há um ano"
+    },
+    {
+     "t": "2026-09-30 22:21",
+     "from": "sofia",
+     "text": "Estás com cara de quem não dorme há um ano"
+    },
+    {
+     "t": "2026-09-30 22:21",
+     "from": "sofia",
+     "text": "Desculpa. Isso foi parvo."
+    },
+    {
+     "t": "2026-09-30 22:30",
+     "from": "me",
+     "text": "Foi engraçado. Boa noite Sofia"
+    },
+    {
+     "t": "2026-10-05 08:02",
+     "from": "sofia",
+     "text": "Bom dia! Já marcaste a consulta da Dra. Helena?"
+    },
+    {
+     "t": "2026-10-05 13:40",
+     "from": "me",
+     "text": "Está marcada. Quarta às 17h"
+    },
+    {
+     "t": "2026-10-05 13:41",
+     "from": "sofia",
+     "text": "Quarta é dia 14."
+    },
+    {
+     "t": "2026-10-05 13:41",
+     "from": "sofia",
+     "text": "Foste tu que escolheste o dia?"
+    },
+    {
+     "t": "2026-10-05 15:02",
+     "from": "me",
+     "text": "Foi a clínica"
+    }
+   ],
+   "grupo": [
+    {
+     "t": "2026-10-06 19:02",
+     "from": "pedro",
+     "text": "alguém sabe se o Farol tem aquela cerveja belga outra vez"
+    },
+    {
+     "t": "2026-10-06 19:05",
+     "from": "joao",
+     "text": "o farol tem o que o dono quiser e o dono nao gosta de belgas"
+    },
+    {
+     "t": "2026-10-06 19:05",
+     "from": "marta",
+     "text": "o dono é o joão pedro"
+    },
+    {
+     "t": "2026-10-06 19:06",
+     "from": "pedro",
+     "text": "eu sei. era uma indireta"
+    },
+    {
+     "t": "2026-10-06 19:20",
+     "from": "me",
+     "text": "Eu levo-te uma garrafa da loja gourmet se perderes o quiz"
+    },
+    {
+     "t": "2026-10-06 19:21",
+     "from": "joao",
+     "text": "ELE FALA"
+    },
+    {
+     "t": "2026-10-06 19:21",
+     "from": "marta",
+     "text": "daniel!!! saudades"
+    }
+   ],
+   "joao": [
+    {
+     "t": "2026-09-12 01:40",
+     "from": "joao",
+     "text": "chegaste bem?"
+    },
+    {
+     "t": "2026-09-12 01:52",
+     "from": "me",
+     "text": "Cheguei. Obrigado por ontem"
+    },
+    {
+     "t": "2026-09-12 01:53",
+     "from": "joao",
+     "text": "nao agradeças. qd quiseres"
+    },
+    {
+     "t": "2026-10-02 18:10",
+     "from": "joao",
+     "text": "pesca dia 20? o barco do tio ta livre"
+    },
+    {
+     "t": "2026-10-02 21:30",
+     "from": "me",
+     "text": "Vamos ver. Aviso-te"
+    }
+   ],
+   "carla": [
+    {
+     "t": "2026-10-03 09:58",
+     "from": "carla",
+     "text": "Bom dia! Hoje chegas mais tarde? Está tudo bem?"
+    },
+    {
+     "t": "2026-10-03 10:07",
+     "from": "me",
+     "text": "Desculpa Carla. Adormeci. Chego em 10 min"
+    },
+    {
+     "t": "2026-10-03 10:07",
+     "from": "carla",
+     "text": "Sem pressa querido. Trago-te um pastel de nata"
+    }
+   ],
+   "mae": [
+    {
+     "t": "2026-10-04 12:30",
+     "from": "mae",
+     "text": "O ALMOCO E A UMA"
+    },
+    {
+     "t": "2026-10-04 12:31",
+     "from": "mae",
+     "text": "desculpa. vens almoçar domingo?"
+    },
+    {
+     "t": "2026-10-04 14:00",
+     "from": "me",
+     "text": "Este domingo não dá mãe. No próximo. Beijinho"
+    }
+   ],
+   "vasco": [
+    {
+     "t": "2025-10-15 09:12",
+     "from": "vasco",
+     "text": "Daniel, lamento imenso. Sei que eram próximos. Tire os dias que precisar. A Lumen trata de tudo."
+    },
+    {
+     "t": "2025-10-15 21:40",
+     "from": "me",
+     "text": "Obrigado Vasco. Não me lembro de nada daquela noite. É normal?"
+    },
+    {
+     "t": "2025-10-15 21:52",
+     "from": "vasco",
+     "text": "É o choque, meu caro. Não force. Vou pedir à Dra. Helena Sousa que o veja — é a melhor que conheço. A empresa paga."
+    },
+    {
+     "t": "2025-11-03 18:05",
+     "from": "vasco",
+     "text": "Recebeu o telemóvel novo? Já tem tudo migrado. Qualquer coisa, estou aqui."
+    },
+    {
+     "t": "2026-10-06 10:01",
+     "from": "vasco",
+     "text": "Bom dia Daniel. Lembrei-me de si. Um abraço, Vasco."
+    }
+   ],
+   "helena": [
+    {
+     "t": "2026-09-30 09:00",
+     "from": "helena",
+     "text": "Clínica Atlântico: a sua consulta de 30/09 foi realizada. Próxima: 14/10, 17h00."
+    }
+   ],
+   "operadora": [
+    {
+     "t": "2026-10-01 10:00",
+     "from": "operadora",
+     "text": "MEO: O seu tarifário foi renovado. Saldo de dados: 30 GB. Obrigado por estar connosco."
+    }
+   ]
+  }
+ },
+ "deduction": {
+  "title": "A noite de 14 de outubro de 2025",
+  "intro": "Tudo o que encontraste aponta para algum lado. Monta a noite, peça a peça. Não há volta atrás depois de confirmares.",
+  "questions": [
+   {
+    "id": "why",
+    "q": "Porque é que a Inês foi ao Cais Velho às 2h30?",
+    "answer": "give_copy",
+    "options": [
+     {
+      "id": "suicide",
+      "text": "Queria acabar com tudo"
+     },
+     {
+      "id": "give_copy",
+      "text": "Para entregar uma cópia das provas ao Daniel",
+      "needs": "ines_last_messages"
+     },
+     {
+      "id": "meet_clara",
+      "text": "Para se encontrar com a jornalista"
+     },
+     {
+      "id": "meet_rui",
+      "text": "Para se encontrar com o irmão"
+     }
+    ]
+   },
+   {
+    "id": "told",
+    "q": "Quem disse ao Vasco onde ela estaria?",
+    "answer": "daniel",
+    "options": [
+     {
+      "id": "daniel",
+      "text": "O Daniel",
+      "needs": "daniel_told_vasco"
+     },
+     {
+      "id": "helena",
+      "text": "A Dra. Helena",
+      "needs": "helena_vasco_link"
+     },
+     {
+      "id": "joao",
+      "text": "O João"
+     },
+     {
+      "id": "eco",
+      "text": "Ninguém — o ECO previu",
+      "needs": "eco_processes"
+     }
+    ]
+   },
+   {
+    "id": "daniel_at",
+    "q": "Onde estava o Daniel às 03:17?",
+    "answer": "walking",
+    "options": [
+     {
+      "id": "home",
+      "text": "Em casa, a dormir"
+     },
+     {
+      "id": "pier",
+      "text": "No cais, com ela"
+     },
+     {
+      "id": "walking",
+      "text": "A pé na EN125, a afastar-se do cais",
+      "needs": "old_location"
+     },
+     {
+      "id": "bar",
+      "text": "No Farol, com o João",
+      "needs": "joao_saw_daniel"
+     }
+    ]
+   },
+   {
+    "id": "who",
+    "q": "Quem estava com a Inês às 03:17?",
+    "answer": "vasco",
+    "options": [
+     {
+      "id": "vasco",
+      "text": "Vasco Pimentel",
+      "needs": "vasco_car_cctv"
+     },
+     {
+      "id": "daniel",
+      "text": "O Daniel"
+     },
+     {
+      "id": "rui",
+      "text": "O Rui",
+      "needs": "rui_at_party"
+     },
+     {
+      "id": "nobody",
+      "text": "Ninguém. Estava sozinha."
+     }
+    ]
+   },
+   {
+    "id": "where",
+    "q": "Onde está a cópia que ela deu ao Daniel?",
+    "answer": "book",
+    "options": [
+     {
+      "id": "sea",
+      "text": "Caiu ao mar com ela"
+     },
+     {
+      "id": "vasco",
+      "text": "O Vasco ficou com ela"
+     },
+     {
+      "id": "book",
+      "text": "Dentro de um livro, na Livraria Maré",
+      "needs": "saramago_spine",
+      "needs_expr": "clue(\"night_bookshop\")"
+     },
+     {
+      "id": "phone",
+      "text": "No telemóvel antigo do Daniel",
+      "needs": "old_location"
+     }
+    ]
+   }
+  ]
+ },
+ "system_log": [
+  {
+   "text": "10-08 23:44:02 eco.mirror  capture  cam=ext_02  subj=D.REIS"
+  },
+  {
+   "text": "10-08 23:47:00 eco.mirror  send     thread=IM  msg='Ainda estás acordado?'  p(reply)=0.88"
+  },
+  {
+   "text": "10-09 03:02:11 eco.sim     note     subj asleep  posture=left_side"
+  },
+  {
+   "text": "10-09 03:17:00 eco.mirror  call     IM->D  ans=false  vm=true"
+  },
+  {
+   "text": "10-10 03:17:00 eco.mirror  call     IM->D  ans=?"
+  },
+  {
+   "text": "10-11 01:12:44 eco.sim     capture  cam=??  WARN source not registered",
+   "when": "flag(\"chapter_n\") and v(\"chapter_n\") >= 5"
+  },
+  {
+   "text": "10-11 02:30:00 eco.sys     restart  reason=memory  pin_hint='o dia em que deixei de dormir'",
+   "when": "v(\"chapter_n\") >= 5"
+  },
+  {
+   "text": "10-11 02:47:05 eco.sim     capture  cam=back  lux=0.0  WARN frame not empty",
+   "when": "v(\"chapter_n\") >= 5"
+  },
+  {
+   "text": "10-12 09:58:12 eco.predict  [pred] 11:04  V.PIMENTEL msg  conf=0.93",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 09:58:12 eco.predict  [pred] 13:30  H.SOUSA call   conf=0.71",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 09:58:12 eco.predict  [pred] 10-14 03:17  D.REIS @ CAIS_VELHO  conf=0.71",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 10:02:40 eco.mirror  DRIFT 0.34  thread=IM  out-of-script output x14",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 10:02:41 eco.mirror  DRIFT  rule violated: 'nao mencionar V.P.'",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 10:05:00 eco.sys     debug.key -> ver README em /.eco",
+   "when": "v(\"chapter_n\") >= 8"
+  },
+  {
+   "text": "10-12 10:05:00 eco.sim     sim=047  remaining=2d  objective=MARE_LOC",
+   "when": "v(\"chapter_n\") >= 8"
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "expected_endings": {},
+  "choices": {"default": {}, "A": {}, "B": {}, "C": {}, "D": {}, "E": {}},
+  "chapters": {
+    "ch01": {"all": [["view", "IMG_6612"], ["note", "note_sonho"]]}
+  }
+}

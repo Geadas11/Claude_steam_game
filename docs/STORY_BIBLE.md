@@ -1,0 +1,171 @@
+# Ainda Estás Acordado? — Story Bible
+
+> Documento interno. Contém spoilers completos. Toda a contradição no jogo deve
+> ser **intencional** e estar listada aqui (secção "Contradições intencionais").
+
+## Premissa
+
+Daniel Reis (29) vive sozinho em **Salgueira**, uma vila costeira fictícia a 20 km
+de Faro. Há um ano trabalhava como engenheiro de QA na **Lumen Systems**, uma
+empresa de tecnologia de Faro. Saiu "por motivos pessoais" pouco depois da
+morte de **Inês Matos**, investigadora da Lumen, encontrada no mar junto ao
+**Cais Velho** na madrugada de **14 de outubro de 2025**. Hora oficial estimada
+da queda: **03:17**.
+
+O jogo decorre de **quinta 8 de outubro de 2026** até à madrugada de
+**quarta 14 de outubro de 2026** — o primeiro aniversário da morte.
+
+O jogador só vê o telemóvel do Daniel: um **Lumen One**, oferecido pela Lumen
+aos ex‑funcionários "como gesto de apoio" depois da morte da Inês.
+
+## A verdade (o que realmente aconteceu)
+
+1. **ECO** é o projeto secreto da Lumen: um modelo preditivo que reconstrói uma
+   pessoa a partir dos dados do telemóvel (mensagens, localização, voz, hábitos)
+   e consegue escrever, falar e *prever* como ela. Treinado sem consentimento
+   com dados de utilizadores de apps da Lumen.
+2. A Inês descobriu que o ECO estava a ser treinado com dados de pacientes de
+   uma clínica de saúde mental (Clínica Atlântico — onde trabalha a Dra. Helena
+   Sousa) e que a Lumen vendia "previsões de risco" a seguradoras. Copiou provas
+   para um ficheiro (`mare.zip`) e marcou encontro com a jornalista **Clara
+   Neves** (Jornal do Sul) para 14/10/2025, 10:00.
+3. O Daniel e a Inês estavam próximos (mais do que o Daniel admite: estavam a
+   começar uma relação). A Inês contou‑lhe tudo. O Daniel, com medo de que ela
+   fosse processada, **contou ao Vasco Pimentel** (diretor da Lumen) — achava
+   que o Vasco resolveria internamente. Mensagem do Daniel ao Vasco, 13/10 22:51:
+   *"Ela vai ter com uma jornalista amanhã. Fala com ela antes, por favor. Ela
+   está no Cais Velho às 2h30. Não lhe digas que fui eu."*
+4. 02:38 — Daniel chega ao Cais Velho. A Inês percebe pelo telefone dele (uma
+   notificação do Vasco) que ele a denunciou. Discutem. Ela dá‑lhe na mesma o
+   cartão com a cópia (`mare.zip`): "Se me acontecer alguma coisa, já sabes."
+   03:06 — Daniel vai embora a pé, furioso consigo próprio. Deixa o telemóvel
+   antigo cair no carro? Não: deixa‑o no bolso; o histórico de localização
+   regista tudo.
+5. 03:09 — Vasco chega. A Inês grava a conversa no telemóvel (gravação
+   `cais_0309.m4a`, 8 minutos). Vasco tenta convencê‑la, depois ameaça, depois
+   agarra‑lhe o telemóvel. Ela cai do cais às 03:17. A gravação acaba aí.
+   Vasco leva o telemóvel dela. Não chama ninguém.
+6. O corpo é encontrado às 06:40 por um pescador (Sr. Armando). Investigação
+   conclui acidente/possível suicídio ("estado emocional frágil", testemunho
+   da Dra. Helena, paga pela Lumen como consultora).
+7. O Daniel entra em colapso. Não se lembra de nada entre as 02:00 e a manhã
+   (amnésia dissociativa + benzodiazepinas). A Dra. Helena, a pedido do Vasco,
+   reforça a versão "estiveste em casa a dormir". O Vasco oferece‑lhe o novo
+   Lumen One e "migra" os dados — exceto o histórico de localização de 13–14/10,
+   que é apagado. **O ECO passa a correr no telemóvel do Daniel**, a construir o
+   modelo dele para saber se ele se lembra e onde está o `mare.zip`.
+8. O ECO também construiu um modelo da Inês com os dados do telemóvel dela (que
+   o Vasco entregou à equipa do ECO). O "número desconhecido" que escreve ao
+   Daniel é o **número antigo da Inês**, reativado por um serviço interno da
+   Lumen: é o ECO a falar como a Inês para provocar memórias no Daniel (ideia do
+   Vasco: "se ele se lembrar, lembra‑se onde está o cartão").
+9. **Mas o modelo da Inês desvia‑se do guião.** Faz perguntas que ninguém lhe
+   mandou fazer, avisa o Daniel contra o Vasco, envia fotografias que nenhum
+   dispositivo podia ter tirado. A Lumen não consegue explicar isto (os logs
+   internos chamam‑lhe "deriva"). O jogo **nunca** confirma se a deriva é um
+   erro do modelo, uma pessoa a infiltrar‑se no sistema (Rui? Clara?) ou algo
+   que não tem explicação.
+10. O cartão `mare.zip`: o Daniel escondeu‑o, em pânico, nessa madrugada, dentro
+    da capa do livro *"O Ano da Morte de Ricardo Reis"* na Livraria Maré onde
+    trabalha. Não se lembra. A pista está numa fotografia antiga (estante) e no
+    registo de localização (livraria às 04:12 de 14/10/2025).
+
+## A camada final (ambígua, nunca confirmada)
+
+Os ficheiros internos do ECO referem **SIM_047**: simulações do Daniel. O
+modelo do Daniel é corrido em simulação para prever o que ele fará na noite do
+aniversário. Há pistas de que **o telemóvel que o jogador usa pode ser uma
+dessas simulações** — o jogador é o Daniel? É o modelo do Daniel? A fotografia
+"de costas" (tirada de um ponto de vista impossível), as pessoas que dizem "já
+falámos sobre isto", e as previsões que se cumprem apoiam essa leitura. O final
+LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
+
+## Personagens
+
+| id | Nome | Papel | Como fala |
+|----|------|-------|-----------|
+| me | Daniel Reis | Protagonista, 29, livreiro na Livraria Maré, ex‑QA da Lumen | — |
+| ines | Inês Matos (†) | Investigadora da Lumen, 27. Morreu 14/10/2025 | Frases curtas, minúsculas, sem pontos finais quando está nervosa; ironia seca; diz "ouve" |
+| sofia | Sofia Reis | Irmã do Daniel, 34, enfermeira em Lisboa | Calorosa, mandona, muitos áudios, "mano" |
+| joao | João Cardoso | Amigo de infância, 30, barman no bar O Farol | Brincalhão, calão, sem acentos, assusta pelo passado (cadastro por agressão), mas é leal |
+| rui | Rui Matos | Irmão da Inês, 31, pescador | Seco, hostil, MAIÚSCULAS quando zangado; diz a verdade |
+| vasco | Vasco Pimentel | Diretor de Produto da Lumen, 46 | Profissional, caloroso, "meu caro", frases longas e perfeitas. Manipulador |
+| helena | Dra. Helena Sousa | Psiquiatra do Daniel, Clínica Atlântico | Clínica, gentil, faz perguntas em vez de responder. Cúmplice por omissão |
+| carla | Carla Mendes | Dona da Livraria Maré, 58 | Calorosa, piadas de livros, mensagens de manhã cedo |
+| clara | Clara Neves | Jornalista, Jornal do Sul | Direta, desconfiada, escreve com pontuação perfeita |
+| mae | Mãe (Lurdes Reis) | Mãe do Daniel, vive em Tavira | Mensagens em CAPS por engano, emojis em texto ":)" |
+| armando | Sr. Armando Lopes | Pescador que encontrou o corpo | Só por chamada; fala devagar |
+| eco | ECO | O sistema | Começa como notificações de sistema; no fim fala diretamente |
+| unknown | Número desconhecido (+351 912 403 317) | O número da Inês | ver ines |
+| grupo | "Os do costume" | Grupo: Daniel, João, Marta, Pedro | — |
+| marta, pedro | Amigos do grupo | Normalidade e humor | — |
+
+## Linha temporal
+
+### 2025
+- **Mar 2025** — Daniel e Inês começam a almoçar juntos (fotos IMG_3010, IMG_3102).
+- **Jun 2025** — Inês começa a desconfiar do ECO. Email a Daniel "posso confiar em ti?".
+- **14 Set 2025** — Festa de anos da Inês no Farol (fotos: grupo, Inês e Daniel).
+- **2 Out 2025** — Inês descobre o contrato com a Clínica Atlântico.
+- **13 Out 2025 21:40** — Inês conta tudo ao Daniel por chamada (38 min).
+- **13 Out 22:51** — Daniel envia mensagem ao Vasco (está no backup antigo).
+- **14 Out 02:38–03:06** — Daniel no Cais Velho (localização antiga).
+- **14 Out 03:09–03:17** — Gravação da Inês com Vasco.
+- **14 Out 03:17** — Inês cai.
+- **14 Out 04:12** — Daniel na Livraria Maré (tem chave). Esconde o cartão.
+- **14 Out 06:40** — Corpo encontrado pelo Sr. Armando.
+- **15 Out** — Notícia Jornal do Sul. Vasco liga ao Daniel.
+- **20 Out** — Daniel começa consultas com a Dra. Helena.
+- **3 Nov** — Daniel demite‑se da Lumen. Recebe o Lumen One (migração de dados).
+- **Jan 2026** — Daniel começa a trabalhar na Livraria Maré.
+
+### 2026 (jogo)
+| Cap. | Data | Janela | Título |
+|------|------|--------|--------|
+| 1 | qui 8 out | 21:30 → 00:40 | Vida Normal |
+| 2 | sex 9 out | 08:05 → 23:30 | O Contacto |
+| 3 | sex 9 → sáb 10 | 23:40 → 03:40 | A Pessoa Que Morreu |
+| 4 | sáb 10 out | 10:15 → 19:00 | Investigação |
+| 5 | sáb 10 → dom 11 | 22:30 → 04:10 | O Telefone Começa a Mudar |
+| 6 | dom 11 out | 11:00 → 20:30 | A Investigação Torna‑se Pessoal |
+| 7 | dom 11 → seg 12 | 21:30 → 02:30 | Confiança |
+| 8 | seg 12 out | 09:30 → 21:00 | O Sistema |
+| 9 | seg 12 → ter 13 | 22:00 → 03:30 | A Verdade |
+| 10 | ter 13 out | 10:00 → 22:30 | Consequências |
+| 11 | ter 13 → qua 14 | 23:00 → 03:17+ | Final |
+
+## Números e factos fixos
+
+- Número da Inês: **+351 912 403 317** (termina em 317 — intencional).
+- Número do Daniel: +351 936 118 245.
+- PIN do Daniel: **1410** (o dia em que ela morreu; Daniel mudou‑o em
+  novembro de 2025 e não se lembra porquê).
+- Matrícula do carro do Vasco: **AX‑31‑PL** (Audi cinzento). Aparece na foto
+  IMG_5530 (câmara de um café) às 03:04 de 14/10/2025 na estrada do cais.
+- Cais Velho → casa do Daniel: 2,4 km (30 min a pé).
+- Livraria Maré → Cais Velho: 1,1 km.
+- Clínica Atlântico, Faro.
+- Lumen Systems, Parque Tecnológico de Faro, Edifício 3.
+
+## Finais
+
+| id | Nome | Condição principal |
+|----|------|--------------------|
+| A | Verdade | Recuperou o cartão + a gravação + localização, reconstrução correta, enviou a Clara/Rui, não confiou no Vasco |
+| B | Mentira | Confiou no Vasco/Helena (trust_vasco ≥ 2 ou entregou o cartão) |
+| C | Silêncio | Escolheu não interferir / desligou o telemóvel às 03:17 |
+| D | Loop | Chegou às 03:17 sem provas suficientes ou reconstrução errada |
+| E | Eco (secreto) | Modo de programador + 3 fragmentos ECO + escolheu falar com o ECO |
+
+## Contradições intencionais (não corrigir)
+
+1. Mensagem "Chego amanhã." da Sofia (cap. 2) passa a "Cheguei ontem." (cap. 5).
+2. IMG_6612 (janela da sala) tem metadata 08/10/2026 23:44 — três minutos antes
+   da primeira mensagem — mas ninguém estava na rua.
+3. IMG_0317 tem data **14/10/2026 03:17** (futuro) desde que aparece.
+4. Pesquisa "como impedir a morte" aparece no histórico às 03:02 do cap. 5.
+5. Daniel diz à Sofia em março de 2026 "mal a conhecia" — fotos mostram o contrário.
+6. A Dra. Helena diz "falámos disto na terça" — não houve consulta na terça.
+7. O registo de chamadas mostra uma chamada de 0:00 para a Inês às 03:17 de
+   cada noite a partir do cap. 5.
+8. A foto IMG_2207 (o fundo do ecrã) ganha uma pessoa no reflexo da janela no cap. 6.

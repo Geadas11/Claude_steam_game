@@ -1,0 +1,51 @@
+; Engine configuration file.
+; Ainda Estás Acordado? (codename: PROJECT UNKNOWN)
+
+config_version=5
+
+[application]
+
+config/name="Ainda Estás Acordado?"
+config/description="Um thriller de terror psicológico jogado inteiramente através de um smartphone."
+config/version="0.1.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+config/use_custom_user_dir=true
+config/custom_user_dir_name="AindaEstasAcordado"
+
+[autoload]
+
+Events="*res://scripts/core/events.gd"
+Settings="*res://scripts/core/settings.gd"
+Content="*res://scripts/core/content_db.gd"
+GameState="*res://scripts/core/game_state.gd"
+Clock="*res://scripts/core/time_system.gd"
+Audio="*res://scripts/core/audio_system.gd"
+Achievements="*res://scripts/core/achievements.gd"
+Saves="*res://scripts/core/save_system.gd"
+Director="*res://scripts/core/director.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+timers/tooltip_delay_sec=0.6
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=1
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+anti_aliasing/quality/msaa_2d=1

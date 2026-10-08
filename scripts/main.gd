@@ -1,0 +1,234 @@
+extends Control
+## Root of the game: the dark room, the phone on the desk, menus, chapter
+## transitions and endings.
+
+enum Mode { TITLE, GAME, TRANSITION, ENDING }
+
+var mode := Mode.TITLE
+var room: Room
+var phone: Phone
+var phone_holder: Control
+var overlay: Control          # menus outside the fiction
+var caption: Label            # chapter date captions on the desk
+var pause_menu: PauseMenu
+var title_menu: TitleMenu
+
+
+func _ready() -> void:
+	theme = UI.build_theme()
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	room = Room.new()
+	room.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(room)
+	phone_holder = Control.new()
+	phone_holder.set_anchors_preset(Control.PRESET_CENTER)
+	phone_holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(phone_holder)
+	phone = Phone.new()
+	phone_holder.add_child(phone)
+	phone.position = -phone.custom_minimum_size / 2.0
+	caption = UI.label("", 22, "dim")
+	caption.set_anchors_preset(Control.PRESET_CENTER_LEFT)
+	caption.position = Vector2(120, -40)
+	caption.modulate.a = 0.0
+	add_child(caption)
+	overlay = Control.new()
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(overlay)
+	pause_menu = PauseMenu.new()
+	pause_menu.main = self
+	pause_menu.visible = false
+	overlay.add_child(pause_menu)
+	title_menu = TitleMenu.new()
+	title_menu.main = self
+	overlay.add_child(title_menu)
+	Events.chapter_ended.connect(_on_chapter_ended)
+	Events.ending_reached.connect(_on_ending)
+	Events.achievement_unlocked.connect(_on_achievement)
+	Events.state_loaded.connect(_on_state_loaded)
+	Events.deduction_requested.connect(func(): phone.open_app("notes", {"deduction": true, "forced": true}))
+	resized.connect(_layout)
+	_layout()
+	show_title()
+	_process_cmdline()
+
+
+func _process_cmdline() -> void:
+	# Debug helpers: --chapter=ch05 starts directly at a chapter.
+	# --shot=path.png:seconds saves a screenshot and quits (used for visual QA).
+	# --script=a,b,c runs debug UI actions (unlock, open:<app>, wait:<s>).
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--chapter="):
+			start_new_game(false)
+			Director.start_chapter(a.substr(10))
+			phone.show_locked_immediately()
+		elif a == "--newgame":
+			start_new_game(false)
+		elif a.begins_with("--shot="):
+			var parts := a.substr(7).split(":")
+			_debug_shot(parts[0], float(parts[1]) if parts.size() > 1 else 2.0)
+		elif a.begins_with("--do="):
+			_debug_script(a.substr(5).split(","))
+
+
+func _debug_shot(path: String, secs: float) -> void:
+	await get_tree().create_timer(secs).timeout
+	await RenderingServer.frame_post_draw
+	var img := get_viewport().get_texture().get_image()
+	img.save_png(path)
+	print("screenshot saved ", path)
+	get_tree().quit()
+
+
+func _debug_script(steps: PackedStringArray) -> void:
+	for st in steps:
+		var kv := st.split(":")
+		match kv[0]:
+			"wait": await get_tree().create_timer(float(kv[1])).timeout
+			"unlock": phone.unlock()
+			"open": phone.open_app(kv[1], {"forced": true, "param": kv[2] if kv.size() > 2 else ""})
+			"home": phone.go_home()
+			"fast": Director.fast_mode = true
+			"time": Clock.set_clock(kv[1] + ":" + kv[2])
+			"beat": GameState.data.beats_done[kv[1]] = 0.0
+			"flag": GameState.set_var(kv[1], true)
+
+
+func _layout() -> void:
+	var s := size
+	var ph := phone.custom_minimum_size
+	var k := clampf((s.y - 40.0) / ph.y, 0.5, 1.15)
+	phone_holder.scale = Vector2(k, k)
+	phone_holder.position = s / 2.0
+	phone._base_pos = phone.position
+
+
+func show_title() -> void:
+	mode = Mode.TITLE
+	GameState.in_game = false
+	Director.stop()
+	title_menu.open()
+	phone.show_locked_immediately()
+	room.set_mood("title")
+	Audio.set_ambient("room")
+	Audio.set_music("menu")
+
+
+func start_new_game(show_warning := true) -> void:
+	title_menu.visible = false
+	Audio.set_music("")
+	mode = Mode.GAME
+	Director.new_game()
+	phone.show_locked_immediately()
+	room.set_mood("night")
+	Audio.set_ambient("room")
+
+
+func continue_game(slot: String) -> bool:
+	if not Saves.load_from(slot):
+		return false
+	title_menu.visible = false
+	pause_menu.visible = false
+	get_tree().paused = false
+	Audio.set_music("")
+	mode = Mode.GAME
+	return true
+
+
+func _on_state_loaded() -> void:
+	phone.show_locked_immediately()
+	room.set_mood("night")
+	Audio.set_ambient(_chapter_ambient(GameState.data.chapter))
+
+
+func _chapter_ambient(ch: String) -> String:
+	match ch:
+		"ch01", "ch02", "ch04", "ch06", "ch08", "ch10": return "room"
+		_: return "night"
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_fullscreen"):
+		Settings.set_value("fullscreen", not Settings.get_value("fullscreen"))
+	if mode != Mode.GAME:
+		return
+	if event.is_action_pressed("pause_menu"):
+		toggle_pause()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("quick_save") and not get_tree().paused:
+		if Saves.save_to("quick"):
+			phone.toast("Jogo guardado")
+	elif event.is_action_pressed("quick_load"):
+		if not Saves.read_slot("quick").is_empty():
+			continue_game("quick")
+
+
+func toggle_pause() -> void:
+	if pause_menu.visible:
+		pause_menu.close()
+	else:
+		pause_menu.open()
+
+
+# ---------------------------------------------------------------- chapters
+func _on_chapter_ended(ch: String) -> void:
+	if Content.next_chapter(ch) == "":
+		return
+	mode = Mode.TRANSITION
+	var nxt := Content.next_chapter(ch)
+	var ch_def := Content.chapter(nxt)
+	var start_unix := Clock.parse_datetime(ch_def.start) if ch_def.get("start", "") != "" else Clock.now()
+	await get_tree().create_timer(1.5).timeout
+	phone.lock()
+	var tw := create_tween()
+	tw.tween_property(phone_holder, "modulate", Color(0.2, 0.2, 0.2), 1.6)
+	await tw.finished
+	Audio.set_ambient("", 2.5)
+	var roman := ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
+	var idx := Content.chapter_order.find(nxt)
+	caption.text = "%s\n%s\n\n[ %s · %s ]" % [Clock.fmt_date_long(start_unix), Clock.fmt_time(start_unix), roman[idx] if idx >= 0 and idx < roman.size() else "", Content.chapter_title(nxt)]
+	var tw2 := create_tween()
+	tw2.tween_property(caption, "modulate:a", 1.0, 1.4)
+	tw2.tween_interval(2.8)
+	tw2.tween_property(caption, "modulate:a", 0.0, 1.2)
+	await tw2.finished
+	Director.advance_chapter()
+	phone.show_locked_immediately()
+	Audio.set_ambient(_chapter_ambient(nxt))
+	var tw3 := create_tween()
+	tw3.tween_property(phone_holder, "modulate", Color.WHITE, 1.2)
+	mode = Mode.GAME
+
+
+# ---------------------------------------------------------------- endings
+func _on_ending(id: String) -> void:
+	mode = Mode.ENDING
+	Director.stop()
+	await get_tree().create_timer(2.0).timeout
+	var screen := EndingScreen.new()
+	screen.main = self
+	overlay.add_child(screen)
+	screen.play(id)
+
+
+func _on_achievement(id: String) -> void:
+	var a := Content.get_item("achievements", id)
+	if a.is_empty():
+		return
+	var p := UI.panel(Color(0.08, 0.09, 0.1, 0.95), 10, 16, 12, 16, 12)
+	var h := UI.hbox(12)
+	h.add_child(UI.glyph("star", 26, "accent"))
+	var v := UI.vbox(2)
+	v.add_child(UI.label(a.get("name", id), 15))
+	v.add_child(UI.label(a.get("desc", ""), 12, "dim"))
+	h.add_child(v)
+	p.add_child(h)
+	p.position = Vector2(size.x - 380, size.y + 10)
+	p.custom_minimum_size = Vector2(360, 0)
+	overlay.add_child(p)
+	var tw := create_tween()
+	tw.tween_property(p, "position:y", size.y - 100, 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(4.0)
+	tw.tween_property(p, "modulate:a", 0.0, 0.6)
+	tw.tween_callback(p.queue_free)

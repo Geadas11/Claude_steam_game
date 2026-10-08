@@ -1,0 +1,19 @@
+{
+  "vm_sea": {"title": "+351 912 403 317", "duration": "0:41", "sfx": ["sea"],
+    "lines": ["[mar]", "[mar]", "[respiração, muito perto do microfone]", "[mar]", "...", "[alguém engole em seco]", "[a chamada termina]"],
+    "clues": ["voicemail_sea"]},
+  "vm_mae": {"title": "Mãe", "duration": "0:22",
+    "lines": ["Está? Daniel? É a mãe.", "Ah, isto é a caixa. Pronto.", "Liguei só para saber se estás bem. A tua irmã diz que não dormes.", "Eu rezei por aquela menina. Beijinho, filho. Liga."]},
+  "vm_rui_angry": {"title": "Rui Matos", "duration": "0:18", "sfx": ["sea"],
+    "lines": ["[vento, motor de barco]", "Daniel.", "Se és tu que andas a mandar estas mensagens do número da minha irmã...", "...eu vou-te encontrar.", "[a chamada termina]"]},
+  "vm_ines_317": {"title": "Inês Matos", "duration": "0:17", "sfx": ["sea", "breath"],
+    "lines": ["[mar]", "Daniel.", "Está muito frio aqui.", "Não te zangues comigo por ter ligado.", "Ele está a chegar.", "[a chamada termina]"],
+    "clues": ["ines_he_is_coming"]},
+  "vm_helena": {"title": "Dra. Helena Sousa", "duration": "0:34",
+    "lines": ["Daniel, é a Helena. Desculpe a hora.", "O Vasco ligou-me preocupado. Diz que não está a dormir.", "Como combinámos na terça, não tome nada além do que está na receita.", "E Daniel — o que acha que se lembra… escreva. Traga-me. Não partilhe com ninguém antes de falarmos, está bem?", "Boa noite."],
+    "clues": ["helena_vasco_link"]},
+  "vm_audio_ines": {"title": "Mensagem de voz", "duration": "0:09", "sfx": ["sea"],
+    "lines": ["[mar]", "Lembras-te do que eu te disse no cais?", "\"A maré leva tudo e traz tudo de volta.\""]},
+  "vm_joao": {"title": "João Farol", "duration": "0:26",
+    "lines": ["[barulho de bar ao fundo]", "dani. sou eu.", "olha... há uma coisa que eu nunca te disse sobre essa noite.", "não por mensagem. passa cá. ou eu passo aí.", "[alguém chama o João ao fundo]", "tenho de ir."]}
+}
