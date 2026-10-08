@@ -1661,5 +1661,37 @@
    "helena_admission",
    "eco_learns_at_night"
   ]
+ },
+ "wrote_old_thread": {
+  "title": "Número inativo",
+  "desc": "Escreveste-lhe na conversa antiga: \"Mensagem não entregue · número inativo desde 14/10/2025\". A resposta chegou pela outra conversa.",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "contact_restored",
+   "ines_number"
+  ]
+ },
+ "shop_unlocked": {
+  "title": "A porta destrancada",
+  "desc": "Na manhã de 14/10/2025, a porta da livraria estava destrancada. A Inês tinha uma chave. Tu ainda não trabalhavas lá.",
+  "source": "Mensagens · Carla",
+  "importance": 3,
+  "related": [
+   "night_bookshop",
+   "old_location",
+   "card_found"
+  ]
+ },
+ "vasco_sent_window": {
+  "title": "A mesma fotografia",
+  "desc": "Depois de recusares, o Vasco enviou-te a fotografia da tua janela — a primeira de todas. \"Descanse, Daniel.\"",
+  "source": "Mensagens · Vasco",
+  "importance": 3,
+  "related": [
+   "photo_window",
+   "photo_window_meta",
+   "vasco_monitors_phone"
+  ]
  }
 }

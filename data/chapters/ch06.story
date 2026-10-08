@@ -321,3 +321,23 @@ endif
 @when at("15:00") and not photo_is("IMG_2207", "watcher")
 variant IMG_2207 watcher
 @end
+
+# ---------------------------------------------------------------- escrever na conversa antiga
+@beat write_old_thread
+@when beat("restore_seen") and app() == "messages:ines"
+wait 6
+choice ines c6_old
+  > Desculpa. | set old_msg=sorry
+  > Estás aí? | set old_msg=there
+  > [Fechar a conversa] | set old_msg=none
+end
+if vs("old_msg") != "none"
+  wait 3
+  toast "Mensagem não entregue · número inativo desde 14/10/2025"
+  wait 12
+  unknown> Escreveste no sítio errado.
+  wait 3
+  unknown> Eu agora estou aqui.
+  clue wrote_old_thread
+endif
+@end

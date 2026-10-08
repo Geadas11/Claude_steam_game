@@ -365,3 +365,44 @@ rita> somos quarenta e um. quarenta e um telemóveis oferecidos pela clínica
 rita> quarenta e um mortos a escrever às 3:17
 clue forty_one
 @end
+
+# ---------------------------------------------------------------- a porta destrancada
+@beat carla_door
+@when flag("found_card") and at("13:40")
+carla> Encontraste alguma coisa no meu Ricardo Reis? Passei aí e estavas pálido
+@end
+
+@beat carla_door_reply
+@when beat("carla_door") and read("carla")
+wait 1
+choice carla c10_carla
+  > Encontrei. Uma coisa que eu lá escondi há um ano e não me lembrava. | set told_carla_card=true
+  > Não. Só pó. | set told_carla_card=false
+end
+wait 10
+if flag("told_carla_card")
+  carla> Há um ano...
+  carla> Daniel, nunca disse isto a ninguém. Na manhã de 14 de outubro do ano passado, quando cheguei, a porta da loja estava destrancada
+  carla> Pensei que me tinha esquecido. Passei o dia a achar que estava a ficar velha
+  wait 4
+  carla> Mas tu ainda não trabalhavas cá. Como é que tinhas a chave?
+  wait 6
+  carla> Ah. A Inês. A Inês tinha uma chave. Eu dei-lha porque ela vinha ler de manhã cedo. Ela deu-ta?
+  clue shop_unlocked
+else
+  carla> Só pó. Ok. Esse livro tem mais pó do que histórias
+endif
+@end
+
+# ---------------------------------------------------------------- o Vasco envia a primeira fotografia
+@beat vasco_photo
+@when flag("refused_vasco_card") or flag("accused_vasco")
+wait 90
+vasco> [photo:IMG_6612] Descanse, Daniel.
+set vasco_sent_window=true
+wait 15
+unknown> Foi ele que te mandou essa fotografia agora.
+wait 3
+unknown> Não fui eu que a tirei há cinco dias. Mas também não foi ele.
+clue vasco_sent_window
+@end

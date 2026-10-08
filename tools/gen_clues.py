@@ -199,6 +199,10 @@ clue("joao_reassures", "\"Quem faz mal a alguém não entra no mar\"", "O João:
 clue("ines_feared_sea", "Ela tinha medo do mar", "O Rui: a Inês nunca ia ao fim do cais sozinha. Desde miúda. \"Disseram que se atirou.\"", "Mensagens · Rui", 3, ["case_closed_psychiatrist", "lumen_statement_fast", "recording_pier"])
 clue("eco_care_reported", "\"A sua médica foi notificada\"", "Minutos depois de ouvires a gravação, o ECO Care avisou que tinha notificado a tua médica de \"sinais de risco elevado\".", "Notificação · ECO Care", 3, ["vasco_knows_recording", "helena_admission", "eco_learns_at_night"])
 
+clue("wrote_old_thread", "Número inativo", "Escreveste-lhe na conversa antiga: \"Mensagem não entregue · número inativo desde 14/10/2025\". A resposta chegou pela outra conversa.", "Mensagens", 2, ["contact_restored", "ines_number"])
+clue("shop_unlocked", "A porta destrancada", "Na manhã de 14/10/2025, a porta da livraria estava destrancada. A Inês tinha uma chave. Tu ainda não trabalhavas lá.", "Mensagens · Carla", 3, ["night_bookshop", "old_location", "card_found"])
+clue("vasco_sent_window", "A mesma fotografia", "Depois de recusares, o Vasco enviou-te a fotografia da tua janela — a primeira de todas. \"Descanse, Daniel.\"", "Mensagens · Vasco", 3, ["photo_window", "photo_window_meta", "vasco_monitors_phone"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

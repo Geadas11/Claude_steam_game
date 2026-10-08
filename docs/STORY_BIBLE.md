@@ -69,7 +69,8 @@ aos ex‑funcionários "como gesto de apoio" depois da morte da Inês.
    internos chamam‑lhe "deriva"). O jogo **nunca** confirma se a deriva é um
    erro do modelo, uma pessoa a infiltrar‑se no sistema (Rui? Clara?) ou algo
    que não tem explicação.
-10. O cartão `mare.zip`: o Daniel escondeu‑o, em pânico, nessa madrugada, dentro
+10. O cartão `mare.zip`: o Daniel escondeu‑o, em pânico, nessa madrugada (entrou com a chave da
+    Inês e deixou a porta destrancada — a Carla reparou de manhã e nunca disse nada), dentro
     da capa do livro *"O Ano da Morte de Ricardo Reis"* na Livraria Maré onde
     trabalha. Não se lembra. A pista está numa fotografia antiga (estante) e no
     registo de localização (livraria às 04:12 de 14/10/2025).
