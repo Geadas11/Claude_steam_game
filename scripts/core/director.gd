@@ -875,6 +875,9 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 				if not await _sleep(0.3, g):
 					return false
 			GameState.data.phone.pin_required = false
+		"world":
+			# the 3D house: world lights off sala / world flicker all 2 / world door wc slam
+			Events.world_cue.emit(a[0], a.slice(1))
 		"reflection":
 			Events.reflection_requested.emit()
 		"battery":

@@ -47,6 +47,8 @@ func _ready() -> void:
 		await _test_companion()
 	if _only == "" or _only == "coop":
 		await _test_coop_net()
+	if _only == "" or _only == "world":
+		await _test_world()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -819,6 +821,129 @@ func _validate_role(role: String) -> void:
 
 
 # ---------------------------------------------------------------- co-op network
+## The 3D house: it builds, Daniel walks and is stopped by walls, doors open,
+## the front door stays locked, switches and the fusebox work, examining
+## things tells the story (w_<id>), and story "world" commands reach it.
+func _test_world() -> void:
+	print("-- world")
+	Director.new_game()
+	GameState.in_game = true
+	var w := GameWorld.new()
+	add_child(w)
+	var hud_parent := Control.new()
+	add_child(hud_parent)
+	w.attach_hud(hud_parent)
+	w.set_active(true)
+	await _physics(3)
+	var h := w.house
+	ok(h.rooms.size() >= 7, "house has its rooms' lights (%d)" % h.rooms.size())
+	ok(h.doors.size() == 6, "six doors (%d)" % h.doors.size())
+	ok(h.hotspots.keys().any(func(k): return str(k).begins_with("window_sala")), "hotspot window_sala")
+	for id in ["bookshelf", "laptop", "fridge", "calendar", "pills", "alarm_clock", "fusebox", "peephole", "wardrobe"]:
+		ok(h.hotspots.has(id), "hotspot " + id)
+	ok(h.texts.has("window_sala") and h.texts.size() > 15, "house texts loaded")
+	# walking: one second forward down the corridor (towards -x)
+	var p := w.player
+	p.global_position = Vector3(8.5, 0.02, 5.15)
+	p.set_view(90.0)
+	await _physics(2)
+	var x0 := p.global_position.x
+	Input.action_press("move_forward")
+	await _physics(60)
+	Input.action_release("move_forward")
+	await _physics(10)
+	ok(x0 - p.global_position.x > 0.8, "walks forward (%.2f m)" % (x0 - p.global_position.x))
+	# the place he starts in is free to move
+	w.spawn("sofa")
+	await _physics(2)
+	var s0 := p.global_position
+	Input.action_press("move_back")
+	await _physics(30)
+	Input.action_release("move_back")
+	ok(p.global_position.distance_to(s0) > 0.3, "not stuck where he starts")
+	ok(absf(p.global_position.y) < 0.2, "stays on the floor (y=%.2f)" % p.global_position.y)
+	# walls: walk north into the window wall for 4 s, must stop inside
+	p.global_position = Vector3(4.8, 0.02, 1.0)
+	p.set_view(0.0)
+	Input.action_press("move_forward")
+	await _physics(240)
+	Input.action_release("move_forward")
+	ok(p.global_position.z > 0.15, "the wall stops him (z=%.2f)" % p.global_position.z)
+	# running drains stamina, crouching lowers the head
+	p.global_position = Vector3(1.0, 0.02, 5.15)
+	p.set_view(-90.0)
+	Input.action_press("move_forward")
+	Input.action_press("sprint")
+	await _physics(90)
+	Input.action_release("sprint")
+	Input.action_release("move_forward")
+	ok(p.stamina < 0.8, "running tires him (stamina %.2f)" % p.stamina)
+	Input.action_press("crouch")
+	await _physics(40)
+	ok(p.head.position.y < 1.3, "crouching lowers the eyes (%.2f)" % p.head.position.y)
+	Input.action_release("crouch")
+	await _physics(40)
+	ok(p.head.position.y > 1.5, "stands back up (%.2f)" % p.head.position.y)
+	# aim at the bathroom door from the corridor and use it
+	var wc: Door = h.doors.wc
+	wc.set_open(false, true)
+	p.global_position = Vector3(6.55, 0.02, 5.15)
+	p.set_view(180.0, -10.0)
+	await _physics(3)
+	ok(p.target == wc, "aims at the bathroom door (prompt '%s')" % p.target_prompt)
+	p.use_target()
+	ok(wc.is_open, "the door opens")
+	# the front door is locked and says so
+	var said := [""]
+	p.thought.connect(func(t): said[0] = t)
+	h.doors.entrada.interact(p)
+	ok(not h.doors.entrada.is_open and said[0] != "", "front door stays locked ('%s')" % said[0])
+	# examining something marks it for the story
+	said[0] = ""
+	h.hotspots.calendar.interact(p)
+	ok(GameState.flag("w_calendar") and said[0].contains("14"), "calendar: thought + w_calendar")
+	GameState.set_var("dinner", "massa")
+	h.hotspots.fridge.interact(p)
+	ok(said[0].contains("atum"), "the fridge remembers dinner ('%s')" % said[0])
+	# switches and the fusebox
+	h.set_room_light("cozinha", false)
+	ok(not h.rooms.cozinha.lights[0].visible, "kitchen light off")
+	h.set_room_light("cozinha", true)
+	ok(h.rooms.cozinha.lights[0].visible, "kitchen light on")
+	h.set_power(false)
+	ok(not h.rooms.cozinha.lights[0].visible and not h.tv_on, "fusebox kills every light and the TV")
+	h.set_power(true)
+	ok(h.rooms.cozinha.lights[0].visible, "power back, kitchen remembered its switch")
+	# story commands reach the house
+	GameState.set_var("_x", 0)
+	var op := {"name": "world", "args": ["lights", "off", "cozinha"]}
+	await Director._do_cmd(op, Director._gen)
+	ok(not h.rooms.cozinha.on, "story: world lights off cozinha")
+	await Director._do_cmd({"name": "world", "args": ["door", "wc", "close"]}, Director._gen)
+	ok(not wc.is_open, "story: world door wc close")
+	# knocks are heard at the front door, not in the ears
+	Audio.muted_for_tests = false
+	var before := w.get_child_count()
+	Audio.play("knock")
+	ok(w.get_child_count() == before + 1, "knock plays in the room")
+	Audio.muted_for_tests = true
+	# the peephole
+	w.peek(true)
+	ok(w.peeping and not p.move_enabled, "looking through the peephole")
+	w.peek(false)
+	ok(not w.peeping, "back from the peephole")
+	w.set_active(false)
+	ok(not Audio.spatial.is_valid(), "inactive house releases the sound hook")
+	w.queue_free()
+	hud_parent.queue_free()
+	GameState.in_game = false
+
+
+func _physics(n: int) -> void:
+	for i in n:
+		await get_tree().physics_frame
+
+
 func _test_coop_net() -> void:
 	print("-- coop network")
 	# room codes survive a round trip

@@ -55,6 +55,9 @@ signal deduction_requested
 signal state_loaded
 signal time_changed(unix: float)
 
+# --- The 3D house ---------------------------------------------------------
+signal world_cue(cmd: String, args: Array)   # "world <cmd> ..." in .story files
+
 # --- Meta ---------------------------------------------------------------
 signal achievement_unlocked(id: String)
 signal settings_changed

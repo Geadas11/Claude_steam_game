@@ -42,6 +42,7 @@ var current_app: PhoneApp
 var current_app_id := ""
 var locked := true
 var interactive := true
+var input_active := true      # false while the phone is in Daniel's pocket (3D house)
 
 var _status_time: Label
 var _status_batt: Label
@@ -645,7 +646,7 @@ func _first_button(n: Node) -> Control:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not GameState.in_game or get_tree().paused:
+	if not GameState.in_game or get_tree().paused or not input_active:
 		return
 	if event.is_action_pressed("phone_back"):
 		var fo := get_viewport().gui_get_focus_owner()

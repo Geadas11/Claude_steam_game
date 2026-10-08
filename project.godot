@@ -9,7 +9,7 @@ config/name="Ainda Estás Acordado?"
 config/description="Um thriller de terror psicológico jogado inteiramente através de um smartphone."
 config/version="0.9.0"
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -18,6 +18,7 @@ config/custom_user_dir_name="AindaEstasAcordado"
 
 [autoload]
 
+Packs="*res://scripts/core/packs.gd"
 Events="*res://scripts/core/events.gd"
 Settings="*res://scripts/core/settings.gd"
 Content="*res://scripts/core/content_db.gd"
@@ -46,7 +47,7 @@ timers/tooltip_delay_sec=0.6
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="forward_plus"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/canvas_textures/default_texture_filter=1
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

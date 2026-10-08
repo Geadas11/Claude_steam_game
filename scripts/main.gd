@@ -20,6 +20,14 @@ var own_hud: Control
 var _own_clock: Label
 var _reconnect: PhoneChoicePanel
 const STREAM_SCALE := 1.5
+## The 3D house (created the first time a game starts).
+var world: GameWorld
+var world_ui: Control         # HUD + fade, between the house and the phone
+var fade: ColorRect
+var phone_raised := true      # phone of the game: in Daniel's hand (Tab)
+var _phone_tw: Tween
+var _pos_save_t := 0.0
+var _last_hour := -1.0
 
 
 func _ready() -> void:
@@ -28,6 +36,15 @@ func _ready() -> void:
 	room = Room.new()
 	room.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(room)
+	world_ui = Control.new()
+	world_ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+	world_ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(world_ui)
+	fade = ColorRect.new()
+	fade.color = Color.BLACK
+	fade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade.modulate.a = 0.0
 	phone_holder = Control.new()
 	phone_holder.set_anchors_preset(Control.PRESET_CENTER)
 	phone_holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -65,6 +82,14 @@ func _ready() -> void:
 	Events.deduction_requested.connect(func(): phone.open_app("notes", {"deduction": true, "forced": true}))
 	Companion.clients_changed.connect(_on_phone_clients)
 	Companion.on_back = func(): phone.back()
+	Events.notification_posted.connect(func(n: Dictionary): _pocket_ping(str(n.get("title", "Notificação"))))
+	Events.message_added.connect(func(th: String, m: Dictionary):
+		if str(m.get("from", "")) != "me" and not m.get("silent", false):
+			_pocket_ping("Mensagem · %s" % GameState.contact_name(str(m.get("from", th))) if str(m.get("from", "")) not in ["", "system"] else "Nova mensagem"))
+	Events.call_incoming.connect(func(c: Dictionary): _pocket_ping("A tocar · %s" % GameState.contact_name(str(c.get("who", ""))), true))
+	Events.open_app_requested.connect(func(_a, params: Dictionary):
+		if params.get("forced", false) and mode == Mode.GAME and _world_on():
+			set_phone_raised(true))
 	resized.connect(_layout)
 	_layout()
 	show_title()
@@ -275,15 +300,252 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"flip":
 				if phone.current_app and phone.current_app.has_method("_flip"):
 					phone.current_app._flip()
+			# --- the 3D house
+			"pocket":
+				print("TAB before raised=", phone_raised, " mode=", phone_mode, " world=", _world_on())
+				set_phone_raised(not phone_raised)
+				print("TAB after raised=", phone_raised)
+			"quit": get_tree().quit()
+			"spawn": world.spawn(kv[1])
+			"at":
+				# at:x:z:yaw[:pitch] puts Daniel somewhere, looking somewhere
+				world.player.global_position = Vector3(float(kv[1]), 0.02, float(kv[2]))
+				world.player.set_view(float(kv[3]), float(kv[4]) if kv.size() > 4 else 0.0)
+			"look": world.player.set_view(float(kv[1]), float(kv[2]) if kv.size() > 2 else 0.0)
+			"use":
+				await get_tree().physics_frame
+				await get_tree().physics_frame
+				print("USE ", world.player.target_prompt)
+				world.player.use_target()
+			"walk":
+				# walk:action:secs holds a movement key
+				Input.action_press(kv[1])
+				await get_tree().create_timer(float(kv[2])).timeout
+				Input.action_release(kv[1])
+			"torch": world.player.toggle_flashlight()
+			"light": world.house.set_room_light(kv[1], kv[2] == "on")
+			"power": world.house.set_power(kv[1] == "on")
+			"cue": Events.world_cue.emit(kv[1], Array(kv.slice(2)))
+			"key":
+				# key:Tab:0.1 a real key press (physical), held for secs
+				var ke := InputEventKey.new()
+				ke.physical_keycode = OS.find_keycode_from_string(kv[1])
+				ke.keycode = ke.physical_keycode
+				ke.pressed = true
+				Input.parse_input_event(ke)
+				await get_tree().create_timer(float(kv[2]) if kv.size() > 2 else 0.08).timeout
+				var ku := ke.duplicate()
+				ku.pressed = false
+				Input.parse_input_event(ku)
+				await get_tree().process_frame
+			"mouse":
+				var mm2 := InputEventMouseMotion.new()
+				mm2.relative = Vector2(float(kv[1]), float(kv[2]))
+				Input.parse_input_event(mm2)
+				await get_tree().process_frame
+			"hudsize": print("HUD ", world.hud.size, " ui=", world_ui.size, " main=", size, " anchors=", world.hud.anchor_right, " ", world.hud.offset_right)
+			"hour": world.set_hour(float(kv[1]))
+			"where":
+				var wp := world.player.global_position
+				print("WHERE %.2f %.2f %.2f yaw=%.1f target=%s raised=%s" % [wp.x, wp.y, wp.z, world.player.yaw_deg(), world.player.target_prompt, phone_raised])
 
 
 func _layout() -> void:
 	var s := size
 	var ph := phone.custom_minimum_size
 	var k := clampf((s.y - 40.0) / ph.y, 0.5, 1.15)
+	if _world_on():
+		k = clampf((s.y - 60.0) / ph.y, 0.5, 1.0)
 	phone_holder.scale = Vector2(k, k)
-	phone_holder.position = s / 2.0
+	phone_holder.position = _phone_pos(phone_raised)
 	phone._base_pos = phone.position
+
+
+## Where the phone holder goes: the middle of the desk (title), or Daniel's
+## hand on the right of the view (raised) / out of sight (lowered).
+func _phone_pos(raised: bool) -> Vector2:
+	if not _world_on():
+		return size / 2.0
+	var w := phone.custom_minimum_size.x * phone_holder.scale.x
+	var h := phone.custom_minimum_size.y * phone_holder.scale.y
+	var x := size.x - w / 2.0 - maxf(40.0, size.x * 0.08)
+	return Vector2(x, size.y / 2.0) if raised else Vector2(x, size.y + h / 2.0 + 40.0)
+
+
+func _world_on() -> bool:
+	return world != null and world.active
+
+
+func _ensure_world() -> void:
+	if world:
+		return
+	world = GameWorld.new()
+	add_child(world)
+	move_child(world, 0)
+	world.attach_hud(world_ui)
+	world_ui.add_child(fade)
+
+
+## Into the house: hide the desk, the phone goes into Daniel's hand.
+func enter_world(where := "") -> void:
+	_ensure_world()
+	room.visible = false
+	world.set_active(true)
+	if where == "":
+		where = _spawn_for_chapter()
+	var wp: Array = GameState.data.get("w_pos", [])
+	if where == "saved" and wp.size() == 4:
+		world.player.global_position = Vector3(wp[0], wp[1], wp[2])
+		world.player.set_view(wp[3])
+	else:
+		world.spawn("sofa" if where == "saved" else where)
+	_apply_chapter_lights()
+	world.hud.show_phone_hint = phone_mode == "game"
+	world.hud.set_phone_idle()
+	own_hud.visible = false
+	phone_raised = phone_mode == "game"
+	phone_holder.visible = phone_mode == "game"
+	phone.input_active = true
+	_layout()
+	if not Settings.get_value("seen_3d_hint", false):
+		_controls_hint()
+
+
+## The first time in the house: how to move (once, then it's in Definições).
+func _controls_hint() -> void:
+	Settings.set_value("seen_3d_hint", true)
+	var k := func(a: String) -> String: return Settings.key_label(a, true)
+	var lines := [
+		"%s %s %s %s  andar   ·   %s  correr   ·   %s  agachar" % [k.call("move_forward"), k.call("move_left"), k.call("move_back"), k.call("move_right"), k.call("sprint"), k.call("crouch")],
+		"%s  usar / examinar   ·   %s  lanterna   ·   %s  %s o telemóvel" % [k.call("interact"), k.call("flashlight"), k.call("phone_toggle"), "guardar / tirar" if phone_mode == "game" else "(está no teu telemóvel)"],
+	]
+	var p := UI.panel(Color(0.04, 0.05, 0.06, 0.85), 12, 22, 14, 22, 14)
+	var v := UI.vbox(6)
+	for line in lines:
+		var l := UI.label(line, 15, "text")
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		v.add_child(l)
+	p.add_child(v)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	world_ui.add_child(p)
+	await get_tree().process_frame
+	p.position = Vector2((size.x - p.size.x) / 2.0, 40)
+	var tw := p.create_tween()
+	p.modulate.a = 0.0
+	tw.tween_property(p, "modulate:a", 1.0, 0.6)
+	tw.tween_interval(9.0)
+	tw.tween_property(p, "modulate:a", 0.0, 1.2)
+	tw.tween_callback(p.queue_free)
+
+
+func leave_world() -> void:
+	if world:
+		world.set_active(false)
+	room.visible = true
+	phone_raised = true
+	phone.input_active = true
+	fade.modulate.a = 0.0
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_layout()
+	if phone_mode == "game":
+		phone_holder.visible = true
+
+
+## Late-night chapters start in bed with the lights off; evenings on the sofa.
+func _spawn_for_chapter() -> String:
+	var h := int(Clock.fmt_time(Clock.now()).split(":")[0])
+	return "bed" if h >= 1 and h < 7 else "sofa"
+
+
+func _hour_now() -> float:
+	var hm := Clock.fmt_time(Clock.now()).split(":")
+	return float(hm[0]) + float(hm[1]) / 60.0
+
+
+func _apply_chapter_lights() -> void:
+	var h := int(Clock.fmt_time(Clock.now()).split(":")[0])
+	world.set_hour(_hour_now())
+	var evening := h >= 19 or h == 0
+	for id in world.house.rooms:
+		world.house.set_room_light(id, false)
+	world.house.set_power(true)
+	world.house.set_room_light("sala", evening)
+	world.house.set_tv(evening)
+
+
+## Tab: the phone of the game comes out of the pocket / goes back in.
+func set_phone_raised(on: bool) -> void:
+	if phone_mode != "game" or not _world_on():
+		return
+	if on == phone_raised:
+		return
+	phone_raised = on
+	phone.input_active = on
+	if not on:
+		get_viewport().gui_release_focus()
+	phone_holder.visible = true
+	if _phone_tw:
+		_phone_tw.kill()
+	_phone_tw = create_tween()
+	var target := _phone_pos(on)
+	var calm: bool = Settings.get_value("reduce_motion", false)
+	_phone_tw.tween_property(phone_holder, "position", target, 0.0 if calm else 0.28).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if not on:
+		_phone_tw.tween_callback(func(): if not phone_raised: phone_holder.visible = false)
+	Audio.play("sent", -18.0, 0.7)
+	if on:
+		world.hud.set_phone_idle()
+
+
+## The phone buzzed in the pocket.
+func _pocket_ping(text: String, ringing := false) -> void:
+	if mode == Mode.GAME and _world_on() and phone_mode == "game" and not phone_raised:
+		world.hud.phone_ping(text, ringing)
+
+
+func _menu_open() -> bool:
+	for c in overlay.get_children():
+		if not (c is Control) or not c.visible:
+			continue
+		if c == pause_menu or c == title_menu or c is MenuPanel or c is EndingScreen or (c as Control).mouse_filter == Control.MOUSE_FILTER_STOP:
+			return true
+	return false
+
+
+func _typing() -> bool:
+	var fo := get_viewport().gui_get_focus_owner()
+	return fo is LineEdit or fo is TextEdit
+
+
+func _process(delta: float) -> void:
+	if not _world_on():
+		return
+	var playing := mode == Mode.GAME and not get_tree().paused and not _menu_open()
+	var capture: bool = playing and (phone_mode == "own" or not phone_raised) and not world.peeping
+	var want := Input.MOUSE_MODE_CAPTURED if capture else Input.MOUSE_MODE_VISIBLE
+	if Input.mouse_mode != want and DisplayServer.get_name() != "headless":
+		Input.mouse_mode = want
+	world.player.look_enabled = capture
+	world.player.move_enabled = playing and not world.peeping and not (phone_raised and _typing())
+	world.hud.update_from(world.player)
+	_pos_save_t -= delta
+	if _pos_save_t <= 0.0 and mode == Mode.GAME:
+		_pos_save_t = 1.0
+		var p: Vector3 = world.player.global_position
+		GameState.data["w_pos"] = [snappedf(p.x, 0.01), snappedf(p.y, 0.01), snappedf(p.z, 0.01), snappedf(world.player.yaw_deg(), 0.1)]
+
+
+func _input(event: InputEvent) -> void:
+	if mode != Mode.GAME or not _world_on() or get_tree().paused:
+		return
+	if event.is_action_pressed("phone_toggle") and not event.is_echo():
+		if phone_mode == "game":
+			if not _typing():
+				set_phone_raised(not phone_raised)
+				get_viewport().set_input_as_handled()
+		else:
+			world.player.think("O telemóvel está contigo.")
+			get_viewport().set_input_as_handled()
 
 
 func show_title() -> void:
@@ -295,6 +557,7 @@ func show_title() -> void:
 	Clock.external = false
 	GameState.in_game = false
 	Director.stop()
+	leave_world()
 	_title_phone_state()
 	title_menu.open()
 	phone.refresh_all()
@@ -349,6 +612,8 @@ func start_new_game(show_warning := true) -> void:
 	phone.show_locked_immediately()
 	room.set_mood("night")
 	Audio.set_ambient("room")
+	if Content.role == "daniel":
+		enter_world()
 
 
 func continue_game(slot: String) -> bool:
@@ -359,6 +624,8 @@ func continue_game(slot: String) -> bool:
 	get_tree().paused = false
 	Audio.set_music("")
 	mode = Mode.GAME
+	if Content.role == "daniel":
+		enter_world("saved")
 	_show_previously()
 	return true
 
@@ -473,6 +740,8 @@ func _on_chapter_ended(ch: String) -> void:
 	phone.lock()
 	var tw := create_tween()
 	tw.tween_property(phone_holder, "modulate", Color(0.2, 0.2, 0.2), 1.6)
+	if _world_on():
+		tw.parallel().tween_property(fade, "modulate:a", 1.0, 1.6)
 	await tw.finished
 	Audio.set_ambient("", 2.5)
 	var roman := ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
@@ -484,6 +753,8 @@ func _on_chapter_ended(ch: String) -> void:
 	if ep.size() == 2:
 		epl = UI.label("%s\n\n— %s" % [ep[0], ep[1]], 17, "dim", true)
 		var left := size.x / 2 + phone.custom_minimum_size.x * phone_holder.scale.x / 2 + 50
+		if _world_on():
+			left = size.x / 2 + 60
 		epl.custom_minimum_size = Vector2(clampf(size.x - left - 40, 160, 360), 0)
 		epl.position = Vector2(left, size.y / 2 - 40)
 		epl.modulate.a = 0.0
@@ -502,8 +773,13 @@ func _on_chapter_ended(ch: String) -> void:
 	Director.advance_chapter()
 	phone.show_locked_immediately()
 	Audio.set_ambient(_chapter_ambient(nxt))
+	if _world_on():
+		world.spawn(_spawn_for_chapter())
+		_apply_chapter_lights()
 	var tw3 := create_tween()
 	tw3.tween_property(phone_holder, "modulate", Color.WHITE, 1.2)
+	if _world_on():
+		tw3.parallel().tween_property(fade, "modulate:a", 0.0, 2.0)
 	mode = Mode.GAME
 
 
@@ -511,6 +787,7 @@ func _on_chapter_ended(ch: String) -> void:
 func _on_ending(id: String) -> void:
 	mode = Mode.ENDING
 	Director.stop()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	await get_tree().create_timer(2.0).timeout
 	var screen := EndingScreen.new()
 	screen.main = self
@@ -584,7 +861,12 @@ func set_phone_mode(m: String) -> void:
 		Companion.stream_vp = null
 		_layout()
 	Companion.stream_changed()
-	own_hud.visible = m == "own"
+	own_hud.visible = m == "own" and not _world_on()
+	if _world_on():
+		world.hud.show_phone_hint = m == "game"
+		world.hud.set_phone_idle()
+		phone_raised = m == "game"
+		_layout()
 
 
 ## What the PC shows while the phone is in the player's hand.
@@ -611,6 +893,13 @@ func _build_own_hud() -> void:
 	k.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(k)
 	Events.time_changed.connect(func(t): if own_hud.visible: _own_clock.text = Clock.fmt_time(t))
+	# the light outside follows the game clock
+	Events.time_changed.connect(func(_t):
+		if _world_on():
+			var hr := _hour_now()
+			if absf(hr - _last_hour) > 0.08:
+				_last_hour = hr
+				world.set_hour(hr))
 
 
 ## The own phone dropped out mid-session: wait a moment, then pause and show

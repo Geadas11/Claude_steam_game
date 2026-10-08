@@ -162,7 +162,7 @@
 - **Telemóvel real** do jogador → ✅ v3: escolha por sessão, o telemóvel do jogo passa para o real (stream).
 - **Jogo 3D realista (tipo Phasmophobia)** com perigo real, sustos e cooperativo em locais diferentes →
   plano em 5 fases: 1) telemóvel real + escolha ✅; 2) base 3D (Forward+, primeira pessoa, casa do
-  Daniel); 3) entidade que caça e mata, esconderijos; 4) mais locais; 5) cooperativo 3D (Sofia em Lisboa).
+  Daniel) ✅; 3) entidade que caça e mata, esconderijos; 4) mais locais; 5) cooperativo 3D (Sofia em Lisboa).
 
 ## Higgsfield (sessão 2)
 
@@ -185,6 +185,35 @@
   e normaliza. As zonas de pistas (`data/photos.json`) foram reposicionadas foto a foto.
 - Continuam desenhadas pelo jogo: IMG_6800, IMG_RITA, IMG_SCR_0313 (capturas de ecrã).
 - Custo: cerca de 2 560 créditos (64 gerações de 40 + 1 de teste).
+
+## Casa 3D (fase 2)
+
+- **Renderizador Forward+** (Vulkan / D3D12). O jogo passa a ter o Daniel em primeira pessoa na casa
+  dele: Rua das Gaivotas 12, rés-do-chão (bate com a IMG_6612: sofá contra a janela, TV à direita,
+  lâmpada nua). Sala, quarto, corredor comprido, cozinha, casa de banho, arrumos, patamar e a rua
+  com candeeiros de sódio e o prédio da frente. Construída em código (`scripts/world/house.gd`) com
+  31 modelos e 12 texturas CC0 do Poly Haven (`tools/fetch_polyhaven.py`, `assets/3d/CREDITS.md`).
+- **Controlos:** WASD, Shift (correr, com fôlego), C/Ctrl (agachar), F (lanterna com atraso de
+  mão), E (usar), Tab (telemóvel), comando suportado. Passos procedurais (madeira/azulejo), portas
+  que abrem e empurram, interruptores por divisão, quadro elétrico, TV, candeeiro de secretária,
+  óculo da porta da rua (vista olho-de-peixe do patamar).
+- **Telemóvel:** com "o telemóvel do jogo" fica na mão do Daniel à direita (Tab guarda/tira; com
+  ele guardado aparece "Tab · Mensagem · Sofia" e vibra). Com "o meu telemóvel" o PC mostra só a
+  casa e o telemóvel real é o do jogo.
+- **História na casa:** 20 coisas para examinar com pensamentos do Daniel (`data/world/casa.json`,
+  condições iguais às dos `.story`, ex.: o frigorífico lembra o que disseste à Sofia ao jantar).
+  Cada uma marca `w_<id>` para a história. Novo comando `world` nos `.story` (luzes, piscar,
+  quadro, TV, portas, luz do patamar, tremor, pensamentos). Pancadas, passos e a porta ouvem-se
+  na porta da rua/no patamar (som 3D); respiração e sussurros atrás do jogador.
+- **Hora do dia:** a luz segue o relógio do jogo (Porto em outubro: nasce ~07:40, põe-se ~19:05);
+  capítulos de madrugada começam na cama, de noite no sofá; candeeiros da rua só de noite.
+- **Qualidade gráfica** (Definições): Baixa / Média / Alta (SSIL, SSAO, nevoeiro volumétrico,
+  sombras). Sensibilidade do rato, campo de visão, inverter Y.
+- Testes: `--only=world` (35 verificações: andar, paredes, fôlego, agachar, portas, porta
+  trancada, examinar, interruptores, quadro elétrico, comandos `world`, som na porta, óculo).
+- Builds de teste divididos (`tools/split_pack.gd` + autoload `Packs`): base + `_3d_N.pck`.
+- **Ainda não:** perigo/entidade (fase 3), outros locais — livraria, cais, farol (fase 4; por
+  agora esses capítulos passam-se em casa), cooperativo 3D da Sofia (fase 5).
 
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.

@@ -68,6 +68,14 @@ func make(sound_name: String) -> AudioStreamWAV:
 		"drop": buf = _drop()
 		"water": buf = _water()
 		"click_far": buf = _click(0.05, 0.15, 900.0)
+		# --- the 3D house
+		"step": buf = _step(false)
+		"step_tile": buf = _step(true)
+		"switch": buf = _switch()
+		"flashlight": buf = _click(0.04, 0.4, 3200.0)
+		"door_open": buf = _door(false)
+		"door_close": buf = _door(true)
+		"door_locked": buf = _rattle()
 		# loops
 		"room": buf = _room()
 		"hum": buf = _hum()
@@ -325,6 +333,73 @@ func _creak() -> PackedFloat32Array:
 		lp += (saw - lp) * 0.2
 		var env := sin(PI * t / 1.8)
 		b[i] = lp * env * 0.35
+	return b
+
+
+## One footstep: a soft thud for the wooden floor, a harder tap on tiles.
+func _step(tile: bool) -> PackedFloat32Array:
+	var b := _alloc(0.28)
+	var lp := 0.0
+	for i in b.size():
+		var t := float(i) / RATE
+		var n := _rng.randf_range(-1.0, 1.0)
+		lp += (n - lp) * (0.5 if tile else 0.12)
+		var thud := sin(TAU * (90.0 if tile else 62.0) * t) * exp(-t * 40.0)
+		b[i] = (thud * (0.35 if tile else 0.55) + lp * exp(-t * (70.0 if tile else 30.0)) * (0.5 if tile else 0.6)) * 0.6
+	# the old parquet sometimes answers with a small creak
+	if not tile and _rng.randf() < 0.5:
+		var ph := 0.0
+		for i in int(0.12 * RATE):
+			var t := float(i) / RATE
+			ph += (300.0 + _rng.randf_range(-20.0, 20.0)) / RATE
+			var idx := int(0.05 * RATE) + i
+			if idx < b.size():
+				b[idx] += (fmod(ph, 1.0) * 2.0 - 1.0) * sin(PI * t / 0.12) * 0.04
+	return b
+
+
+func _switch() -> PackedFloat32Array:
+	var b := _alloc(0.12)
+	for k in 2:
+		var start := int(k * 0.035 * RATE)
+		for i in int(0.04 * RATE):
+			var t := float(i) / RATE
+			if start + i < b.size():
+				b[start + i] += (_rng.randf_range(-1.0, 1.0) * 0.5 + sin(TAU * 2400.0 * t) * 0.5) * exp(-t * 260.0) * (0.5 if k == 0 else 0.3)
+	return b
+
+
+## Interior door: a short hinge creak; closing ends with the latch.
+func _door(closing: bool) -> PackedFloat32Array:
+	var secs := 0.9
+	var b := _alloc(secs + 0.3)
+	var ph := 0.0
+	var lp := 0.0
+	for i in int(secs * RATE):
+		var t := float(i) / RATE
+		var f := 140.0 + 90.0 * sin(TAU * 0.9 * t) + _rng.randf_range(-12.0, 12.0)
+		ph += f / RATE
+		var saw := fmod(ph, 1.0) * 2.0 - 1.0
+		lp += (saw - lp) * 0.08
+		b[i] = lp * sin(PI * t / secs) * 0.16
+	if closing:
+		var start := int(secs * 0.85 * RATE)
+		for i in int(0.25 * RATE):
+			var t := float(i) / RATE
+			if start + i < b.size():
+				b[start + i] += (sin(TAU * 85.0 * t) * 0.7 + _rng.randf_range(-0.4, 0.4) * exp(-t * 90.0)) * exp(-t * 26.0) * 0.6
+	return b
+
+
+## The handle of a locked door: two or three short metallic rattles.
+func _rattle() -> PackedFloat32Array:
+	var b := _alloc(0.45)
+	for k in 3:
+		var start := int((k * 0.12 + _rng.randf() * 0.02) * RATE)
+		for i in int(0.06 * RATE):
+			var t := float(i) / RATE
+			if start + i < b.size():
+				b[start + i] += (sin(TAU * 1700.0 * t) * 0.3 + sin(TAU * 260.0 * t) * 0.4 + _rng.randf_range(-0.3, 0.3)) * exp(-t * 80.0) * 0.5
 	return b
 
 

@@ -19,6 +19,7 @@ const COMMANDS := {
 	"deduction": 0, "typing": 3, "toast": 1, "hiddenapp": 2, "coopset": 2,
 	"setting": 2, "read": 1, "alarm": 2, "home": 0, "clearchoice": 1,
 	"retime": 3, "hidethread": 1, "showthread": 1, "mapmark": 1,
+	"world": 1,
 }
 
 var errors: Array = []

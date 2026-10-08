@@ -26,9 +26,23 @@ var values := {
 	"seen_controls_hint": false,
 	"language": "pt",
 	"keymap": {},              # action -> physical keycode (player rebinds)
+	"mouse_sens": 1.0,          # 0.3 .. 3
+	"invert_y": false,
+	"fov": 75.0,                # 60 .. 95
+	"graphics": "alta",         # baixa / media / alta (the 3D house)
+	"seen_3d_hint": false,
 }
 
 const REMAPPABLE := {
+	"move_forward": "Andar para a frente",
+	"move_back": "Andar para trás",
+	"move_left": "Andar para a esquerda",
+	"move_right": "Andar para a direita",
+	"sprint": "Correr",
+	"crouch": "Agachar",
+	"interact": "Usar / examinar",
+	"flashlight": "Lanterna",
+	"phone_toggle": "Tirar / guardar o telemóvel",
 	"phone_back": "Voltar",
 	"phone_home": "Ecrã principal",
 	"pause_menu": "Pausa",
@@ -69,11 +83,13 @@ func rebind(action: String, keycode: int, persist := true) -> void:
 		set_value("keymap", km)
 
 
-func key_label(action: String) -> String:
+func key_label(action: String, first_only := false) -> String:
 	var names: Array = []
 	for ev in InputMap.action_get_events(action):
 		if ev is InputEventKey:
-			names.append(OS.get_keycode_string(ev.physical_keycode))
+			names.append(OS.get_keycode_string(DisplayServer.keyboard_get_keycode_from_physical(ev.physical_keycode)))
+			if first_only:
+				break
 	return " / ".join(PackedStringArray(names)) if not names.is_empty() else "—"
 
 
@@ -94,6 +110,22 @@ func _setup_input() -> void:
 	_add_key_action("quick_save", [KEY_F5], [])
 	_add_key_action("quick_load", [KEY_F9], [])
 	_add_key_action("toggle_fullscreen", [KEY_F11], [])
+	# the 3D house
+	_add_key_action("move_forward", [KEY_W, KEY_UP], [])
+	_add_key_action("move_back", [KEY_S, KEY_DOWN], [])
+	_add_key_action("move_left", [KEY_A, KEY_LEFT], [])
+	_add_key_action("move_right", [KEY_D, KEY_RIGHT], [])
+	_add_key_action("sprint", [KEY_SHIFT], [JOY_BUTTON_LEFT_STICK])
+	_add_key_action("crouch", [KEY_C, KEY_CTRL], [JOY_BUTTON_RIGHT_STICK])
+	_add_key_action("interact", [KEY_E], [JOY_BUTTON_A])
+	_add_key_action("flashlight", [KEY_F], [JOY_BUTTON_X])
+	_add_key_action("phone_toggle", [KEY_TAB], [JOY_BUTTON_Y])
+	for pair in [["move_left", JOY_AXIS_LEFT_X, -1.0], ["move_right", JOY_AXIS_LEFT_X, 1.0], ["move_forward", JOY_AXIS_LEFT_Y, -1.0], ["move_back", JOY_AXIS_LEFT_Y, 1.0]]:
+		var jm := InputEventJoypadMotion.new()
+		jm.axis = pair[1]
+		jm.axis_value = pair[2]
+		InputMap.action_add_event(pair[0], jm)
+		InputMap.action_set_deadzone(pair[0], 0.2)
 
 
 func _add_key_action(action: String, keys: Array, buttons: Array) -> void:

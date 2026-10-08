@@ -28,11 +28,16 @@ func _ready() -> void:
 	_toggle("Ecrã inteiro (F11)", "fullscreen")
 	_toggle("Sincronização vertical", "vsync")
 	_resolution()
+	_section("Casa (primeira pessoa)")
+	_slider("Sensibilidade do rato", "mouse_sens", 0.3, 3.0, 0.1)
+	_slider("Campo de visão", "fov", 60.0, 95.0, 1.0)
+	_toggle("Inverter o eixo vertical", "invert_y")
+	_choice("Qualidade gráfica", "graphics", ["baixa", "media", "alta"], ["Baixa", "Média", "Alta"])
 	_section("Controlos")
 	for action in Settings.REMAPPABLE:
 		_keybind(action)
 	for line in [
-		"Rato — tocar no ecrã do telemóvel",
+		"Rato — olhar à volta; com o telemóvel na mão, tocar no ecrã",
 		"Roda do rato — deslizar listas",
 		"Comando: setas/analógico para navegar, A para escolher, B para voltar, Start para pausa",
 	]:
@@ -70,8 +75,10 @@ func _slider(label_text: String, key: String, mn: float, mx: float, step := 0.05
 
 
 func _fmt(key: String, v: float) -> String:
-	if key == "text_scale" or key == "text_speed" or key == "clock_speed":
+	if key == "text_scale" or key == "text_speed" or key == "clock_speed" or key == "mouse_sens":
 		return "%.2fx" % v
+	if key == "fov":
+		return "%d°" % int(v)
 	return "%d%%" % int(round(v * 100))
 
 
@@ -83,6 +90,21 @@ func _toggle(label_text: String, key: String) -> void:
 	c.focus_mode = Control.FOCUS_ALL
 	c.toggled.connect(func(on): Settings.set_value(key, on))
 	body.add_child(c)
+
+
+func _choice(label_text: String, key: String, values: Array, names: Array) -> void:
+	var h := UI.hbox(12)
+	var l := UI.label(label_text, 15)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(l)
+	var o := OptionButton.new()
+	for i in values.size():
+		o.add_item(names[i])
+		if values[i] == Settings.get_value(key):
+			o.select(i)
+	o.item_selected.connect(func(i): Settings.set_value(key, values[i]))
+	h.add_child(o)
+	body.add_child(h)
 
 
 func _resolution() -> void:

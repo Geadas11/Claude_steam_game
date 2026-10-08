@@ -1,0 +1,46 @@
+# Recursos 3D
+
+Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
+
+- Modelo `ArmChair_01` — https://polyhaven.com/a/ArmChair_01
+- Modelo `alarm_clock_01` — https://polyhaven.com/a/alarm_clock_01
+- Modelo `book_encyclopedia_set_01` — https://polyhaven.com/a/book_encyclopedia_set_01
+- Modelo `cardboard_box_01` — https://polyhaven.com/a/cardboard_box_01
+- Modelo `covered_car` — https://polyhaven.com/a/covered_car
+- Modelo `desk_lamp_arm_01` — https://polyhaven.com/a/desk_lamp_arm_01
+- Modelo `dining_chair_02` — https://polyhaven.com/a/dining_chair_02
+- Modelo `electric_stove` — https://polyhaven.com/a/electric_stove
+- Modelo `fancy_picture_frame_01` — https://polyhaven.com/a/fancy_picture_frame_01
+- Modelo `jug_01` — https://polyhaven.com/a/jug_01
+- Modelo `lightbulb_01` — https://polyhaven.com/a/lightbulb_01
+- Modelo `metal_office_desk` — https://polyhaven.com/a/metal_office_desk
+- Modelo `metal_trash_can` — https://polyhaven.com/a/metal_trash_can
+- Modelo `modern_coffee_table_01` — https://polyhaven.com/a/modern_coffee_table_01
+- Modelo `modern_wooden_cabinet` — https://polyhaven.com/a/modern_wooden_cabinet
+- Modelo `old_bed_frame` — https://polyhaven.com/a/old_bed_frame
+- Modelo `painted_wooden_nightstand` — https://polyhaven.com/a/painted_wooden_nightstand
+- Modelo `potted_plant_01` — https://polyhaven.com/a/potted_plant_01
+- Modelo `round_wooden_table_01` — https://polyhaven.com/a/round_wooden_table_01
+- Modelo `sofa_03` — https://polyhaven.com/a/sofa_03
+- Modelo `standing_picture_frame_01` — https://polyhaven.com/a/standing_picture_frame_01
+- Modelo `street_lamp_01` — https://polyhaven.com/a/street_lamp_01
+- Modelo `throw_pillows_01` — https://polyhaven.com/a/throw_pillows_01
+- Modelo `trashbag` — https://polyhaven.com/a/trashbag
+- Modelo `vintage_cabinet_01` — https://polyhaven.com/a/vintage_cabinet_01
+- Modelo `vintage_microwave` — https://polyhaven.com/a/vintage_microwave
+- Modelo `wall_clock` — https://polyhaven.com/a/wall_clock
+- Modelo `wine_bottles_01` — https://polyhaven.com/a/wine_bottles_01
+- Modelo `wooden_bookshelf_worn` — https://polyhaven.com/a/wooden_bookshelf_worn
+- Modelo `wooden_cutting_board` — https://polyhaven.com/a/wooden_cutting_board
+- Textura `asphalt_06` — https://polyhaven.com/a/asphalt_06
+- Textura `herringbone_parquet` — https://polyhaven.com/a/herringbone_parquet
+- Textura `kitchen_wood` — https://polyhaven.com/a/kitchen_wood
+- Textura `long_white_tiles` — https://polyhaven.com/a/long_white_tiles
+- Textura `marble_01` — https://polyhaven.com/a/marble_01
+- Textura `marble_mosaic_tiles` — https://polyhaven.com/a/marble_mosaic_tiles
+- Textura `painted_plaster_wall` — https://polyhaven.com/a/painted_plaster_wall
+- Textura `plastered_wall_04` — https://polyhaven.com/a/plastered_wall_04
+- Textura `square_tiled_wall` — https://polyhaven.com/a/square_tiled_wall
+- Textura `stone_pavers` — https://polyhaven.com/a/stone_pavers
+- Textura `terrazzo_tiles` — https://polyhaven.com/a/terrazzo_tiles
+- Textura `white_plaster_02` — https://polyhaven.com/a/white_plaster_02

@@ -80,8 +80,15 @@ func _get_stream(sound_name: String) -> AudioStreamWAV:
 const SUDDEN := ["knock", "knock_one", "glitch", "static", "door", "drop", "creak", "sub", "footsteps"]
 
 
+## Set by the 3D house: returns true when it played the sound in the room
+## (a knock at the front door, steps in the corridor) instead of in the ears.
+var spatial: Callable
+
+
 func play(sound_name: String, volume_db := 0.0, pitch := 1.0) -> void:
 	if muted_for_tests or sound_name == "":
+		return
+	if spatial.is_valid() and spatial.call(sound_name, volume_db, pitch):
 		return
 	var stream := _get_stream(sound_name)
 	if sound_name in SUDDEN and Settings.get_value("soften_sudden", false):
@@ -98,6 +105,15 @@ func play(sound_name: String, volume_db := 0.0, pitch := 1.0) -> void:
 	_sfx[0].stream = stream
 	_sfx[0].volume_db = volume_db
 	_sfx[0].play()
+
+
+## The stream of a synthesised sound (for players in the 3D world).
+func stream(sound_name: String) -> AudioStreamWAV:
+	return _get_stream(sound_name)
+
+
+func is_sudden(sound_name: String) -> bool:
+	return sound_name in SUDDEN
 
 
 func key_click() -> void:
