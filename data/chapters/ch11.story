@@ -320,3 +320,35 @@ endif
 wait 3
 ending E
 @end
+
+# ---------------------------------------------------------------- vozes de antes (ecos de escolhas)
+@beat mae_candle
+@when at("23:25")
+mae> filho acendi a vela pela menina. e outra por ti
+mae> dorme bem
+@end
+
+@beat carla_amulet
+@when at("23:50") and flag("found_card")
+carla> Querido, passei pela loja para ir buscar os óculos
+carla> O meu Ricardo Reis está outra vez no sítio. Mais leve, parece-me. Sem pó
+carla> Faz o que tiveres de fazer. A loja abre às dez, mas tu amanhã não vens. Está decidido
+@end
+
+@beat joao_fishing
+@when flag("joao_with") and at("02:40")
+joao> {instant} dani
+joao> {instant} quando isto acabar ainda me deves aquela ida a pesca
+if flag("joao_thanks") or v("trust_joao") >= 3
+  joao> {instant} e desta vez nao aceito talvez
+endif
+@end
+
+@beat sofia_callback
+@when flag("sofia_knows") and flag("left_home") and at("02:35")
+if flag("sofia_coming_pier")
+  sofia> Já te vejo ao fundo. Não te mexas
+else
+  sofia> Estou à tua porta. Cheguei, mano. Desta vez cheguei mesmo
+endif
+@end

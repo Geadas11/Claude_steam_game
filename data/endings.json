@@ -23,6 +23,22 @@
   ],
   "extra": [
    {
+    "when": "flag(\"joao_with\") or flag(\"joao_coming\")",
+    "line": "O João fechou o Farol durante três dias. Disse que era \"para obras\". Passou-os contigo, a ver o mar sem dizer nada."
+   },
+   {
+    "when": "flag(\"joao_gone\")",
+    "line": "O João nunca voltou ao grupo. Em dezembro viste-o ao longe, à porta do Farol. Ele acenou. Não foste lá."
+   },
+   {
+    "when": "flag(\"told_carla_card\")",
+    "line": "A Carla tirou o Ricardo Reis da estante e pô-lo na montra, com um papel escrito à mão: \"Não está à venda. Nunca esteve.\""
+   },
+   {
+    "when": "flag(\"armando_saw\")",
+    "line": "O Sr. Armando testemunhou em março. Disse ao juiz que tinha visto um rapaz ir-se embora e voltar a correr. Foi a primeira vez que alguém o disse em voz alta."
+   },
+   {
     "when": "flag(\"rita_keep\")",
     "line": "Na sexta, a Rita escreveu-te: \"o meu pai deixou de me escrever. obrigada por me teres dito para guardar tudo.\""
    },
@@ -55,6 +71,18 @@
   ],
   "extra": [
    {
+    "when": "flag(\"joao_ally\") or v(\"trust_joao\") >= 2",
+    "line": "O João deixou de te ligar em novembro. Não perguntou nada. Sabia."
+   },
+   {
+    "when": "flag(\"rui_ally\")",
+    "line": "O Rui vendeu o barco em janeiro. O novo dono pintou-lhe outro nome por cima."
+   },
+   {
+    "when": "flag(\"clara_ally\")",
+    "line": "A Clara Neves foi transferida para a secção de desporto. Nunca te respondeu à mensagem de parabéns."
+   },
+   {
     "when": "flag(\"rita_talked\")",
     "line": "Em novembro, o número da Rita voltou a escrever-te, às 3:17: \"ainda estás acordado?\" Não respondeste."
    }
@@ -79,6 +107,16 @@
    "O telemóvel estava desligado. A bateria estava vazia há meses.",
    "Abriste a gaveta.",
    "\"Ainda estás acordado?\""
+  ],
+  "extra": [
+   {
+    "when": "flag(\"sofia_knows\")",
+    "line": "Foi a Sofia que guardou o telemóvel na gaveta. Fechou-a à chave e nunca te perguntou porquê."
+   },
+   {
+    "when": "flag(\"found_card\")",
+    "line": "O cartão continua na tua carteira, atrás do cartão de cidadão. Às vezes passas-lhe o dedo por cima."
+   }
   ]
  },
  "D": {
