@@ -8,3 +8,7 @@ builds/
 Thumbs.db
 # Python
 __pycache__/
+# Secrets (API keys)
+.env
+.env.local
+.env.*.local

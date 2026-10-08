@@ -151,6 +151,15 @@
   cap. 1 da Sofia. Steam preparado, por ativar quando houver App ID. Ver `docs/COOP.md`.
 - **Telemóvel real** do jogador como segundo ecrã → ✅ feito (página web via QR).
 
+## Higgsfield (sessão 2)
+
+- `tools/higgsfield/main.py`: exemplo com o SDK oficial (`higgsfield-client`) e o modelo
+  `bytedance/seedance-2.5/text-to-video` (5 s, 720p, 16:9). Credenciais em `.env.local` (`HF_KEY`,
+  ignorado pelo Git). `tools/gen_images.py` passa a usar o Higgsfield (Seedream 4) quando `HF_KEY`
+  ou `HF_KEY_FILE` existe.
+- **Bloqueado:** a rede deste ambiente recusa `api.higgsfield.ai` (e a documentação). Ainda não foi
+  gerado nada; falta adicionar `higgsfield.ai` (e `*.higgsfield.ai`) aos domínios permitidos.
+
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
