@@ -249,6 +249,11 @@ wait 3
 unknown> Não era para ser assim.
 wait 8
 unknown> Dorme. Amanhã procuras melhor.
+wait 12
+unknown> {instant} [photo:IMG_0317]
+wait 4
+unknown> Quarta-feira.
+set got_future_photo=true
 checkpoint
 wait 10
 @end

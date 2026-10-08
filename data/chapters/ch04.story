@@ -343,3 +343,22 @@ if flag("rita_intro")
   set rita_talked=true
 endif
 @end
+
+
+# ---------------------------------------------------------------- a fotografia de quarta-feira
+@beat future_photo_nudge
+@when flag("got_future_photo") and at("11:30") and not flag("meta_IMG_0317")
+unknown> Viste a data da fotografia do cais?
+wait 3
+unknown> Toca no (i).
+@end
+
+@beat future_photo_seen
+@when flag("meta_IMG_0317")
+wait 6
+unknown> Catorze de outubro. Três e dezassete.
+wait 3
+unknown> Ainda não aconteceu.
+wait 4
+unknown> Ou já aconteceu tantas vezes que deixou de ter data.
+@end
