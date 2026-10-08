@@ -18,6 +18,7 @@ func _ready() -> void:
 	body.add_child(UI.label("O relógio também acelera sozinho quando ficas parado e a história só está à espera da hora certa.", 12, "faint", true))
 	_toggle("Legendas em chamadas e gravações", "subtitles")
 	_toggle("Legendas de sons ([respiração], [estática]…)", "sound_captions")
+	_toggle("Avisar quando encontras uma pista", "clue_toasts")
 	_section("Acessibilidade")
 	_toggle("Alto contraste", "high_contrast")
 	_toggle("Reduzir efeitos visuais (interferências, cintilação)", "reduce_effects")

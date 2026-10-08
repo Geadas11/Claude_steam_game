@@ -960,7 +960,7 @@ func add_clue(id: String, silent := false) -> void:
 		if not silent:
 			Audio.play("clue")
 			var title := str(Content.get_item("clues", id).get("title", ""))
-			if title != "":
+			if title != "" and Settings.get_value("clue_toasts", true):
 				var hint := ""
 				if not Achievements.stats.get("clue_hint_seen", false):
 					Achievements.stats["clue_hint_seen"] = true
