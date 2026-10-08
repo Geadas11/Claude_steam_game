@@ -403,3 +403,17 @@ else
   rui> Ninguém sabe nada sobre a minha irmã. Nem eu.
 endif
 @end
+
+# ---------------------------------------------------------------- o resumo semanal
+@beat eco_weekly
+@when at("09:50")
+email eco_care_weekly
+@end
+
+@beat eco_weekly_read
+@when email_read("eco_care_weekly")
+wait 15
+unknown> "Contactos sinalizados."
+wait 3
+unknown> Eu não apareço na lista. Já reparaste?
+@end

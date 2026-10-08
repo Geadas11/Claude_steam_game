@@ -19,7 +19,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente); epílogos antes da imagem final (`coda`) |
-| Investigação | ✅ 188 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 189 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 37 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -31,8 +31,8 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - **21 personagens** com vozes distintas (ver `docs/STORY_BIBLE.md`)
 - **43 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
-- **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **8 mensagens de voz**, mapa com 12 locais
-- **188 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **30 emails**, **25 ficheiros**, **11 notas** (1 protegida), **8 mensagens de voz**, mapa com 12 locais
+- **189 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)

@@ -274,5 +274,16 @@
   "clues": [
    "exclusion_2208"
   ]
+ },
+ "eco_care_weekly": {
+  "folder": "Entrada",
+  "from_name": "ECO Care",
+  "from": "care@eco.lumen.pt",
+  "date": "2026-10-12 09:50",
+  "subject": "O seu resumo semanal de bem-estar",
+  "body": "Olá, Daniel.\n\nEis a sua semana (5–11 out.):\n\n[b]Sono[/b]: 2 h 11 min por noite (média). Na semana anterior: 4 h 40 min.\n[b]Despertares às 03:17[/b]: 6 em 7 noites.\n[b]Tempo de ecrã entre as 00h e as 05h[/b]: 19 h 26 min.\n[b]Pesquisas sensíveis[/b]: 23 (\"Inês Matos\", \"Cais Velho\", \"como recuperar mensagens apagadas\"…)\n[b]Contactos sinalizados[/b]: J. Cardoso, R. Matos, C. Neves\n[b]Humor estimado[/b]: em queda ▼\n\nEste resumo foi partilhado com a sua equipa de cuidados:\n· Clínica Atlântico — Dra. Helena Sousa\n· Lumen Systems — Programa de Apoio ao Colaborador (V. Pimentel)\n\nLembre-se: o ECO Care está aqui para si. Durma bem.\n\n[i]Não responda a este email.[/i]",
+  "clues": [
+   "eco_weekly_report"
+  ]
  }
 }

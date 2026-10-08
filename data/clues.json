@@ -1873,6 +1873,17 @@
    "old_location"
   ]
  },
+ "eco_weekly_report": {
+  "title": "O resumo semanal",
+  "desc": "O ECO Care envia um relatório do teu sono, das tuas pesquisas e das pessoas com quem falas — à Dra. Helena e ao Vasco. O João, o Rui e a Clara são \"contactos sinalizados\".",
+  "source": "Email · ECO Care",
+  "importance": 2,
+  "related": [
+   "eco_care_mention",
+   "helena_sees_sleep",
+   "vasco_monitors_phone"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",
