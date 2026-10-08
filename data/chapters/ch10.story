@@ -499,3 +499,20 @@ else
   sofia> Eu sabia
 endif
 @end
+
+# ---------------------------------------------------------------- uma chamada de ti
+@beat self_call
+@when at("21:04")
+calllog me missed 21:04 0
+notify phone "Chamada perdida" "Eu"
+wait 20
+voicemail vm_self
+@end
+
+@beat self_call_heard
+@when file_open("vm_vm_self")
+wait 8
+unknown> Não fui eu que te liguei.
+wait 4
+unknown> Essa gravação tem um ano. Estava à espera de alguém que a ouvisse.
+@end

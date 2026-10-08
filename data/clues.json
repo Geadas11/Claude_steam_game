@@ -1833,6 +1833,16 @@
    "helena_vasco_link"
   ]
  },
+ "self_voicemail": {
+  "title": "Uma chamada de ti mesmo",
+  "desc": "Uma chamada perdida do teu próprio número, e uma mensagem de voz com a tua voz, ofegante, junto ao mar: \"Ela chamou-me e eu ia a meio da estrada...\"",
+  "source": "Correio de voz",
+  "importance": 3,
+  "related": [
+   "armando_saw",
+   "joao_saw_daniel"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

@@ -279,3 +279,14 @@ unknown> Em dezembro ficaste vinte minutos à chuva à porta da livraria.
 wait 3
 unknown> Não entraste. Eu vi.
 @end
+
+# ---------------------------------------------------------------- ligar para ti próprio
+@call me g_call_self
+- (o teu número chama pelo teu número; alguém atende)
+wait 2
+- (mar)
+wait 3
+- (alguém respira do outro lado, ao mesmo ritmo que tu)
+wait 3
+- (quando paras de respirar, também para)
+@end

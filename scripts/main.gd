@@ -179,6 +179,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
 			"continue": continue_game(kv[1])
+			"call": Director.player_call(kv[1])
 			"dumptoast":
 				var tp: Control = phone.screen.get_node("Toast")
 				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())

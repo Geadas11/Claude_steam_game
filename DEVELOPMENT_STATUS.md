@@ -19,7 +19,7 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 184 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 185 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 36 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -31,8 +31,8 @@ ver "Problemas conhecidos")
 - **21 personagens** com vozes distintas (ver `docs/STORY_BIBLE.md`)
 - **42 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
-- **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **184 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **8 mensagens de voz**, mapa com 12 locais
+- **185 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -56,6 +56,7 @@ ver "Problemas conhecidos")
 | 7 | Rosto na janela; o telemóvel escreve e envia sozinho; mensagem do João que o João não enviou; a médica sabe demais |
 | 8 | O registo prevê as 11:04 e acontece; o telemóvel abre sozinho a captura do que fizeste; a fotografia do cais aproxima-se enquanto olhas; fotografado a dormir; vaga de internamento "sem telemóvel" |
 | 9 | A gravação do cais; alguém atrás de ti na câmara frontal; a Rita "está bem"; a mãe lembra-se de uma chamada tua às 04:30, só com o mar |
+| 10 | Uma chamada perdida de "Eu" — e uma mensagem de voz com a tua voz, junto ao mar; ligar de volta: alguém respira ao teu ritmo |
 | 11 | A caminhada: "voltaste" |
 | 3–10 | Vibrações fantasma raras; recibo "Lida · 03:17"; a voz comenta as etiquetas do teu quadro de pistas |
 
