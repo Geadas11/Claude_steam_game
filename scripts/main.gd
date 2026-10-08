@@ -388,11 +388,27 @@ func _on_chapter_ended(ch: String) -> void:
 	var roman := ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
 	var idx := Content.chapter_order.find(nxt)
 	caption.text = "%s\n%s\n\n[ %s · %s ]" % [Clock.fmt_date_long(start_unix), Clock.fmt_time(start_unix), roman[idx] if idx >= 0 and idx < roman.size() else "", Content.chapter_title(nxt)]
+	# an epigraph on the other side of the phone (public-domain Pessoa)
+	var ep: Array = Content.db.get("chapters_meta", {}).get("epigraphs", {}).get(nxt, [])
+	var epl: Label = null
+	if ep.size() == 2:
+		epl = UI.label("%s\n\n— %s" % [ep[0], ep[1]], 17, "dim", true)
+		var left := size.x / 2 + phone.custom_minimum_size.x * phone_holder.scale.x / 2 + 50
+		epl.custom_minimum_size = Vector2(clampf(size.x - left - 40, 160, 360), 0)
+		epl.position = Vector2(left, size.y / 2 - 40)
+		epl.modulate.a = 0.0
+		add_child(epl)
 	var tw2 := create_tween()
 	tw2.tween_property(caption, "modulate:a", 1.0, 1.4)
-	tw2.tween_interval(2.8)
+	if epl:
+		tw2.parallel().tween_property(epl, "modulate:a", 1.0, 2.4)
+	tw2.tween_interval(3.6 if epl else 2.8)
 	tw2.tween_property(caption, "modulate:a", 0.0, 1.2)
+	if epl:
+		tw2.parallel().tween_property(epl, "modulate:a", 0.0, 1.2)
 	await tw2.finished
+	if epl:
+		epl.queue_free()
 	Director.advance_chapter()
 	phone.show_locked_immediately()
 	Audio.set_ambient(_chapter_ambient(nxt))

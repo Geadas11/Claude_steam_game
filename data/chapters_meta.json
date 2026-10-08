@@ -37,6 +37,48 @@
   "ch09": "A Sofia mandou-te a cópia do telemóvel antigo, protegida pelo aniversário dela. A conta da Inês sincronizou uma gravação feita no cais às 03:09. A voz pediu-te que montasses a noite peça a peça. O Vasco quer-te internado amanhã às 14h.",
   "ch10": "Terça-feira, 13 de outubro. As escolhas pagaram-se: quem ficou do teu lado, quem desapareceu. O cartão da Inês esteve sempre dentro do livro. Esta noite, faz um ano."
  },
+ "epigraphs": {
+  "ch02": [
+   "O poeta é um fingidor.\nFinge tão completamente\nQue chega a fingir que é dor\nA dor que deveras sente.",
+   "Fernando Pessoa"
+  ],
+  "ch03": [
+   "Vem sentar-te comigo, Lídia, à beira do rio.",
+   "Ricardo Reis"
+  ],
+  "ch04": [
+   "Sábio é o que se contenta com o espetáculo do mundo.",
+   "Ricardo Reis"
+  ],
+  "ch05": [
+   "Não sou nada.\nNunca serei nada.",
+   "Álvaro de Campos"
+  ],
+  "ch06": [
+   "O que em mim sente 'stá pensando.",
+   "Fernando Pessoa"
+  ],
+  "ch07": [
+   "Cada um cumpre o destino que lhe cumpre,\nE deseja o destino que deseja.",
+   "Ricardo Reis"
+  ],
+  "ch08": [
+   "Estou hoje vencido, como se soubesse a verdade.",
+   "Álvaro de Campos"
+  ],
+  "ch09": [
+   "Para ser grande, sê inteiro: nada\nTeu exagera ou exclui.",
+   "Ricardo Reis"
+  ],
+  "ch10": [
+   "Tudo vale a pena\nSe a alma não é pequena.",
+   "Fernando Pessoa, Mensagem"
+  ],
+  "ch11": [
+   "Ó mar salgado, quanto do teu sal\nSão lágrimas de Portugal!",
+   "Fernando Pessoa, Mensagem"
+  ]
+ },
  "eco_key": "mare",
  "special_numbers": {
   "112": "emergency",
