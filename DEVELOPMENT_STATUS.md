@@ -143,7 +143,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
    investigações secundárias com recompensa (ex.: o "aquário" da Lumen como capítulo opcional),
    mais pormenores escondidos nas fotografias (ainda sem *hotspots*: IMG_2190, 2155, 2101, 1980,
    1650, 3010, 3102, 3301).
-   Feito nesta sessão: ~25 novos beats (Rui, Clara, Marta, Sofia, mãe, João, Sr. Armando, Helena,
+   Feito nesta sessão: ~35 novos beats (Rui, Clara, Marta, Sofia, mãe, João, Sr. Armando, Helena,
    ECO), 4 fotografias novas/escondidas, 19 pistas, 3 conquistas, epílogos para escolhas pequenas.
 3. Integrar GodotSteam real + App ID; Auto-Cloud (`docs/STEAM.md`).
 4. Tradução EN (todo o texto está em `data/`).
