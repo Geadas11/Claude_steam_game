@@ -98,7 +98,28 @@ thriller played entirely through a phone.
 fictícia · fotografias que mudam quando não estás a olhar · quadro de pistas onde decides
 em que acreditas · 37 conquistas · legendas e opções de acessibilidade.
 
-## 7. Pendente antes de lançar
+## 7. Modo cooperativo pelo Steam (preparado, por ativar)
+
+O jogo online já funciona com **ligação direta** (código de sala com IP e porta; tenta abrir a porta
+no router por UPnP). A ligação pelo **Steam** está escrita em `scripts/net/steam_transport.gd` e
+entra sozinha quando o Steam estiver disponível — o jogo escolhe o transporte em `Coop.uses_steam()`.
+
+Como funciona com o Steam: o jogo de quem cria a sala continua a ser o servidor; o Steam cria um
+*lobby* "só amigos" de 2 lugares, mostra o convite na lista de amigos (ou o amigo escreve o código de
+13 caracteres) e retransmite o tráfego pelos servidores dele (Steam Datagram Relay), por isso
+ninguém precisa de abrir portas nem há servidores nossos.
+
+Para ativar, quando houver App ID:
+1. Instalar o **GodotSteam** (versão GDExtension para Godot 4.3, pela Asset Library ou godotsteam.com).
+2. Criar `steam_appid.txt` na raiz do projeto com o App ID (só para desenvolvimento; não vai nas builds).
+3. No Steamworks: ativar **Steam Networking** e as conquistas (secção 4).
+4. Testar com **duas contas Steam** em dois PCs: "Jogar online" → "Criar sala" → "Convidar amigo
+   do Steam"; e também entrar com o código.
+5. O código foi escrito para a API do GodotSteam 4.x mas **ainda não foi testado** (precisa de App ID):
+   conferir os nomes dos sinais (`lobby_created`, `lobby_joined`, `lobby_chat_update`,
+   `join_requested`, `network_messages_session_request`) e de `receiveMessagesOnChannel`.
+
+## 8. Pendente antes de lançar
 
 - [ ] App ID e depots reais; remover `steam_appid.txt` das builds.
 - [ ] Ícone final (`icon.svg` é provisório) e cápsulas da loja.

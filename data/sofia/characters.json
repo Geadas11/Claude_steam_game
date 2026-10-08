@@ -1,0 +1,27 @@
+{
+ "me": {
+  "name": "Sofia Reis",
+  "initials": "SR",
+  "color": "#8a5a6b",
+  "number": "+351 917 220 481",
+  "start_saved": true,
+  "hidden": true
+ },
+ "daniel": {
+  "name": "Daniel",
+  "initials": "D",
+  "color": "#4a6070",
+  "number": "+351 936 118 245",
+  "email": "daniel.reis@mail.pt",
+  "birthday": "22 de agosto",
+  "note": "Mano. Responde sempre \"estou bem\". Nunca está bem.",
+  "voicemail_greeting": "Daniel. Deixa mensagem."
+ },
+ "patricia": {
+  "name": "Patrícia (Enf.ª)",
+  "initials": "P",
+  "color": "#5a7a6a",
+  "number": "+351 913 554 210",
+  "note": "Turno da noite, piso 6. Traz sempre bolo."
+ }
+}

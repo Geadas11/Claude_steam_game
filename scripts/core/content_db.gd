@@ -5,6 +5,10 @@ extends Node
 const DATA_DIR := "res://data/"
 const KINDS := ["characters", "photos", "pages", "emails", "files", "notes", "map", "clues", "achievements", "endings", "voicemails", "chapters_meta"]
 
+## Whose story is loaded. "daniel" is the main game; "sofia" is the second
+## player's phone in co-op (data/sofia/ overrides chapters, characters and the
+## initial state; everything else is shared).
+var role := "daniel"
 var db := {}
 var chapters := {}      # id -> parsed chapter Dictionary
 var chapter_order: Array = []
@@ -22,16 +26,29 @@ func reload() -> void:
 	load_errors.clear()
 	for kind in KINDS:
 		db[kind] = _load_json(DATA_DIR + kind + ".json")
+	var story_dir := DATA_DIR + "chapters/"
+	if role != "daniel":
+		var rdir := DATA_DIR + role + "/"
+		story_dir = rdir + "chapters/"
+		# role overlays: entries replace the shared ones key by key
+		for kind in ["characters", "chapters_meta"]:
+			if FileAccess.file_exists(rdir + kind + ".json"):
+				var over := _load_json(rdir + kind + ".json")
+				for k in over:
+					db[kind][k] = over[k]
 	var meta: Dictionary = db.get("chapters_meta", {})
 	chapter_order = meta.get("order", [])
 	for ch_id in chapter_order:
-		var path: String = DATA_DIR + "chapters/" + ch_id + ".story"
+		var path: String = story_dir + ch_id + ".story"
+		if not FileAccess.file_exists(path):
+			continue  # a role may not have every chapter yet
 		var parsed := StoryParser.parse_file(path)
 		if parsed.has("errors") and not parsed.errors.is_empty():
 			for e in parsed.errors:
 				load_errors.append("%s: %s" % [ch_id, e])
 		chapters[ch_id] = parsed
-	var gpath := DATA_DIR + "chapters/global.story"
+	global_script = {}
+	var gpath := story_dir + "global.story"
 	if FileAccess.file_exists(gpath):
 		global_script = StoryParser.parse_file(gpath)
 		for e in global_script.get("errors", []):
@@ -82,6 +99,9 @@ func char_name(id: String) -> String:
 
 
 func chapter(id: String) -> Dictionary:
+	if not chapters.has(id) and role != "daniel" and chapter_order.has(id):
+		# co-op: a chapter the second player has no script for yet
+		return {"id": id, "title": chapter_title(id), "start": "", "beats": [], "calls": [], "errors": []}
 	return chapters.get(id, {})
 
 
@@ -99,3 +119,11 @@ func next_chapter(id: String) -> String:
 
 func chapter_recap(id: String) -> String:
 	return str(db.get("chapters_meta", {}).get("recaps", {}).get(id, ""))
+
+
+## Switches whose story is loaded (co-op). Reloads everything.
+func set_role(r: String) -> void:
+	if r == role:
+		return
+	role = r
+	reload()

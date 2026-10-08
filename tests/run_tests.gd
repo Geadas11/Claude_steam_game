@@ -41,8 +41,12 @@ func _ready() -> void:
 		_validate()
 	if _only == "" or _only == "save":
 		await _test_save_load()
+	if _only == "" or _only == "validate":
+		_validate_role("sofia")
 	if _only == "" or _only == "companion":
 		await _test_companion()
+	if _only == "" or _only == "coop":
+		await _test_coop_net()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -730,3 +734,78 @@ func _test_companion() -> void:
 	ws.close()
 	Companion.stop()
 	Director.stop()
+
+
+## The second player's story (co-op): same checks on its chapters.
+func _validate_role(role: String) -> void:
+	print("-- validate role ", role)
+	Content.set_role(role)
+	ok(Content.load_errors.is_empty(), "%s content loads: %s" % [role, str(Content.load_errors)])
+	ok(Content.all("chapters_meta").get("initial", {}).has("contacts"), role + " has its own address book")
+	for th in Content.all("chapters_meta").get("initial", {}).get("threads", {}):
+		ok(not Content.character(th).is_empty(), "%s thread %s has a character" % [role, th])
+	var n := 0
+	for ch_id in Content.chapters:
+		var ch: Dictionary = Content.chapters[ch_id]
+		for b in ch.get("beats", []) + ch.get("calls", []):
+			n += 1
+			var key := "%s/%s:%s" % [role, ch_id, b.id]
+			_check_expr(b.when, key + " @when")
+			for op in b.ops:
+				_check_op(op, key, {})
+	ok(n > 0, role + " has beats")
+	Content.set_role("daniel")
+
+
+# ---------------------------------------------------------------- co-op network
+func _test_coop_net() -> void:
+	print("-- coop network")
+	# room codes survive a round trip
+	var code := RoomCode.from_address("192.168.1.42", 8517)
+	var back := RoomCode.to_address(code)
+	ok(back.ip == "192.168.1.42" and back.port == 8517, "room code round trip (%s)" % code)
+	ok(RoomCode.to_address(code.to_lower().replace("-", " ")).ip == "192.168.1.42", "room code is forgiving (case, spaces)")
+	ok(RoomCode.to_lobby(RoomCode.from_lobby(109775241234567890)) == 109775241234567890, "steam lobby code round trip")
+	ok(RoomCode.to_address("ZZZ").is_empty(), "bad code rejected")
+	ok(not SteamTransport.available(), "no Steam in tests: direct connection is used")
+	# a host and a guest in the same process
+	var host := DirectTransport.new()
+	var guest := DirectTransport.new()
+	var got := {"joined": false, "connected": false, "at_host": {}, "at_guest": {}, "code": ""}
+	host.hosted.connect(func(c): got.code = c)
+	host.partner_joined.connect(func(): got.joined = true)
+	host.received.connect(func(m): got.at_host = m)
+	guest.connected.connect(func(): got.connected = true)
+	guest.received.connect(func(m): got.at_guest = m)
+	host.host()
+	ok(got.code != "", "host gets a room code")
+	var port := int(RoomCode.to_address(got.code).port)
+	guest.join("127.0.0.1:%d" % port)
+	for i in 300:
+		host.poll()
+		guest.poll()
+		await _frames(1)
+		if got.joined and got.connected:
+			break
+	ok(got.joined and got.connected, "guest reaches the host")
+	guest.send({"t": "hello", "x": "olá"})
+	host.send({"t": "welcome", "y": 3})
+	for i in 300:
+		host.poll()
+		guest.poll()
+		await _frames(1)
+		if not got.at_host.is_empty() and not got.at_guest.is_empty():
+			break
+	ok(got.at_host.get("x", "") == "olá", "guest → host message")
+	ok(int(got.at_guest.get("y", 0)) == 3, "host → guest message")
+	guest.close()
+	host.close()
+	# Sofia's role loads her own phone
+	Content.set_role("sofia")
+	Director.new_game()
+	await _frames(3)
+	ok(GameState.data.threads.has("daniel") and not GameState.data.threads.has("sofia"), "Sofia's phone has a conversation with Daniel")
+	ok(GameState.data.contacts.has("patricia") and not GameState.data.contacts.has("vasco"), "Sofia has her own contacts")
+	ok(not Saves.save_to("quick"), "the guest never writes saves")
+	Director.stop()
+	Content.set_role("daniel")

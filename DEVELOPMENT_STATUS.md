@@ -145,7 +145,9 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 
 ## Pedidos do dono do projeto (sessão 2)
 - Duração **acima de 10 h** → capítulos novos + mais profundidade nos atuais (plano em `docs/EXPANSION.md`).
-- **Multiplayer cooperativo online** (plano em `docs/COOP.md`).
+- **Multiplayer cooperativo online** → 🟡 fase 1 feita: ligação direta (código de sala, UPnP),
+  Daniel (anfitrião) + Sofia (convidada), conversa partilhada, relógio e capítulos sincronizados,
+  cap. 1 da Sofia. Steam preparado, por ativar quando houver App ID. Ver `docs/COOP.md`.
 - **Telemóvel real** do jogador como segundo ecrã → ✅ feito (página web via QR).
 
 ## Próximas prioridades

@@ -22,7 +22,7 @@ email newsletter_bertrand
 
 # ---------------------------------------------------------------- Sofia
 @beat sofia_talk
-@when read("sofia")
+@when read("sofia") and not coop()
 wait 1.5
 sofia> E não me digas que comeste bolachas outra vez
 choice sofia c1_sofia_dinner
@@ -92,7 +92,7 @@ set sofia_done=true
 @end
 
 @beat sofia_nudge
-@when since("setup", 70) and not read("sofia") and not started("sofia_talk")
+@when since("setup", 70) and not read("sofia") and not started("sofia_talk") and not coop()
 sofia> Daniel?
 wait 25
 if not read("sofia")
@@ -263,7 +263,7 @@ ambient hum
 
 # ---------------------------------------------------------------- A PRIMEIRA MENSAGEM
 @beat first_message
-@when at("23:47") and (beat("sofia_talk") or at("00:10"))
+@when at("23:47") and (beat("sofia_talk") or beat("co_done") or at("00:10"))
 ambient off
 wait 2
 vibrate
@@ -419,4 +419,44 @@ elif vs("pedro_eco") == "joke"
 else
   pedro> ok. vou perguntar ao chatbot do banco
 endif
+@end
+
+
+# =====================================================================
+# MODO COOPERATIVO — a Sofia é outra pessoa a jogar (data/sofia/chapters/ch01.story).
+# As linhas dela chegam pela rede; aqui o Daniel só responde.
+# =====================================================================
+@beat co_dinner
+@when coop() and read("sofia")
+wait 1
+choice sofia c1_sofia_dinner
+  > Comi. Massa com atum, chef. | set dinner=massa
+  > Ainda não tive fome | set dinner=nao
+  > Bolachas são um jantar válido | set dinner=bolachas
+end
+@end
+
+@beat co_visit
+@when coop() and beat("co_dinner") and v("net_in") >= 2
+wait 1
+choice sofia c1_sofia_visit
+  > Não precisas. Estou bem, a sério | set sofia_visit=false
+  > Se quiseres vir, vem | set sofia_visit=true
+  > Mal a conhecia, Sofia. Não é preciso tanto drama | set sofia_visit=false said_barely_knew=true
+end
+@end
+
+@beat co_sleep
+@when coop() and beat("co_visit") and v("net_in") >= 4
+wait 1
+choice sofia c1_sofia_sleep
+  > Durmo. Mais ou menos | set sleep_answer=meh
+  > Durmo bem | set sleep_answer=lie
+  > Acordo sempre à mesma hora. 3 e tal | set sleep_answer=317 told_sofia_317=true
+end
+@end
+
+@beat co_done
+@when coop() and beat("co_sleep") and (v("net_in") >= 5 or at("23:10"))
+set sofia_done=true
 @end

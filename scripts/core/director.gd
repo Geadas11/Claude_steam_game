@@ -119,11 +119,16 @@ func _index_beats() -> void:
 
 func _seed_initial_state() -> void:
 	# initial contacts, photos, threads, emails... from data
-	for id in Content.all("characters"):
-		var c: Dictionary = Content.character(id)
-		if c.get("start_saved", false):
-			GameState.data.contacts[id] = {"saved": true}
 	var seed: Dictionary = Content.all("chapters_meta").get("initial", {})
+	if seed.has("contacts"):
+		# a role with its own address book (co-op: Sofia's phone)
+		for id in seed.contacts:
+			GameState.data.contacts[id] = {"saved": true}
+	else:
+		for id in Content.all("characters"):
+			var c: Dictionary = Content.character(id)
+			if c.get("start_saved", false):
+				GameState.data.contacts[id] = {"saved": true}
 	for pid in seed.get("photos", []):
 		GameState.add_photo(pid)
 	GameState.data.photo_order.reverse()
@@ -296,6 +301,8 @@ func has_email(eid: String) -> bool:
 	return false
 func phone(key: String): return GameState.data.phone.get(key, false)
 func hour() -> int: return Clock.hour()
+func coop() -> bool: return Coop.active
+func role() -> String: return Content.role
 func ending_seen(id: String) -> bool: return Achievements.ending_seen(id)
 
 
@@ -909,6 +916,14 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 			Events.thread_typing.emit(a[0], a[1], false)
 			if not ok:
 				return false
+		"coopset":
+			# set a variable here and on the other player's phone (co-op)
+			var val = a[1] if a.size() > 1 else true
+			if val is String and (val == "true" or val == "false"):
+				val = val == "true"
+			elif val is String and val.is_valid_float():
+				val = float(val)
+			Coop.share_var(a[0], val)
 		"toast":
 			Events.toast_requested.emit(a[0])
 		"hiddenapp":

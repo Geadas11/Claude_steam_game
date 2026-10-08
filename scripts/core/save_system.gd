@@ -26,6 +26,8 @@ func _path(slot: String) -> String:
 func save_to(slot: String) -> bool:
 	if not GameState.in_game or GameState.data.chapter == "":
 		return false
+	if Content.role != "daniel":
+		return false  # co-op guest: the host's game keeps the saves
 	var payload := {
 		"meta": {
 			"chapter": GameState.data.chapter,

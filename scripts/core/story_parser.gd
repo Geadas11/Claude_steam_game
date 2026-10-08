@@ -16,7 +16,7 @@ const COMMANDS := {
 	"open": 1, "lock": 0, "screenoff": 1, "restart": 0, "reflection": 0,
 	"battery": 1, "location": 1, "camera": 1, "achieve": 1,
 	"autotype": 2, "checkpoint": 0, "endchapter": 0, "ending": 1,
-	"deduction": 0, "typing": 3, "toast": 1, "hiddenapp": 2,
+	"deduction": 0, "typing": 3, "toast": 1, "hiddenapp": 2, "coopset": 2,
 	"setting": 2, "read": 1, "alarm": 2, "home": 0, "clearchoice": 1,
 	"retime": 3, "hidethread": 1, "showthread": 1, "mapmark": 1,
 }

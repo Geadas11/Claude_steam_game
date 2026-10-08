@@ -1,0 +1,137 @@
+{
+ "initial": {
+  "contacts": [
+   "daniel",
+   "mae",
+   "patricia",
+   "joao"
+  ],
+  "photos": [
+   "IMG_1980"
+  ],
+  "emails": [],
+  "files": [],
+  "notes": [],
+  "bookmarks": [
+   "jornal_home",
+   "meteo"
+  ],
+  "history": [
+   "insónia irmão como ajudar",
+   "luto um ano depois o que esperar",
+   "comboios lisboa faro sexta",
+   "farmácia de serviço benfica"
+  ],
+  "calls": [
+   {
+    "who": "daniel",
+    "dir": "out",
+    "t": 1791407520.0,
+    "dur": 742,
+    "seen": true
+   },
+   {
+    "who": "mae",
+    "dir": "in",
+    "t": 1791290000.0,
+    "dur": 1310,
+    "seen": true
+   }
+  ],
+  "threads": {
+   "daniel": [
+    {
+     "t": "2026-09-30 22:14",
+     "from": "me",
+     "text": "Mano, mandei-te as fotos da praia por email porque o WhatsApp come a qualidade"
+    },
+    {
+     "t": "2026-09-30 22:20",
+     "from": "daniel",
+     "text": "Vi. Estou com cara de quem não dorme há um ano"
+    },
+    {
+     "t": "2026-09-30 22:21",
+     "from": "me",
+     "text": "Estás com cara de quem não dorme há um ano"
+    },
+    {
+     "t": "2026-09-30 22:21",
+     "from": "me",
+     "text": "Desculpa. Isso foi parvo."
+    },
+    {
+     "t": "2026-09-30 22:30",
+     "from": "daniel",
+     "text": "Foi engraçado. Boa noite Sofia"
+    },
+    {
+     "t": "2026-10-05 08:02",
+     "from": "me",
+     "text": "Bom dia! Já marcaste a consulta da Dra. Helena?"
+    },
+    {
+     "t": "2026-10-05 13:40",
+     "from": "daniel",
+     "text": "Está marcada. Quarta às 17h"
+    },
+    {
+     "t": "2026-10-05 13:41",
+     "from": "me",
+     "text": "Quarta é dia 14."
+    },
+    {
+     "t": "2026-10-05 13:41",
+     "from": "me",
+     "text": "Foste tu que escolheste o dia?"
+    },
+    {
+     "t": "2026-10-05 15:02",
+     "from": "daniel",
+     "text": "Foi a clínica"
+    }
+   ],
+   "mae": [
+    {
+     "t": "2026-10-06 21:02",
+     "from": "mae",
+     "text": "O TEU IRMAO NAO ME ATENDE"
+    },
+    {
+     "t": "2026-10-06 21:03",
+     "from": "mae",
+     "text": "desculpa. o teu irmão não me atende. está vivo?"
+    },
+    {
+     "t": "2026-10-06 21:30",
+     "from": "me",
+     "text": "Está vivo mãe. Cansado. Eu falo com ele"
+    }
+   ],
+   "patricia": [
+    {
+     "t": "2026-10-06 07:40",
+     "from": "patricia",
+     "text": "Sobrevivemos a mais uma. Quinta trago bolo de laranja"
+    },
+    {
+     "t": "2026-10-06 07:52",
+     "from": "me",
+     "text": "És uma santa. Quinta às 23h lá estou"
+    }
+   ],
+   "joao": [
+    {
+     "t": "2026-03-14 01:12",
+     "from": "joao",
+     "text": "o teu irmão ficou cá no sofá. dormiu. finalmente"
+    },
+    {
+     "t": "2026-03-14 08:30",
+     "from": "me",
+     "text": "Obrigada João. A sério"
+    }
+   ]
+  }
+ }
+}

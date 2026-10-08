@@ -28,6 +28,7 @@ Achievements="*res://scripts/core/achievements.gd"
 Saves="*res://scripts/core/save_system.gd"
 Director="*res://scripts/core/director.gd"
 Companion="*res://scripts/net/companion.gd"
+Coop="*res://scripts/net/coop.gd"
 
 [display]
 

@@ -55,3 +55,17 @@ Exemplos (os do lado do Daniel já existem; os da Sofia são a escrever):
 3. Mecânica "o telemóvel que não mente" + partilha de pistas.
 4. Caps. 4–11 do lado da Sofia; finais cooperativos.
 5. Steam: lobbies, convites, ligação P2P.
+
+## Estado (sessão 2)
+
+- ✅ **Fase 1 — rede.** `scripts/net/coop.gd` (sessão), `direct_transport.gd` (ENet + UPnP),
+  `steam_transport.gd` (preparado), `room_code.gd` (códigos de sala). Menu "Jogar online".
+  O anfitrião (Daniel) manda no relógio, nos capítulos e nas gravações; a Sofia segue o relógio dele.
+  A conversa entre os dois irmãos é real: o que um envia chega ao outro. `coop()` nas condições e
+  `coopset nome valor` para partilhar variáveis.
+- ✅ Capítulo 1 da Sofia (`data/sofia/chapters/ch01.story`) e versão cooperativa da conversa no cap. 1
+  do Daniel. Testado com duas cópias do jogo ligadas e nos testes (`--only=coop`).
+- Nos capítulos sem guião da Sofia, as linhas dela que o guião do Daniel escreve aparecem no
+  telemóvel dela como enviadas por ela (para a conversa nunca ficar incoerente).
+- Por fazer: retomar uma sessão gravada (hoje só se começa do início), pausa partilhada pelo
+  convidado, caps. 2–11 do lado da Sofia, "o telemóvel que não mente", partilha de pistas, Steam.

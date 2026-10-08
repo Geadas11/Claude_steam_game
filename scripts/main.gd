@@ -45,6 +45,12 @@ func _ready() -> void:
 	overlay.add_child(title_menu)
 	Events.chapter_ended.connect(_on_chapter_ended)
 	Events.ending_reached.connect(_on_ending)
+	Coop.start_requested.connect(_on_coop_start)
+	Coop.ended.connect(func(reason):
+		if mode != Mode.TITLE:
+			show_title()
+		if reason != "":
+			_notice(reason))
 	Events.achievement_unlocked.connect(_on_achievement)
 	Events.state_loaded.connect(_on_state_loaded)
 	Events.deduction_requested.connect(func(): phone.open_app("notes", {"deduction": true, "forced": true}))
@@ -179,6 +185,18 @@ func _debug_script(steps: PackedStringArray) -> void:
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
 			"continue": continue_game(kv[1])
+			"coophost":
+				Coop.create_room()
+				await get_tree().create_timer(1.0).timeout
+				print("COOP_CODE ", Coop.code)
+			"coopjoin": Coop.join_room(kv[1])
+			"coopstart": Coop.start_game()
+			"cooppanel": title_menu.add_child(CoopPanel.new())
+			"coopsay":
+				# send a line in the shared conversation as this player
+				var th := Coop.link_thread()
+				var msg := GameState.add_message(th, {"from": "me", "text": kv[1].replace("_", " "), "t": Clock.now()}, false)
+				Events.message_added.emit(th, msg)
 			"companion":
 				Companion.start()
 				print("COMPANION_URL ", Companion.url())
@@ -219,6 +237,10 @@ func _layout() -> void:
 
 func show_title() -> void:
 	mode = Mode.TITLE
+	if Coop.active:
+		Coop.leave()
+	Content.set_role("daniel")
+	Clock.external = false
 	GameState.in_game = false
 	Director.stop()
 	_title_phone_state()
@@ -263,6 +285,8 @@ func _title_phone_state() -> void:
 
 
 func start_new_game(show_warning := true) -> void:
+	if not Coop.active:
+		Content.set_role("daniel")
 	title_menu.visible = false
 	Audio.set_music("")
 	mode = Mode.GAME
@@ -468,3 +492,23 @@ func _on_achievement(id: String) -> void:
 	tw.tween_interval(4.0)
 	tw.tween_property(p, "modulate:a", 0.0, 0.6)
 	tw.tween_callback(p.queue_free)
+
+
+# ---------------------------------------------------------------- co-op
+func _on_coop_start(as_host: bool) -> void:
+	for c in overlay.get_children() + title_menu.get_children() + pause_menu.get_children():
+		if c is CoopPanel:
+			c.queue_free()
+	pause_menu.visible = false
+	get_tree().paused = false
+	Content.set_role("daniel" if as_host else "sofia")
+	start_new_game(false)
+	Events.toast_requested.emit("És o Daniel. A Sofia está do outro lado." if as_host else "És a Sofia. O Daniel está do outro lado.")
+
+
+## A short message on screen outside the phone (e.g. why co-op ended).
+func _notice(text: String) -> void:
+	var p := MenuPanel.new()
+	overlay.add_child(p)
+	p.make("Jogo online", 520, true)
+	p.body.add_child(UI.label(text, 16, "text", true))

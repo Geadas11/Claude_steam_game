@@ -12,6 +12,7 @@ const MONTHS := ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "ju
 var seconds_per_minute := 5.0
 var rate := 1.0            # narrative multiplier (story `rate` command)
 var running := false
+var external := false       # co-op guest: the host's game sets the time
 var idle_boost := 1.0
 var frozen_display := ""   # when set, the status bar shows this instead (impossible time)
 var _last_minute := -1
@@ -40,18 +41,18 @@ func _process(delta: float) -> void:
 		return
 	_idle_time += delta
 	GameState.data.playtime = float(GameState.data.playtime) + delta
+	if external:
+		_emit_minute()
+		return
 	idle_boost = 1.0
 	if _idle_time > 25.0 and Director.waiting_on_clock():
-		idle_boost = 6.0
+		# in co-op, only when the other player is also just waiting
+		if not Coop.active or (not Coop.partner_busy and Coop.partner_idle > 25.0):
+			idle_boost = 6.0
 	var user_speed := clampf(float(Settings.get_value("clock_speed", 1.0)), 0.5, 3.0)
 	var speed := rate * idle_boost * user_speed / maxf(seconds_per_minute, 0.01)
 	GameState.data.time = float(GameState.data.time) + delta * speed * 60.0
-	var m := int(GameState.data.time / 60.0)
-	if m != _last_minute:
-		if _last_minute != -1 and m > _last_minute:
-			_drain_battery(m - _last_minute)
-		_last_minute = m
-		Events.time_changed.emit(GameState.data.time)
+	_emit_minute()
 
 
 func now() -> float:
@@ -165,3 +166,16 @@ func _drain_battery(minutes: int) -> void:
 			var note := GameState.post_notification("settings", "Bateria fraca", "%d%% restante. Liga o carregador." % nb)
 			Events.notification_posted.emit(note)
 	Events.phone_state_changed.emit()
+
+
+func _emit_minute() -> void:
+	var m := int(GameState.data.time / 60.0)
+	if m != _last_minute:
+		if _last_minute != -1 and m > _last_minute:
+			_drain_battery(m - _last_minute)
+		_last_minute = m
+		Events.time_changed.emit(GameState.data.time)
+
+
+func idle_seconds() -> float:
+	return _idle_time

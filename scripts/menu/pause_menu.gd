@@ -29,25 +29,30 @@ func open() -> void:
 	m.add_child(v)
 	v.add_child(UI.label("Pausa", 34))
 	var info := "%s · %s %s" % [Content.chapter_title(GameState.data.chapter), Clock.fmt_date_long(Clock.now()), Clock.fmt_time(Clock.now())]
+	if Coop.active:
+		info += "\nJogo online · és " + ("o Daniel" if Coop.is_host else "a Sofia") + (" · o tempo para para os dois" if Coop.is_host else " · o tempo continua para o Daniel")
 	v.add_child(UI.label(info, 14, "faint"))
 	v.add_child(UI.spacer(30))
 	var c := MenuPanel.menu_button("Continuar", close)
 	v.add_child(c)
 	c.call_deferred("grab_focus")
-	v.add_child(MenuPanel.menu_button("Guardar", func():
-		var p := SlotsPanel.new()
-		p.saving = true
-		p.main = main
-		add_child(p)))
-	v.add_child(MenuPanel.menu_button("Carregar", func():
-		var p := SlotsPanel.new()
-		p.main = main
-		add_child(p)))
+	# co-op: only the host keeps saves, and nobody loads mid-session
+	if not Coop.active or Coop.is_host:
+		v.add_child(MenuPanel.menu_button("Guardar", func():
+			var p := SlotsPanel.new()
+			p.saving = true
+			p.main = main
+			add_child(p)))
+	if not Coop.active:
+		v.add_child(MenuPanel.menu_button("Carregar", func():
+			var p := SlotsPanel.new()
+			p.main = main
+			add_child(p)))
 	v.add_child(MenuPanel.menu_button("Telemóvel real", func(): add_child(CompanionPanel.new())))
 	v.add_child(MenuPanel.menu_button("Até agora", func(): add_child(RecapPanel.new())))
 	v.add_child(MenuPanel.menu_button("Decisões", func(): add_child(ChoicesPanel.new())))
 	v.add_child(MenuPanel.menu_button("Definições", func(): add_child(SettingsPanel.new())))
-	v.add_child(MenuPanel.menu_button("Menu principal", func():
+	v.add_child(MenuPanel.menu_button("Sair do jogo online" if Coop.active else "Menu principal", func():
 		Saves.autosave()
 		close()
 		main.show_title()))
