@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/IMG_6630__eye.jpg-6ee0a479ef69d11fca9cf65cd65
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.85
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
