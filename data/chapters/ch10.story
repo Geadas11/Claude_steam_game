@@ -431,6 +431,13 @@ unknown> O portal da clínica reconhece o teu telefone. Só te vai pedir quem é
 @when at("11:40")
 marta> Daniel. Amanhã é dia 14
 marta> Vou passar pelo cais antes das aulas, como todos os meses. Só para dizer que alguém passou
+if vs("marta_book") == "ondjaki"
+  wait 3
+  marta> ps: o 9.ºB acabou o Ondjaki. um deles chorou e disse que era alergia
+elif vs("marta_book") == "principe"
+  wait 3
+  marta> ps: o 9.ºB chegou à página 20. tinhas razão. agora andam todos a falar da raposa
+endif
 @end
 
 @beat marta_flowers_reply
