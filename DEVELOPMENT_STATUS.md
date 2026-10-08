@@ -121,8 +121,10 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - Revisão visual por capturas (Xvfb, `--shot`/`--do`): título (3 variantes), bloqueio, mensagens, todas
   as apps, chamada, câmara (3 eventos), cortina, menus, transição de capítulo, final, Steam Deck 1280×800.
 - Export: builds Windows e Linux; a de Linux arranca e carrega a história.
-- Testes de resistência em tempo real (`--autoplay`, Xvfb): cap. 1 completo, cap. 5 → 6, caps. 8, 10,
-  11 até ao ecrã de final — sem erros.
+- Testes de resistência em tempo real (`--autoplay`, Xvfb): todos os capítulos 1 e 4–11 (o 11 até ao
+  ecrã de final) — sem erros de script.
+- Testes de regressão para bugs desta sessão: `app()` ao abrir conversa por notificação, avisos dentro
+  do ecrã, painéis "Até agora"/"Decisões" com conteúdo, resumo para cada capítulo.
 
 ## Problemas conhecidos
 - **Push para o GitHub falhou (403)**: a app GitHub do Claude não tem acesso a
@@ -139,7 +141,12 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
    investigações secundárias com recompensa (ex.: o "aquário" da Lumen como capítulo opcional),
-   mais pormenores escondidos nas fotografias.
+   mais pormenores escondidos nas fotografias (ainda sem *hotspots*: IMG_2190, 2155, 2101, 1980,
+   1650, 3010, 3102, 3301).
+   Feito nesta sessão: ~25 novos beats (Rui, Clara, Marta, Sofia, mãe, João, Sr. Armando, Helena,
+   ECO), 4 fotografias novas/escondidas, 19 pistas, 3 conquistas, epílogos para escolhas pequenas.
 3. Integrar GodotSteam real + App ID; Auto-Cloud (`docs/STEAM.md`).
 4. Tradução EN (todo o texto está em `data/`).
-5. Afinar mistura de áudio por capítulo; considerar música original para o menu e finais.
+5. Afinar mistura de áudio por capítulo; considerar música original para o menu e finais
+   (já há 3 peças procedurais: menu, memória, caixa de música).
+6. Rever com um falante nativo os textos novos (sobretudo as vozes da Marta, do João e da mãe).
