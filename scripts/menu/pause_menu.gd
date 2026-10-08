@@ -43,6 +43,7 @@ func open() -> void:
 		var p := SlotsPanel.new()
 		p.main = main
 		add_child(p)))
+	v.add_child(MenuPanel.menu_button("Decisões", func(): add_child(ChoicesPanel.new())))
 	v.add_child(MenuPanel.menu_button("Definições", func(): add_child(SettingsPanel.new())))
 	v.add_child(MenuPanel.menu_button("Menu principal", func():
 		Saves.autosave()

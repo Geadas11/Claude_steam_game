@@ -139,6 +139,11 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"arm": GameState.data.camera.armed = kv[1]
 			"settings": overlay.add_child(SettingsPanel.new())
 			"newgame_menu": title_menu._new_game()
+			"autochoose": Director.auto_chooser = func(_t, pending): return pending.options[0].index
+			"readall":
+				for th in GameState.data.threads:
+					GameState.mark_read(th)
+			"decisions": pause_menu.add_child(ChoicesPanel.new())
 			"extras": overlay.add_child(ExtrasPanel.new())
 			"pause": toggle_pause()
 			"shade": phone.open_shade()
