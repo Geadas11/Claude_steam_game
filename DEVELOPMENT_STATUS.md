@@ -106,7 +106,8 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - Duas escolhas na mesma conversa: a segunda apagava a primeira (beat preso) → fila por conversa.
 - Cabeçalho da conversa não mudava quando o contacto era renomeado.
 - **Os avisos curtos (toasts) apareciam fora do ecrã** — nenhum era visível (ex.: "Dentro da capa: um
-  cartão microSD"). Corrigido + fila de avisos + teste. Pistas novas passam a mostrar "Nova pista: …".
+  cartão microSD"). Corrigido + fila de avisos + teste. Pistas novas passam a mostrar "Nova pista: …"
+  (clicável fora das conversas: abre Notas → Pistas; pode ser desligado nas Definições).
 - Conquistas desbloqueadas ao mesmo tempo sobrepunham-se → empilham.
 
 ## Testes
