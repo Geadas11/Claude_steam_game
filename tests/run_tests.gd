@@ -155,12 +155,19 @@ func _validate() -> void:
 			_check_expr(str(x.get("when", "")), "ending %s extra" % e)
 	for c in clue_refs:
 		ok(Content.has_item("clues", c), "clue '%s' referenced by %s is not defined" % [c, clue_refs[c]])
+	# clues awarded directly from app code
+	var rx := RegEx.new()
+	rx.compile("add_clue\\(\"(\\w+)\"")
+	var d := DirAccess.open("res://scripts/phone/apps")
+	for f in d.get_files():
+		if f.ends_with(".gd"):
+			for m in rx.search_all(FileAccess.get_file_as_string("res://scripts/phone/apps/" + f)):
+				clue_refs[m.get_string(1)] = "code " + f
 	for c in Content.all("clues"):
 		var cd: Dictionary = Content.get_item("clues", c)
 		for r in cd.get("related", []):
 			ok(Content.has_item("clues", r), "clue %s related to unknown %s" % [c, r])
-		if not clue_refs.has(c):
-			print("  note: clue '%s' defined but never awarded" % c)
+		ok(clue_refs.has(c), "clue '%s' is defined but can never be awarded" % c)
 	ok(Content.all("achievements").size() >= 20, "at least 20 achievements")
 	_check_delivery(all_beats)
 	print("   validated %d beats, %d clue references" % [all_beats.size(), clue_refs.size()])
