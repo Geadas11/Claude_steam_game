@@ -7,7 +7,7 @@ config_version=5
 
 config/name="Ainda Estás Acordado?"
 config/description="Um thriller de terror psicológico jogado inteiramente através de um smartphone."
-config/version="0.1.0"
+config/version="0.9.0"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
