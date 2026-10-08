@@ -227,6 +227,7 @@ if vs("rui6") == "honest"
   rui> [photo:IMG_RUI_DESK]
   wait 2
   rui> [photo:IMG_RUI_CAL]
+  achieve her_handwriting
 elif vs("rui6") == "forgot"
   rui> Tu não te lembras de nada. Que conveniente.
 else

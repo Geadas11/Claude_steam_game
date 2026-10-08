@@ -382,6 +382,7 @@ else
   wait 4
   mae> Nunca te perguntei. Achei que um dia me contavas
   set mae_call_430=true
+  achieve eleven_calls
 endif
 @end
 

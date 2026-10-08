@@ -32,7 +32,7 @@ godot --headless --export-release "Linux" builds/linux/AindaEstasAcordado.x86_64
 Os presets incluem `*.json, *.story` e excluem `tests/` e `tools/`. Ambas as builds foram
 geradas e a de Linux foi testada a arrancar e a carregar a história.
 
-## 4. Conquistas (34)
+## 4. Conquistas (36)
 
 | id | Nome | Descrição | Secreta |
 |---|---|---|---|
@@ -70,6 +70,8 @@ geradas e a de Linux foi testada a arrancar e a carregar a história.
 | `private_note` | A mesma palavra-passe | Abrir a nota "privado". | sim |
 | `patent` | Reivindicação 7 | Encontrar a patente do espelho. |  |
 | `all_achievements` | Ainda estou acordado | Desbloquear todas as conquistas. | sim |
+| `her_handwriting` | A letra dela | Ver o que o Rui encontrou na secretária da Inês. |  |
+| `eleven_calls` | Onze vezes | Perguntar à tua mãe onde estavas nessa noite. |  |
 
 ## 5. Descritores de conteúdo (questionário Steam)
 
@@ -92,7 +94,7 @@ thriller played entirely through a phone.
 
 **Funcionalidades:** 11 capítulos · 5 finais (1 secreto) · investigação livre numa internet
 fictícia · fotografias que mudam quando não estás a olhar · quadro de pistas onde decides
-em que acreditas · 34 conquistas · legendas e opções de acessibilidade.
+em que acreditas · 36 conquistas · legendas e opções de acessibilidade.
 
 ## 7. Pendente antes de lançar
 

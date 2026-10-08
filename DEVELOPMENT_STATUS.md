@@ -22,7 +22,7 @@ ver "Problemas conhecidos")
 | Investigação | ✅ 180 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
-| Steam | 🟡 ponte GodotSteam + 34 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
+| Steam | 🟡 ponte GodotSteam + 36 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
 | Duração | 🟡 estimativa ~4–6 h na 1.ª passagem, 8–10 h para tudo (objetivo do documento: 14 h+) |
 
 ## Conteúdo
@@ -63,7 +63,7 @@ ver "Problemas conhecidos")
   Director (beats paralelos, condições via `Expression`, escolhas, chamadas recebidas/efetuadas,
   interpolação `${var}`, ~55 comandos) · Clock (aceleração ×6 quando parado + opção 1–3×; bateria
   drena com avisos) · Saves (5 espaços + auto + rápido; escrita atómica + `.bak`) · Audio
-  procedural (~45 sons) · Achievements (34, espelho Steam) · Settings (volumes por barramento, texto,
+  procedural (~45 sons) · Achievements (36, espelho Steam) · Settings (volumes por barramento, texto,
   velocidade de mensagens/relógio, legendas, alto contraste, reduzir efeitos/movimento,
   ecrã/vsync/resolução, **remapeamento de teclas**)
 - **Menus:** pausa com **"Até agora"** (resumo de cada capítulo já jogado) e **"Decisões"**;
