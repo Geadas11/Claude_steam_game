@@ -372,7 +372,7 @@ if vs("mae9") == "lie"
 elif vs("mae9") == "half"
   mae> Perceber coisas às onze da noite nunca fez bem a ninguém nesta família.
   wait 4
-  mae> Mas se precisares, eu vou aí. São duas horas de carro, não é o fim do mundo
+  mae> Mas se precisares, eu vou aí. É meia hora de Tavira, não é o fim do mundo
 else
   typing mae mae 14
   wait 10
