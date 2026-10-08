@@ -121,7 +121,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - Revisão visual por capturas (Xvfb, `--shot`/`--do`): título (3 variantes), bloqueio, mensagens, todas
   as apps, chamada, câmara (3 eventos), cortina, menus, transição de capítulo, final, Steam Deck 1280×800.
 - Export: builds Windows e Linux; a de Linux arranca e carrega a história.
-- Testes de resistência em tempo real (`--autoplay`, Xvfb): todos os capítulos 1 e 4–11 (o 11 até ao
+- Testes de resistência em tempo real (`--autoplay`, Xvfb): todos os capítulos, 1 a 11 (o 11 até ao
   ecrã de final) — sem erros de script.
 - Testes de regressão para bugs desta sessão: `app()` ao abrir conversa por notificação, avisos dentro
   do ecrã, painéis "Até agora"/"Decisões" com conteúdo, resumo para cada capítulo.
