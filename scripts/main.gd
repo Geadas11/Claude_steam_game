@@ -212,6 +212,11 @@ func _debug_script(steps: PackedStringArray) -> void:
 					mb.global_position = pos
 					Input.parse_input_event(mb)
 				await get_tree().process_frame
+			"hit":
+				var pt: Vector2 = phone.screen.get_global_rect().position + phone.screen.get_global_rect().size * Vector2(float(kv[1]), float(kv[2]))
+				for c in phone.screen.find_children("*", "CanvasItem", true, false):
+					if c is Control and c.is_visible_in_tree() and c.get_global_rect().has_point(pt) :
+						print("HIT ", c.get_path(), " ", c.get_class(), " ", c.get_script().resource_path if c.get_script() else "", " ", c.get_global_rect().size)
 			"dumptoast":
 				var tp: Control = phone.screen.get_node("Toast")
 				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())

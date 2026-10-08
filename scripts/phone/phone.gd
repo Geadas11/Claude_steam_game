@@ -136,8 +136,21 @@ func _build_screen() -> void:
 	wallpaper.set_anchors_preset(Control.PRESET_FULL_RECT)
 	wallpaper.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen.add_child(wallpaper)
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.45)
+	# legibility veil: darker where the clock, notifications and icons sit,
+	# almost clear in the middle so the wallpaper keeps its light
+	var grad := Gradient.new()
+	grad.offsets = PackedFloat32Array([0.0, 0.3, 0.5, 0.62, 1.0])
+	grad.colors = PackedColorArray([Color(0, 0, 0, 0.5), Color(0, 0, 0, 0.22), Color(0, 0, 0, 0.08), Color(0, 0, 0, 0.2), Color(0, 0, 0, 0.55)])
+	var gt := GradientTexture2D.new()
+	gt.gradient = grad
+	gt.fill_from = Vector2(0, 0)
+	gt.fill_to = Vector2(0, 1)
+	gt.width = 4
+	gt.height = 256
+	var dim := TextureRect.new()
+	dim.texture = gt
+	dim.stretch_mode = TextureRect.STRETCH_SCALE
+	dim.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen.add_child(dim)

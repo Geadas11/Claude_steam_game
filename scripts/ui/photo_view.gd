@@ -85,10 +85,12 @@ func _apply_grain() -> void:
 	if _grain == null:
 		return
 	var mat: ShaderMaterial = _grain.material
-	mat.set_shader_parameter("amount", float(spec.get("grain", 0.07)) * (1.0 if not Settings.get_value("reduce_effects", false) else 0.6))
+	# real photographs already carry their own grain and vignette: only a light touch
+	var real := _tex != null
+	mat.set_shader_parameter("amount", float(spec.get("grain", 0.07)) * (0.3 if real else 1.0) * (1.0 if not Settings.get_value("reduce_effects", false) else 0.6))
 	mat.set_shader_parameter("seed", float(hash(photo_id + variant) % 1000) / 10.0)
 	mat.set_shader_parameter("animate", 1.0 if live else 0.0)
-	mat.set_shader_parameter("vignette", float(spec.get("vignette", 0.45)))
+	mat.set_shader_parameter("vignette", float(spec.get("vignette", 0.45)) * (0.25 if real else 1.0))
 
 
 func _process(delta: float) -> void:
