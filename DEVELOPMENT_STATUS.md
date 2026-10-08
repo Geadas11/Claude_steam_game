@@ -130,7 +130,7 @@ ver "Problemas conhecidos")
 - No contentor de desenvolvimento não há placa de som (erros ALSA nos logs são do ambiente).
 
 ## Próximas prioridades
-1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos.
+1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
    investigações secundárias com recompensa (ex.: o "aquário" da Lumen como capítulo opcional),
    mais pormenores escondidos nas fotografias.
