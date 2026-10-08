@@ -360,9 +360,15 @@ func _on_achievement(id: String) -> void:
 	p.add_child(h)
 	p.position = Vector2(size.x - 380, size.y + 10)
 	p.custom_minimum_size = Vector2(360, 0)
+	# stack above any popup still on screen
+	var stacked := 0
+	for other in overlay.get_children():
+		if other.has_meta("achievement_popup"):
+			stacked += 1
+	p.set_meta("achievement_popup", true)
 	overlay.add_child(p)
 	var tw := create_tween()
-	tw.tween_property(p, "position:y", size.y - 100, 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_property(p, "position:y", size.y - 100 - stacked * 84, 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_interval(4.0)
 	tw.tween_property(p, "modulate:a", 0.0, 0.6)
 	tw.tween_callback(p.queue_free)

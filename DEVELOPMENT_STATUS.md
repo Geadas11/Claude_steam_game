@@ -97,6 +97,9 @@ ver "Problemas conhecidos")
   por cima depois do `setup`) → beats do tipo `app() == "messages:x"` não disparavam. Teste de regressão.
 - Duas escolhas na mesma conversa: a segunda apagava a primeira (beat preso) → fila por conversa.
 - Cabeçalho da conversa não mudava quando o contacto era renomeado.
+- **Os avisos curtos (toasts) apareciam fora do ecrã** — nenhum era visível (ex.: "Dentro da capa: um
+  cartão microSD"). Corrigido + fila de avisos + teste. Pistas novas passam a mostrar "Nova pista: …".
+- Conquistas desbloqueadas ao mesmo tempo sobrepunham-se → empilham.
 
 ## Testes
 
