@@ -1715,5 +1715,40 @@
    "front_camera_figure",
    "photo_from_behind"
   ]
+ },
+ "badge_log": {
+  "title": "O registo de acessos",
+  "desc": "Edifício 3: V.PIMENTEL sai às 02:31 de 14/10/2025 com o AX-31-PL, volta às 04:47, entra no \"aquário\" às 04:52. Às 05:41 o ECO regista um novo dispositivo: \"I.M. (recuperado)\".",
+  "source": "Intranet Lumen",
+  "importance": 3,
+  "related": [
+   "vasco_car_cctv",
+   "pedro_cousin",
+   "phone_taken_by_vasco",
+   "plate_lumen"
+  ]
+ },
+ "therapy_notes": {
+  "title": "As tuas notas de sessão",
+  "desc": "\"Reforçada versão de que esteve em casa. Desencorajada a reconstrução.\" \"Partilhado com parceiro (Lumen) conforme protocolo MIRROR-2.\" \"Recomendado ao parceiro aumentar a frequência de contacto do espelho.\"",
+  "source": "Portal do Utente · Clínica Atlântico",
+  "importance": 3,
+  "related": [
+   "helena_signed",
+   "helena_dont_tell",
+   "lumen_pays_helena",
+   "exclusion_2208"
+  ]
+ },
+ "ines_last_photo": {
+  "title": "A última fotografia dela",
+  "desc": "03:05 de 14/10/2025, tirada pelo telemóvel dela: tu, de costas, a ir-te embora pelo cais. Como a fotografia que apareceu na tua galeria — tirada por trás.",
+  "source": "Ficheiros · Inês (sincronizado)",
+  "importance": 3,
+  "related": [
+   "photo_from_behind",
+   "went_back",
+   "armando_saw"
+  ]
  }
 }

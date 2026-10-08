@@ -333,7 +333,8 @@
      {
       "id": "give_copy",
       "text": "Para entregar uma cópia das provas ao Daniel",
-      "needs": "ines_last_messages"
+      "needs": "ines_last_messages",
+      "needs_expr": "clue(\"ines_blog_lastpost\") or clue(\"ines_letter\")"
      },
      {
       "id": "meet_clara",
@@ -353,7 +354,8 @@
      {
       "id": "daniel",
       "text": "O Daniel",
-      "needs": "daniel_told_vasco"
+      "needs": "daniel_told_vasco",
+      "needs_expr": "clue(\"vasco_was_coming\")"
      },
      {
       "id": "helena",
@@ -387,7 +389,8 @@
      {
       "id": "walking",
       "text": "A pé na EN125, a afastar-se do cais",
-      "needs": "old_location"
+      "needs": "old_location",
+      "needs_expr": "clue(\"joao_saw_daniel\") or clue(\"ines_last_photo\") or clue(\"armando_saw\")"
      },
      {
       "id": "bar",
@@ -404,7 +407,8 @@
      {
       "id": "vasco",
       "text": "Vasco Pimentel",
-      "needs": "vasco_car_cctv"
+      "needs": "vasco_car_cctv",
+      "needs_expr": "clue(\"recording_pier\") or clue(\"badge_log\") or clue(\"vasco_tried_to_grab\")"
      },
      {
       "id": "daniel",

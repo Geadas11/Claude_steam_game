@@ -5,7 +5,7 @@
   "type": "doc",
   "size": "84 KB",
   "date": "2025-12-10 23:40",
-  "content": "[b]DANIEL REIS[/b]\nSalgueira · +351 936 118 245 · daniel.reis@mail.pt\n\n[b]Experiência[/b]\n2021–2025 · Engenheiro de Qualidade (QA), Lumen Systems, Faro\nTestes de aplicações móveis e de modelos de linguagem. Equipa de Produto (dir. Vasco Pimentel).\n\n2018–2021 · Técnico de suporte, Algarve Digital\n\n[b]Formação[/b]\nLicenciatura em Engenharia Informática, Universidade do Algarve\n\n[b]Outros[/b]\nLeitor compulsivo. Disponibilidade imediata."
+  "content": "[b]DANIEL REIS[/b]\nSalgueira · +351 936 118 245 · daniel.reis@mail.pt\nData de nascimento: 22/08/1997\n\n[b]Experiência[/b]\n2021–2025 · Engenheiro de Qualidade (QA), Lumen Systems, Faro\nTestes de aplicações móveis e de modelos de linguagem. Equipa de Produto (dir. Vasco Pimentel).\n\n2018–2021 · Técnico de suporte, Algarve Digital\n\n[b]Formação[/b]\nLicenciatura em Engenharia Informática, Universidade do Algarve\n\n[b]Outros[/b]\nLeitor compulsivo. Disponibilidade imediata."
  },
  "contrato_mare": {
   "name": "Contrato_Livraria_Mare.pdf",
@@ -291,5 +291,16 @@
   "size": "880 KB",
   "date": "2025-09-30 12:00",
   "content": "id;idade;diagnóstico;risco_6m;vendido_a\n0001;34;depressão major;0.81;Meridiano\n0002;27;perturbação de ansiedade;0.44;—\n...\n2208;29;stress pós-traumático;0.77;Meridiano\n...\n3412;61;luto complicado;0.69;Meridiano\n\n[3.412 linhas]"
+ },
+ "ines_last_photo": {
+  "name": "IMG_20251014_030540.jpg",
+  "folder": "Inês (sincronizado)",
+  "type": "image",
+  "size": "2,9 MB",
+  "date": "2025-10-14 03:05",
+  "photo": "IMG_INES_LAST",
+  "clues": [
+   "ines_last_photo"
+  ]
  }
 }

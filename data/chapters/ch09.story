@@ -55,8 +55,9 @@ set confirmed_told=true
 wait 20
 file ines_cais_rec silent
 file ines_notas silent
+file ines_last_photo silent
 email lumen_eco_memo silent
-notify files "Sincronização" "ines.matos@lumen.pt · 2 ficheiros sincronizados"
+notify files "Sincronização" "ines.matos@lumen.pt · 3 ficheiros sincronizados"
 wait 4
 notify email "Sincronização" "ines.matos@lumen.pt · 1 email recuperado do Lixo"
 set ines_files_synced=true
@@ -295,4 +296,21 @@ endif
 @when flag("heard_recording") and since("recording_heard", 60)
 notify settings "ECO Care" "Detetámos sinais de risco elevado. Para sua segurança, a sua médica foi notificada."
 clue eco_care_reported
+@end
+
+
+# ---------------------------------------------------------------- a intranet
+@beat intranet_hint
+@when flag("extracted_backup_pixel7") and since("backup_opened", 200) and not visited("lumen_intranet")
+unknown> A tua conta da Lumen nunca foi desativada.
+wait 3
+unknown> Eles também se esquecem de coisas. Área de colaboradores.
+@end
+
+@beat last_photo_seen
+@when clue("ines_last_photo")
+wait 8
+unknown> Tirei-a para me lembrar de ti a ir embora.
+wait 4
+unknown> Depois deram-ma a mim para te mostrar. Por trás. Como se fosse agora.
 @end

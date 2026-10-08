@@ -1109,6 +1109,52 @@
    }
   ]
  },
+ "IMG_INES_LAST": {
+  "file": "IMG_INES_LAST.jpg",
+  "date": "2025-10-14 03:05",
+  "place": "Cais Velho, Salgueira",
+  "device": "Pixel 8 (I.M.)",
+  "album": "Transferências",
+  "aspect": 0.75,
+  "scene": {
+   "preset": "pier_night",
+   "grain": 0.18,
+   "figs": [
+    [
+     0.43,
+     0.86,
+     0.36,
+     "stand",
+     "daniel_back",
+     1.0,
+     "#0b0a0c"
+    ]
+   ],
+   "layers": [
+    {
+     "t": "glow",
+     "p": [
+      0.5,
+      0.55
+     ],
+     "r": 0.5,
+     "c": "#ffcf8a10"
+    }
+   ]
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.35,
+     0.5,
+     0.18,
+     0.38
+    ],
+    "clue": "ines_last_photo",
+    "label": "Tu. De costas. A ir-te embora pelo cais. A última fotografia que ela tirou."
+   }
+  ]
+ },
  "IMG_RITA": {
   "file": "IMG_RITA.jpg",
   "date": "2026-10-13 00:29",

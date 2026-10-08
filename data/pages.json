@@ -732,6 +732,10 @@
    {
     "link": "lumen_comunicado",
     "text": "Comunicados"
+   },
+   {
+    "link": "lumen_intranet",
+    "text": "Área de colaboradores"
    }
   ]
  },
@@ -1570,6 +1574,106 @@
   ],
   "clues": [
    "ines_coinventor"
+  ]
+ },
+ "lumen_intranet": {
+  "url": "intranet.lumen.pt",
+  "title": "Lumen — Intranet de colaboradores",
+  "site": "lumen · intranet",
+  "site_color": "#1d2b3a",
+  "keywords": [
+   "intranet",
+   "intranet lumen",
+   "intranet.lumen.pt",
+   "area de colaboradores",
+   "colaboradores lumen"
+  ],
+  "requires": "v(\"chapter_n\") >= 4",
+  "snippet": "Acesso reservado a colaboradores e ex-colaboradores com conta ativa.",
+  "password": "lumen0202",
+  "gate_title": "Intranet Lumen",
+  "gate_text": "Utilizador: d.reis (conta ainda ativa)\nIntroduz a palavra-passe.\n\nLembrete definido por ti em 2021: \"a de sempre + o PIN do telemóvel\"",
+  "hint": "\"A de sempre\" era o nome da empresa, em minúsculas. O PIN era o do telemóvel antigo, não o deste.",
+  "blocks": [
+   {
+    "h": "Intranet"
+   },
+   {
+    "meta": "Sessão iniciada: d.reis · última sessão 03/11/2025"
+   },
+   {
+    "h2": "Segurança · registo de acessos (exportação automática)"
+   },
+   {
+    "mono": "EDIFÍCIO 3 · 13/10/2025 → 14/10/2025\n\n22:58  I.MATOS     saída   (portaria)\n23:40  V.PIMENTEL  entrada (parque P3, viatura AX-31-PL)\n02:31  V.PIMENTEL  saída   (parque P3, viatura AX-31-PL)\n04:47  V.PIMENTEL  entrada (parque P3, viatura AX-31-PL)\n04:52  V.PIMENTEL  entrada (piso 4 \"aquário\")\n05:30  V.PIMENTEL  acesso  sala de servidores ECO\n05:41  ECO         novo dispositivo registado: \"I.M. (recuperado)\""
+   },
+   {
+    "meta": "Este registo foi gerado automaticamente. Para dúvidas: seguranca@lumen.pt"
+   }
+  ],
+  "clues": [
+   "badge_log"
+  ]
+ },
+ "clinica_portal": {
+  "url": "portal.clinica-atlantico.pt",
+  "title": "Portal do Utente — Clínica Atlântico",
+  "site": "Clínica Atlântico · Portal do Utente",
+  "site_color": "#4f6b5a",
+  "keywords": [
+   "portal do utente",
+   "portal clinica",
+   "clinica atlantico portal",
+   "processo clinico",
+   "utente 2208",
+   "2208"
+  ],
+  "requires": "v(\"chapter_n\") >= 6",
+  "snippet": "Consulte as suas consultas, receitas e documentos.",
+  "password": "22081997",
+  "gate_title": "Portal do Utente",
+  "gate_text": "Dispositivo reconhecido: utente nº 2208.\nPara continuar, introduz a tua data de nascimento (DDMMAAAA).",
+  "hint": "Está no teu currículo.",
+  "blocks": [
+   {
+    "h": "Utente nº 2208 — Daniel Reis"
+   },
+   {
+    "meta": "Médica assistente: Dra. Helena Sousa · Entidade pagadora: Lumen Systems, S.A."
+   },
+   {
+    "h2": "Notas de sessão (resumo partilhado)"
+   },
+   {
+    "comment": {
+     "user": "20/10/2025",
+     "text": "Utente refere lacuna de memória (02h–06h de 14/10). Ansiedade elevada. Refere \"um carro sem luzes\" e \"água fria\". Reforçada versão de que esteve em casa. Desencorajada a reconstrução."
+    }
+   },
+   {
+    "comment": {
+     "user": "03/12/2025",
+     "text": "Utente pergunta se deve falar com a família da colega. Desaconselhado."
+    }
+   },
+   {
+    "comment": {
+     "user": "19/02/2026",
+     "text": "Utente refere despertar às 03h17. Sem relevância clínica. Partilhado com parceiro (Lumen) conforme protocolo MIRROR-2."
+    }
+   },
+   {
+    "comment": {
+     "user": "30/09/2026",
+     "text": "Utente estável. Aproximação do aniversário. Recomendado ao parceiro aumentar a frequência de contacto do espelho. [nota interna — não visível ao utente]"
+    }
+   },
+   {
+    "meta": "Esta nota não devia estar visível. Se a está a ver, contacte a clínica."
+   }
+  ],
+  "clues": [
+   "therapy_notes"
   ]
  }
 }

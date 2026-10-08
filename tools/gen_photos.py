@@ -125,6 +125,10 @@ photo("IMG_6800", "2026-10-12 11:30", {"preset": "screen", "lines": [">Vasco, el
     place="", device="Lumen One · captura de ecrã", album="Capturas", aspect=0.75,
     hotspots=[{"r": [0.0, 0.0, 1.0, 0.5], "clue": "daniel_told_vasco", "label": "Foste tu. Foste tu que lhe disseste onde ela estava."}])
 
+photo("IMG_INES_LAST", "2025-10-14 03:05", {"preset": "pier_night", "grain": 0.18, "figs": [[0.43, 0.86, 0.36, "stand", "daniel_back", 1.0, "#0b0a0c"]],
+    "layers": [{"t": "glow", "p": [0.5, 0.55], "r": 0.5, "c": "#ffcf8a10"}]},
+    place="Cais Velho, Salgueira", device="Pixel 8 (I.M.)", album="Transferências", aspect=0.75,
+    hotspots=[{"r": [0.35, 0.5, 0.18, 0.38], "clue": "ines_last_photo", "label": "Tu. De costas. A ir-te embora pelo cais. A última fotografia que ela tirou."}])
 photo("IMG_RITA", "2026-10-13 00:29", {"preset": "screen", "lines": ["/.eco", "sim_112.log", "mirror_pai.cfg", "pred_rsantos.txt", "sujeita: R.SANTOS", "espelho: pai (J.SANTOS)"]},
     place="", device="Lumen One · captura de ecrã", album="Mensagens", aspect=0.75)
 

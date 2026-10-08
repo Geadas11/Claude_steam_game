@@ -413,3 +413,15 @@ clue vasco_sent_window
 @when at("10:25") and not flag("found_card")
 unknown> [audio:vm_audio_ines]
 @end
+
+
+# ---------------------------------------------------------------- o portal do utente
+@beat portal_hint
+@when (email_read("meridiano_exclusao") or clue("daniel_in_list")) and since("setup", 120) and not visited("clinica_portal")
+wait 20
+unknown> 2208.
+wait 3
+unknown> O teu número de utente é o dia dos teus anos. Ninguém escolhe isso por acaso.
+wait 3
+unknown> O portal da clínica reconhece o teu telefone. Só te vai pedir quem és.
+@end

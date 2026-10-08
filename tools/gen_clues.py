@@ -207,6 +207,10 @@ clue("pier_watcher_2025", "Alguém na água (2025)", "Duas fotografias tiradas n
 
 clue("someone_in_the_room", "No meio da sala", "Na última noite, na câmara, alguém de pé no meio da sala, a um metro de ti. \"Não era eu. Tranca a porta.\"", "Câmara", 3, ["camera_hall_figure", "front_camera_figure", "photo_from_behind"])
 
+clue("badge_log", "O registo de acessos", "Edifício 3: V.PIMENTEL sai às 02:31 de 14/10/2025 com o AX-31-PL, volta às 04:47, entra no \"aquário\" às 04:52. Às 05:41 o ECO regista um novo dispositivo: \"I.M. (recuperado)\".", "Intranet Lumen", 3, ["vasco_car_cctv", "pedro_cousin", "phone_taken_by_vasco", "plate_lumen"])
+clue("therapy_notes", "As tuas notas de sessão", "\"Reforçada versão de que esteve em casa. Desencorajada a reconstrução.\" \"Partilhado com parceiro (Lumen) conforme protocolo MIRROR-2.\" \"Recomendado ao parceiro aumentar a frequência de contacto do espelho.\"", "Portal do Utente · Clínica Atlântico", 3, ["helena_signed", "helena_dont_tell", "lumen_pays_helena", "exclusion_2208"])
+clue("ines_last_photo", "A última fotografia dela", "03:05 de 14/10/2025, tirada pelo telemóvel dela: tu, de costas, a ir-te embora pelo cais. Como a fotografia que apareceu na tua galeria — tirada por trás.", "Ficheiros · Inês (sincronizado)", 3, ["photo_from_behind", "went_back", "armando_saw"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]
