@@ -725,16 +725,22 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 			Events.notification_posted.emit(n)
 		"sound":
 			Audio.play(a[0])
+			_caption(a[0])
 		"ambient":
 			Audio.set_ambient("" if a[0] == "off" else a[0])
+			if Settings.get_value("sound_captions", false) and a[0] in ["dread", "tension"]:
+				Events.toast_requested.emit("[um zumbido grave, quase inaudível]")
 		"music":
 			Audio.set_music("" if a[0] == "off" else a[0])
 		"stopsounds":
 			Audio.set_ambient("")
 			Audio.set_music("")
+			if Settings.get_value("sound_captions", false):
+				Events.toast_requested.emit("[silêncio total — o som da casa desaparece]")
 		"vibrate":
 			Events.vibrate_requested.emit(int(a[0]) if a.size() > 0 else 1)
 			Audio.play("vibrate")
+			_caption("vibrate")
 		"glitch":
 			Events.glitch_requested.emit(float(a[0]), float(a[1]))
 			Audio.play("glitch")
@@ -926,6 +932,14 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 			GameState.data.map_marks[a[0]] = true
 			Events.content_changed.emit("map")
 	return true
+
+
+## Accessibility: show story sound effects as captions when enabled.
+func _caption(sound_name: String) -> void:
+	if not Settings.get_value("sound_captions", false):
+		return
+	if Audio.CAPTIONS.has(sound_name):
+		Events.toast_requested.emit("[%s]" % Audio.caption(sound_name))
 
 
 func add_clue(id: String, silent := false) -> void:
