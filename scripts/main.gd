@@ -183,7 +183,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"dumptoast":
 				var tp: Control = phone.screen.get_node("Toast")
 				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())
-			"dump": print("DUMP paused=", get_tree().paused, " ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"))
+			"dump": print("DUMP paused=", get_tree().paused, " ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"), " ach=", Achievements.unlocked.keys().size(), " cs=", Achievements.unlocked.has("call_self"))
 			"press":
 				var ev := InputEventKey.new()
 				ev.keycode = KEY_SPACE
