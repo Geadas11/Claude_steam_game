@@ -113,7 +113,7 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 ## Testes
 
 - `tools/check.sh` — compila todos os scripts (falha em erros de parse).
-- `tools/run_tests.sh` — em paralelo: validação de dados (~5000 verificações: referências, expressões,
+- `tools/run_tests.sh` — em paralelo: validação de dados (~5700 verificações: referências, expressões,
   pistas, finais), gravação/carregamento (incl. ficheiro corrompido → `.bak`), 5 jogadas completas
   (uma por final, via `tests/walkthrough.json`) e varrimento da UI com estado de fim de jogo
   (todas as apps, conversas, fotos, emails, ficheiros, páginas, definições, locais).
