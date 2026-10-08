@@ -161,6 +161,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 				if phone.current_app and phone.current_app.has_method("_compare"):
 					phone.current_app._compare(kv[1], kv[2])
 			"addphoto": GameState.add_photo(kv[1], "Recuperadas")
+			"showphoto":
+				if phone.current_app and phone.current_app.has_method("_show_photo"):
+					phone.current_app._show_photo(kv[1])
 			"openfile":
 				if phone.current_app and phone.current_app.has_method("_open_file"):
 					phone.current_app._open_file(kv[1])

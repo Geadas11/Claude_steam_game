@@ -145,17 +145,36 @@ photo("IMG_RUI_DESK", "2026-10-11 17:20", {"preset": "custom", "layers": [
         {"t": "glow", "p": [0.3, 0.1], "r": 0.6, "c": "#ffe0b012"}]},
     place="Rua do Mar 7, Salgueira", device="Galaxy A14 (Rui)", album="Mensagens", aspect=1.0,
     hotspots=[{"r": [0.56, 0.2, 0.28, 0.24], "clue": "postit_p317", "label": "Um post-it com a letra dela: \"D. — p. 317 (a de cima)\"."}])
-photo("IMG_RUI_CAL", "2026-10-11 17:21", {"preset": "custom", "layers": [
-        {"t": "grad", "c": ["#d8d2c4", "#bdb6a6"]},
-        {"t": "text", "p": [0.08, 0.1], "s": 0.05, "c": "#2a2a2a", "v": "OUTUBRO 2025"},
-        {"t": "lines", "r": [0.08, 0.16, 0.84, 0.74], "seed": 3, "step": 0.12, "c": "#9a9488"},
-        {"t": "text", "p": [0.62, 0.53], "s": 0.045, "c": "#2a2a2a", "v": "14"},
-        {"t": "circle", "p": [0.655, 0.515], "r": 0.06, "c": "#c0303040"},
-        {"t": "text", "p": [0.56, 0.6], "s": 0.026, "c": "#a02020", "v": "Clara 10h!"},
-        {"t": "text", "p": [0.28, 0.53], "s": 0.045, "c": "#2a2a2a", "v": "13"},
-        {"t": "text", "p": [0.2, 0.6], "s": 0.022, "c": "#2a3a8a", "v": "cais 2h30 (D.)"}]},
+def _cal_layers():
+    # October 2025 wall calendar (weeks start on Monday; the 1st is a Wednesday)
+    x0, y0, w, h = 0.06, 0.24, 0.88 / 7, 0.13
+    L = [{"t": "grad", "c": ["#d8d2c4", "#bdb6a6"]},
+         {"t": "text", "p": [0.08, 0.1], "s": 0.05, "c": "#2a2a2a", "v": "OUTUBRO 2025"},
+         {"t": "rect", "r": [0.06, 0.17, 0.88, 0.005], "c": "#a02020"}]
+    for i, d in enumerate("STQQSSD"):
+        L.append({"t": "text", "p": [x0 + i * w + 0.01, 0.215], "s": 0.022, "c": "#6a6458", "v": d})
+    for r in range(6):
+        L.append({"t": "line", "pts": [x0, y0 + r * h, x0 + 7 * w, y0 + r * h], "c": "#9a9488", "w": 0.002})
+    for c in range(8):
+        L.append({"t": "line", "pts": [x0 + c * w, y0, x0 + c * w, y0 + 5 * h], "c": "#9a9488", "w": 0.002})
+    for day in range(1, 32):
+        idx = day + 1
+        r, c = divmod(idx, 7)
+        L.append({"t": "text", "p": [x0 + c * w + 0.01, y0 + r * h + 0.035], "s": 0.026,
+                  "c": "#a02020" if c == 6 else "#2a2a2a", "v": str(day)})
+    # her handwriting
+    L += [{"t": "circle", "p": [x0 + 1.5 * w, y0 + 2.5 * h], "r": 0.055, "c": "#c0303040"},
+          {"t": "text", "p": [x0 + 1 * w + 0.008, y0 + 2 * h + 0.095], "s": 0.02, "c": "#a02020", "v": "Clara 10h!"},
+          {"t": "text", "p": [x0 + 0.008, y0 + 2 * h + 0.095], "s": 0.019, "c": "#2a3a8a", "v": "cais 2h30"},
+          {"t": "text", "p": [x0 + 0.03, y0 + 2 * h + 0.118], "s": 0.019, "c": "#2a3a8a", "v": "(D.)"},
+          {"t": "text", "p": [x0 + 4 * w + 0.008, y0 + 0 * h + 0.095], "s": 0.019, "c": "#2a3a8a", "v": "jantar mãe"},
+          {"t": "text", "p": [x0 + 1 * w + 0.008, y0 + 4 * h + 0.095], "s": 0.019, "c": "#2a3a8a", "v": "1 ano :)"}]
+    return L
+
+
+photo("IMG_RUI_CAL", "2026-10-11 17:21", {"preset": "custom", "layers": _cal_layers()},
     place="Rua do Mar 7, Salgueira", device="Galaxy A14 (Rui)", album="Mensagens", aspect=1.0,
-    hotspots=[{"r": [0.15, 0.45, 0.65, 0.2], "clue": "ines_calendar", "label": "13: \"cais 2h30 (D.)\". 14: \"Clara 10h!\". Ela tinha tudo planeado."}])
+    hotspots=[{"r": [0.06, 0.24 + 2 * 0.13, 2 * 0.88 / 7, 0.13], "clue": "ines_calendar", "label": "13: \"cais 2h30 (D.)\". 14: \"Clara 10h!\". Ela tinha tudo planeado."}])
 photo("IMG_RITA", "2026-10-13 00:29", {"preset": "screen", "lines": ["/.eco", "sim_112.log", "mirror_pai.cfg", "pred_rsantos.txt", "sujeita: R.SANTOS", "espelho: pai (J.SANTOS)"]},
     place="", device="Lumen One · captura de ecrã", album="Mensagens", aspect=0.75)
 
