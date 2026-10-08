@@ -3,9 +3,9 @@
 > Ler isto no início de cada sessão. Continuar de onde ficou. Nunca recomeçar do zero.
 
 **Projeto:** Ainda Estás Acordado? (PROJECT UNKNOWN) · Godot 4.3 · GL Compatibility · pt-PT
-**Última atualização:** sessão 1 (2026-10-08)
+**Última atualização:** sessão 1 (2026-10-08) · versão 0.9.0
 **Branch:** `claude/relaxed-cray-lgubk6` (commits locais; o *push* para o GitHub falhou com 403 —
-ver "Problemas conhecidos")
+ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstasAcordado.bundle`)
 
 ---
 
@@ -38,7 +38,8 @@ ver "Problemas conhecidos")
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
 - **Arcos secundários:** Rita (outra "sujeita" — 41 telemóveis oferecidos pela clínica), o primo do
   Pedro ("o aquário"), a patente do espelho (a Inês é coinventora), a Marta lembra-se de vocês (e viu-te pôr flores no cais),
-  a mãe ao domingo, a Carla e a fotografia dentro do livro
+  a mãe ao domingo, a Carla e a fotografia dentro do livro, o caixote da secretária da Inês (Rui),
+  o Sr. Armando disposto a testemunhar, a consola do ECO (2 sessões)
 - **Rejogabilidade:** a voz lembra-se de iterações anteriores; o ecrã do título (e a música) muda conforme o último final
 - **Consequências pequenas que voltam:** o livro que recomendaste à Marta (cap. 1 → 10), as ações do
   Pedro (cap. 1 → epílogo), a chamada da Sofia na última noite, a mãe e a chamada das 04:30
