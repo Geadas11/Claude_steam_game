@@ -404,3 +404,11 @@ else
   set rita_gave_phone=true
 endif
 @end
+
+@beat eco_care_7
+@when at("23:59")
+notify settings "ECO Care" "Esta semana marca um ano desde uma perda importante. Estamos aqui consigo."
+wait 10
+unknown> "Uma perda importante."
+unknown> Eles sabem a data melhor do que tu.
+@end

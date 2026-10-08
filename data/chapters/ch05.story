@@ -409,3 +409,8 @@ else
   rita> isso devia acalmar-me. não acalma
 endif
 @end
+
+@beat eco_care_5
+@when at("03:05")
+notify settings "ECO Care" "O seu padrão de sono indica agitação. Está tudo bem? Toque para falar com alguém."
+@end

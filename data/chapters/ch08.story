@@ -316,3 +316,56 @@ wait 20
 unknown> "O dispositivo ficará à guarda da instituição."
 unknown> Querem-te sem telefone. Querem-me sem ti.
 @end
+
+# ---------------------------------------------------------------- Clara investigou a clínica
+@beat clara_clinic
+@when at("16:40") and flag("clara_talked")
+clara> Investiguei a Clínica Atlântico. Em 2025 comprou à Lumen 41 telemóveis Lumen One. Na fatura: "programa de apoio ao luto".
+clara> Quarenta e um. Para utentes em luto.
+clara> O seu também foi oferecido, certo? Por quem?
+clue clinic_bought_phones
+@end
+
+@beat clara_clinic_reply
+@when beat("clara_clinic") and read("clara")
+wait 1
+choice clara c8_clara
+  > Pela Lumen. Disseram que era um gesto de apoio. | set clara8=lumen
+  > Não sei se quero saber o que isso significa. | set clara8=afraid
+end
+wait 25
+if vs("clara8") == "lumen"
+  clara> Um gesto de apoio com gestão remota durante 24 meses.
+  clara> Daniel, se puder, não use esse telemóvel para falar comigo sobre isto.
+  wait 4
+  clara> Já é tarde para isso, não é.
+else
+  clara> Significa que não é o único. Isso devia ajudar. Não ajuda.
+endif
+@end
+
+# ---------------------------------------------------------------- o João e a tia Sofia
+@beat joao_helps_sofia
+@when at("20:15") and flag("sofia_has_old_phone")
+joao> a tua irma ligou-me a perguntar como se faz copia de um telemovel android velho
+joao> expliquei-lhe durante 40 min. chamei-lhe tia duas vezes. ela nao achou piada
+joao> dani o q é q tu procuras nesse telemovel
+@end
+
+@beat joao_helps_sofia_reply
+@when beat("joao_helps_sofia") and read("joao")
+wait 1
+choice joao c8_joao
+  > O que eu fiz nessa noite. | set joao8=truth inc trust_joao 1
+  > Fotografias antigas. | set joao8=lie
+end
+wait 12
+if vs("joao8") == "truth"
+  joao> ok
+  joao> seja o q for. eu vi-te as 3 e 40 encharcado. quem faz mal a alguem nao entra no mar a procura dela
+  clue joao_reassures
+else
+  joao> fotografias. claro
+  joao> ok dani
+endif
+@end

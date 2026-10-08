@@ -294,3 +294,73 @@ else
   marta> somos dois. boa noite querido
 endif
 @end
+
+# ---------------------------------------------------------------- ECO Care (o bem-estar que vigia)
+@beat eco_care_3
+@when at("02:10")
+notify settings "ECO Care" "Notámos que está acordado às 02:10. Experimente respirar: inspire 4 segundos, expire 6."
+set eco_care_1=true
+@end
+
+# ---------------------------------------------------------------- o João a fechar o bar
+@beat joao_closing
+@when at("01:15") and not flag("joao_slept_over")
+joao> a fechar. tudo bem ai? o gajo de capuz voltou?
+@end
+
+@beat joao_closing_reply
+@when beat("joao_closing") and read("joao")
+wait 1
+choice joao c3_joao_close
+  > O número que me escreve era de uma rapariga que morreu no Cais Velho. | set told_joao_dead=true
+  > Não voltou. Vai descansar. | set told_joao_dead=false
+end
+wait 12
+if flag("told_joao_dead")
+  joao> ...
+  wait 6
+  joao> a inês
+  joao> é isso? a inês matos?
+  choice joao c3_joao_how
+    > Como é que sabes o nome? | set joao_slip=true
+    > Sim. Conhecias? | set joao_slip=false
+  end
+  wait 10
+  if flag("joao_slip")
+    joao> toda a gente na salgueira sabe o nome dela dani
+    joao> foi a única pessoa que morreu no cais em 20 anos
+  else
+    joao> de vista. ia ao bar
+  endif
+  wait 4
+  joao> amanha passo ai. nao respondas a esse numero. a serio
+  set joao_lied_ines=true
+else
+  joao> boa noite dani
+endif
+@end
+
+# ---------------------------------------------------------------- depois da chamada
+@beat after_call_talk
+@when beat("after_call") and read("unknown")
+wait 4
+choice unknown c3_after
+  > Onde estás? | set c3_after=where
+  > O que queres de mim? | set c3_after=what
+  > [Desligar o ecrã e tentar dormir] | set c3_after=sleep
+end
+wait 8
+if vs("c3_after") == "where"
+  unknown> No sítio onde me deixaste.
+  wait 4
+  unknown> Não é uma acusação. É uma morada.
+elif vs("c3_after") == "what"
+  unknown> Que te lembres.
+  wait 3
+  unknown> Só isso. Eu sei que é muito.
+else
+  screenoff 5
+  wait 4
+  unknown> Também eu.
+endif
+@end

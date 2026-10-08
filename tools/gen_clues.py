@@ -194,6 +194,11 @@ clue("other_simulations", "SIM 112", "No telemóvel da Rita: \"sim 112, sujeita 
 clue("rita_silenced", "\"A Rita está bem\"", "Depois de entregar o telemóvel à clínica, a Rita deixou de escrever. Quem respondeu do número dela escreve com maiúsculas e pontos finais.", "Mensagens · Rita", 3, ["helena_admission", "admission_no_phone"])
 clue("forty_one", "Quarenta e um", "A clínica ofereceu 41 telemóveis Lumen a utentes em luto. Quarenta e um mortos a escrever às 3:17.", "Mensagens · Rita", 3, ["other_simulations", "insurance_sale"])
 
+clue("clinic_bought_phones", "41 telemóveis", "Em 2025, a Clínica Atlântico comprou 41 Lumen One para um \"programa de apoio ao luto\".", "Mensagens · Clara", 3, ["forty_one", "rita_same_doctor", "lumen_dispositivo_dummy"])
+clue("joao_reassures", "\"Quem faz mal a alguém não entra no mar\"", "O João: \"eu vi-te às 3 e 40 encharcado. quem faz mal a alguém não entra no mar à procura dela.\"", "Mensagens · João", 2, ["joao_saw_daniel", "went_back"])
+clue("ines_feared_sea", "Ela tinha medo do mar", "O Rui: a Inês nunca ia ao fim do cais sozinha. Desde miúda. \"Disseram que se atirou.\"", "Mensagens · Rui", 3, ["case_closed_psychiatrist", "lumen_statement_fast", "recording_pier"])
+clue("eco_care_reported", "\"A sua médica foi notificada\"", "Minutos depois de ouvires a gravação, o ECO Care avisou que tinha notificado a tua médica de \"sinais de risco elevado\".", "Notificação · ECO Care", 3, ["vasco_knows_recording", "helena_admission", "eco_learns_at_night"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

@@ -258,3 +258,38 @@ else
   clue rita_silenced
 endif
 @end
+
+# ---------------------------------------------------------------- Rui não dorme nesta semana
+@beat rui_night9
+@when at("01:55") and phone("rui_known")
+rui> Não consigo dormir. Nesta semana nunca consigo.
+rui> Sabes uma coisa que ninguém sabe? Ela tinha medo do mar. Desde miúda. Nunca ia ao fim do cais sozinha. Nunca.
+rui> Disseram que se atirou. A minha irmã não chegava ao fim do cais sem me dar a mão.
+clue ines_feared_sea
+@end
+
+@beat rui_night9_reply
+@when beat("rui_night9") and read("rui")
+wait 1
+choice rui c9_rui
+  > Ela não se atirou, Rui. Eu tenho uma gravação. | set told_rui_recording=true inc trust_rui 1
+  > Lamento muito. | set told_rui_recording=false
+end
+wait 20
+if flag("told_rui_recording")
+  rui> O quê?
+  rui> Que gravação
+  wait 10
+  rui> Não me mandes por aqui. Amanhã. Em pessoa. Ou por quem tu confiares
+  rui> Daniel... obrigado
+  set rui_ally=true
+else
+  rui> Eu também.
+endif
+@end
+
+@beat eco_care_9
+@when flag("heard_recording") and since("recording_heard", 60)
+notify settings "ECO Care" "Detetámos sinais de risco elevado. Para sua segurança, a sua médica foi notificada."
+clue eco_care_reported
+@end

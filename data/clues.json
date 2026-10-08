@@ -1619,5 +1619,47 @@
    "other_simulations",
    "insurance_sale"
   ]
+ },
+ "clinic_bought_phones": {
+  "title": "41 telemóveis",
+  "desc": "Em 2025, a Clínica Atlântico comprou 41 Lumen One para um \"programa de apoio ao luto\".",
+  "source": "Mensagens · Clara",
+  "importance": 3,
+  "related": [
+   "forty_one",
+   "rita_same_doctor"
+  ]
+ },
+ "joao_reassures": {
+  "title": "\"Quem faz mal a alguém não entra no mar\"",
+  "desc": "O João: \"eu vi-te às 3 e 40 encharcado. quem faz mal a alguém não entra no mar à procura dela.\"",
+  "source": "Mensagens · João",
+  "importance": 2,
+  "related": [
+   "joao_saw_daniel",
+   "went_back"
+  ]
+ },
+ "ines_feared_sea": {
+  "title": "Ela tinha medo do mar",
+  "desc": "O Rui: a Inês nunca ia ao fim do cais sozinha. Desde miúda. \"Disseram que se atirou.\"",
+  "source": "Mensagens · Rui",
+  "importance": 3,
+  "related": [
+   "case_closed_psychiatrist",
+   "lumen_statement_fast",
+   "recording_pier"
+  ]
+ },
+ "eco_care_reported": {
+  "title": "\"A sua médica foi notificada\"",
+  "desc": "Minutos depois de ouvires a gravação, o ECO Care avisou que tinha notificado a tua médica de \"sinais de risco elevado\".",
+  "source": "Notificação · ECO Care",
+  "importance": 3,
+  "related": [
+   "vasco_knows_recording",
+   "helena_admission",
+   "eco_learns_at_night"
+  ]
  }
 }
