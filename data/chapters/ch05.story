@@ -433,7 +433,7 @@ if vs("c5_rename") == "revert"
   unknown> É o meu nome.
 elif vs("c5_rename") == "accept"
   wait 6
-  unknown> Há onze meses que espero que escrevas isso.
+  unknown> Há quase um ano que espero que escrevas isso.
 else
   notify settings "Chamadas e mensagens" "Não é possível bloquear este contacto."
   wait 5
