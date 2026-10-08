@@ -27,44 +27,44 @@
     "line": "O João fechou o Farol durante três dias. Disse que era \"para obras\". Passou-os contigo, a ver o mar sem dizer nada."
    },
    {
-    "when": "flag(\"joao_gone\")",
-    "line": "O João nunca voltou ao grupo. Em dezembro viste-o ao longe, à porta do Farol. Ele acenou. Não foste lá."
-   },
-   {
-    "when": "flag(\"told_carla_card\")",
-    "line": "A Carla tirou o Ricardo Reis da estante e pô-lo na montra, com um papel escrito à mão: \"Não está à venda. Nunca esteve.\""
-   },
-   {
-    "when": "flag(\"armando_saw\")",
-    "line": "O Sr. Armando testemunhou em março. Disse ao juiz que tinha visto um rapaz ir-se embora e voltar a correr. Foi a primeira vez que alguém o disse em voz alta."
-   },
-   {
-    "when": "flag(\"rita_keep\")",
-    "line": "Na sexta, a Rita escreveu-te: \"o meu pai deixou de me escrever. obrigada por me teres dito para guardar tudo.\""
-   },
-   {
-    "when": "flag(\"rita_gave_phone\")",
-    "line": "A Rita Santos saiu da Clínica Atlântico em dezembro. Quando a Clara a procurou, disse que não se lembrava de ti."
-   },
-   {
-    "when": "flag(\"mae_call_430\")",
-    "line": "No domingo seguinte, ligaste à tua mãe às quatro e meia da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
-   },
-   {
-    "when": "flag(\"joao_heard_called\")",
-    "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
-   },
-   {
-    "when": "flag(\"marta_flowers\")",
-    "line": "No dia 14 de novembro, a Marta passou pelo cais às oito. Já lá estavam flores novas, atadas ao poste. Desta vez estavas à espera dela."
-   },
-   {
     "when": "vs(\"pedro_eco\") == \"joke\"",
     "line": "As ações da Lumen caíram 61% em dois dias. O Pedro mandou-te uma fotografia do extrato, sem texto. Só um emoji de palhaço."
    },
    {
     "when": "vs(\"pedro_eco\") == \"against\"",
     "line": "O Pedro escreveu no grupo: \"o Daniel disse-me para não comprar. o Daniel sabia.\" Ninguém respondeu. Toda a gente concordou."
+   },
+   {
+    "when": "flag(\"rita_keep\")",
+    "line": "Na sexta, a Rita escreveu-te: \"o meu pai deixou de me escrever. obrigada por me teres dito para guardar tudo.\""
+   },
+   {
+    "when": "flag(\"mae_call_430\")",
+    "line": "No domingo seguinte, ligaste à tua mãe às quatro e meia da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
+   },
+   {
+    "when": "flag(\"told_carla_card\")",
+    "line": "A Carla tirou o Ricardo Reis da estante e pô-lo na montra, com um papel escrito à mão: \"Não está à venda. Nunca esteve.\""
+   },
+   {
+    "when": "flag(\"marta_flowers\")",
+    "line": "No dia 14 de novembro, a Marta passou pelo cais às oito. Já lá estavam flores novas, atadas ao poste. Desta vez estavas à espera dela."
+   },
+   {
+    "when": "flag(\"joao_gone\")",
+    "line": "O João nunca voltou ao grupo. Em dezembro viste-o ao longe, à porta do Farol. Ele acenou. Não foste lá."
+   },
+   {
+    "when": "flag(\"rita_gave_phone\")",
+    "line": "A Rita Santos saiu da Clínica Atlântico em dezembro. Quando a Clara a procurou, disse que não se lembrava de ti."
+   },
+   {
+    "when": "flag(\"armando_saw\")",
+    "line": "O Sr. Armando testemunhou em março. Disse ao juiz que tinha visto um rapaz ir-se embora e voltar a correr. Foi a primeira vez que alguém o disse em voz alta."
+   },
+   {
+    "when": "flag(\"joao_heard_called\")",
+    "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
    }
   ]
  },
