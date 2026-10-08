@@ -351,3 +351,8 @@ else
   grupo:marta> ok. estamos aqui na mesma
 endif
 @end
+
+@beat meridiano_exclusao_mail
+@when at("16:20")
+email meridiano_exclusao
+@end

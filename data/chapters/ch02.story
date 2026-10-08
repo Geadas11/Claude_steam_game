@@ -534,3 +534,8 @@ else
   grupo:marta> para a semana vens. não é um pedido
 endif
 @end
+
+@beat farmacia_mail
+@when at("11:45")
+email farmacia
+@end

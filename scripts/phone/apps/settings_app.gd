@@ -141,6 +141,9 @@ func _wifi(v: VBoxContainer) -> void:
 
 func _display(v: VBoxContainer) -> void:
 	_text(v, "Fundo do ecrã: escolhe uma fotografia na Galeria e toca em \"Definir como fundo\".")
+	if not GameState.data.phone.has("auto_lock"):
+		GameState.data.phone.auto_lock = true
+	_toggle(v, "Bloqueio automático", "Escurece e bloqueia o ecrã ao fim de dois minutos sem uso.", "auto_lock")
 	var h := UI.hbox(10)
 	h.add_child(UI.label("Brilho", 15))
 	var s := HSlider.new()

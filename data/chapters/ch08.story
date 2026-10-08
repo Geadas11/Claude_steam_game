@@ -308,3 +308,11 @@ endif
 @when at("19:30") and not photo_is("IMG_0317", "closer")
 variant IMG_0317 closer
 @end
+
+@beat clinica_vaga_mail
+@when beat("helena_call") and since("helena_call", 40)
+email clinica_vaga
+wait 20
+unknown> "O dispositivo ficará à guarda da instituição."
+unknown> Querem-te sem telefone. Querem-me sem ti.
+@end

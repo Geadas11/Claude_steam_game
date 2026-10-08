@@ -184,6 +184,10 @@ clue("secret_note_book", "Mãos molhadas, um livro", "\"As minhas mãos, molhada
 
 clue("went_back", "Voltaste", "Depois de te ires embora, ouviste-a gritar da estrada e voltaste a correr. Entraste na água até aos joelhos. Às 03:41 o João viu-te encharcado. Já era tarde.", "Mensagens · última noite", 3, ["joao_saw_daniel", "memo_wet_shoes", "old_location"])
 
+clue("premium_jump", "O seguro mais do que duplicou", "O teu seguro de saúde passou de 38,40 € para 91,20 € por \"indicadores de prevenção personalizada\" de \"parceiros tecnológicos\".", "Email · Seguros Meridiano", 2, ["meridiano_lumen", "insurance_sale"])
+clue("admission_no_phone", "Sem telemóvel", "A vaga de internamento foi pedida pela Dra. Helena. \"O dispositivo ficará à guarda da instituição.\"", "Email · Clínica Atlântico", 2, ["helena_admission", "vasco_knows_recording"])
+clue("exclusion_2208", "Lote 3 · ID 2208", "A Meridiano exclui da tua apólice doenças psiquiátricas. Referência interna: lote 3, ID 2208.", "Email · Seguros Meridiano", 3, ["daniel_in_list", "insurance_sale", "premium_jump"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

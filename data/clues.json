@@ -1537,5 +1537,36 @@
    "memo_wet_shoes",
    "old_location"
   ]
+ },
+ "premium_jump": {
+  "title": "O seguro mais do que duplicou",
+  "desc": "O teu seguro de saúde passou de 38,40 € para 91,20 € por \"indicadores de prevenção personalizada\" de \"parceiros tecnológicos\".",
+  "source": "Email · Seguros Meridiano",
+  "importance": 2,
+  "related": [
+   "meridiano_lumen",
+   "insurance_sale"
+  ]
+ },
+ "admission_no_phone": {
+  "title": "Sem telemóvel",
+  "desc": "A vaga de internamento foi pedida pela Dra. Helena. \"O dispositivo ficará à guarda da instituição.\"",
+  "source": "Email · Clínica Atlântico",
+  "importance": 2,
+  "related": [
+   "helena_admission",
+   "vasco_knows_recording"
+  ]
+ },
+ "exclusion_2208": {
+  "title": "Lote 3 · ID 2208",
+  "desc": "A Meridiano exclui da tua apólice doenças psiquiátricas. Referência interna: lote 3, ID 2208.",
+  "source": "Email · Seguros Meridiano",
+  "importance": 3,
+  "related": [
+   "daniel_in_list",
+   "insurance_sale",
+   "premium_jump"
+  ]
  }
 }

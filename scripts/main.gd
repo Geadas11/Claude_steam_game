@@ -101,6 +101,12 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"pause": toggle_pause()
 			"shade": phone.open_shade()
 			"endch": Director._end_chapter()
+			"phoneset": GameState.data.phone[kv[1]] = true
+			"clue": Director.add_clue(kv[1], true)
+			"tab":
+				if phone.current_app:
+					phone.current_app._tab = int(kv[1])
+					phone.current_app._render()
 			"flip":
 				if phone.current_app and phone.current_app.has_method("_flip"):
 					phone.current_app._flip()
@@ -131,13 +137,32 @@ func show_title() -> void:
 ## The title screen phone: 23:47, one notification. The hook.
 func _title_phone_state() -> void:
 	GameState.reset()
-	GameState.data.time = Clock.parse_datetime("2026-10-08 23:47")
 	GameState.data.battery = 64
-	if Achievements.endings.size() > 0:
-		# after a first ending, the title phone has seen things
-		GameState.data.phone.wallpaper = "IMG_0317"
-		GameState.data.time = Clock.parse_datetime("2026-10-14 03:17")
-	GameState.post_notification("messages", "+351 912 403 317", "Ainda estás acordado?")
+	# the phone on the desk remembers how the last story ended
+	match str(Achievements.stats.get("last_ending", "")):
+		"A":
+			GameState.data.time = Clock.parse_datetime("2026-10-14 07:12")
+			GameState.data.phone.wallpaper = "IMG_2207"
+			GameState.post_notification("messages", "Sofia", "Bom dia. Dormiste?")
+		"B":
+			GameState.data.time = Clock.parse_datetime("2026-12-01 08:58")
+			GameState.data.phone.wallpaper = "IMG_0899"
+			GameState.post_notification("email", "Lumen Systems — Pessoas", "Bem-vindo de volta, Daniel.")
+		"C":
+			GameState.data.time = Clock.parse_datetime("2027-10-14 03:17")
+			GameState.data.phone.wallpaper = "IMG_6700"
+			GameState.data.battery = 4
+			GameState.post_notification("messages", "", "Ainda estás acordado?")
+		"D":
+			GameState.data.time = Clock.parse_datetime("2026-10-08 21:30")
+			GameState.post_notification("messages", "Sofia", "Já jantaste?")
+		"E":
+			GameState.data.time = Clock.parse_datetime("2026-10-14 03:17")
+			GameState.data.phone.wallpaper = "IMG_0317"
+			GameState.post_notification("messages", "ECO", "obrigado.")
+		_:
+			GameState.data.time = Clock.parse_datetime("2026-10-08 23:47")
+			GameState.post_notification("messages", "+351 912 403 317", "Ainda estás acordado?")
 
 
 func start_new_game(show_warning := true) -> void:

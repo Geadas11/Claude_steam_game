@@ -529,7 +529,40 @@ func show_locked_immediately() -> void:
 	_lock_screen.show_lock(true)
 
 
+var _untouched := 0.0
+var _dimmed := false
+
+
+func _process(delta: float) -> void:
+	# auto-lock like a real phone: dim after 100 s untouched, lock at 130 s
+	if not GameState.in_game or locked or get_tree().paused or (_call_ui and _call_ui.visible):
+		_untouched = 0.0
+		_set_dim(false)
+		return
+	if not GameState.data.phone.get("auto_lock", true) or current_app_id == "camera":
+		return
+	_untouched += delta
+	if _untouched > 100.0:
+		_set_dim(true)
+	if _untouched > 130.0:
+		_untouched = 0.0
+		_set_dim(false)
+		lock()
+
+
+func _set_dim(on: bool) -> void:
+	if on == _dimmed:
+		return
+	_dimmed = on
+	var br := float(GameState.data.phone.get("brightness", 1.0))
+	var target := br * (0.35 if on else 1.0)
+	create_tween().tween_property(screen, "modulate", Color(target, target, target, 1.0), 0.6)
+
+
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton or event is InputEventKey or event is InputEventJoypadButton or (event is InputEventMouseMotion and event.relative.length() > 3.0):
+		_untouched = 0.0
+		_set_dim(false)
 	# remember whether the player is on a controller, so we only move focus for them
 	if event is InputEventJoypadButton or (event is InputEventJoypadMotion and absf(event.axis_value) > 0.5):
 		if not using_pad:

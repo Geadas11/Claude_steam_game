@@ -51,7 +51,7 @@ func reset() -> void:
 		"emails_read": {},
 		"files_opened": {},
 		"called": {},
-		"phone": {"hidden_files": false, "dev_mode": false, "dnd": false, "eco_app": false, "pin": "1410", "pin_required": false, "wallpaper": "IMG_2207"},
+		"phone": {"hidden_files": false, "dev_mode": false, "dnd": false, "eco_app": false, "pin": "1410", "pin_required": false, "wallpaper": "IMG_2207", "auto_lock": true},
 		"camera": {"armed": "", "shots": 0},
 		"alarms": [{"time": "07:30", "label": "Trabalho", "on": true}],
 		"deduction": {},

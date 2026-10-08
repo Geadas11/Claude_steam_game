@@ -162,6 +162,7 @@ set unknown_renamed=true
 @when at("00:41")
 location cais
 setting signal 1
+notify maps "Sistema" "Localização atualizada · Cais Velho"
 wait 2
 unknown> Estás tão longe.
 @end
@@ -218,6 +219,15 @@ notify files "Gravador" "Gravação guardada · 4:02"
 @when flag("heard_gravacao_003")
 wait 6
 unknown> Falas a dormir.
+@end
+
+@beat unknown_app
+@when at("01:58")
+notify settings "Aplicação desconhecida" "Algo correu mal."
+wait 6
+notify settings "Aplicação desconhecida" "Algo correu mal."
+glitch 0.15 0.2
+set unknown_app_crashed=true
 @end
 
 # ---------------------------------------------------------------- 11. a chamada que não fizeste

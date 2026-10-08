@@ -60,6 +60,7 @@ func unlock(id: String) -> void:
 
 func record_ending(id: String) -> void:
 	endings[id] = int(endings.get(id, 0)) + 1
+	stats["last_ending"] = id
 	if not GameState.data.endings_seen.has(id):
 		GameState.data.endings_seen.append(id)
 	_save()

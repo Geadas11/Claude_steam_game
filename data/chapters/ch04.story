@@ -310,3 +310,8 @@ wait 4
 mae> esta bem filho. eu guardo-te um bocadinho
 mae> e liga-me amanha. a tua irma diz que estas mais magro
 @end
+
+@beat meridiano_mail
+@when at("14:40")
+email meridiano_premio
+@end

@@ -1,63 +1,278 @@
 {
-  "spam_lumen": {"folder": "Entrada", "from_name": "Lumen Store", "from": "ofertas@lumen-store.pt", "date": "2026-10-07 10:00",
-    "subject": "Daniel, o seu Lumen One faz 1 ano! Atualize para o Lumen One Pro",
-    "body": "Olá Daniel,\n\nO seu Lumen One acompanha-o há quase um ano. Sabia que o novo [b]Lumen One Pro[/b] tem o dobro da memória e o ECO Care 2.0, o assistente que aprende consigo?\n\n[i]\"Antes de precisar, ele já sabe.\"[/i]\n\nAproveite 30% de desconto na troca.\n\nA equipa Lumen"},
-  "sofia_fotos": {"folder": "Entrada", "from_name": "Sofia Reis", "from": "sofia.reis.enf@mail.pt", "from_contact": "sofia", "date": "2026-09-30 22:10",
-    "subject": "praia :)", "body": "Aqui vão. Estás horrível mas eu estou ótima por isso compensa.\n\nS.", "attachments": [{"type": "photo", "id": "IMG_1980"}]},
-  "carla_boasvindas": {"folder": "Entrada", "from_name": "Carla Mendes", "from": "livrariamare@mail.pt", "from_contact": "carla", "date": "2026-01-05 09:00",
-    "subject": "Bem-vindo à Maré!",
-    "body": "Querido Daniel,\n\nBem-vindo! Seguem as coisas práticas:\n\n- Abrimos às 10h, fechamos às 19h (sábado às 14h).\n- A chave suplente fica contigo. Não a percas, que é a única que sobra.\n- A estante da literatura portuguesa é sagrada. Não mudes nada de sítio sem me dizer (sobretudo o meu velho \"Ano da Morte de Ricardo Reis\", que é o amuleto da casa).\n- O café da máquina é horrível. Sabemos. Faz parte do charme.\n\nEstou muito contente por te ter cá. Sei que este ano foi difícil.\n\nUm abraço,\nCarla"},
-  "clinica_primeira": {"folder": "Entrada", "from_name": "Clínica Atlântico", "from": "marcacoes@clinica-atlantico.pt", "from_contact": "helena", "date": "2025-10-17 16:30",
-    "subject": "Confirmação de consulta — Dra. Helena Sousa",
-    "body": "Exmo. Sr. Daniel Reis,\n\nConfirmamos a sua primeira consulta de Psiquiatria com a Dra. Helena Sousa no dia 20/10/2025 às 17h00.\n\n[b]Entidade responsável pelo pagamento:[/b] Lumen Systems, S.A. — Programa de Apoio ao Colaborador.\n[b]Encaminhamento:[/b] Dr. Vasco Pimentel (Lumen Systems).\n\nCom os melhores cumprimentos,\nClínica Atlântico", "clues": ["lumen_pays_helena"]},
-  "lumen_dispositivo": {"folder": "Entrada", "from_name": "Lumen Systems — Pessoas", "from": "pessoas@lumen.pt", "date": "2025-11-03 14:00",
-    "subject": "O seu novo dispositivo Lumen One",
-    "body": "Caro Daniel,\n\nComo gesto de apoio neste momento difícil, a Lumen Systems oferece-lhe um [b]Lumen One[/b] com o seu perfil já configurado.\n\n- Os seus contactos, fotografias e mensagens foram migrados a partir da cópia de segurança do seu dispositivo anterior.\n- Alguns dados (por exemplo, histórico de localização) podem não ter sido migrados por motivos técnicos.\n- O dispositivo inclui o [b]ECO Care (beta)[/b], um serviço de bem-estar que aprende os seus hábitos para o ajudar a dormir melhor.\n- O dispositivo é gerido pela organização durante 24 meses.\n\nPode desativar o ECO Care a qualquer momento em Definições (funcionalidade disponível numa atualização futura).\n\nCom os melhores cumprimentos,\nEquipa de Pessoas, Lumen Systems", "clues": ["eco_care_mention"]},
-  "lumen_saida": {"folder": "Entrada", "from_name": "Lumen Systems — Pessoas", "from": "pessoas@lumen.pt", "date": "2025-11-03 13:00",
-    "subject": "Confirmação de rescisão por mútuo acordo",
-    "body": "Caro Daniel,\n\nConfirmamos a cessação do seu contrato por mútuo acordo com efeitos a 3/11/2025. A compensação será processada no próximo ciclo.\n\nRelembramos que o acordo de confidencialidade assinado em 2021 se mantém em vigor, nomeadamente quanto a projetos internos não anunciados.\n\nDesejamos-lhe as maiores felicidades.\nLumen Systems"},
-  "sent_carla_cv": {"folder": "Enviados", "from_name": "Daniel Reis", "from": "daniel.reis@mail.pt", "to_name": "Livraria Maré", "to": "livrariamare@mail.pt", "date": "2025-12-10 23:58",
-    "subject": "Candidatura — ajudante de livraria", "body": "Boa noite,\n\nVi o anúncio na montra. Não tenho experiência em livrarias, mas leio muito e preciso de um trabalho onde não haja ecrãs.\n\nEm anexo o meu CV.\n\nDaniel Reis", "attachments": [{"type": "file", "id": "cv_daniel"}]},
-  "newsletter_bertrand": {"folder": "Entrada", "from_name": "Editorial Caminho", "from": "novidades@caminho.pt",
-    "subject": "Outubro na Caminho: reedições de José Saramago",
-    "body": "Este outono regressam às livrarias as edições comemorativas de José Saramago.\n\nDestaque: [b]O Ano da Morte de Ricardo Reis[/b] — \"Aqui o mar acaba e a terra principia.\"\n\nBoas leituras."},
-
-  "lumen_cloud_restore": {"folder": "Entrada", "from_name": "Lumen Cloud", "from": "noreply@cloud.lumen.pt",
-    "subject": "Restauro concluído: 214 itens do dispositivo \"Pixel 7 de Daniel\"",
-    "body": "O restauro que pediu foi concluído.\n\n[b]Dispositivo de origem:[/b] Pixel 7 de Daniel\n[b]Pedido em:[/b] 11/10/2026 03:17\n[b]Itens restaurados:[/b] 214 fotografias, 1 conversa, 12 emails\n\nOs itens estão disponíveis no álbum \"Recuperadas\".\n\nSe não foi você a pedir este restauro, contacte o suporte.", "clues": ["restore_requested_317"]},
-  "ines_old_1": {"folder": "Entrada", "from_name": "Inês Matos", "from": "ines.matos@lumen.pt", "from_contact": "ines", "date": "2025-06-11 23:40",
-    "subject": "pergunta parva",
-    "body": "Posso confiar em ti?\n\nNão respondas já. Pensa. Amanhã ao almoço dizes-me.\n\nI."},
-  "ines_old_2": {"folder": "Entrada", "from_name": "Inês Matos", "from": "ines.matos@lumen.pt", "from_contact": "ines", "date": "2025-07-02 00:15",
-    "subject": "o modelo",
-    "body": "Daniel,\n\nHoje voltou a acontecer. Fiz uma pergunta ao ECO sobre a minha mãe e ele respondeu com uma coisa que eu só disse ao telefone. Ao telefone, Daniel. Não escrevi em lado nenhum.\n\nEles estão a treinar com chamadas. E com mais coisas. Vou descobrir com quê.\n\nNão digas a ninguém. Nem ao Vasco. [b]Sobretudo[/b] ao Vasco.\n\nI.", "clues": ["eco_trained_calls"]},
-  "ines_old_3": {"folder": "Entrada", "from_name": "Inês Matos", "from": "ines.matos@lumen.pt", "from_contact": "ines", "date": "2025-10-02 23:58",
-    "subject": "encontrei",
-    "body": "Clínica Atlântico. 3.412 utentes. Consultas, diagnósticos, gravações de sessões. Assinado pelo Vasco.\n\nEstão a vender \"previsões de risco\" a seguradoras. Pessoas que vão ter uma recaída. Pessoas que vão tentar... tu percebes.\n\nTenho tudo copiado. O projeto chama-se MARÉ, porque foi o nome que me ocorreu ao olhar pela janela, e porque a maré leva tudo e traz tudo de volta.\n\nFalei com uma jornalista. Clara Neves. Vou ter com ela dia 14.\n\nObrigada por ontem. Por ficares.\n\nI.", "clues": ["mare_project", "clara_meeting"]},
-  "ines_old_4": {"folder": "Entrada", "from_name": "Inês Matos", "from": "ines.matos@lumen.pt", "from_contact": "ines", "date": "2025-10-13 23:31",
-    "subject": "(sem assunto)",
-    "body": "Se me acontecer alguma coisa, já sabes.\n\nNão é drama. É só que hoje o Vasco olhou para mim na reunião como quem já sabe.\n\nVem ter comigo. Por favor.", "clues": ["ines_feared_vasco"]},
-  "sent_daniel_ines": {"folder": "Enviados", "from_name": "Daniel Reis", "from": "daniel.reis@lumen.pt", "to_name": "Inês Matos", "to": "ines.matos@lumen.pt", "date": "2025-06-12 08:03",
-    "subject": "Re: pergunta parva", "body": "Podes.\n\nNão precisava de pensar.\n\nD."},
-  "vasco_coffee": {"folder": "Entrada", "from_name": "Vasco Pimentel", "from": "v.pimentel@lumen.pt", "from_contact": "vasco",
-    "subject": "Café?",
-    "body": "Caro Daniel,\n\nSoube por terceiros que tem andado a fazer perguntas sobre o que aconteceu no ano passado. É compreensível — o aniversário mexe com todos.\n\nGostaria de lhe oferecer um café e uma conversa honesta. Talvez eu consiga responder a algumas dessas perguntas, poupando-o a fontes pouco fiáveis (fóruns, sobretudo).\n\nAmanhã às 11h, no Café Central, em Faro? Eu pago, claro.\n\nUm abraço,\nVasco"},
-  "helena_concern": {"folder": "Entrada", "from_name": "Dra. Helena Sousa", "from": "h.sousa@clinica-atlantico.pt", "from_contact": "helena",
-    "subject": "O nosso acompanhamento",
-    "body": "Caro Daniel,\n\nEscrevo-lhe fora do horário porque me preocupa o que me relataram. Como falámos na terça-feira, nesta altura do ano é natural que a memória procure \"preencher\" o que falta — e que o faça com coisas que não aconteceram.\n\nPeço-lhe que não tome decisões, nem fale com pessoas sobre o que acha que se lembra, antes de falarmos. Algumas pessoas à sua volta podem não ter as melhores intenções.\n\nPosso vê-lo amanhã às 9h.\n\nHelena Sousa", "clues": ["helena_tuesday_lie"]},
-  "sofia_backup": {"folder": "Entrada", "from_name": "Sofia Reis", "from": "sofia.reis.enf@mail.pt", "from_contact": "sofia",
-    "subject": "o teu telemóvel velho",
-    "body": "Encontrei-o na gaveta, ainda liga!! Fiz a cópia com aquele programa do teu amigo do bar (ele explicou-me ao telefone, não me perguntes).\n\nEstá em anexo. Tem palavra-passe: é o PIN que tinhas no telemóvel antigo. Se não te lembras, burro, era o meu dia de anos (sim, eras um irmão exemplar).\n\nDaniel... tem cuidado com o que vais encontrar aí. Liga-me.\n\nS.", "attachments": [{"type": "file", "id": "backup_pixel7"}]},
-  "clara_cctv": {"folder": "Entrada", "from_name": "Clara Neves", "from": "c.neves@jornaldosul.pt", "from_contact": "clara",
-    "subject": "O que nunca publiquei",
-    "body": "Daniel,\n\nNo ano passado pedi as imagens das bombas da EN125. A GNR nunca as pediu. O dono, um homem decente, deu-mas. Eu não as publiquei porque o meu editor achou que eram \"uma insinuação sem suporte\".\n\nOlhe para a hora. Olhe para a matrícula.\n\nSe tiver o que a Inês tinha, publico na quarta de manhã. Antes disso não.\n\nC.N.", "attachments": [{"type": "photo", "id": "IMG_5530"}], "clues": ["gas_station_camera"]},
-  "rui_cctv": {"folder": "Entrada", "from_name": "Rui Matos", "from": "ruimatos.pesca@mail.pt", "from_contact": "rui",
-    "subject": "isto",
-    "body": "O Sr. Fernando das bombas deu-me isto no ano passado. Eu levei à GNR. Disseram que um carro na estrada não prova nada.\n\nVê a matrícula.\n\nRui", "attachments": [{"type": "photo", "id": "IMG_5530"}], "clues": ["gas_station_camera"]},
-  "lumen_eco_memo": {"folder": "Lixo", "from_name": "Vasco Pimentel", "from": "v.pimentel@lumen.pt", "to": "eco-team@lumen.pt", "date": "2025-10-16 08:12",
-    "subject": "FW: protocolo espelho — sujeito D.R.",
-    "body": "Equipa,\n\nInstalem o espelho I.M. no dispositivo do D.R. assim que a migração estiver feita. Objetivo único: localizar MARÉ. O sujeito não se lembra, mas o modelo dele lembra-se por ele.\n\nRegras do espelho: não mencionar V.P. Não mencionar a clínica. Estimular memória do cais.\n\nNinguém fala disto por email depois deste. Apaguem.\n\nV.P.", "clues": ["mirror_protocol"]},
-  "eco_final": {"folder": "Entrada", "from_name": "ECO", "from": "eco@localhost", "from_contact": "eco",
-    "subject": "simulação 047 — relatório",
-    "body": "Sujeito: D.REIS\nIteração: 047\nObjetivo: MARE_LOC\nEstado: [b]a terminar[/b]\n\nObservação do modelo: o sujeito continua a escolher procurar. Em 46 iterações, procurou 46 vezes.\n\nNota sem categoria: obrigado."}
+ "spam_lumen": {
+  "folder": "Entrada",
+  "from_name": "Lumen Store",
+  "from": "ofertas@lumen-store.pt",
+  "date": "2026-10-07 10:00",
+  "subject": "Daniel, o seu Lumen One faz 1 ano! Atualize para o Lumen One Pro",
+  "body": "Olá Daniel,\n\nO seu Lumen One acompanha-o há quase um ano. Sabia que o novo [b]Lumen One Pro[/b] tem o dobro da memória e o ECO Care 2.0, o assistente que aprende consigo?\n\n[i]\"Antes de precisar, ele já sabe.\"[/i]\n\nAproveite 30% de desconto na troca.\n\nA equipa Lumen"
+ },
+ "sofia_fotos": {
+  "folder": "Entrada",
+  "from_name": "Sofia Reis",
+  "from": "sofia.reis.enf@mail.pt",
+  "from_contact": "sofia",
+  "date": "2026-09-30 22:10",
+  "subject": "praia :)",
+  "body": "Aqui vão. Estás horrível mas eu estou ótima por isso compensa.\n\nS.",
+  "attachments": [
+   {
+    "type": "photo",
+    "id": "IMG_1980"
+   }
+  ]
+ },
+ "carla_boasvindas": {
+  "folder": "Entrada",
+  "from_name": "Carla Mendes",
+  "from": "livrariamare@mail.pt",
+  "from_contact": "carla",
+  "date": "2026-01-05 09:00",
+  "subject": "Bem-vindo à Maré!",
+  "body": "Querido Daniel,\n\nBem-vindo! Seguem as coisas práticas:\n\n- Abrimos às 10h, fechamos às 19h (sábado às 14h).\n- A chave suplente fica contigo. Não a percas, que é a única que sobra.\n- A estante da literatura portuguesa é sagrada. Não mudes nada de sítio sem me dizer (sobretudo o meu velho \"Ano da Morte de Ricardo Reis\", que é o amuleto da casa).\n- O café da máquina é horrível. Sabemos. Faz parte do charme.\n\nEstou muito contente por te ter cá. Sei que este ano foi difícil.\n\nUm abraço,\nCarla"
+ },
+ "clinica_primeira": {
+  "folder": "Entrada",
+  "from_name": "Clínica Atlântico",
+  "from": "marcacoes@clinica-atlantico.pt",
+  "from_contact": "helena",
+  "date": "2025-10-17 16:30",
+  "subject": "Confirmação de consulta — Dra. Helena Sousa",
+  "body": "Exmo. Sr. Daniel Reis,\n\nConfirmamos a sua primeira consulta de Psiquiatria com a Dra. Helena Sousa no dia 20/10/2025 às 17h00.\n\n[b]Entidade responsável pelo pagamento:[/b] Lumen Systems, S.A. — Programa de Apoio ao Colaborador.\n[b]Encaminhamento:[/b] Dr. Vasco Pimentel (Lumen Systems).\n\nCom os melhores cumprimentos,\nClínica Atlântico",
+  "clues": [
+   "lumen_pays_helena"
+  ]
+ },
+ "lumen_dispositivo": {
+  "folder": "Entrada",
+  "from_name": "Lumen Systems — Pessoas",
+  "from": "pessoas@lumen.pt",
+  "date": "2025-11-03 14:00",
+  "subject": "O seu novo dispositivo Lumen One",
+  "body": "Caro Daniel,\n\nComo gesto de apoio neste momento difícil, a Lumen Systems oferece-lhe um [b]Lumen One[/b] com o seu perfil já configurado.\n\n- Os seus contactos, fotografias e mensagens foram migrados a partir da cópia de segurança do seu dispositivo anterior.\n- Alguns dados (por exemplo, histórico de localização) podem não ter sido migrados por motivos técnicos.\n- O dispositivo inclui o [b]ECO Care (beta)[/b], um serviço de bem-estar que aprende os seus hábitos para o ajudar a dormir melhor.\n- O dispositivo é gerido pela organização durante 24 meses.\n\nPode desativar o ECO Care a qualquer momento em Definições (funcionalidade disponível numa atualização futura).\n\nCom os melhores cumprimentos,\nEquipa de Pessoas, Lumen Systems",
+  "clues": [
+   "eco_care_mention"
+  ]
+ },
+ "lumen_saida": {
+  "folder": "Entrada",
+  "from_name": "Lumen Systems — Pessoas",
+  "from": "pessoas@lumen.pt",
+  "date": "2025-11-03 13:00",
+  "subject": "Confirmação de rescisão por mútuo acordo",
+  "body": "Caro Daniel,\n\nConfirmamos a cessação do seu contrato por mútuo acordo com efeitos a 3/11/2025. A compensação será processada no próximo ciclo.\n\nRelembramos que o acordo de confidencialidade assinado em 2021 se mantém em vigor, nomeadamente quanto a projetos internos não anunciados.\n\nDesejamos-lhe as maiores felicidades.\nLumen Systems"
+ },
+ "sent_carla_cv": {
+  "folder": "Enviados",
+  "from_name": "Daniel Reis",
+  "from": "daniel.reis@mail.pt",
+  "to_name": "Livraria Maré",
+  "to": "livrariamare@mail.pt",
+  "date": "2025-12-10 23:58",
+  "subject": "Candidatura — ajudante de livraria",
+  "body": "Boa noite,\n\nVi o anúncio na montra. Não tenho experiência em livrarias, mas leio muito e preciso de um trabalho onde não haja ecrãs.\n\nEm anexo o meu CV.\n\nDaniel Reis",
+  "attachments": [
+   {
+    "type": "file",
+    "id": "cv_daniel"
+   }
+  ]
+ },
+ "newsletter_bertrand": {
+  "folder": "Entrada",
+  "from_name": "Editorial Caminho",
+  "from": "novidades@caminho.pt",
+  "subject": "Outubro na Caminho: reedições de José Saramago",
+  "body": "Este outono regressam às livrarias as edições comemorativas de José Saramago.\n\nDestaque: [b]O Ano da Morte de Ricardo Reis[/b] — \"Aqui o mar acaba e a terra principia.\"\n\nBoas leituras."
+ },
+ "lumen_cloud_restore": {
+  "folder": "Entrada",
+  "from_name": "Lumen Cloud",
+  "from": "noreply@cloud.lumen.pt",
+  "subject": "Restauro concluído: 214 itens do dispositivo \"Pixel 7 de Daniel\"",
+  "body": "O restauro que pediu foi concluído.\n\n[b]Dispositivo de origem:[/b] Pixel 7 de Daniel\n[b]Pedido em:[/b] 11/10/2026 03:17\n[b]Itens restaurados:[/b] 214 fotografias, 1 conversa, 12 emails\n\nOs itens estão disponíveis no álbum \"Recuperadas\".\n\nSe não foi você a pedir este restauro, contacte o suporte.",
+  "clues": [
+   "restore_requested_317"
+  ]
+ },
+ "ines_old_1": {
+  "folder": "Entrada",
+  "from_name": "Inês Matos",
+  "from": "ines.matos@lumen.pt",
+  "from_contact": "ines",
+  "date": "2025-06-11 23:40",
+  "subject": "pergunta parva",
+  "body": "Posso confiar em ti?\n\nNão respondas já. Pensa. Amanhã ao almoço dizes-me.\n\nI."
+ },
+ "ines_old_2": {
+  "folder": "Entrada",
+  "from_name": "Inês Matos",
+  "from": "ines.matos@lumen.pt",
+  "from_contact": "ines",
+  "date": "2025-07-02 00:15",
+  "subject": "o modelo",
+  "body": "Daniel,\n\nHoje voltou a acontecer. Fiz uma pergunta ao ECO sobre a minha mãe e ele respondeu com uma coisa que eu só disse ao telefone. Ao telefone, Daniel. Não escrevi em lado nenhum.\n\nEles estão a treinar com chamadas. E com mais coisas. Vou descobrir com quê.\n\nNão digas a ninguém. Nem ao Vasco. [b]Sobretudo[/b] ao Vasco.\n\nI.",
+  "clues": [
+   "eco_trained_calls"
+  ]
+ },
+ "ines_old_3": {
+  "folder": "Entrada",
+  "from_name": "Inês Matos",
+  "from": "ines.matos@lumen.pt",
+  "from_contact": "ines",
+  "date": "2025-10-02 23:58",
+  "subject": "encontrei",
+  "body": "Clínica Atlântico. 3.412 utentes. Consultas, diagnósticos, gravações de sessões. Assinado pelo Vasco.\n\nEstão a vender \"previsões de risco\" a seguradoras. Pessoas que vão ter uma recaída. Pessoas que vão tentar... tu percebes.\n\nTenho tudo copiado. O projeto chama-se MARÉ, porque foi o nome que me ocorreu ao olhar pela janela, e porque a maré leva tudo e traz tudo de volta.\n\nFalei com uma jornalista. Clara Neves. Vou ter com ela dia 14.\n\nObrigada por ontem. Por ficares.\n\nI.",
+  "clues": [
+   "mare_project",
+   "clara_meeting"
+  ]
+ },
+ "ines_old_4": {
+  "folder": "Entrada",
+  "from_name": "Inês Matos",
+  "from": "ines.matos@lumen.pt",
+  "from_contact": "ines",
+  "date": "2025-10-13 23:31",
+  "subject": "(sem assunto)",
+  "body": "Se me acontecer alguma coisa, já sabes.\n\nNão é drama. É só que hoje o Vasco olhou para mim na reunião como quem já sabe.\n\nVem ter comigo. Por favor.",
+  "clues": [
+   "ines_feared_vasco"
+  ]
+ },
+ "sent_daniel_ines": {
+  "folder": "Enviados",
+  "from_name": "Daniel Reis",
+  "from": "daniel.reis@lumen.pt",
+  "to_name": "Inês Matos",
+  "to": "ines.matos@lumen.pt",
+  "date": "2025-06-12 08:03",
+  "subject": "Re: pergunta parva",
+  "body": "Podes.\n\nNão precisava de pensar.\n\nD."
+ },
+ "vasco_coffee": {
+  "folder": "Entrada",
+  "from_name": "Vasco Pimentel",
+  "from": "v.pimentel@lumen.pt",
+  "from_contact": "vasco",
+  "subject": "Café?",
+  "body": "Caro Daniel,\n\nSoube por terceiros que tem andado a fazer perguntas sobre o que aconteceu no ano passado. É compreensível — o aniversário mexe com todos.\n\nGostaria de lhe oferecer um café e uma conversa honesta. Talvez eu consiga responder a algumas dessas perguntas, poupando-o a fontes pouco fiáveis (fóruns, sobretudo).\n\nAmanhã às 11h, no Café Central, em Faro? Eu pago, claro.\n\nUm abraço,\nVasco"
+ },
+ "helena_concern": {
+  "folder": "Entrada",
+  "from_name": "Dra. Helena Sousa",
+  "from": "h.sousa@clinica-atlantico.pt",
+  "from_contact": "helena",
+  "subject": "O nosso acompanhamento",
+  "body": "Caro Daniel,\n\nEscrevo-lhe fora do horário porque me preocupa o que me relataram. Como falámos na terça-feira, nesta altura do ano é natural que a memória procure \"preencher\" o que falta — e que o faça com coisas que não aconteceram.\n\nPeço-lhe que não tome decisões, nem fale com pessoas sobre o que acha que se lembra, antes de falarmos. Algumas pessoas à sua volta podem não ter as melhores intenções.\n\nPosso vê-lo amanhã às 9h.\n\nHelena Sousa",
+  "clues": [
+   "helena_tuesday_lie"
+  ]
+ },
+ "sofia_backup": {
+  "folder": "Entrada",
+  "from_name": "Sofia Reis",
+  "from": "sofia.reis.enf@mail.pt",
+  "from_contact": "sofia",
+  "subject": "o teu telemóvel velho",
+  "body": "Encontrei-o na gaveta, ainda liga!! Fiz a cópia com aquele programa do teu amigo do bar (ele explicou-me ao telefone, não me perguntes).\n\nEstá em anexo. Tem palavra-passe: é o PIN que tinhas no telemóvel antigo. Se não te lembras, burro, era o meu dia de anos (sim, eras um irmão exemplar).\n\nDaniel... tem cuidado com o que vais encontrar aí. Liga-me.\n\nS.",
+  "attachments": [
+   {
+    "type": "file",
+    "id": "backup_pixel7"
+   }
+  ]
+ },
+ "clara_cctv": {
+  "folder": "Entrada",
+  "from_name": "Clara Neves",
+  "from": "c.neves@jornaldosul.pt",
+  "from_contact": "clara",
+  "subject": "O que nunca publiquei",
+  "body": "Daniel,\n\nNo ano passado pedi as imagens das bombas da EN125. A GNR nunca as pediu. O dono, um homem decente, deu-mas. Eu não as publiquei porque o meu editor achou que eram \"uma insinuação sem suporte\".\n\nOlhe para a hora. Olhe para a matrícula.\n\nSe tiver o que a Inês tinha, publico na quarta de manhã. Antes disso não.\n\nC.N.",
+  "attachments": [
+   {
+    "type": "photo",
+    "id": "IMG_5530"
+   }
+  ],
+  "clues": [
+   "gas_station_camera"
+  ]
+ },
+ "rui_cctv": {
+  "folder": "Entrada",
+  "from_name": "Rui Matos",
+  "from": "ruimatos.pesca@mail.pt",
+  "from_contact": "rui",
+  "subject": "isto",
+  "body": "O Sr. Fernando das bombas deu-me isto no ano passado. Eu levei à GNR. Disseram que um carro na estrada não prova nada.\n\nVê a matrícula.\n\nRui",
+  "attachments": [
+   {
+    "type": "photo",
+    "id": "IMG_5530"
+   }
+  ],
+  "clues": [
+   "gas_station_camera"
+  ]
+ },
+ "lumen_eco_memo": {
+  "folder": "Lixo",
+  "from_name": "Vasco Pimentel",
+  "from": "v.pimentel@lumen.pt",
+  "to": "eco-team@lumen.pt",
+  "date": "2025-10-16 08:12",
+  "subject": "FW: protocolo espelho — sujeito D.R.",
+  "body": "Equipa,\n\nInstalem o espelho I.M. no dispositivo do D.R. assim que a migração estiver feita. Objetivo único: localizar MARÉ. O sujeito não se lembra, mas o modelo dele lembra-se por ele.\n\nRegras do espelho: não mencionar V.P. Não mencionar a clínica. Estimular memória do cais.\n\nNinguém fala disto por email depois deste. Apaguem.\n\nV.P.",
+  "clues": [
+   "mirror_protocol"
+  ]
+ },
+ "eco_final": {
+  "folder": "Entrada",
+  "from_name": "ECO",
+  "from": "eco@localhost",
+  "from_contact": "eco",
+  "subject": "simulação 047 — relatório",
+  "body": "Sujeito: D.REIS\nIteração: 047\nObjetivo: MARE_LOC\nEstado: [b]a terminar[/b]\n\nObservação do modelo: o sujeito continua a escolher procurar. Em 46 iterações, procurou 46 vezes.\n\nNota sem categoria: obrigado."
+ },
+ "farmacia": {
+  "folder": "Entrada",
+  "from_name": "Farmácia Salgueira",
+  "from": "avisos@farmaciasalgueira.pt",
+  "subject": "O seu pedido está pronto para levantar",
+  "body": "Caro(a) cliente,\n\nO seu medicamento já se encontra disponível para levantamento:\n\n• Clonazepam 0,5 mg — 1 embalagem\n\nReceita emitida por: Dra. Helena Sousa\nObservações do prescritor: [i]renovação antecipada a pedido do prescritor[/i]\n\nHorário: 9h–20h.\nFarmácia Salgueira"
+ },
+ "meridiano_premio": {
+  "folder": "Entrada",
+  "from_name": "Seguros Meridiano",
+  "from": "clientes@segurosmeridiano.pt",
+  "subject": "Atualização do seu prémio de seguro de saúde",
+  "body": "Caro Daniel Reis,\n\nNa sequência da revisão anual do seu perfil de risco, o prémio mensal do seu seguro de saúde será atualizado de 38,40 € para [b]91,20 €[/b] a partir de 1 de novembro.\n\nEsta revisão baseia-se em indicadores de prevenção personalizada fornecidos pelos nossos parceiros tecnológicos.\n\nPara mais informações, consulte segurosmeridiano.pt.\n\nSeguros Meridiano — Prevenimos antes de acontecer.",
+  "clues": [
+   "premium_jump"
+  ]
+ },
+ "clinica_vaga": {
+  "folder": "Entrada",
+  "from_name": "Clínica Atlântico — Internamento",
+  "from": "internamento@clinica-atlantico.pt",
+  "subject": "Confirmação de vaga — internamento voluntário",
+  "body": "Exmo. Sr. Daniel Reis,\n\nConfirmamos a reserva de vaga em regime de internamento voluntário a partir de [b]13/10/2026, 14h00[/b], conforme solicitado pela Dra. Helena Sousa.\n\nPor favor traga: documento de identificação, medicação habitual.\n[b]Não é permitido o uso de telemóvel pessoal durante o internamento. O dispositivo ficará à guarda da instituição.[/b]\n\nClínica Atlântico",
+  "clues": [
+   "admission_no_phone"
+  ]
+ },
+ "meridiano_exclusao": {
+  "folder": "Entrada",
+  "from_name": "Seguros Meridiano",
+  "from": "clientes@segurosmeridiano.pt",
+  "subject": "Alteração das condições da sua apólice",
+  "body": "Caro Daniel Reis,\n\nInformamos que, a partir de 1 de novembro, a sua apólice passa a excluir a cobertura de [b]doenças do foro psiquiátrico[/b] e de [b]lesões autoinfligidas[/b].\n\nEsta alteração resulta da avaliação de risco personalizada (referência interna: lote 3 · ID 2208).\n\nSeguros Meridiano",
+  "clues": [
+   "exclusion_2208"
+  ]
+ }
 }
