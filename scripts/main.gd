@@ -178,10 +178,11 @@ func _debug_script(steps: PackedStringArray) -> void:
 					phone.current_app._tab = int(kv[1])
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
+			"continue": continue_game(kv[1])
 			"dumptoast":
 				var tp: Control = phone.screen.get_node("Toast")
 				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())
-			"dump": print("DUMP ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"))
+			"dump": print("DUMP paused=", get_tree().paused, " ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"))
 			"press":
 				var ev := InputEventKey.new()
 				ev.keycode = KEY_SPACE
@@ -266,7 +267,70 @@ func continue_game(slot: String) -> bool:
 	get_tree().paused = false
 	Audio.set_music("")
 	mode = Mode.GAME
+	_show_previously()
 	return true
+
+
+## "Anteriormente": after loading, a short recap of the last finished
+## chapter. The game waits underneath; any click/key (or time) dismisses it.
+func _show_previously() -> void:
+	var order: Array = Content.db.get("chapters_meta", {}).get("order", [])
+	var i := order.find(GameState.data.chapter)
+	if i <= 0:
+		return
+	var text := Content.chapter_recap(order[i - 1])
+	if text == "":
+		return
+	var card := Control.new()
+	card.set_anchors_preset(Control.PRESET_FULL_RECT)
+	card.process_mode = Node.PROCESS_MODE_ALWAYS
+	card.mouse_filter = Control.MOUSE_FILTER_STOP
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.88)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(dim)
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(center)
+	var v := UI.vbox(14)
+	v.custom_minimum_size = Vector2(620, 0)
+	center.add_child(v)
+	v.add_child(UI.label("ANTERIORMENTE", 13, "accent"))
+	v.add_child(UI.label(text, 19, "text", true))
+	v.add_child(UI.spacer(10))
+	v.add_child(UI.label("Clica para continuar", 12, "faint"))
+	overlay.add_child(card)
+	get_tree().paused = true
+	card.modulate.a = 0.0
+	create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).tween_property(card, "modulate:a", 1.0, 0.6)
+	var done := [false]
+	var close := func():
+		if done[0]:
+			return
+		done[0] = true
+		get_tree().paused = false
+		var tw := card.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tw.tween_property(card, "modulate:a", 0.0, 0.5)
+		tw.tween_callback(card.queue_free)
+	card.gui_input.connect(func(e: InputEvent):
+		if e is InputEventMouseButton and e.pressed:
+			close.call())
+	var keyw := _KeyWatcher.new()
+	keyw.on_key = close
+	card.add_child(keyw)
+	get_tree().create_timer(6.0 + text.length() * 0.04, true).timeout.connect(close)
+
+
+class _KeyWatcher extends Node:
+	var on_key: Callable
+	func _ready() -> void:
+		process_mode = Node.PROCESS_MODE_ALWAYS
+	func _input(e: InputEvent) -> void:
+		if (e is InputEventKey or e is InputEventJoypadButton) and e.is_pressed() and not e.is_echo():
+			get_viewport().set_input_as_handled()
+			on_key.call()
 
 
 func _on_state_loaded() -> void:
