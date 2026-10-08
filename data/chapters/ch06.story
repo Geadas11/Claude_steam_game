@@ -221,7 +221,7 @@ if vs("rui6") == "honest"
   rui> Quer dizer que agora sei mais do que a polícia.
   set rui_ally_seed=true
   wait 40
-  rui> Os pais dela deram-me um caixote com as coisas da secretária. Nunca o abri até hoje.
+  rui> Os meus pais deram-me um caixote com as coisas da secretária dela. Nunca o abri até hoje.
   wait 4
   rui> Tirei-te fotografias. Tu é que sabes ler a letra dela.
   rui> [photo:IMG_RUI_DESK]

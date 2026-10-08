@@ -99,7 +99,7 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 | carla | Carla Mendes | Dona da Livraria Maré, 58 | Calorosa, piadas de livros, mensagens de manhã cedo |
 | clara | Clara Neves | Jornalista, Jornal do Sul | Direta, desconfiada, escreve com pontuação perfeita |
 | mae | Mãe (Lurdes Reis) | Mãe do Daniel, vive em Tavira | Mensagens em CAPS por engano, emojis em texto ":)" |
-| armando | Sr. Armando Lopes | Pescador que encontrou o corpo | Só por chamada; fala devagar |
+| armando | Sr. Armando Lopes | Pescador que encontrou o corpo, 73 anos | Por chamada; fala devagar (no cap. 10 a neta ensinou-o a escrever mensagens) |
 | eco | ECO | O sistema | Começa como notificações de sistema; no fim fala diretamente |
 | unknown | Número desconhecido (+351 912 403 317) | O número da Inês | ver ines |
 | grupo | "Os do costume" | Grupo: Daniel, João, Marta, Pedro | — |
