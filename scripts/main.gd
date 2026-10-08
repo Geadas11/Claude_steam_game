@@ -70,6 +70,8 @@ func _process_cmdline() -> void:
 			_debug_shot(parts[0], float(parts[1]) if parts.size() > 1 else 2.0)
 		elif a.begins_with("--do="):
 			_debug_script(a.substr(5).split(","))
+		elif a.begins_with("--autoplay="):
+			_autoplay(float(a.substr(11)))
 
 
 func _debug_shot(path: String, secs: float) -> void:
@@ -78,6 +80,45 @@ func _debug_shot(path: String, secs: float) -> void:
 	var img := get_viewport().get_texture().get_image()
 	img.save_png(path)
 	print("screenshot saved ", path)
+	get_tree().quit()
+
+
+## Soak test: plays in real time (not fast mode) for `secs`, poking the UI like
+## a restless player, then prints a summary and quits.
+func _autoplay(secs: float) -> void:
+	Settings.values.clock_speed = 3.0
+	Director.auto_chooser = func(_t, pending): return pending.options[randi() % pending.options.size()].index
+	Director.auto_answer = func(_c): return randf() < 0.8
+	var apps: Array = Phone.APPS.keys()
+	var t := 0.0
+	var start_ch := ""
+	while t < secs:
+		await get_tree().create_timer(2.0).timeout
+		t += 2.0
+		if mode == Mode.TITLE:
+			start_new_game(false)
+			start_ch = GameState.data.chapter
+			continue
+		if GameState.data.phone.get("pin_required", false):
+			GameState.data.phone.pin_required = false
+			GameState.set_var("pin_ok", true)
+		if phone.locked:
+			phone.unlock()
+		for th in GameState.data.threads:
+			GameState.mark_read(th)
+		var app_id: String = apps[randi() % apps.size()]
+		if app_id == "eco" and not GameState.data.phone.get("eco_app", false):
+			app_id = "messages"
+		phone.open_app(app_id, {"forced": true})
+		if randf() < 0.3:
+			phone.go_home()
+		if randf() < 0.1:
+			phone.open_shade()
+	print("AUTOPLAY done: chapter=%s time=%s clues=%d msgs=%d mode=%d" % [GameState.data.chapter, Clock.fmt_time(Clock.now()), GameState.clue_count(), GameState.data.msg_seq, mode])
+	print("  running: ", GameState.data.running.keys(), "  choices: ", GameState.data.choices.keys())
+	for b in Director.chapter.get("beats", []):
+		if not GameState.data.beats_done.has(b.id):
+			print("  pending: ", b.id, "  when ", b.when)
 	get_tree().quit()
 
 

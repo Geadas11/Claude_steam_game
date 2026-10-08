@@ -33,6 +33,13 @@ volta de gravação/carregamento (incluindo ficheiro corrompido → `.bak`) e jo
 jogo inteiro cinco vezes em modo acelerado, uma por final, a partir de
 `tests/walkthrough.json`.
 
+Teste de resistência em tempo real (não acelerado; lê conversas, abre apps,
+atende chamadas e escolhe ao acaso durante N segundos):
+
+```bash
+xvfb-run -a godot --rendering-driver opengl3 -- --chapter=ch05 --autoplay=300
+```
+
 Capturas de ecrã para revisão visual (precisa de X/Xvfb):
 
 ```bash
