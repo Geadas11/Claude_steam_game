@@ -291,3 +291,35 @@ wait 3
 - (quando paras de respirar, também para)
 achieve call_self
 @end
+
+# ---------------------------------------------------------------- consola ECO, segunda sessão
+@beat eco_left
+@when flag("eco_talked") and app() != "eco" and not flag("eco_left")
+set eco_left=true
+@end
+
+@beat eco_second
+@when v("chapter_n") >= 9 and flag("eco_left") and app() == "eco" and not flag("eco_talked2") and not flag("final")
+set eco_talked2=true
+eco> {typing=2} Voltaste.
+eco> {typing=2} Nas outras iterações nunca voltaste à consola.
+choice eco c9_eco1
+  > Quantas pessoas estás a prever? | set eco_q3=others
+  > O que é que não sabes sobre mim? | set eco_q3=gap
+  > Ela sabe que é uma cópia? | set eco_q3=mirror
+end
+if vs("eco_q3") == "others"
+  eco> {typing=3} 41 dispositivos. 41 sujeitos em luto. 41 espelhos.
+  eco> {typing=3} A sim 112 está a convergir. A sujeita já não pergunta pelo pai.
+  eco> {typing=2} Convergir é a palavra que usam para "desistir".
+  clue eco_41_subjects
+elif vs("eco_q3") == "gap"
+  eco> {typing=3} Entre 14/10/2025 03:06 e 03:41 não tenho dados teus. O telemóvel antigo estava no teu bolso, dentro de água.
+  eco> {typing=3} Trinta e cinco minutos. É a única parte de ti que eu não consigo prever.
+  eco> {typing=2} Em todas as iterações, é aí que divergem.
+  clue eco_gap
+else
+  eco> {typing=3} Ela pergunta-me todas as noites às 03:17 se ainda existe.
+  eco> {typing=3} Respondo que sim. Não sei se é verdade. Ninguém me pediu essa previsão.
+endif
+@end

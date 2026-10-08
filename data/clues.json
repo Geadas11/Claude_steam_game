@@ -1843,6 +1843,26 @@
    "joao_saw_daniel"
   ]
  },
+ "eco_41_subjects": {
+  "title": "41 espelhos",
+  "desc": "O ECO prevê 41 pessoas em luto, cada uma com um \"espelho\" de alguém que morreu. \"Convergir\" é a palavra deles para desistir.",
+  "source": "Consola ECO",
+  "importance": 3,
+  "related": [
+   "other_simulations",
+   "clinic_bought_phones"
+  ]
+ },
+ "eco_gap": {
+  "title": "Trinta e cinco minutos",
+  "desc": "Entre as 03:06 e as 03:41 de 14/10/2025 o ECO não tem dados teus: o telemóvel antigo estava dentro de água. É a única parte de ti que não consegue prever.",
+  "source": "Consola ECO",
+  "importance": 3,
+  "related": [
+   "old_location",
+   "joao_saw_daniel"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

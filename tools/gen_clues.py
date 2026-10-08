@@ -220,6 +220,8 @@ clue("wall_note_0317", "\"14/10 — 03:17\"", "Na selfie de 21/11/2025, às 03:4
 clue("marta_saw_flowers", "As flores eram tuas", "A Marta viu-te no Cais Velho às 8h de 14 de janeiro, a atar flores a um poste com as mãos a tremer. Tu não te lembras de lá ter ido.", "Mensagens · Marta", 2, ["pier_flowers", "marta_remembers_them"])
 clue("helena_sees_sleep", "A médica vê o teu sono", "A Dra. Helena sabe quantas horas dormes por noite: o telemóvel partilha \"dados de bem-estar\" com a Clínica Atlântico desde novembro. E sabe o que pesquisas.", "Mensagens · Dra. Helena", 2, ["eco_care_mention", "helena_vasco_link"])
 clue("self_voicemail", "Uma chamada de ti mesmo", "Uma chamada perdida do teu próprio número, e uma mensagem de voz com a tua voz, ofegante, junto ao mar: \"Ela chamou-me e eu ia a meio da estrada...\"", "Correio de voz", 3, ["armando_saw", "joao_saw_daniel"])
+clue("eco_41_subjects", "41 espelhos", "O ECO prevê 41 pessoas em luto, cada uma com um \"espelho\" de alguém que morreu. \"Convergir\" é a palavra deles para desistir.", "Consola ECO", 3, ["other_simulations", "clinic_bought_phones"])
+clue("eco_gap", "Trinta e cinco minutos", "Entre as 03:06 e as 03:41 de 14/10/2025 o ECO não tem dados teus: o telemóvel antigo estava dentro de água. É a única parte de ti que não consegue prever.", "Consola ECO", 3, ["old_location", "joao_saw_daniel"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below
