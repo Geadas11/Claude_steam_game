@@ -168,9 +168,18 @@ func _build_screen() -> void:
 	var tp := UI.panel(Color(0.12, 0.13, 0.15, 0.95), 16, 14, 8, 14, 8)
 	tp.name = "Toast"
 	tp.add_child(toast_label)
-	tp.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	tp.position = Vector2(UI.SCREEN.x / 2 - 120, UI.SCREEN.y - 110)
-	tp.custom_minimum_size = Vector2(240, 0)
+	# anchored to the bottom centre of the screen, growing upwards
+	tp.anchor_left = 0.5
+	tp.anchor_right = 0.5
+	tp.anchor_top = 1.0
+	tp.anchor_bottom = 1.0
+	tp.offset_left = -150
+	tp.offset_right = 150
+	tp.offset_top = -168
+	tp.offset_bottom = -154
+	tp.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	tp.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	tp.custom_minimum_size = Vector2(300, 0)
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	toast_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tp.modulate.a = 0.0
@@ -663,13 +672,18 @@ func _show_next_banner() -> void:
 		_show_next_banner())
 
 
+var _toast_tw: Tween
+
+
 func toast(text: String) -> void:
 	var tp: Control = screen.get_node("Toast")
 	toast_label.text = text
-	var tw := create_tween()
-	tw.tween_property(tp, "modulate:a", 1.0, 0.2)
-	tw.tween_interval(2.4)
-	tw.tween_property(tp, "modulate:a", 0.0, 0.4)
+	if _toast_tw and _toast_tw.is_valid():
+		_toast_tw.kill()
+	_toast_tw = create_tween()
+	_toast_tw.tween_property(tp, "modulate:a", 1.0, 0.2)
+	_toast_tw.tween_interval(2.4 + text.length() * 0.02)
+	_toast_tw.tween_property(tp, "modulate:a", 0.0, 0.4)
 
 
 # ================================================================= calls

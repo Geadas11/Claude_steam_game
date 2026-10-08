@@ -534,6 +534,11 @@ func _ui_smoke(policy: String) -> void:
 		await _frames(2)
 		ok(panel.body.get_child_count() > 0, "%s has content" % panel.get_script().get_global_name())
 		panel.queue_free()
+	# toasts must land inside the phone screen
+	phone.toast("teste")
+	await _frames(2)
+	var tp: Control = phone.screen.get_node("Toast")
+	ok(phone.screen.get_global_rect().encloses(tp.get_global_rect()), "toast inside the screen (%s vs %s)" % [tp.get_global_rect(), phone.screen.get_global_rect()])
 	# opening straight into a conversation must report it to the story (app())
 	var th0: String = GameState.data.threads.keys()[0]
 	phone.open_app("messages", {"forced": true, "param": th0})

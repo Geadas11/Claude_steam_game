@@ -959,6 +959,13 @@ func add_clue(id: String, silent := false) -> void:
 		Events.content_changed.emit("clues")
 		if not silent:
 			Audio.play("clue")
+			var title := str(Content.get_item("clues", id).get("title", ""))
+			if title != "":
+				var hint := ""
+				if not Achievements.stats.get("clue_hint_seen", false):
+					Achievements.stats["clue_hint_seen"] = true
+					hint = "\nGuardada em Notas → Pistas."
+				Events.toast_requested.emit("Nova pista: %s%s" % [title, hint])
 		Achievements.check_clues()
 		notify_player_action()
 

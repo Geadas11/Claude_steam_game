@@ -172,11 +172,15 @@ func _debug_script(steps: PackedStringArray) -> void:
 				if phone.current_app and phone.current_app.has_method("_open_file"):
 					phone.current_app._open_file(kv[1])
 			"clue": Director.add_clue(kv[1], true)
+			"clueloud": Director.add_clue(kv[1])
 			"tab":
 				if phone.current_app:
 					phone.current_app._tab = int(kv[1])
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
+			"dumptoast":
+				var tp: Control = phone.screen.get_node("Toast")
+				print("TOAST ", tp.modulate.a, " ", tp.get_global_rect(), " vis=", tp.is_visible_in_tree(), " text=", phone.toast_label.text, " screen=", phone.screen.get_global_rect())
 			"dump": print("DUMP ", Clock.fmt_time(Clock.now()), " choices=", GameState.data.choices.keys(), " running=", GameState.data.running.keys(), " app=", GameState.current_app, " done_rename=", GameState.data.beats_done.has("rename"))
 			"press":
 				var ev := InputEventKey.new()
