@@ -10,7 +10,8 @@ from PIL import Image
 
 url, out = sys.argv[1], sys.argv[2]
 max_side = int(sys.argv[3]) if len(sys.argv) > 3 else 2048
-with urllib.request.urlopen(url, timeout=120) as r:
+req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (aea-fetch)"})
+with urllib.request.urlopen(req, timeout=120) as r:
     im = Image.open(io.BytesIO(r.read())).convert("RGB")
 im.thumbnail((max_side, max_side), Image.LANCZOS)
 im.save(out, "JPEG", quality=88, optimize=True)
