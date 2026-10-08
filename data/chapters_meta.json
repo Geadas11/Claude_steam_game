@@ -402,7 +402,7 @@
       "id": "walking",
       "text": "A pé na EN125, a afastar-se do cais",
       "needs": "old_location",
-      "needs_expr": "clue(\"joao_saw_daniel\") or clue(\"ines_last_photo\") or clue(\"armando_saw\")"
+      "needs_expr": "clue(\"joao_saw_daniel\") or clue(\"ines_last_photo\") or clue(\"armando_saw\") or clue(\"unsent_draft\") or clue(\"eco_gap\")"
      },
      {
       "id": "bar",
