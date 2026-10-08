@@ -4,6 +4,7 @@ extends Control
 
 var main: Node
 var _v: VBoxContainer
+var _skip := false
 
 
 func _init() -> void:
@@ -41,11 +42,11 @@ func play(id: String) -> void:
 		_v.add_child(l)
 		var t2 := create_tween()
 		t2.tween_property(l, "modulate:a", 1.0, 1.4)
-		await get_tree().create_timer(1.6 + str(line).length() * 0.045).timeout
+		await _hold(1.6 + str(line).length() * 0.045)
 		# keep only the last few lines visible
 		if _v.get_child_count() > 5:
 			_v.get_child(0).queue_free()
-	await get_tree().create_timer(2.5).timeout
+	await _hold(2.5)
 	UI.clear(_v)
 	var title := UI.label("FINAL %s — %s" % [id, str(e.get("name", "")).to_upper()], 30, "accent")
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -73,3 +74,17 @@ func play(id: String) -> void:
 	b.grab_focus()
 	_v.modulate.a = 0.0
 	create_tween().tween_property(_v, "modulate:a", 1.0, 1.5)
+
+
+## Waits `secs`, or less if the player clicks / presses a key (next line).
+func _hold(secs: float) -> void:
+	_skip = false
+	var t := 0.0
+	while t < secs and not _skip:
+		await get_tree().process_frame
+		t += get_process_delta_time()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_pressed() and not event.is_echo() and (event is InputEventMouseButton or event is InputEventKey or event is InputEventJoypadButton):
+		_skip = true

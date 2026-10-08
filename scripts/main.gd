@@ -172,6 +172,12 @@ func _debug_script(steps: PackedStringArray) -> void:
 				if phone.current_app:
 					phone.current_app._tab = int(kv[1])
 					phone.current_app._render()
+			"ending": _on_ending(kv[1])
+			"press":
+				var ev := InputEventKey.new()
+				ev.keycode = KEY_SPACE
+				ev.pressed = true
+				Input.parse_input_event(ev)
 			"flip":
 				if phone.current_app and phone.current_app.has_method("_flip"):
 					phone.current_app._flip()

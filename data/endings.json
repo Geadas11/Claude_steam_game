@@ -48,7 +48,7 @@
    },
    {
     "when": "flag(\"mae_call_430\")",
-    "line": "No domingo seguinte, ligaste à tua mãe às 04:30 da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
+    "line": "No domingo seguinte, ligaste à tua mãe às quatro e meia da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
    },
    {
     "when": "flag(\"joao_heard_called\")",
