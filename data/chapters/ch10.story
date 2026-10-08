@@ -516,3 +516,26 @@ unknown> Não fui eu que te liguei.
 wait 4
 unknown> Essa gravação tem um ano. Estava à espera de alguém que a ouvisse.
 @end
+
+# ---------------------------------------------------------------- o Sr. Armando
+@beat armando_eve
+@when at("18:05") and flag("armando_saw")
+armando> Boa tarde. É o Armando, da associação. A minha neta ensinou-me a escrever mensagens.
+armando> Amanhã faz um ano. Vou estar no cais às seis e quarenta, como no ano passado. Levo uma flor.
+armando> Pensei muito no que lhe disse ao telefone. Se precisar que eu diga a alguém o que vi, eu digo.
+@end
+
+@beat armando_eve_reply
+@when beat("armando_eve") and read("armando")
+wait 1
+choice armando c10_armando
+  > Obrigado, Sr. Armando. Pode vir a precisar de o dizer. | set armando_will_testify=true
+  > Não é preciso. Já passou um ano. | set armando_will_testify=false armando_declined=true
+end
+wait 40
+if flag("armando_will_testify")
+  armando> Então digo. Tenho setenta e três anos, já não tenho medo de ninguém.
+else
+  armando> Como queira. Mas o mar não se esquece das coisas. E eu também não.
+endif
+@end

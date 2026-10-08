@@ -55,12 +55,16 @@
     "line": "A Rita Santos saiu da Clínica Atlântico em dezembro. Quando a Clara a procurou, disse que não se lembrava de ti."
    },
    {
-    "when": "flag(\"armando_saw\")",
+    "when": "flag(\"armando_saw\") and not flag(\"armando_declined\")",
     "line": "O Sr. Armando testemunhou em março. Disse ao juiz que tinha visto um rapaz ir-se embora e voltar a correr. Foi a primeira vez que alguém o disse em voz alta."
    },
    {
     "when": "flag(\"joao_heard_called\")",
     "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
+   },
+   {
+    "when": "flag(\"armando_declined\")",
+    "line": "O Sr. Armando nunca foi chamado a testemunhar. Todos os dias 14, às seis e quarenta, deixa uma flor no cais."
    }
   ],
   "coda": [
