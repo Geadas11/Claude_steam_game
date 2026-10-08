@@ -157,8 +157,10 @@
   `bytedance/seedance-2.5/text-to-video` (5 s, 720p, 16:9). Credenciais em `.env.local` (`HF_KEY`,
   ignorado pelo Git). `tools/gen_images.py` passa a usar o Higgsfield (Seedream 4) quando `HF_KEY`
   ou `HF_KEY_FILE` existe.
-- **Bloqueado:** a rede deste ambiente recusa `api.higgsfield.ai` (e a documentação). Ainda não foi
-  gerado nada; falta adicionar `higgsfield.ai` (e `*.higgsfield.ai`) aos domínios permitidos.
+- Modelos (confirmados na API): fotos sem pessoas de referência → `higgsfield-ai/soul/v2/standard`
+  (1080p); fotos com personagens e variantes → `alibaba/qwen-image-3/edit` (até 3 referências, 2k).
+- Rede aberta e chave aceite. **Bloqueado:** a conta não tem créditos (`not_enough_credits`); ainda
+  não foi gerado nada.
 
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.

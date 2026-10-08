@@ -57,8 +57,11 @@ def generate(prompt, refs=(), aspect="4:3", size="2K", tries=3):
 # download images[0].url. Reference images are uploaded first through a
 # pre-signed URL. Model ids can be overridden if Higgsfield renames them.
 HF_BASE = "https://api.higgsfield.ai"
-HF_T2I = os.environ.get("HF_T2I_MODEL", "bytedance/seedream/v4/text-to-image")
-HF_EDIT = os.environ.get("HF_EDIT_MODEL", "bytedance/seedream/v4/edit")
+# Model docs: https://dash.higgsfield.ai/models/<model id>/llms.txt
+# Soul 2: realistic people, 1080p. Qwen Image 3 edit: 1-3 ordered reference
+# images (character portraits, or the photo being edited), 2k.
+HF_T2I = os.environ.get("HF_T2I_MODEL", "higgsfield-ai/soul/v2/standard")
+HF_EDIT = os.environ.get("HF_EDIT_MODEL", "alibaba/qwen-image-3/edit")
 
 
 def hf_key():
@@ -99,11 +102,15 @@ def hf_upload(path):
 
 
 def generate_hf(prompt, refs=(), aspect="4:3", size="2K", tries=3):
-    args = {"prompt": prompt, "resolution": size, "aspect_ratio": aspect, "camera_fixed": False}
-    model = HF_T2I
     if refs:
         model = HF_EDIT
-        args["image_urls"] = [hf_upload(r) for r in refs]
+        args = {"prompt": prompt, "image_urls": [hf_upload(r) for r in list(refs)[:3]],
+                "resolution": "2k", "aspect_ratio": aspect,
+                "negative_prompt": "illustration, cartoon, CGI, 3D render, text, watermark, plastic skin"}
+    else:
+        model = HF_T2I
+        args = {"prompt": prompt, "resolution": "1080p", "aspect_ratio": aspect,
+                "batch_size": 1, "enhance_prompt": False}
     for attempt in range(tries):
         try:
             sub = hf_call("POST", model, args)
