@@ -1894,6 +1894,26 @@
    "sofia_old_phone"
   ]
  },
+ "red_coat_chair": {
+  "title": "O casaco na cadeira",
+  "desc": "IMG_2101, quiz de agosto no Farol: ao teu lado, uma cadeira vazia com um casaco vermelho. A Inês foi encontrada com um casaco vermelho.",
+  "source": "Galeria · IMG_2101",
+  "importance": 2,
+  "related": [
+   "armando_saw",
+   "red_figure_beach"
+  ]
+ },
+ "red_figure_beach": {
+  "title": "Alguém dentro de água",
+  "desc": "IMG_1980, praia, julho: ao fundo, dentro de água até aos joelhos, uma figura de casaco vermelho, virada para ti e para a Sofia.",
+  "source": "Galeria · IMG_1980",
+  "importance": 2,
+  "related": [
+   "red_coat_chair",
+   "pier_flowers"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

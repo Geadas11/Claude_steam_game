@@ -122,8 +122,43 @@
      "style": "short",
      "cloth": "#2f3a45"
     }
+   ],
+   "layers": [
+    {
+     "t": "rect",
+     "r": [
+      0.925,
+      0.62,
+      0.07,
+      0.2
+     ],
+     "c": "#2a1e16"
+    },
+    {
+     "t": "rect",
+     "r": [
+      0.93,
+      0.6,
+      0.06,
+      0.13
+     ],
+     "c": "#8a1f1f",
+     "a": 0.85
+    }
    ]
-  }
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.9,
+     0.56,
+     0.1,
+     0.28
+    ],
+    "clue": "red_coat_chair",
+    "label": "Uma cadeira vazia ao teu lado, com um casaco vermelho nas costas. Ninguém do grupo tem um casaco vermelho."
+   }
+  ]
  },
  "IMG_2044": {
   "file": "IMG_2044.jpg",
@@ -219,8 +254,33 @@
      "style": "short",
      "cloth": "#2f3a45"
     }
+   ],
+   "layers": [
+    {
+     "t": "figure",
+     "p": [
+      0.93,
+      0.47
+     ],
+     "h": 0.05,
+     "c": "#7a1a1a",
+     "a": 0.8
+    }
    ]
-  }
+  },
+  "hotspots": [
+   {
+    "r": [
+     0.88,
+     0.38,
+     0.1,
+     0.12
+    ],
+    "zoom": 2.0,
+    "clue": "red_figure_beach",
+    "label": "Ao fundo, dentro de água até aos joelhos, alguém de casaco vermelho. Em julho. Virado para vocês."
+   }
+  ]
  },
  "IMG_1702": {
   "file": "IMG_1702.jpg",

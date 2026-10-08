@@ -225,6 +225,8 @@ clue("eco_gap", "Trinta e cinco minutos", "Entre as 03:06 e as 03:41 de 14/10/20
 clue("unsent_draft", "\"Vou já\"", "Uma captura de ecrã do telemóvel antigo, 14/10/2025 às 03:13: na conversa com a Inês, um rascunho por enviar — \"Vou já\". Nunca o enviaste. Também nunca tiraste esta captura.", "Galeria · Capturas", 3, ["ines_last_messages", "old_location"])
 clue("eco_weekly_report", "O resumo semanal", "O ECO Care envia um relatório do teu sono, das tuas pesquisas e das pessoas com quem falas — à Dra. Helena e ao Vasco. O João, o Rui e a Clara são \"contactos sinalizados\".", "Email · ECO Care", 2, ["eco_care_mention", "helena_sees_sleep", "vasco_monitors_phone"])
 clue("train_ticket", "Faro–Lisboa, 07:10", "Junto com o telemóvel antigo, a Sofia encontrou um bilhete de comboio para Lisboa, comprado a 14/10/2025 às 05:12 para o dia seguinte. Nunca foi usado.", "Mensagens · Sofia", 1, ["old_location", "sofia_old_phone"])
+clue("red_coat_chair", "O casaco na cadeira", "IMG_2101, quiz de agosto no Farol: ao teu lado, uma cadeira vazia com um casaco vermelho. A Inês foi encontrada com um casaco vermelho.", "Galeria · IMG_2101", 2, ["armando_saw", "red_figure_beach"])
+clue("red_figure_beach", "Alguém dentro de água", "IMG_1980, praia, julho: ao fundo, dentro de água até aos joelhos, uma figura de casaco vermelho, virada para ti e para a Sofia.", "Galeria · IMG_1980", 2, ["red_coat_chair", "pier_flowers"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below

@@ -33,8 +33,11 @@ photo("IMG_2207", "2026-09-27 19:41", {"preset": "sunset", "variants": {
 photo("IMG_2190", "2026-09-19 11:02", {"preset": "cat"}, place="Livraria Maré, Rua Direita 31", aspect=1.0)
 photo("IMG_2155", "2026-08-29 21:15", {"preset": "food", "food": "#c98a3a"}, place="O Farol, Largo do Cais 4", aspect=1.0)
 photo("IMG_2101", "2026-08-29 23:52", {"preset": "group", "bg": "bar", "faces": [
-    face("joao", 0.2, 0.55, 0.11), face("marta", 0.42, 0.52, 0.1), face("pedro", 0.62, 0.55, 0.1), face("daniel", 0.82, 0.58, 0.1)]},
-    place="O Farol, Largo do Cais 4", aspect=1.33)
+    face("joao", 0.2, 0.55, 0.11), face("marta", 0.42, 0.52, 0.1), face("pedro", 0.62, 0.55, 0.1), face("daniel", 0.82, 0.58, 0.1)],
+    "layers": [{"t": "rect", "r": [0.925, 0.62, 0.07, 0.2], "c": "#2a1e16"},
+               {"t": "rect", "r": [0.93, 0.6, 0.06, 0.13], "c": "#8a1f1f", "a": 0.85}]},
+    place="O Farol, Largo do Cais 4", aspect=1.33,
+    hotspots=[{"r": [0.9, 0.56, 0.1, 0.28], "clue": "red_coat_chair", "label": "Uma cadeira vazia ao teu lado, com um casaco vermelho nas costas. Ninguém do grupo tem um casaco vermelho."}])
 photo("IMG_2044", "2026-07-16 18:30", {"preset": "bookshop", "seed": 21, "layers": [
     {"t": "rect", "r": [0.535, 0.405, 0.03, 0.135], "c": "#2e4a7a", "n": "saramago"},
     {"t": "rect", "r": [0.538, 0.45, 0.024, 0.008], "c": "#d9c9a0"},
@@ -42,7 +45,10 @@ photo("IMG_2044", "2026-07-16 18:30", {"preset": "bookshop", "seed": 21, "layers
     place="Livraria Maré, Rua Direita 31", aspect=0.75,
     hotspots=[{"r": [0.52, 0.39, 0.06, 0.16], "zoom": 2.0, "clue": "saramago_spine", "label": "\"O Ano da Morte de Ricardo Reis\". A lombada está inchada, como se houvesse algo lá dentro."}])
 photo("IMG_1980", "2026-07-05 16:20", {"preset": "portrait", "bg": "beach", "faces": [
-    face("sofia", 0.35, 0.55, 0.15), face("daniel", 0.66, 0.58, 0.15)]}, place="Praia da Salgueira", aspect=1.0)
+    face("sofia", 0.35, 0.55, 0.15), face("daniel", 0.66, 0.58, 0.15)],
+    "layers": [{"t": "figure", "p": [0.93, 0.47], "h": 0.05, "c": "#7a1a1a", "a": 0.8}]},
+    place="Praia da Salgueira", aspect=1.0,
+    hotspots=[{"r": [0.88, 0.38, 0.1, 0.12], "zoom": 2.0, "clue": "red_figure_beach", "label": "Ao fundo, dentro de água até aos joelhos, alguém de casaco vermelho. Em julho. Virado para vocês."}])
 photo("IMG_1702", "2026-03-11 17:48", {"preset": "document", "title": "CLÍNICA ATLÂNTICO", "seed": 8,
     "text": ["Utente: Daniel Reis", "Clonazepam 0,5 mg", "1 comp. ao deitar se necessário", "Dra. Helena Sousa"], "stamp": ""},
     place="Faro", aspect=0.75, hotspots=[{"r": [0.1, 0.1, 0.8, 0.3], "clue": "prescription", "label": "A receita da Dra. Helena."}])
