@@ -45,6 +45,14 @@
    {
     "when": "flag(\"rita_gave_phone\")",
     "line": "A Rita Santos saiu da Clínica Atlântico em dezembro. Quando a Clara a procurou, disse que não se lembrava de ti."
+   },
+   {
+    "when": "flag(\"mae_call_430\")",
+    "line": "No domingo seguinte, ligaste à tua mãe às 04:30 da tarde. Desta vez disseste tudo. Ela ficou calada muito tempo e depois disse: \"Eu sabia que um dia me contavas.\""
+   },
+   {
+    "when": "flag(\"joao_heard_called\")",
+    "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
    }
   ]
  },
@@ -116,6 +124,10 @@
    {
     "when": "flag(\"found_card\")",
     "line": "O cartão continua na tua carteira, atrás do cartão de cidadão. Às vezes passas-lhe o dedo por cima."
+   },
+   {
+    "when": "flag(\"mae_call_430\")",
+    "line": "A tua mãe continua a ligar-te ao domingo. Nunca mais te perguntou nada. Tu nunca mais lhe contaste nada."
    }
   ]
  },

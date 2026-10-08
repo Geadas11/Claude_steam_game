@@ -314,3 +314,101 @@ unknown> Tirei-a para me lembrar de ti a ir embora.
 wait 4
 unknown> Depois deram-ma a mim para te mostrar. Por trás. Como se fosse agora.
 @end
+
+# ---------------------------------------------------------------- depois da gravação
+@beat after_recording_talk
+@when beat("recording_heard") and since("recording_heard", 90)
+unknown> Ele disse "Inês" duas vezes.
+wait 4
+unknown> Da segunda vez já não era uma pergunta.
+wait 10
+unknown> Posso perguntar-te uma coisa que nunca te consegui perguntar?
+wait 3
+unknown> Porque é que te foste embora?
+choice unknown c9_why
+  > Porque estava zangado comigo. E fui cobarde. | set c9_why=coward inc trust_ines 1
+  > Não sei. Não me lembro de ter decidido. | set c9_why=blank
+  > Tu disseste-me para ir. | set c9_why=blame
+end
+wait 10
+if vs("c9_why") == "coward"
+  unknown> Obrigada.
+  wait 4
+  unknown> Eu também estava zangada. Disse-te coisas para doer.
+  wait 3
+  unknown> Não era para ficares longe tanto tempo.
+elif vs("c9_why") == "blank"
+  unknown> Eu sei que não te lembras. Tenho as tuas pesquisas dessa semana. "como esquecer uma noite". Três vezes.
+  wait 4
+  unknown> Esquecer não é o mesmo que não ter acontecido.
+else
+  unknown> Não disse.
+  wait 4
+  unknown> Chamei-te. Duas vezes. O Sr. Armando ouviu.
+  wait 3
+  unknown> Tu é que precisas que eu tenha dito.
+endif
+@end
+
+# ---------------------------------------------------------------- a mãe
+@beat mae_night9
+@when at("22:35")
+mae> Filho, estás acordado? A Sofia ligou-me. Disse que lhe pediste para mexer no teu telemóvel velho.
+mae> Disse que andas a dormir mal outra vez. Não me mintas que eu conheço-te
+@end
+
+@beat mae_night9_reply
+@when beat("mae_night9") and read("mae")
+wait 1
+choice mae c9_mae
+  > Estou bem, mãe. É só trabalho. | set mae9=lie
+  > Não estou bem. Mas estou a perceber coisas. | set mae9=half
+  > Mãe, lembras-te da noite em que a Inês morreu? Onde é que eu estava? | set mae9=ask
+end
+wait 25
+if vs("mae9") == "lie"
+  mae> Está bem. Finjo que acredito.
+  mae> Come qualquer coisa antes de te deitares
+elif vs("mae9") == "half"
+  mae> Perceber coisas às onze da noite nunca fez bem a ninguém nesta família.
+  wait 4
+  mae> Mas se precisares, eu vou aí. São duas horas de carro, não é o fim do mundo
+else
+  typing mae mae 14
+  wait 10
+  mae> Ligaste-me às 4 e meia da manhã. Não disseste nada. Só se ouvia o mar e tu a respirar.
+  wait 5
+  mae> Liguei-te de volta onze vezes. Atendeste de manhã e disseste que tinhas estado a dormir.
+  wait 4
+  mae> Nunca te perguntei. Achei que um dia me contavas
+  set mae_call_430=true
+endif
+@end
+
+# ---------------------------------------------------------------- o João
+@beat joao_night9
+@when at("00:50") and v("trust_joao") >= 1
+joao> ainda acordado? eu tb. fechei o bar mais cedo, nao estava ninguem
+joao> a tua irma conseguiu a copia?
+@end
+
+@beat joao_night9_reply
+@when beat("joao_night9") and read("joao")
+wait 1
+choice joao c9_joao
+  > Conseguiu. João, nessa noite, quando me viste... disse alguma coisa? | set joao9=ask
+  > Conseguiu. Obrigado por a ajudares. | set joao9=thanks inc trust_joao 1
+end
+wait 15
+if vs("joao9") == "ask"
+  joao> disseste "ela chamou-me"
+  wait 4
+  joao> eu perguntei quem. tu olhaste para mim como se nao me conhecesses e foste embora
+  wait 3
+  joao> nunca contei a ninguem pq achei q nao era meu para contar
+  set joao_heard_called=true
+else
+  joao> tia sofia. vou chamar-lhe isso para sempre agora
+  joao> dorme dani
+endif
+@end
