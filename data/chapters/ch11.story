@@ -11,6 +11,7 @@
 
 @beat setup
 set chapter_n=11
+setting signal 4
 rate 1
 ambient night
 location casa
@@ -103,6 +104,7 @@ endif
 @beat walk_cais
 @when flag("left_home") and at("02:50")
 location cais
+setting signal 1
 ambient sea
 wait 4
 if flag("joao_with")

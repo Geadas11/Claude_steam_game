@@ -25,14 +25,12 @@ func _ready() -> void:
 	_toggle("Sincronização vertical", "vsync")
 	_resolution()
 	_section("Controlos")
+	for action in Settings.REMAPPABLE:
+		_keybind(action)
 	for line in [
 		"Rato — tocar no ecrã do telemóvel",
 		"Roda do rato — deslizar listas",
-		"Backspace / botão B — voltar",
-		"H / botão Select — ecrã principal",
-		"Esc / Start — pausa",
-		"F5 — gravação rápida · F9 — carregar gravação rápida",
-		"Comando: setas/analógico para navegar, A para escolher",
+		"Comando: setas/analógico para navegar, A para escolher, B para voltar, Start para pausa",
 	]:
 		body.add_child(UI.label(line, 14, "dim"))
 
@@ -97,3 +95,34 @@ func _resolution() -> void:
 	o.item_selected.connect(func(i): Settings.set_value("resolution", opts[i]))
 	h.add_child(o)
 	body.add_child(h)
+
+
+var _waiting_action := ""
+var _waiting_button: Button
+
+
+func _keybind(action: String) -> void:
+	var h := UI.hbox(12)
+	var l := UI.label(Settings.REMAPPABLE[action], 15)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(l)
+	var b := UI.pill_button(Settings.key_label(action), func(): pass, "surf2", "accent", 13)
+	b.pressed.connect(func():
+		_waiting_action = action
+		_waiting_button = b
+		b.text = "Prime uma tecla…")
+	h.add_child(b)
+	body.add_child(h)
+
+
+func _input(event: InputEvent) -> void:
+	if _waiting_action == "" or not (event is InputEventKey) or not event.pressed:
+		return
+	get_viewport().set_input_as_handled()
+	if event.physical_keycode == KEY_ESCAPE and _waiting_action != "pause_menu":
+		_waiting_button.text = Settings.key_label(_waiting_action)
+		_waiting_action = ""
+		return
+	Settings.rebind(_waiting_action, event.physical_keycode)
+	_waiting_button.text = Settings.key_label(_waiting_action)
+	_waiting_action = ""

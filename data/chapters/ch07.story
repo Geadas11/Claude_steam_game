@@ -238,6 +238,20 @@ else
 endif
 @end
 
+# ---------------------------------------------------------------- o telefone escreve sozinho
+@beat self_typing
+@when at("00:48")
+open messages unknown
+wait 2
+autotype unknown "estou a ver-te" send
+set phone_typed_alone=true
+wait 6
+unknown> Eu sei.
+wait 2
+unknown> Eu também te vejo.
+clue phone_typed_alone
+@end
+
 # ---------------------------------------------------------------- a voz pede confiança
 @beat trust_ines
 @when at("01:05")

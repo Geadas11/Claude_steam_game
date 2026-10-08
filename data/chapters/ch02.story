@@ -49,6 +49,19 @@ elif flag("asked_who2")
   wait 6
   unknown> Já te disse.
   unknown> Sou eu.
+  choice unknown c2_who_again
+    > Eu quem? | set pressed_who=true
+    > [Não responder]
+  end
+  if flag("pressed_who")
+    wait 8
+    unknown> Para de perguntar.
+    wait 14
+    typing unknown unknown 5
+    wait 3
+    unknown> Estás a assustar-me.
+    clue unknown_scared
+  endif
 endif
 @end
 

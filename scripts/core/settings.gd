@@ -22,6 +22,16 @@ var values := {
 	"seen_warning": false,
 	"seen_controls_hint": false,
 	"language": "pt",
+	"keymap": {},              # action -> physical keycode (player rebinds)
+}
+
+const REMAPPABLE := {
+	"phone_back": "Voltar",
+	"phone_home": "Ecrã principal",
+	"pause_menu": "Pausa",
+	"quick_save": "Gravação rápida",
+	"quick_load": "Carregar gravação rápida",
+	"toggle_fullscreen": "Ecrã inteiro",
 }
 
 var _bus_ids := {}
@@ -31,7 +41,37 @@ func _ready() -> void:
 	_setup_audio_buses()
 	_setup_input()
 	load_settings()
+	_apply_keymap()
 	apply()
+
+
+func _apply_keymap() -> void:
+	var km: Dictionary = values.get("keymap", {})
+	for action in km:
+		if InputMap.has_action(action):
+			rebind(action, int(km[action]), false)
+
+
+## Replace the keyboard binding of an action (controller bindings are kept).
+func rebind(action: String, keycode: int, persist := true) -> void:
+	for ev in InputMap.action_get_events(action):
+		if ev is InputEventKey:
+			InputMap.action_erase_event(action, ev)
+	var k := InputEventKey.new()
+	k.physical_keycode = keycode
+	InputMap.action_add_event(action, k)
+	if persist:
+		var km: Dictionary = values.get("keymap", {}).duplicate()
+		km[action] = keycode
+		set_value("keymap", km)
+
+
+func key_label(action: String) -> String:
+	var names: Array = []
+	for ev in InputMap.action_get_events(action):
+		if ev is InputEventKey:
+			names.append(OS.get_keycode_string(ev.physical_keycode))
+	return " / ".join(PackedStringArray(names)) if not names.is_empty() else "—"
 
 
 func _setup_audio_buses() -> void:

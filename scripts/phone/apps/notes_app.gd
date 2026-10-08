@@ -8,6 +8,7 @@ var _root: VBoxContainer
 var _tab := 0
 var _open_note := ""
 var _focus_clue := ""
+var _clue_filter := "Todas"
 
 
 func build() -> void:
@@ -176,6 +177,19 @@ func _clue_board() -> void:
 		v.add_child(UI.empty_state("Ainda não registaste nenhuma pista.\nAs coisas que reparares aparecem aqui.", "notes"))
 		return
 	v.add_child(UI.label("Marca cada pista com aquilo em que acreditas. Ninguém te vai dizer se tens razão.", 12, "faint", true))
+	var chips := HFlowContainer.new()
+	chips.add_theme_constant_override("h_separation", 6)
+	chips.add_theme_constant_override("v_separation", 6)
+	for f in ["Todas", "Por marcar"] + TAGS:
+		var on := f == _clue_filter
+		var n := ids.size() if f == "Todas" else ids.filter(func(c): return str(GameState.data.clues[c].get("tag", "")) == ("" if f == "Por marcar" else f)).size()
+		chips.add_child(UI.pill_button("%s %d" % [f, n], func():
+			_clue_filter = f
+			_render(), "accent" if on else "surf2", "bg" if on else "dim", 12))
+	v.add_child(chips)
+	if _clue_filter != "Todas" and _focus_clue == "":
+		var want := "" if _clue_filter == "Por marcar" else _clue_filter
+		ids = ids.filter(func(c): return str(GameState.data.clues[c].get("tag", "")) == want)
 	ids.sort_custom(func(a, b): return float(GameState.data.clues[a].t) > float(GameState.data.clues[b].t))
 	var focus_node: Control = null
 	for cid in ids:
@@ -217,6 +231,7 @@ func _clue_card(cid: String) -> Control:
 				var rc := Content.get_item("clues", r)
 				rh.add_child(UI.pill_button("↔ " + str(rc.get("title", r)), func():
 					_focus_clue = r
+					_clue_filter = "Todas"
 					_render(), "surf2", "link", 12))
 			else:
 				hidden += 1

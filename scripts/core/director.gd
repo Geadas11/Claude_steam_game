@@ -348,6 +348,23 @@ func _run_beat(b: Dictionary, start_pc: int, g: int) -> void:
 
 
 # --- messages -----------------------------------------------------------------
+## Replaces ${var} with the value of a story variable (e.g. ${last_reply}).
+func interp(text: String) -> String:
+	if not text.contains("${"):
+		return text
+	var out := text
+	var guard := 0
+	while out.contains("${") and guard < 10:
+		guard += 1
+		var a := out.find("${")
+		var b := out.find("}", a)
+		if b == -1:
+			break
+		var key := out.substr(a + 2, b - a - 2)
+		out = out.substr(0, a) + str(GameState.get_var(key, "")) + out.substr(b + 1)
+	return out
+
+
 func typing_time(text: String) -> float:
 	return clampf(0.7 + text.length() * 0.035, 0.9, 4.5)
 
@@ -369,7 +386,7 @@ func _do_msg(op: Dictionary, g: int) -> bool:
 		Events.autotype_requested.emit(thread, op.text)
 		if not await _sleep(typing_time(op.text) * 0.8, g):
 			return false
-	var msg := {"id": op.id, "from": from, "text": op.text, "t": Clock.now()}
+	var msg := {"id": op.id, "from": from, "text": interp(op.text), "t": Clock.now()}
 	if not op.att.is_empty():
 		msg.att = op.att.duplicate()
 	if opts.has("time"):
@@ -461,6 +478,8 @@ func _do_choice(op: Dictionary, beat_id: String, pc: int, g: int) -> bool:
 	for k in opt.get("inc", {}):
 		GameState.inc_var(k, float(opt.inc[k]))
 	GameState.set_var("choice_" + op.id, opt.index)
+	if not (opt.text.begins_with("[") and opt.text.ends_with("]")):
+		GameState.set_var("last_reply", opt.text)
 	GameState.data.choice_log.append({"id": op.id, "option": opt.index, "text": opt.text, "chapter": GameState.data.chapter})
 	var text: String = opt.text
 	if not (text.begins_with("[") and text.ends_with("]")):
@@ -575,8 +594,9 @@ func _do_call_line(op: Dictionary, g: int) -> bool:
 		Audio.play(op.name)
 		Events.call_line.emit("", "[%s]" % Audio.caption(op.name))
 		return true
-	Events.call_line.emit(op.who, op.text)
-	var dur: float = op.dur if op.dur > 0.0 else clampf(1.2 + op.text.length() * 0.055, 1.5, 7.0)
+	var line_text := interp(op.text)
+	Events.call_line.emit(op.who, line_text)
+	var dur: float = op.dur if op.dur > 0.0 else clampf(1.2 + line_text.length() * 0.055, 1.5, 7.0)
 	var waited := 0.0
 	while waited < dur:
 		if _hangup and in_call:
@@ -826,9 +846,14 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 		"achieve":
 			Achievements.unlock(a[0])
 		"autotype":
+			# the phone types by itself; with "send" it also sends it as you
 			Events.autotype_requested.emit(a[0], a[1])
 			if not await _sleep(typing_time(a[1]), g):
 				return false
+			if a.size() > 2 and a[2] == "send":
+				var am := GameState.add_message(a[0], {"from": "me", "text": a[1], "t": Clock.now()}, false)
+				Audio.play("sent")
+				Events.message_added.emit(a[0], am)
 		"checkpoint":
 			Saves.autosave()
 		"endchapter":

@@ -11,6 +11,8 @@ func build() -> void:
 	_root = content_root()
 	Events.content_changed.connect(func(k): if k == "photos" and _photo == "": _show_grid())
 	Events.photo_changed.connect(func(pid): if pid == _photo and _viewer: _viewer.refresh())
+	if params.get("photo", "") == "" and str(params.get("param", "")).begins_with("IMG"):
+		params.photo = params.param
 	if params.get("photo", "") != "":
 		_show_photo(params.photo)
 	else:
@@ -19,8 +21,10 @@ func build() -> void:
 
 func reopen(p: Dictionary) -> void:
 	params = p
-	if p.get("photo", "") != "":
-		_show_photo(p.photo)
+	if p.get("photo", "") == "" and str(p.get("param", "")).begins_with("IMG"):
+		params.photo = p.param
+	if params.get("photo", "") != "":
+		_show_photo(params.photo)
 
 
 func on_back() -> bool:

@@ -1432,5 +1432,34 @@
    "vasco_audi",
    "vasco_car_cctv"
   ]
+ },
+ "unknown_scared": {
+  "title": "\"Estás a assustar-me\"",
+  "desc": "Perguntaste quem era. \"Para de perguntar.\" E depois: \"Estás a assustar-me.\" Tu nunca disseste que estavas assustado. Quem está assustado é ela.",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "loop_hint_days"
+  ]
+ },
+ "voice_repeats_you": {
+  "title": "A tua frase, na voz dela",
+  "desc": "Uma chamada em que a voz dela repetiu, palavra por palavra, a última coisa que escreveste.",
+  "source": "Chamada",
+  "importance": 2,
+  "related": [
+   "call_from_dead",
+   "eco_trained_calls"
+  ]
+ },
+ "phone_typed_alone": {
+  "title": "\"estou a ver-te\"",
+  "desc": "O telemóvel abriu a conversa e escreveu sozinho. Enviou. Em teu nome.",
+  "source": "Mensagens",
+  "importance": 3,
+  "related": [
+   "sent_message_rui",
+   "fake_joao_message"
+  ]
  }
 }

@@ -170,6 +170,10 @@ clue("front_camera_figure", "Atrás de ti", "Na câmara frontal, por cima do teu
 clue("marta_remembers_them", "Uma playlist", "A Marta lembra-se de vocês os dois ao balcão do Farol. Fizeste uma playlist para os anos da Inês. Tu não te lembras.", "Mensagens · Marta", 1, ["barely_knew_lie", "joao_knew_ines"])
 clue("pedro_cousin", "\"O aquário\"", "O primo do Pedro trabalha na segurança da Lumen: na noite de 13 para 14 de outubro de 2025, o carro do diretor saiu às 2h30 e só voltou às 5h.", "Mensagens · Pedro", 2, ["vasco_audi", "vasco_car_cctv"])
 
+clue("unknown_scared", "\"Estás a assustar-me\"", "Perguntaste quem era. \"Para de perguntar.\" E depois: \"Estás a assustar-me.\" Tu nunca disseste que estavas assustado. Quem está assustado é ela.", "Mensagens", 2, ["loop_hint_days"])
+clue("voice_repeats_you", "A tua frase, na voz dela", "Uma chamada em que a voz dela repetiu, palavra por palavra, a última coisa que escreveste.", "Chamada", 2, ["call_from_dead", "eco_trained_calls"])
+clue("phone_typed_alone", "\"estou a ver-te\"", "O telemóvel abriu a conversa e escreveu sozinho. Enviou. Em teu nome.", "Mensagens", 3, ["sent_message_rui", "fake_joao_message"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

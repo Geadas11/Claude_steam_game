@@ -11,6 +11,7 @@
 
 @beat setup
 set chapter_n=8
+set wifi_weird=true
 rate 2
 ambient room
 location casa
@@ -100,7 +101,10 @@ endif
 @when at("11:30")
 photo IMG_6800 silent Capturas
 notify gallery "Captura de ecrã" "Captura de ecrã guardada"
-wait 15
+wait 6
+glitch 0.3 0.3
+open gallery IMG_6800
+wait 9
 unknown> Esta é a coisa que ainda não estavas pronto para ver.
 @end
 

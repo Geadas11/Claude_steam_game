@@ -204,7 +204,11 @@ func _render_messages() -> void:
 		_msgs_box.add_child(_bubble(msg, msg.get("from", "") != prev_from))
 		prev_from = msg.get("from", "")
 		if i == last_me and i == msgs.size() - 1:
-			var st := UI.label(str(msg.get("status", "Entregue")), 11, "faint")
+			var status := str(msg.get("status", "Entregue"))
+			if _thread == "unknown" and not msg.has("status"):
+				# whatever reads these messages, it always reads them at the same time
+				status = "Lida · 03:17"
+			var st := UI.label(status, 11, "faint")
 			st.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			_msgs_box.add_child(st)
 	_typing_row = _typing_bubble()

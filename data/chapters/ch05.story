@@ -161,6 +161,7 @@ set unknown_renamed=true
 @beat location_jump
 @when at("00:41")
 location cais
+setting signal 1
 wait 2
 unknown> Estás tão longe.
 @end
@@ -168,6 +169,7 @@ unknown> Estás tão longe.
 @beat location_back
 @when at("00:53")
 location casa
+setting signal 4
 @end
 
 # ---------------------------------------------------------------- 8. a fotografia por trás
@@ -340,8 +342,26 @@ checkpoint
 wait 10
 @end
 
+@beat echo_call
+@when beat("believe") and vs("last_reply") != ""
+wait 6
+call unknown id=c5_echo ring=12
+  [sfx static]
+  - (silêncio)
+  wait 2
+  unknown: ${last_reply} | 3
+  - (é a tua frase. dita pela voz dela. devagar, como quem a experimenta)
+  wait 1.5
+  [sfx glitch_short]
+  - (a chamada cai)
+end
+if answered("c5_echo")
+  clue voice_repeats_you
+endif
+@end
+
 @beat end_ch5
-@when beat("believe")
+@when beat("believe") and beat("echo_call")
 wait 4
 lock
 wait 2

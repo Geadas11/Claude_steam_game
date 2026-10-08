@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 	GameState.data.time = float(GameState.data.time) + delta * speed * 60.0
 	var m := int(GameState.data.time / 60.0)
 	if m != _last_minute:
+		if _last_minute != -1 and m > _last_minute:
+			_drain_battery(m - _last_minute)
 		_last_minute = m
 		Events.time_changed.emit(GameState.data.time)
 
@@ -139,3 +141,26 @@ func display_time() -> String:
 
 func hour() -> int:
 	return Time.get_datetime_dict_from_unix_time(int(now())).hour
+
+
+var _drain_acc := 0.0
+
+
+## Natural battery drain: ~1% every 14 game minutes. Never lets the phone die
+## (that would be a softlock), but warns like a real phone does.
+func _drain_battery(minutes: int) -> void:
+	_drain_acc += minutes / 14.0
+	if _drain_acc < 1.0:
+		return
+	var n := int(_drain_acc)
+	_drain_acc -= n
+	var b := int(GameState.data.battery)
+	var nb := maxi(4, b - n)
+	if nb == b:
+		return
+	GameState.data.battery = nb
+	for threshold in [15, 5]:
+		if b > threshold and nb <= threshold:
+			var note := GameState.post_notification("settings", "Bateria fraca", "%d%% restante. Liga o carregador." % nb)
+			Events.notification_posted.emit(note)
+	Events.phone_state_changed.emit()
