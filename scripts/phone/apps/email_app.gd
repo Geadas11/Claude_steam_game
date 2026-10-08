@@ -19,6 +19,7 @@ func build() -> void:
 
 func on_back() -> bool:
 	if _open != "":
+		slide(false)
 		_show_list()
 		return true
 	return false
@@ -64,7 +65,7 @@ func _show_list() -> void:
 		prev.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		rv.add_child(prev)
 		var eid: String = en.id
-		v.add_child(UI.row(rv, func(): _show_email(eid), 82))
+		v.add_child(UI.row(rv, func(): slide(); _show_email(eid), 82))
 		v.add_child(UI.separator())
 
 

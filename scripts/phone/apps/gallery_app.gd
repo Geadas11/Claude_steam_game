@@ -34,6 +34,7 @@ func on_back() -> bool:
 			params = {}
 			phone.open_app("messages", {"thread": th})
 			return true
+		slide(false)
 		_show_grid()
 		return true
 	return false
@@ -135,7 +136,8 @@ func _thumb(pid: String, is_new: bool) -> Control:
 		dot.position = Vector2(122, 7)
 		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(dot)
-	b.pressed.connect(func(): _show_photo(pid))
+	b.pressed.connect(func(): slide(); _show_photo(pid))
+	UI.press_fx(b, 0.94)
 	return b
 
 

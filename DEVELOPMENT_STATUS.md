@@ -83,6 +83,12 @@
   browser móvel (Chromium) e com testes automáticos (`--only=companion`).
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.
+- **Qualidade visual (sessão 2):** letra Inter, contraste ≥ 4,5:1, sem emojis como ícones; fundo do
+  ecrã com pôr do sol fotográfico (`tools/render_sunset.py`, com variante "alguém na água") e véu em
+  gradiente; animação ao toque em todos os botões (encolhe e volta com mola, só escala — nada se mexe à
+  volta); apps abrem e fecham com esbatimento; ecrãs dentro das apps deslizam (entrar → da direita,
+  voltar → da esquerda); mensagens novas aparecem com um pequeno "pop". Tempos partilhados em `UI.T_*`;
+  "Reduzir movimento" desliga tudo.
 
 ## Decisões técnicas
 

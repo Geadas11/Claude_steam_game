@@ -5,6 +5,8 @@ extends Control
 var phone: Phone
 var app_id := ""
 var params: Dictionary = {}
+var _content: Control
+var _slide_tw: Tween
 
 
 func _init() -> void:
@@ -50,7 +52,22 @@ func content_root() -> VBoxContainer:
 	v.offset_top = Phone.STATUS_H
 	v.offset_bottom = -Phone.NAV_H
 	add_child(v)
+	_content = v
 	return v
+
+
+## Screen change inside the app: the new screen slides in from the right when
+## going deeper (list -> item) and from the left when going back.
+func slide(forward := true) -> void:
+	if _content == null or not UI.motion_ok():
+		return
+	if _slide_tw:
+		_slide_tw.kill()
+	_content.position.x = 28.0 if forward else -28.0
+	_content.modulate.a = 0.0
+	_slide_tw = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_slide_tw.tween_property(_content, "position:x", 0.0, UI.T_SCREEN)
+	_slide_tw.tween_property(_content, "modulate:a", 1.0, UI.T_SCREEN * 0.8)
 
 
 func close_app() -> void:

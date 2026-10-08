@@ -284,6 +284,7 @@ func _build_nav_bar() -> void:
 	pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	home_b.add_child(pill)
 	home_b.pressed.connect(go_home)
+	UI.press_fx(home_b, 0.92)
 	nav_bar.add_child(home_b)
 
 
@@ -363,6 +364,7 @@ func _app_icon(id: String, with_label: bool) -> Control:
 	b.add_child(badge)
 	_home_badges[id] = bl
 	b.pressed.connect(func(): open_app(id))
+	UI.press_fx(b, 0.9)
 	return b
 
 
@@ -465,13 +467,13 @@ func open_app(id: String, p := {}) -> void:
 	GameState.data.chapter_opened[id] = int(GameState.data.chapter_opened.get(id, 0)) + 1
 	home.visible = false
 	Audio.play("app_open", -10.0)
-	if not Settings.get_value("reduce_motion", false):
+	if UI.motion_ok():
 		app.modulate.a = 0.0
-		app.scale = Vector2(0.97, 0.97)
+		app.scale = Vector2(0.96, 0.96)
 		app.pivot_offset = UI.SCREEN / 2
 		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tw.tween_property(app, "modulate:a", 1.0, 0.16)
-		tw.tween_property(app, "scale", Vector2.ONE, 0.2)
+		tw.tween_property(app, "modulate:a", 1.0, UI.T_SCREEN * 0.8)
+		tw.tween_property(app, "scale", Vector2.ONE, UI.T_SCREEN)
 	Events.app_opened.emit(id)
 	Director.notify_player_action()
 	Clock.notify_activity()
@@ -479,10 +481,23 @@ func open_app(id: String, p := {}) -> void:
 		get_tree().create_timer(0.25).timeout.connect(focus_first)
 
 
-func _close_current() -> void:
+func _close_current(animate := false) -> void:
 	if current_app:
 		var old_id := current_app_id
-		current_app.queue_free()
+		var old := current_app
+		if animate and UI.motion_ok():
+			# fade the app away under a blocker so it can't be tapped mid-fade
+			var blocker := Control.new()
+			blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
+			blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+			old.add_child(blocker)
+			old.pivot_offset = UI.SCREEN / 2
+			var tw := old.create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+			tw.tween_property(old, "modulate:a", 0.0, UI.T_SCREEN * 0.75)
+			tw.tween_property(old, "scale", Vector2(0.97, 0.97), UI.T_SCREEN * 0.75)
+			tw.chain().tween_callback(old.queue_free)
+		else:
+			old.queue_free()
 		current_app = null
 		current_app_id = ""
 		GameState.current_app = ""
@@ -492,8 +507,16 @@ func _close_current() -> void:
 func go_home() -> void:
 	if locked or not interactive:
 		return
-	_close_current()
+	var from_app := current_app != null
+	_close_current(true)
 	home.visible = true
+	if from_app and UI.motion_ok():
+		home.modulate.a = 0.0
+		home.scale = Vector2(1.03, 1.03)
+		home.pivot_offset = UI.SCREEN / 2
+		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw.tween_property(home, "modulate:a", 1.0, UI.T_SCREEN)
+		tw.tween_property(home, "scale", Vector2.ONE, UI.T_SCREEN)
 	GameState.current_app = "home"
 	_refresh_badges()
 	Clock.notify_activity()

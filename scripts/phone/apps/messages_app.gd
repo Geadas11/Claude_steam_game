@@ -14,6 +14,7 @@ var _typing_row: Control
 var _typing_who := {}     # thread -> who currently typing
 var _last_day := -1
 var _autotype_tween: Tween
+var _fresh_id := ""   # message that just arrived: its bubble pops in
 
 
 func build() -> void:
@@ -44,6 +45,7 @@ func reopen(p: Dictionary) -> void:
 
 func on_back() -> bool:
 	if _thread != "":
+		slide(false)
 		_show_list()
 		return true
 	return false
@@ -116,7 +118,7 @@ func _thread_row(th_id: String, last: Dictionary, unread: int) -> Control:
 		bottom.add_child(badge)
 	v.add_child(bottom)
 	h.add_child(v)
-	return UI.row(h, func(): _open_thread(th_id), 72)
+	return UI.row(h, func(): slide(); _open_thread(th_id), 72)
 
 
 func _preview(m: Dictionary, th_id := "") -> String:
@@ -203,7 +205,10 @@ func _render_messages() -> void:
 	for i in msgs.size():
 		var msg: Dictionary = msgs[i]
 		_add_day_separator(float(msg.t))
-		_msgs_box.add_child(_bubble(msg, msg.get("from", "") != prev_from))
+		var bub := _bubble(msg, msg.get("from", "") != prev_from)
+		_msgs_box.add_child(bub)
+		if _fresh_id != "" and str(msg.get("id", "")) == _fresh_id:
+			_pop_in(bub, msg.get("from", "") == "me")
 		prev_from = msg.get("from", "")
 		if i == last_me and i == msgs.size() - 1:
 			var status := str(msg.get("status", "Entregue"))
@@ -217,6 +222,17 @@ func _render_messages() -> void:
 	_typing_row.visible = _typing_who.has(_thread)
 	_msgs_box.add_child(_typing_row)
 	_scroll_to_end()
+
+
+func _pop_in(bub: Control, mine: bool) -> void:
+	if not UI.motion_ok():
+		return
+	bub.modulate.a = 0.0
+	var tw := bub.create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_property(bub, "modulate:a", 1.0, UI.T_SCREEN * 0.8)
+	tw.tween_method(func(k: float):
+		bub.pivot_offset = Vector2(bub.size.x if mine else 0.0, bub.size.y)
+		bub.scale = Vector2.ONE * lerpf(0.92, 1.0, k), 0.0, 1.0, UI.T_SCREEN)
 
 
 func _add_day_separator(t: float) -> void:
@@ -313,6 +329,7 @@ func _attachment(att: Dictionary) -> Control:
 			holder.add_child(pv)
 			pv.set_photo(att.id)
 			holder.pressed.connect(func(): phone.open_app("gallery", {"photo": att.id, "from_thread": _thread}))
+			UI.press_fx(holder, 0.97)
 			return holder
 		"audio":
 			var vm := Content.get_item("voicemails", att.id)
@@ -442,7 +459,9 @@ func _on_message_added(th: String, msg: Dictionary) -> void:
 		_input.text = "Mensagem"
 		_input.add_theme_color_override("font_color", UI.c("faint"))
 	# backdated inserts need a full re-render to keep chronology
+	_fresh_id = str(msg.get("id", ""))
 	_render_messages()
+	_fresh_id = ""
 	if msg.get("from", "") != "me":
 		Audio.play("msg", -14.0)
 

@@ -24,6 +24,7 @@ func reopen(p: Dictionary) -> void:
 
 func on_back() -> bool:
 	if _open != "":
+		slide(false)
 		_show_list()
 		return true
 	return false
@@ -59,7 +60,7 @@ func _show_list() -> void:
 		var name := UI.label(nm, 16)
 		name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h.add_child(name)
-		v.add_child(UI.row(h, func(): _show_contact(id), 56))
+		v.add_child(UI.row(h, func(): slide(); _show_contact(id), 56))
 	var count := UI.label("%d contactos" % ids.size(), 12, "faint")
 	count.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(UI.spacer(10))

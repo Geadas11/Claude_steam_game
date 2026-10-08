@@ -346,6 +346,7 @@ func _block(b: Dictionary) -> Control:
 				phone.toast("Imagem guardada na Galeria")
 				Director.notify_player_action())
 		pv.set_photo(str(b.img))
+		UI.press_fx(holder, 0.98)
 		v.add_child(holder)
 		if b.has("cap"):
 			v.add_child(UI.label(str(b.cap), 12, "faint", true))

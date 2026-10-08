@@ -136,6 +136,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"unlock": phone.unlock()
 			"open": phone.open_app(kv[1], {"forced": true, "param": kv[2] if kv.size() > 2 else ""})
 			"home": phone.go_home()
+			"snap":
+				await RenderingServer.frame_post_draw
+				get_viewport().get_texture().get_image().save_png(kv[1])
 			"fast": Director.fast_mode = true
 			"time": Clock.set_clock(kv[1] + ":" + kv[2])
 			"beat": GameState.data.beats_done[kv[1]] = 0.0

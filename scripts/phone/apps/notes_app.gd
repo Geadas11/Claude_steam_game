@@ -32,6 +32,7 @@ func reopen(p: Dictionary) -> void:
 func on_back() -> bool:
 	if _open_note != "":
 		_open_note = ""
+		slide(false)
 		_render()
 		return true
 	return false
@@ -99,7 +100,7 @@ func _notes_list() -> void:
 		pv.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		rv.add_child(pv)
 		rv.add_child(UI.label(Clock.fmt_relative(float(n.t)) if float(n.t) > 0 else "", 11, "faint"))
-		var row := UI.row(rv, func(): _show_note(n), 84)
+		var row := UI.row(rv, func(): slide(); _show_note(n), 84)
 		row.add_theme_stylebox_override("normal", UI.box(UI.c("surf"), 12))
 		v.add_child(row)
 

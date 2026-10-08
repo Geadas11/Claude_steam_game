@@ -66,6 +66,39 @@ static func font(weight := "regular") -> Font:
 	return _fonts.get(weight, ThemeDB.fallback_font)
 
 
+# ------------------------------------------------------------------ motion
+## Shared timings (seconds). Everything that moves uses these so the whole
+## phone feels like one system; "reduce_motion" turns them off.
+const T_PRESS := 0.09      # finger down
+const T_RELEASE := 0.16    # finger up (slightly slower, springy)
+const T_SCREEN := 0.2      # app / screen in and out
+
+
+static func motion_ok() -> bool:
+	return not Settings.get_value("reduce_motion", false)
+
+
+## Visible press feedback: the control shrinks a little under the finger and
+## springs back on release. Scale only, so nothing around it moves.
+static func press_fx(b: BaseButton, amount := 0.95) -> BaseButton:
+	var tw_ref := [null]
+	var to := func(s: float, t: float, trans: Tween.TransitionType) -> void:
+		if not b.is_inside_tree():
+			return
+		if tw_ref[0]:
+			tw_ref[0].kill()
+		if not motion_ok():
+			b.scale = Vector2.ONE
+			return
+		b.pivot_offset = b.size / 2
+		var tw: Tween = b.create_tween().set_trans(trans).set_ease(Tween.EASE_OUT)
+		tw.tween_property(b, "scale", Vector2(s, s), t)
+		tw_ref[0] = tw
+	b.button_down.connect(func(): to.call(amount, T_PRESS, Tween.TRANS_CUBIC))
+	b.button_up.connect(func(): to.call(1.0, T_RELEASE, Tween.TRANS_BACK))
+	return b
+
+
 # ------------------------------------------------------------------ theme
 static func build_theme() -> Theme:
 	var t := Theme.new()
@@ -200,6 +233,7 @@ static func button(text: String, cb: Callable, size := 16, color_key := "text") 
 	b.pressed.connect(func():
 		Audio.play("tap", -8.0)
 		cb.call())
+	press_fx(b, 0.96)
 	return b
 
 
@@ -228,6 +262,7 @@ static func icon_button(glyph: String, cb: Callable, size := 40, color_key := "t
 	b.pressed.connect(func():
 		Audio.play("tap", -8.0)
 		cb.call())
+	press_fx(b, 0.88)
 	return b
 
 
@@ -326,6 +361,7 @@ static func row(content: Control, cb: Callable, height := 64) -> Button:
 	b.pressed.connect(func():
 		Audio.play("tap", -10.0)
 		cb.call())
+	press_fx(b, 0.985)
 	return b
 
 
@@ -359,6 +395,7 @@ static func wrap_button(text: String, cb: Callable, width: float, size := 15, bg
 	b.pressed.connect(func():
 		Audio.play("tap", -8.0)
 		cb.call())
+	press_fx(b, 0.97)
 	return b
 
 

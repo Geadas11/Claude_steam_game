@@ -25,6 +25,7 @@ func reopen(p: Dictionary) -> void:
 func on_back() -> bool:
 	if _file != "":
 		_file = ""
+		slide(false)
 		_render()
 		return true
 	if _folder != "":
@@ -97,7 +98,7 @@ func _render() -> void:
 		fv2.add_child(nl)
 		fv2.add_child(UI.label("%s · %s" % [f.get("size", ""), _date(str(f.get("date", "")))], 12, "faint"))
 		h2.add_child(fv2)
-		v.add_child(UI.row(h2, func(): _open_file(fid), 60))
+		v.add_child(UI.row(h2, func(): slide(); _open_file(fid), 60))
 
 
 static func _date(s: String) -> String:
