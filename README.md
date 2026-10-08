@@ -62,7 +62,7 @@ scripts/ui/       UI kit, Glyph (ícones vetoriais), PhotoView + PhotoPresets
 scripts/menu/     sala, menu inicial, pausa, definições, gravações, extras, finais
 data/             toda a narrativa: chapters/*.story, characters, photos, pages,
                   emails, files, notes, voicemails, map, clues, endings, achievements
-docs/             STORY_BIBLE.md (spoilers!), STORY_FORMAT.md
+docs/             STORY_BIBLE.md (spoilers!), STORY_FORMAT.md, STEAM.md, PLAYTEST.md
 tests/            run_tests + walkthrough.json
 tools/            check.sh, gen_photos.py, gen_clues.py
 ```
