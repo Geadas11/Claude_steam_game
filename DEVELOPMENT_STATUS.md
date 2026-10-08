@@ -18,7 +18,7 @@ ver "Problemas conhecidos")
 | 13 aplicações | ✅ funcionais |
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
-| 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
+| 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente); epílogos antes da imagem final (`coda`) |
 | Investigação | ✅ 185 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
