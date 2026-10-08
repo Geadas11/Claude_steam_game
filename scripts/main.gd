@@ -95,6 +95,10 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"flag": GameState.set_var(kv[1], true)
 			"choose": Director.pick_choice(kv[1], int(kv[2]))
 			"answer": Events.call_response.emit(true)
+			"arm": GameState.data.camera.armed = kv[1]
+			"flip":
+				if phone.current_app and phone.current_app.has_method("_flip"):
+					phone.current_app._flip()
 
 
 func _layout() -> void:
@@ -110,11 +114,25 @@ func show_title() -> void:
 	mode = Mode.TITLE
 	GameState.in_game = false
 	Director.stop()
+	_title_phone_state()
 	title_menu.open()
+	phone.refresh_all()
 	phone.show_locked_immediately()
 	room.set_mood("title")
 	Audio.set_ambient("room")
 	Audio.set_music("menu")
+
+
+## The title screen phone: 23:47, one notification. The hook.
+func _title_phone_state() -> void:
+	GameState.reset()
+	GameState.data.time = Clock.parse_datetime("2026-10-08 23:47")
+	GameState.data.battery = 64
+	if Achievements.endings.size() > 0:
+		# after a first ending, the title phone has seen things
+		GameState.data.phone.wallpaper = "IMG_0317"
+		GameState.data.time = Clock.parse_datetime("2026-10-14 03:17")
+	GameState.post_notification("messages", "+351 912 403 317", "Ainda estás acordado?")
 
 
 func start_new_game(show_warning := true) -> void:

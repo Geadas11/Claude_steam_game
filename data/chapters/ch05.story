@@ -257,6 +257,9 @@ photo IMG_6700 silent Câmara
 @when at("03:00")
 stopsounds
 set silence_started=true
+wait 20
+# the screen goes dark by itself. In the black glass: you. And behind you...
+reflection
 @end
 
 # ---------------------------------------------------------------- 14. 03:17

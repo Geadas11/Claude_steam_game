@@ -18,6 +18,10 @@ var _log_choices := false
 
 func _ready() -> void:
 	Audio.muted_for_tests = true
+	Saves.use_test_dir()
+	Achievements.persist = false
+	Achievements.unlocked.clear()
+	Achievements.endings.clear()
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--only="):
 			_only = a.substr(7)

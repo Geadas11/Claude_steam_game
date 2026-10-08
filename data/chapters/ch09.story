@@ -75,6 +75,19 @@ unknown> Eu não sabia que tinha gravado até ao fim.
 wait 4
 ambient night
 set heard_recording=true
+wait 25
+camera behind
+unknown> Daniel.
+unknown> Abre a câmara da frente. Quero ver-te a cara.
+@end
+
+@beat behind_seen
+@when flag("cam_behind_seen")
+wait 4
+unknown> Desculpa.
+wait 3
+unknown> Às vezes não consigo controlar onde apareço.
+clue front_camera_figure
 @end
 
 # ---------------------------------------------------------------- câmara das bombas
@@ -196,4 +209,33 @@ sofia: O PIN. Era o meu aniversário, tonto. Dois do dois. | 3
 @when flag("rui_ally")
 rui: Diz. | 1
 rui: Se tens alguma coisa, eu também tenho. Desde o ano passado. Vê o teu email. | 4
+@end
+
+# ---------------------------------------------------------------- Sofia
+@beat sofia_after_backup
+@when flag("extracted_backup_pixel7") and since("backup_opened", 60)
+sofia> Abriste?
+sofia> Não te vou perguntar o que lá está. Só uma coisa
+sofia> O que quer que encontres, tu és meu irmão. Isso não muda. Ok?
+@end
+
+@beat sofia_after_backup_reply
+@when beat("sofia_after_backup") and read("sofia")
+wait 1
+choice sofia c9_sofia
+  > Fiz uma coisa horrível, Sofia. Disse a alguém onde ela estava. | set confessed_sofia=true
+  > Ok. Obrigado. | set confessed_sofia=false
+end
+wait 8
+if flag("confessed_sofia")
+  sofia> ...
+  wait 5
+  sofia> Tu disseste a alguém onde ela estava. Não a empurraste. Não a deixaste cair
+  sofia> Isso é uma coisa horrível que tens de carregar. Não é a coisa que tu achas que fizeste
+  wait 3
+  sofia> E agora vais fazer o quê com isso?
+  set sofia_knows_told=true
+else
+  sofia> Ok. Estou aqui
+endif
 @end

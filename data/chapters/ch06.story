@@ -275,3 +275,31 @@ inc trust_helena 1
 joao: dani. | 1
 joao: nao ao telefone. manda mensagem ou passa no bar. | 2.5
 @end
+
+# ---------------------------------------------------------------- a mãe liga ao domingo
+@beat mae_call
+@when at("18:15") and called("mae") == 0
+call mae id=c6_mae ring=20
+  mae: Está? Daniel? | 1.5
+  mae: Ah, atendeste! A tua irmã disse que não atendias ninguém. | 3
+  mae: Guardei-te bacalhau. Está no congelador. Quando vieres levas. | 3.5
+  - (ela fala do tempo, da vizinha, da missa)
+  wait 1.5
+  mae: Quarta é aquele dia, não é. Da menina. | 3
+  mae: Eu vou acender uma vela por ela. E outra por ti. | 3.5
+  wait 1
+  mae: Daniel... tu estás a comer? | 2
+  - (dizes que sim)
+  mae: Pronto. Eu acredito. As mães acreditam sempre. Beijinho, filho. | 3.5
+end
+if not answered("c6_mae")
+  voicemail vm_mae
+endif
+@end
+
+@call mae c6_call_mae
+mae: Daniel! Ligaste ao domingo! | 2
+mae: Estou tão contente. Guardei-te bacalhau. | 2.5
+- (falam de nada durante dez minutos. Sabe bem.)
+mae: Quarta acendo uma vela pela menina. E outra por ti. Beijinho, filho. | 4
+@end

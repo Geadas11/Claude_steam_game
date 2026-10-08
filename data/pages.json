@@ -1173,5 +1173,257 @@
   "clues": [
    "sim_page"
   ]
+ },
+ "insonia_forum": {
+  "url": "dormirbem.pt/forum/t/sempre-a-mesma-hora",
+  "title": "Acordo sempre à mesma hora — fórum Dormir Bem",
+  "site": "Dormir Bem",
+  "site_color": "#3a4a6a",
+  "keywords": [
+   "insonia",
+   "insónia",
+   "acordar",
+   "mesma hora",
+   "dormir",
+   "sono",
+   "3:17",
+   "3h17",
+   "acordar sempre"
+  ],
+  "snippet": "\"Acordo todas as noites às 3:17. Sem despertador. Sem razão.\" — 9 respostas",
+  "rank": 1,
+  "blocks": [
+   {
+    "h": "Acordo sempre à mesma hora"
+   },
+   {
+    "meta": "Tópico iniciado por d_reis · 21 de fevereiro de 2026, 03:40"
+   },
+   {
+    "comment": {
+     "user": "d_reis",
+     "time": "21/02/2026 03:40",
+     "text": "Acordo todas as noites às 3:17. Sem despertador. Sem barulho. Abro os olhos e é sempre 3:17. Já tentei não olhar para o relógio mas sei que horas são antes de olhar. Alguém mais?"
+    }
+   },
+   {
+    "comment": {
+     "user": "enf_lisboa",
+     "time": "21/02/2026 09:12",
+     "text": "Pode ser o ciclo do sono a fixar-se depois de um período de stress. Já falou com o seu médico?"
+    }
+   },
+   {
+    "comment": {
+     "user": "d_reis",
+     "time": "21/02/2026 23:58",
+     "text": "Já. Diz que é normal. Diz que a memória está a proteger-me de alguma coisa."
+    }
+   },
+   {
+    "comment": {
+     "user": "insonia_faro",
+     "time": "22/02/2026 02:30",
+     "text": "Eu acordava às 4. Agora acordo às 3 e 17 também. Começou quando comprei um telemóvel novo. Deve ser coincidência."
+    }
+   },
+   {
+    "comment": {
+     "user": "maré",
+     "time": "23/02/2026 03:17",
+     "text": "não olhes para o relógio quando acordares."
+    }
+   },
+   {
+    "comment": {
+     "user": "d_reis",
+     "time": "23/02/2026 03:20",
+     "text": "quem é você?"
+    }
+   },
+   {
+    "comment": {
+     "user": "moderador",
+     "time": "23/02/2026 10:00",
+     "text": "A conta \"maré\" foi removida por violação das regras (conta duplicada)."
+    }
+   }
+  ],
+  "clues": [
+   "forum_own_post"
+  ]
+ },
+ "lumen_review": {
+  "url": "techpt.pt/analise/lumen-one",
+  "title": "Análise: Lumen One — bom telemóvel, assistente demasiado curioso",
+  "site": "TechPT",
+  "site_color": "#2a2a5a",
+  "keywords": [
+   "lumen one",
+   "analise",
+   "review",
+   "telemovel lumen",
+   "eco care",
+   "bateria"
+  ],
+  "snippet": "Nota 7/10. Ecrã excelente, bateria misteriosa e um assistente que não se desliga.",
+  "blocks": [
+   {
+    "h": "Lumen One: bom telemóvel, assistente demasiado curioso"
+   },
+   {
+    "meta": "TechPT · 14 de março de 2025 · Nota: 7/10"
+   },
+   {
+    "p": "O Lumen One é o primeiro telemóvel da tecnológica de Faro. Ecrã muito bom, câmara competente à noite, construção sólida."
+   },
+   {
+    "p": "O problema chama-se [b]ECO Care[/b]. O assistente \"de bem-estar\" vem ligado e não há forma de o desligar. Nos nossos testes, o processo \"ECO Service\" foi responsável por até [b]40% do consumo de bateria[/b] durante a noite — quando, em teoria, não devia estar a fazer nada."
+   },
+   {
+    "p": "Perguntámos à Lumen o que faz o ECO durante a noite. A resposta: \"aprende\"."
+   },
+   {
+    "quote": "\"O ECO aprende quando o utilizador está mais vulnerável, para estar presente quando é preciso.\" — porta-voz da Lumen"
+   }
+  ],
+  "clues": [
+   "eco_learns_at_night"
+  ]
+ },
+ "salgueira_historia": {
+  "url": "salgueira.pt/historia",
+  "title": "Salgueira — história e património",
+  "site": "Junta de Freguesia da Salgueira",
+  "site_color": "#4a5a3a",
+  "keywords": [
+   "salgueira",
+   "historia",
+   "patrimonio",
+   "cais velho",
+   "cais",
+   "turismo",
+   "junta"
+  ],
+  "snippet": "O Cais Velho, construído em 1932 para a descarga da sardinha…",
+  "blocks": [
+   {
+    "h": "História da Salgueira"
+   },
+   {
+    "p": "Vila piscatória desde o século XVI, a Salgueira cresceu à volta da sardinha e do sal."
+   },
+   {
+    "h2": "O Cais Velho"
+   },
+   {
+    "p": "Construído em 1932 para a descarga da sardinha, o Cais Velho deixou de ser usado em 1987. Os mais velhos chamam-lhe \"o cais das despedidas\": era dali que partiam os barcos para a pesca longínqua, e era ali que as famílias esperavam."
+   },
+   {
+    "p": "Diz a tradição que quem espera no fim do cais na maior maré do ano ouve chamar o seu nome."
+   },
+   {
+    "img": "IMG_1433"
+   }
+  ],
+  "clues": [
+   "pier_legend"
+  ]
+ },
+ "meridiano": {
+  "url": "segurosmeridiano.pt",
+  "title": "Seguros Meridiano — Prevenção personalizada",
+  "site": "Meridiano",
+  "site_color": "#1f4f6f",
+  "keywords": [
+   "meridiano",
+   "seguros meridiano",
+   "seguro",
+   "seguradora",
+   "apolice",
+   "prevencao"
+  ],
+  "snippet": "Seguros de saúde e vida com prevenção personalizada por inteligência artificial.",
+  "blocks": [
+   {
+    "h": "Prevenimos antes de acontecer."
+   },
+   {
+    "p": "Com o nosso parceiro tecnológico, a Meridiano identifica riscos de saúde antes de se manifestarem — e ajusta o seu seguro em conformidade."
+   },
+   {
+    "p": "[i]Parceiro tecnológico: Lumen Systems.[/i]"
+   },
+   {
+    "meta": "Aviso legal: as condições das apólices podem ser revistas com base em avaliações de risco atualizadas."
+   }
+  ],
+  "clues": [
+   "meridiano_lumen"
+  ]
+ },
+ "arroz_pato": {
+  "url": "receitasdaavo.pt/arroz-de-pato",
+  "title": "Arroz de pato à moda de Braga — Receitas da Avó",
+  "site": "Receitas da Avó",
+  "site_color": "#7a4a2a",
+  "keywords": [
+   "arroz de pato",
+   "receita",
+   "pato",
+   "arroz",
+   "jantar",
+   "massa com atum",
+   "receitas"
+  ],
+  "snippet": "O arroz de pato que fazia toda a gente vir almoçar ao domingo.",
+  "blocks": [
+   {
+    "h": "Arroz de pato"
+   },
+   {
+    "p": "Coza o pato com o chouriço e a cebola. Guarde o caldo — o segredo está no caldo. Desfie a carne, envolva no arroz cozido no caldo, cubra com rodelas de chouriço e leve ao forno até tostar."
+   },
+   {
+    "comment": {
+     "user": "sofia_r",
+     "time": "02/01/2026",
+     "text": "Faço esta para o meu irmão. Ele finge que não gosta e repete três vezes."
+    }
+   }
+  ]
+ },
+ "quiz_cultura": {
+  "url": "quizzz.pt/cultura-geral",
+  "title": "500 perguntas de cultura geral para quizzes",
+  "site": "Quizzz",
+  "site_color": "#5a3a7a",
+  "keywords": [
+   "quiz",
+   "perguntas",
+   "cultura geral",
+   "perguntas quiz",
+   "trivia"
+  ],
+  "snippet": "Prepara-te para a noite de quiz com os amigos.",
+  "blocks": [
+   {
+    "h": "500 perguntas de cultura geral"
+   },
+   {
+    "list": [
+     "Qual é o maior oceano? (Pacífico)",
+     "Quem pintou a Guernica? (Picasso)",
+     "Em que ano caiu o Muro de Berlim? (1989)",
+     "Qual é o elemento químico com símbolo O? (Oxigénio)",
+     "Quem escreveu \"O Ano da Morte de Ricardo Reis\"? (José Saramago, 1984)",
+     "Qual é a hora da maior preia-mar do ano na Salgueira em 2026? (03:17)"
+    ]
+   },
+   {
+    "meta": "Página atualizada a 14/10/2026 03:17.",
+    "when": "v(\"chapter_n\") >= 5"
+   }
+  ]
  }
 }

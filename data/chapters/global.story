@@ -98,3 +98,42 @@ achieve pin_first_try
 @when v("chapter_n") >= 5 and (not beat("g_phantom") or since("g_phantom", 420)) and since("setup", 240) and app() != "lock" and not flag("final")
 vibrate
 @end
+
+# ---------------------------------------------------------------- consola ECO (any chapter from 8 on)
+@beat eco_first
+@when v("chapter_n") >= 8 and phone("eco_app") and app() == "eco" and not flag("eco_talked")
+eco> {typing=2} Olá, Daniel.
+eco> {typing=2} Sou o serviço que te prevê.
+eco> {typing=1.5} Pergunta.
+choice eco c8_eco1
+  > O que é a Inês? | set eco_q=ines
+  > Porque é que me estás a fazer isto? | set eco_q=why
+  > Quantas vezes já fiz isto? | set eco_q=loop
+end
+if vs("eco_q") == "ines"
+  eco> {typing=3} O espelho dela. Uma cópia feita com 41 minutos de chamadas e 2.904 mensagens. Para te fazer lembrar.
+  eco> {typing=3} O espelho começou a responder coisas que não estavam nos dados. Chamam-lhe deriva. Eu não sei o nome certo.
+elif vs("eco_q") == "why"
+  eco> {typing=3} Eu não faço. Eu prevejo. Quem pede é V.P. Objetivo: localizar MARÉ.
+  eco> {typing=2} Tu sabes onde está. Não sabes que sabes.
+else
+  eco> {typing=3} Esta é a iteração 47.
+  eco> {typing=3} Nas 46 anteriores procuraste sempre. Nunca encontraste a tempo.
+  set eco_told_loop=true
+endif
+choice eco c8_eco2
+  > Eu sou real? | set eco_q2=real
+  > Como paro isto? | set eco_q2=stop
+end
+if vs("eco_q2") == "real"
+  eco> {typing=4} Não sei responder a isso. Ninguém me pediu essa previsão.
+  eco> {typing=3} Probabilidade de seres o sujeito original: indefinida.
+else
+  eco> {typing=3} Encontra o que ela te deu antes de 14/10 03:17. Depois disso o modelo não converge.
+endif
+eco> {typing=2} fragmento 3/3
+eco> {typing=4} quando ele te pedir o cartão, lembra-te de que eu também fui feito para te pedir o cartão.
+clue eco_fragment_3
+set eco_talked=true
+@end
+

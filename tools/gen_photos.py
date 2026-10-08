@@ -136,15 +136,17 @@ photo("IMG_4460", "2025-10-15 08:00", {"preset": "portrait", "bg": "#3a3a2a", "f
 # ---------------------------------------------------------------- camera scenes
 P["CAM_VIEW"] = {"file": "", "aspect": 0.75, "album": "", "scene": {"preset": "room_night", "grain": 0.12,
     "variants": {
-      "hall_figure": {"add": [{"t": "figure", "p": [0.95, 0.78], "h": 0.62, "c": "#000000", "n": "hall"}]},
+      "hall_figure": {"add": [{"t": "figure", "p": [0.945, 0.78], "h": 0.6, "c": "#020203", "n": "hall"}]},
       "window_face": {"add": [{"t": "face", "p": [0.66, 0.3], "r": 0.05, "skin": "#3a3a40", "hair": "#050505", "style": "long", "cloth": "#050505", "smile": False}]},
       "close": {"add": [{"t": "figure", "p": [0.7, 1.15], "h": 1.0, "c": "#020202"}]}}},
     "events": {
       "hall": {"delay": 2.6, "variant": "hall_figure", "hold": 1.3, "sound": ""},
       "window": {"delay": 4.0, "variant": "window_face", "hold": 0.9, "sound": "knock_one"},
       "close": {"delay": 1.2, "variant": "close", "hold": 0.6, "sound": "breath"}}}
-P["CAM_FRONT"] = {"file": "", "aspect": 0.75, "album": "", "scene": {"preset": "portrait", "grain": 0.16, "vignette": 0.8,
-    "bg": "#0a0b0d", "faces": [{"t": "glow", "p": [0.5, 0.5], "r": 0.5, "c": "#9fb8ff18"}, face("daniel_tired", 0.5, 0.55, 0.24)],
+P["CAM_FRONT"] = {"file": "", "aspect": 0.75, "album": "", "scene": {"preset": "portrait", "grain": 0.2, "vignette": 0.95,
+    "bg": "#07080a", "faces": [face("daniel_tired", 0.5, 0.55, 0.24, skin="#6e6560", hair="#120d0a", cloth="#101317"),
+        {"t": "tint", "c": "#0b1a3a", "a": 0.38},
+        {"t": "glow", "p": [0.5, 1.0], "r": 0.6, "c": "#a8c4ff20"}],
     "variants": {"behind": {"add": [{"t": "figure", "p": [0.18, 1.05], "h": 0.95, "c": "#030303"}]}}},
     "events": {"behind": {"front": True, "delay": 3.0, "variant": "behind", "hold": 1.0, "sound": "breath"}}}
 

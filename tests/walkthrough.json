@@ -225,6 +225,10 @@
     [
      "app",
      "messages:clara"
+    ],
+    [
+     "camera",
+     "window"
     ]
    ]
   },
@@ -299,6 +303,10 @@
     [
      "deduce",
      "why=give_copy,told=daniel,daniel_at=walking,who=vasco,where=book"
+    ],
+    [
+     "camera",
+     "behind"
     ]
    ],
    "D": [

@@ -119,9 +119,11 @@ static func room_night(p: Dictionary) -> Array:
 		rc(0.65, 0.84, 0.02, 0.1, "#1d1712"),
 		# mug on table
 		rc(0.4, 0.765, 0.04, 0.035, "#ccc6bd"),
-		# hallway door (left wall, dark gap)
-		rc(0.88, 0.12, 0.12, 0.66, "#0a0a0c", {"n": "hall"}),
-		rc(0.9, 0.14, 0.1, 0.64, "#040405", {"n": "hall_gap"}),
+		# hallway door: the corridor beyond is faintly lit (bathroom nightlight),
+		# so anything standing in it reads as a silhouette
+		rc(0.86, 0.12, 0.14, 0.66, "#0a0a0c", {"n": "hall"}),
+		rc(0.88, 0.14, 0.12, 0.64, "#1a1d24", {"c2": "#101217", "n": "hall_gap"}),
+		glow(0.97, 0.3, 0.12, "#8aa0c018"),
 	]
 	_figs(p, L)
 	return L

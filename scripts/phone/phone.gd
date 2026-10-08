@@ -53,6 +53,7 @@ var _call_ui: CallScreen
 var _lock_screen: LockScreen
 var _home_badges := {}
 var _base_pos := Vector2.ZERO
+var using_pad := false
 
 
 func _ready() -> void:
@@ -412,6 +413,8 @@ func open_app(id: String, p := {}) -> void:
 	Events.app_opened.emit(id)
 	Director.notify_player_action()
 	Clock.notify_activity()
+	if using_pad:
+		get_tree().create_timer(0.25).timeout.connect(focus_first)
 
 
 func _close_current() -> void:
@@ -432,6 +435,7 @@ func go_home() -> void:
 	GameState.current_app = "home"
 	_refresh_badges()
 	Clock.notify_activity()
+	focus_first.call_deferred()
 
 
 func back() -> void:
@@ -486,6 +490,36 @@ func show_locked_immediately() -> void:
 	home.visible = false
 	GameState.current_app = "lock"
 	_lock_screen.show_lock(true)
+
+
+func _input(event: InputEvent) -> void:
+	# remember whether the player is on a controller, so we only move focus for them
+	if event is InputEventJoypadButton or (event is InputEventJoypadMotion and absf(event.axis_value) > 0.5):
+		if not using_pad:
+			using_pad = true
+			focus_first.call_deferred()
+	elif event is InputEventMouseButton or event is InputEventKey:
+		using_pad = false
+
+
+## Give keyboard/controller focus to the first button on the current screen.
+func focus_first() -> void:
+	if not using_pad or locked:
+		return
+	var root: Node = current_app if current_app else home
+	var b := _first_button(root)
+	if b:
+		b.grab_focus()
+
+
+func _first_button(n: Node) -> Control:
+	for ch in n.get_children():
+		if ch is BaseButton and ch.is_visible_in_tree() and ch.focus_mode != Control.FOCUS_NONE and not ch.disabled:
+			return ch
+		var r := _first_button(ch)
+		if r:
+			return r
+	return null
 
 
 func _unhandled_input(event: InputEvent) -> void:

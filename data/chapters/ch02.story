@@ -468,3 +468,43 @@ set called_vasco2=true
 carla: Não consigo falar, tenho a boca cheia de algodão. | 2.5
 carla: Corre tudo bem aí? Ótimo. Beijinho. | 2
 @end
+
+# ---------------------------------------------------------------- normalidade
+@beat marta_lunch
+@when at("13:05")
+marta> o 9.º ano adorou a ideia do livro!! bem, "adorou" é forte. ninguém dormiu
+marta> estás bem? o grupo ficou preocupado contigo de manhã
+@end
+
+@beat marta_lunch_reply
+@when beat("marta_lunch") and read("marta")
+wait 1
+choice marta c2_marta
+  > Estou. Deve ser alguém a brincar comigo. | set marta2=fine
+  > Não sei, Marta. Sinto que alguém me está a observar. | set marta2=honest
+end
+wait 4
+if vs("marta2") == "honest"
+  marta> isso é horrível
+  marta> eu tive um aluno que fazia isso a uma colega com fotos. a polícia apanhou-o pelo telemóvel dele. não estás sozinho nisto
+  marta> e logo à noite estamos todos no farol. ninguém te vai observar lá a não ser o pedro a perder
+else
+  marta> se for brincadeira é de mau gosto. diz-me quem é que eu dou-lhe um teste surpresa
+endif
+@end
+
+@beat quiz_results
+@when at("23:12") and beat("street_reply")
+if flag("at_bar")
+  grupo:marta> FICÁMOS EM SEGUNDO
+  grupo:pedro> roubados. a pergunta do muro de berlim era ambígua
+  grupo:joao> nao era nada pedro
+  grupo:marta> e o daniel acertou a do saramago antes de o apresentador acabar a pergunta
+  grupo:marta> desculpa. bati palmas. em texto
+else
+  grupo:marta> ficámos em terceiro. a pergunta sobre o Saramago era tua, Daniel
+  grupo:pedro> eu disse Eça de Queirós
+  grupo:joao> o pedro disse eça de queiros
+  grupo:marta> para a semana vens. não é um pedido
+endif
+@end

@@ -157,6 +157,19 @@ clue("prescription", "A receita", "Clonazepam 0,5 mg, receitado pela Dra. Helena
 clue("pier_flowers", "Flores no cais", "Em janeiro fotografaste o Cais Velho às 08:12. Há flores atadas a um poste. Não te lembras de lá ter ido.", "Galeria · IMG_1433", 2, ["news_death", "dream_317"])
 clue("sleeping_photo", "A dormir", "Tu, a dormir, fotografado da porta do quarto às 04:02.", "Galeria · IMG_6720", 2, ["door_from_inside", "photo_from_behind"])
 
+clue("forum_own_post", "Um tópico teu", "Em fevereiro escreveste num fórum de insónias sobre as 3:17. Uma conta chamada \"maré\" respondeu: \"não olhes para o relógio quando acordares.\" Foi removida por ser uma \"conta duplicada\".", "dormirbem.pt", 2, ["dream_317", "ines_letter", "forum_317_calls"])
+clue("eco_learns_at_night", "O ECO aprende à noite", "Numa análise de 2025, o \"ECO Service\" gastava até 40% da bateria durante a noite. \"Aprende quando o utilizador está mais vulnerável.\"", "techpt.pt", 2, ["eco_care_mention", "vasco_monitors_phone"])
+clue("pier_legend", "O cais das despedidas", "Diz a tradição que quem espera no fim do Cais Velho na maior maré do ano ouve chamar o seu nome.", "salgueira.pt", 1, ["tide_317", "prediction_317"])
+clue("meridiano_lumen", "Meridiano + Lumen", "A Seguros Meridiano \"ajusta o seguro\" com base em riscos previstos por IA. Parceiro tecnológico: Lumen.", "segurosmeridiano.pt", 2, ["insurance_sale", "clinic_lumen_partners"])
+
+clue("carla_photo_in_book", "Uma fotografia dentro de um livro", "A Carla encontrou uma fotografia tua e da Inês dentro de um livro que levaste para casa. \"Tens a mania de guardar coisas dentro dos livros.\"", "Mensagens · Carla", 2, ["daniel_hides_in_books", "saramago_spine"])
+
+clue("window_face", "Um rosto na janela", "Na câmara, por um instante, um rosto do lado de fora da janela da sala. E uma pancada no vidro.", "Câmara", 2, ["camera_hall_figure", "street_watcher"])
+clue("front_camera_figure", "Atrás de ti", "Na câmara frontal, por cima do teu ombro, alguém de pé no escuro da sala.", "Câmara frontal", 2, ["photo_from_behind", "camera_hall_figure"])
+
+clue("marta_remembers_them", "Uma playlist", "A Marta lembra-se de vocês os dois ao balcão do Farol. Fizeste uma playlist para os anos da Inês. Tu não te lembras.", "Mensagens · Marta", 1, ["barely_knew_lie", "joao_knew_ines"])
+clue("pedro_cousin", "\"O aquário\"", "O primo do Pedro trabalha na segurança da Lumen: na noite de 13 para 14 de outubro de 2025, o carro do diretor saiu às 2h30 e só voltou às 5h.", "Mensagens · Pedro", 2, ["vasco_audi", "vasco_car_cctv"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

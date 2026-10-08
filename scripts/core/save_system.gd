@@ -3,13 +3,19 @@ extends Node
 ## previous file is kept as .bak so a crash mid-write never loses progress.
 ## Slot "auto" is written at chapter starts and story checkpoints.
 
-const DIR := "user://saves/"
+var DIR := "user://saves/"
 const MANUAL_SLOTS := 5
 
 var last_error := ""
 
 
 func _ready() -> void:
+	DirAccess.make_dir_recursive_absolute(DIR)
+
+
+## Tests write to a separate folder so they never touch a player's saves.
+func use_test_dir() -> void:
+	DIR = "user://test_saves/"
 	DirAccess.make_dir_recursive_absolute(DIR)
 
 

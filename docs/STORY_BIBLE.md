@@ -168,4 +168,11 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 6. A Dra. Helena diz "falámos disto na terça" — não houve consulta na terça.
 7. O registo de chamadas mostra uma chamada de 0:00 para a Inês às 03:17 de
    cada noite a partir do cap. 5.
-8. A foto IMG_2207 (o fundo do ecrã) ganha uma pessoa no reflexo da janela no cap. 6.
+8. A foto IMG_2207 (o fundo do ecrã, pôr do sol na praia) ganha uma pessoa de pé na água no cap. 6.
+9. A conta ines.matos@lumen.pt aparece "adicionada a 14/10/2025 03:21" num telemóvel que só foi
+   registado a 03/11/2025. (Ou a conta foi metida no dispositivo pela Lumen — ou o dispositivo é outra coisa.)
+10. Cap. 7: o Vasco agradece um café às 11h de domingo que o Daniel não se lembra de tomar; a
+    cronologia dos Mapas não mostra saída de casa. Nunca se resolve: gaslighting ou lacuna real.
+11. Cap. 3: "Faz quatro dias que me perguntas isso" — só passaram dois. (Iterações da simulação.)
+12. Fórum Dormir Bem (fev. 2026): a conta "maré" escreve a frase exata da carta da Inês
+    ("não olhes para o relógio quando acordares"), que o Daniel só lê no cap. 10.

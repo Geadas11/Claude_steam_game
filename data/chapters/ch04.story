@@ -262,3 +262,51 @@ inc trust_vasco 1
 clara: Clara Neves. | 1.5
 clara: Prefiro mensagens escritas. Desculpe. Escreva-me. | 3
 @end
+
+# ---------------------------------------------------------------- normalidade: o ECO 2 no grupo
+@beat grupo_eco2
+@when at("12:30")
+grupo:pedro> viram? o ECO 2 vai "reconhecer emoções pela voz". vai saber quando estamos tristes
+grupo:marta> que horror. eu não quero que o meu telemóvel saiba quando estou triste
+grupo:joao> o meu telemovel é um nokia de 2009 e tenho muito orgulho disso
+@end
+
+@beat grupo_eco2_reply
+@when beat("grupo_eco2") and read("grupo")
+wait 1
+choice grupo c4_grupo
+  > Eu testei o primeiro ECO na Lumen. Não comprem isso. | set told_group_eco=true
+  > O João é o único sensato neste grupo. | set told_group_eco=false
+  > [Não responder]
+end
+wait 4
+if flag("told_group_eco")
+  grupo:pedro> espera. tu trabalhaste no ECO?
+  grupo:pedro> isso explica porque é que nunca respondes a mensagens. é trauma
+  grupo:marta> Pedro.
+  grupo:pedro> desculpa
+  wait 3
+  grupo:joao> dani fala comigo depois. a serio
+elif vs("told_group_eco") == "false"
+  grupo:joao> finalmente alguem reconhece
+  grupo:pedro> o nokia nem tem whatsapp. como é que estás a escrever isto
+  grupo:joao> magia
+endif
+@end
+
+@beat mae_sunday
+@when at("17:10")
+mae> amanhã é domingo. vens almoçar? fiz bacalhau
+@end
+
+@beat mae_sunday_reply
+@when beat("mae_sunday") and read("mae")
+wait 1
+choice mae c4_mae
+  > Este domingo não consigo, mãe. Desculpa. | set mae4=no
+  > Vou tentar. Beijinho. | set mae4=maybe
+end
+wait 4
+mae> esta bem filho. eu guardo-te um bocadinho
+mae> e liga-me amanha. a tua irma diz que estas mais magro
+@end

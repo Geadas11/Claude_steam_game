@@ -1341,5 +1341,96 @@
    "door_from_inside",
    "photo_from_behind"
   ]
+ },
+ "forum_own_post": {
+  "title": "Um tópico teu",
+  "desc": "Em fevereiro escreveste num fórum de insónias sobre as 3:17. Uma conta chamada \"maré\" respondeu: \"não olhes para o relógio quando acordares.\" Foi removida por ser uma \"conta duplicada\".",
+  "source": "dormirbem.pt",
+  "importance": 2,
+  "related": [
+   "dream_317",
+   "ines_letter",
+   "forum_317_calls"
+  ]
+ },
+ "eco_learns_at_night": {
+  "title": "O ECO aprende à noite",
+  "desc": "Numa análise de 2025, o \"ECO Service\" gastava até 40% da bateria durante a noite. \"Aprende quando o utilizador está mais vulnerável.\"",
+  "source": "techpt.pt",
+  "importance": 2,
+  "related": [
+   "eco_care_mention",
+   "vasco_monitors_phone"
+  ]
+ },
+ "pier_legend": {
+  "title": "O cais das despedidas",
+  "desc": "Diz a tradição que quem espera no fim do Cais Velho na maior maré do ano ouve chamar o seu nome.",
+  "source": "salgueira.pt",
+  "importance": 1,
+  "related": [
+   "tide_317",
+   "prediction_317"
+  ]
+ },
+ "meridiano_lumen": {
+  "title": "Meridiano + Lumen",
+  "desc": "A Seguros Meridiano \"ajusta o seguro\" com base em riscos previstos por IA. Parceiro tecnológico: Lumen.",
+  "source": "segurosmeridiano.pt",
+  "importance": 2,
+  "related": [
+   "insurance_sale",
+   "clinic_lumen_partners"
+  ]
+ },
+ "carla_photo_in_book": {
+  "title": "Uma fotografia dentro de um livro",
+  "desc": "A Carla encontrou uma fotografia tua e da Inês dentro de um livro que levaste para casa. \"Tens a mania de guardar coisas dentro dos livros.\"",
+  "source": "Mensagens · Carla",
+  "importance": 2,
+  "related": [
+   "daniel_hides_in_books",
+   "saramago_spine"
+  ]
+ },
+ "window_face": {
+  "title": "Um rosto na janela",
+  "desc": "Na câmara, por um instante, um rosto do lado de fora da janela da sala. E uma pancada no vidro.",
+  "source": "Câmara",
+  "importance": 2,
+  "related": [
+   "camera_hall_figure",
+   "street_watcher"
+  ]
+ },
+ "front_camera_figure": {
+  "title": "Atrás de ti",
+  "desc": "Na câmara frontal, por cima do teu ombro, alguém de pé no escuro da sala.",
+  "source": "Câmara frontal",
+  "importance": 2,
+  "related": [
+   "photo_from_behind",
+   "camera_hall_figure"
+  ]
+ },
+ "marta_remembers_them": {
+  "title": "Uma playlist",
+  "desc": "A Marta lembra-se de vocês os dois ao balcão do Farol. Fizeste uma playlist para os anos da Inês. Tu não te lembras.",
+  "source": "Mensagens · Marta",
+  "importance": 1,
+  "related": [
+   "barely_knew_lie",
+   "joao_knew_ines"
+  ]
+ },
+ "pedro_cousin": {
+  "title": "\"O aquário\"",
+  "desc": "O primo do Pedro trabalha na segurança da Lumen: na noite de 13 para 14 de outubro de 2025, o carro do diretor saiu às 2h30 e só voltou às 5h.",
+  "source": "Mensagens · Pedro",
+  "importance": 2,
+  "related": [
+   "vasco_audi",
+   "vasco_car_cctv"
+  ]
  }
 }

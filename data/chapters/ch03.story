@@ -263,3 +263,30 @@ endchapter
 joao: tas a ligar-me de dentro de casa? | 2
 joao: vou ai. | 1.5
 @end
+
+# ---------------------------------------------------------------- a Marta também não dorme
+@beat marta_night
+@when at("00:25")
+marta> desculpa a hora. estou a corrigir testes e ouvi o teu nome
+marta> não, mentira. estou a corrigir testes e lembrei-me de ti. o João disse que hoje ias ao quiz e depois desapareceste do grupo
+@end
+
+@beat marta_night_reply
+@when beat("marta_night") and read("marta")
+wait 1
+choice marta c3_marta
+  > Marta, lembras-te de uma rapariga chamada Inês? Ia ao Farol. | set asked_marta_ines=true
+  > Estou bem. Só não consigo dormir. | set asked_marta_ines=false
+end
+wait 5
+if flag("asked_marta_ines")
+  marta> a Inês da Lumen? claro
+  marta> era tua amiga. vocês estavam sempre os dois ao balcão a discutir livros
+  marta> fizeste-lhe uma playlist nos anos dela. ela pôs a tocar no bar e tu ficaste vermelho
+  wait 4
+  marta> Daniel... tu não te lembras disso?
+  clue marta_remembers_them
+else
+  marta> somos dois. boa noite querido
+endif
+@end

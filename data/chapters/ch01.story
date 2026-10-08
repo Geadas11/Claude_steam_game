@@ -363,3 +363,56 @@ lock
 wait 2
 endchapter
 @end
+
+# ---------------------------------------------------------------- Marta e Pedro (normalidade)
+@beat marta_private
+@when since("setup", 160)
+marta> Daniel, pergunta de professora desesperada
+marta> Tenho um 9.º ano que odeia ler. Preciso de um livro que não os mate de tédio. Tu és o homem dos livros
+@end
+
+@beat marta_reply
+@when beat("marta_private") and read("marta")
+wait 1
+choice marta c1_marta
+  > "Os da Minha Rua", do Ondjaki. Curto, engraçado, e acaba por doer. | set marta_book=ondjaki
+  > "O Principezinho". Eles acham que é infantil até à página 20. | set marta_book=principe
+  > Dá-lhes o manual de instruções do telemóvel. Assusta mais. | set marta_book=manual
+end
+wait 3
+if vs("marta_book") == "manual"
+  marta> ahahah
+  marta> não me dês ideias. eles leem os termos e condições do tiktok com mais atenção do que o Camões
+else
+  marta> Anotado! Vou encomendar na Maré. Fazes-me desconto de amiga?
+  marta> (a resposta é sim)
+endif
+wait 3
+marta> Obrigada querido. Amanhã no quiz pago-te um gin
+@end
+
+@beat pedro_pitch
+@when at("22:55")
+pedro> Daniel, pergunta séria
+pedro> Tu percebes disto. Achas que devo comprar ações da Lumen? Com o ECO 2 vão disparar
+@end
+
+@beat pedro_reply
+@when beat("pedro_pitch") and read("pedro")
+wait 1
+choice pedro c1_pedro
+  > Não sei, Pedro. Eu só testava aquilo. | set pedro_eco=neutral
+  > Eu não punha lá um cêntimo. | set pedro_eco=against
+  > Compra. Assim quando correr mal tens alguém a quem culpar. | set pedro_eco=joke
+end
+wait 3
+if vs("pedro_eco") == "against"
+  pedro> uau. tu sabes alguma coisa que eu não sei
+  pedro> ok ok. não insisto. mas se dispararem não te dou nada
+elif vs("pedro_eco") == "joke"
+  pedro> isso é um sim
+  pedro> vou comprar 3 ações. as minhas economias todas
+else
+  pedro> ok. vou perguntar ao chatbot do banco
+endif
+@end

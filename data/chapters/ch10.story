@@ -322,3 +322,32 @@ endchapter
 helena: Daniel. Ainda vai a tempo. | 2
 helena: Venha. Não tem de fazer isto sozinho. | 3
 @end
+
+# ---------------------------------------------------------------- o grupo repara
+@beat grupo_worried
+@when at("12:15")
+if flag("joao_gone")
+  grupo:marta> o João saiu do grupo e não atende ninguém. Daniel aconteceu alguma coisa entre vocês?
+  grupo:pedro> ele nunca sai do grupo. nem quando eu mandei aquele vídeo de 40 minutos
+else
+  grupo:marta> Daniel, o João diz que andas esquisito. estamos aqui, ok?
+  grupo:pedro> eu também estou aqui. tecnicamente
+endif
+@end
+
+@beat grupo_worried_reply
+@when beat("grupo_worried") and read("grupo")
+wait 1
+choice grupo c10_grupo
+  > Obrigado. Amanhã explico tudo. Prometo. | set grupo10=promise
+  > Estou bem. Não se preocupem. | set grupo10=fine
+end
+wait 4
+if vs("grupo10") == "promise"
+  grupo:marta> vamos cobrar
+  grupo:pedro> com juros
+else
+  grupo:marta> "estou bem". claro
+  grupo:marta> ok. estamos aqui na mesma
+endif
+@end

@@ -10,6 +10,7 @@ var endings := {}         # ending id -> count
 var stats := {}
 var steam: Object = null
 var steam_ok := false
+var persist := true      # tests turn this off so they never touch the real profile
 
 
 func _ready() -> void:
@@ -33,7 +34,7 @@ func _process(_d: float) -> void:
 
 
 func _steam_set(id: String) -> void:
-	if not steam_ok:
+	if not steam_ok or not persist:
 		return
 	steam.call("setAchievement", id)
 	steam.call("storeStats")
@@ -107,6 +108,8 @@ func _load() -> void:
 
 
 func _save() -> void:
+	if not persist:
+		return
 	var f := FileAccess.open(PATH, FileAccess.WRITE)
 	if f:
 		f.store_string(JSON.stringify({"unlocked": unlocked, "endings": endings, "stats": stats}, "  "))

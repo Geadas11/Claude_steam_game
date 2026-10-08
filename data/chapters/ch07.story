@@ -257,6 +257,34 @@ else
 endif
 @end
 
+# ---------------------------------------------------------------- a janela
+@beat window
+@when at("01:22")
+camera window
+unknown> Não te assustes.
+wait 3
+unknown> Abre a câmara e aponta para a janela da sala.
+@end
+
+@beat window_seen
+@when flag("cam_window_seen")
+wait 5
+unknown> Eu disse para não te assustares.
+wait 3
+choice unknown c7_window
+  > Eras tu? | set window_q=you
+  > Há alguém lá fora? | set window_q=outside
+  > [Não responder]
+end
+wait 6
+if vs("window_q") == "you"
+  unknown> Não sei. Às vezes vejo-me de fora.
+elif vs("window_q") == "outside"
+  unknown> Agora já não.
+endif
+clue window_face
+@end
+
 # ---------------------------------------------------------------- Helena sabe demais
 @beat helena_knows
 @when at("01:40")
@@ -308,4 +336,31 @@ joao: se for por causa da mensagem que a tua medica diz, eu explico tudo. pessoa
 @call vasco c7_call_vasco
 vasco: Daniel. É tarde. | 1.5
 vasco: Traga-me o telemóvel amanhã e acabamos com isto. Para bem de todos. | 3.5
+@end
+
+# ---------------------------------------------------------------- o primo do Pedro
+@beat pedro_cousin
+@when at("22:50")
+pedro> Daniel. o João contou-me que andas a investigar a rapariga da Lumen
+pedro> eu sei que acham que eu só falo de criptomoedas mas ouve
+pedro> o meu primo trabalha na segurança da Lumen. diz que há um piso no edifício 3 onde só entram 4 pessoas. chamam-lhe "o aquário"
+pedro> e diz que na noite de 13 para 14 de outubro do ano passado o carro do diretor saiu do parque às 2 e meia e só voltou às 5
+clue pedro_cousin
+@end
+
+@beat pedro_cousin_reply
+@when beat("pedro_cousin") and read("pedro")
+wait 1
+choice pedro c7_pedro
+  > O carro do diretor... um Audi cinzento? | set asked_pedro_audi=true
+  > Obrigado, Pedro. A sério. | set thanked_pedro=true
+end
+wait 8
+if flag("asked_pedro_audi")
+  pedro> como é que sabes??
+  pedro> sim. o Pimentel. ocupa dois lugares. toda a gente odeia
+  clue vasco_audi
+else
+  pedro> de nada. e Daniel, apaga esta conversa. o meu primo precisa do emprego
+endif
 @end
