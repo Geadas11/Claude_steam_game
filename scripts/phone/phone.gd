@@ -673,17 +673,25 @@ func _show_next_banner() -> void:
 
 
 var _toast_tw: Tween
+var _toast_queue: Array = []
 
 
+## Shows a short message at the bottom of the screen. Toasts never cut each
+## other off: a new one waits for the current one (repeats are dropped).
 func toast(text: String) -> void:
+	if _toast_tw and _toast_tw.is_running():
+		if text != toast_label.text and not _toast_queue.has(text) and _toast_queue.size() < 4:
+			_toast_queue.append(text)
+		return
 	var tp: Control = screen.get_node("Toast")
 	toast_label.text = text
-	if _toast_tw and _toast_tw.is_valid():
-		_toast_tw.kill()
 	_toast_tw = create_tween()
 	_toast_tw.tween_property(tp, "modulate:a", 1.0, 0.2)
 	_toast_tw.tween_interval(2.4 + text.length() * 0.02)
 	_toast_tw.tween_property(tp, "modulate:a", 0.0, 0.4)
+	_toast_tw.finished.connect(func():
+		if not _toast_queue.is_empty():
+			toast(_toast_queue.pop_front()))
 
 
 # ================================================================= calls
