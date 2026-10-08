@@ -95,3 +95,7 @@ func next_chapter(id: String) -> String:
 	if i == -1 or i + 1 >= chapter_order.size():
 		return ""
 	return chapter_order[i + 1]
+
+
+func chapter_recap(id: String) -> String:
+	return str(db.get("chapters_meta", {}).get("recaps", {}).get(id, ""))

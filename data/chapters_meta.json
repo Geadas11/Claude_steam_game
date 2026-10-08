@@ -25,6 +25,18 @@
   "ch10": "Consequências",
   "ch11": "Final"
  },
+ "recaps": {
+  "ch01": "Quinta-feira. Um dia normal: a Sofia, o quiz do Farol, a Carla e os Saramagos, o Vasco a lembrar-te do ECO 2. Quase um ano depois do dia 14. Às 23:47, um número desconhecido: \"Ainda estás acordado?\" — e uma fotografia da tua janela, tirada da rua três minutos antes.",
+  "ch02": "O número sabe coisas que só tu sabes. Cada amigo tem uma explicação diferente: um golpe com IA, alguém de capuz na rua, \"envie-me capturas de ecrã\". Às 03:02, uma fotografia da porta do teu quarto, tirada de dentro. A primeira chamada: só mar.",
+  "ch03": "Descobriste a quem pertencia o número: Inês Matos, tua colega na Lumen, que morreu no Cais Velho a 14 de outubro de 2025. A voz diz que tu estavas lá. Às 03:17, ligou-te.",
+  "ch04": "Sábado. Notícias, um fórum, o blogue trancado da Inês. A jornalista Clara Neves esperava-a às 10h do dia 14 — ela nunca apareceu. Foi um pescador, o Sr. Armando, quem a encontrou de manhã, no cais, com o casaco vermelho.",
+  "ch05": "O telemóvel começou a mudar. Mensagens antigas reescritas, pesquisas que não fizeste, uma fotografia tirada por trás de ti. Reiniciou sozinho e o PIN passou a ser a data da morte dela. Três pancadas na porta.",
+  "ch06": "Alguém restaurou a cópia do teu telemóvel antigo. Afinal conhecias bem a Inês. As últimas mensagens dela, às 03:12 e 03:15: \"Daniel volta\". \"Ele está aqui\". O João mentiu-te. A Dra. Helena também.",
+  "ch07": "Toda a gente te pede confiança: a Helena, o Vasco, a voz, a Clara, que precisa de uma prova. Recebeste uma mensagem do João que o João não escreveu. O Vasco quer o teu telemóvel de volta.",
+  "ch08": "O registo do sistema previu o que ia acontecer — e aconteceu. Uma captura de ecrã mostrou a mensagem que mandaste ao Vasco na noite de 13: onde ela estava, e \"não lhe digas que fui eu\". Por baixo de tudo, o ECO. E a Sofia ainda guardava o teu telemóvel antigo numa gaveta.",
+  "ch09": "A Sofia mandou-te a cópia do telemóvel antigo, protegida pelo aniversário dela. A conta da Inês sincronizou uma gravação feita no cais às 03:09. A voz pediu-te que montasses a noite peça a peça. O Vasco quer-te internado amanhã às 14h.",
+  "ch10": "Terça-feira, 13 de outubro. As escolhas pagaram-se: quem ficou do teu lado, quem desapareceu. O cartão da Inês esteve sempre dentro do livro. Esta noite, faz um ano."
+ },
  "eco_key": "mare",
  "special_numbers": {
   "112": "emergency",

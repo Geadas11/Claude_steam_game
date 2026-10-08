@@ -169,6 +169,8 @@ func _validate() -> void:
 			ok(Content.has_item("clues", r), "clue %s related to unknown %s" % [c, r])
 		ok(clue_refs.has(c), "clue '%s' is defined but can never be awarded" % c)
 	ok(Content.all("achievements").size() >= 20, "at least 20 achievements")
+	for i in range(Content.chapter_order.size() - 1):
+		ok(Content.chapter_recap(Content.chapter_order[i]) != "", "chapter %s has a recap" % Content.chapter_order[i])
 	_check_delivery(all_beats)
 	print("   validated %d beats, %d clue references" % [all_beats.size(), clue_refs.size()])
 
@@ -527,6 +529,11 @@ func _ui_smoke(policy: String) -> void:
 	await _frames(2)
 	phone.refresh_all()
 	phone.unlock(true)
+	for panel in [RecapPanel.new(), ChoicesPanel.new()]:
+		add_child(panel)
+		await _frames(2)
+		ok(panel.body.get_child_count() > 0, "%s has content" % panel.get_script().get_global_name())
+		panel.queue_free()
 	var opened := 0
 	for app_id in Phone.APPS:
 		phone.open_app(app_id, {"forced": true})

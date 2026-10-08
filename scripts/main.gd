@@ -144,6 +144,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 				for th in GameState.data.threads:
 					GameState.mark_read(th)
 			"decisions": pause_menu.add_child(ChoicesPanel.new())
+			"recap": pause_menu.add_child(RecapPanel.new())
 			"extras": overlay.add_child(ExtrasPanel.new())
 			"pause": toggle_pause()
 			"shade": phone.open_shade()
