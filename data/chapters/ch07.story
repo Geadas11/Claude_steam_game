@@ -412,3 +412,36 @@ wait 10
 unknown> "Uma perda importante."
 unknown> Eles sabem a data melhor do que tu.
 @end
+
+# ---------------------------------------------------------------- Sofia e a gaveta
+@beat sofia_drawer
+@when at("23:35") and flag("sofia_has_old_phone")
+sofia> Fui buscar o teu telemóvel velho à gaveta para o carregar
+sofia> Estava dentro de um envelope com um bilhete de comboio. Faro–Lisboa, 15 de outubro do ano passado, 07:10
+sofia> Comprado no dia 14 às 05:12. Nunca foi usado
+sofia> Ias ter comigo?
+@end
+
+@beat sofia_drawer_reply
+@when beat("sofia_drawer") and read("sofia")
+wait 1
+choice sofia c7_sofia
+  > Não me lembro de o comprar. | set sofia7=blank
+  > Ia. Depois não consegui sair de casa. | set sofia7=honest inc trust_sofia 1
+  > Deita isso fora. | set sofia7=away
+end
+wait 20
+if vs("sofia7") == "honest"
+  sofia> Eu tinha ido buscar-te à estação
+  wait 3
+  sofia> Ainda vou, se quiseres. Não precisas de bilhete para isso
+elif vs("sofia7") == "blank"
+  sofia> Às 5 e 12 da manhã, Daniel. Uma hora depois de... 
+  wait 4
+  sofia> Ok. Não te lembras. Eu guardo-o
+else
+  sofia> Não deito. Fica comigo, junto com o telemóvel
+  sofia> Um dia perguntas-me por ele
+endif
+clue train_ticket
+@end

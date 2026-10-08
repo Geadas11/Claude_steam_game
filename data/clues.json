@@ -1884,6 +1884,16 @@
    "vasco_monitors_phone"
   ]
  },
+ "train_ticket": {
+  "title": "Faro–Lisboa, 07:10",
+  "desc": "Junto com o telemóvel antigo, a Sofia encontrou um bilhete de comboio para Lisboa, comprado a 14/10/2025 às 05:12 para o dia seguinte. Nunca foi usado.",
+  "source": "Mensagens · Sofia",
+  "importance": 1,
+  "related": [
+   "old_location",
+   "sofia_old_phone"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

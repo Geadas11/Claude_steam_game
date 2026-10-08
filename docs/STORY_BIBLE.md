@@ -129,6 +129,8 @@ LOOP e o final secreto ECO exploram‑na. Os restantes finais não a negam.
 - **14 Out 04:12** — Daniel na Livraria Maré (com a chave da Inês). Esconde o cartão. Deixa a porta destrancada.
 - **14 Out ~04:30** — A caminho de casa liga à mãe sem dizer nada (só se ouve o mar). Ela liga-lhe
   de volta onze vezes; de manhã ele diz que esteve a dormir (cap. 9).
+- **14 Out 05:12** — Em casa, compra online um bilhete Faro–Lisboa para 15/10 07:10 (ia ter com a Sofia).
+  Nunca o usa; fica num envelope com o telemóvel antigo (cap. 7).
 - **14 Out 06:40** — Corpo encontrado pelo Sr. Armando.
 - **15 Out** — Notícia Jornal do Sul. Vasco liga ao Daniel.
 - **20 Out** — Daniel começa consultas com a Dra. Helena.

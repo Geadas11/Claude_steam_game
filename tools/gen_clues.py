@@ -224,6 +224,7 @@ clue("eco_41_subjects", "41 espelhos", "O ECO prevê 41 pessoas em luto, cada um
 clue("eco_gap", "Trinta e cinco minutos", "Entre as 03:06 e as 03:41 de 14/10/2025 o ECO não tem dados teus: o telemóvel antigo estava dentro de água. É a única parte de ti que não consegue prever.", "Consola ECO", 3, ["old_location", "joao_saw_daniel"])
 clue("unsent_draft", "\"Vou já\"", "Uma captura de ecrã do telemóvel antigo, 14/10/2025 às 03:13: na conversa com a Inês, um rascunho por enviar — \"Vou já\". Nunca o enviaste. Também nunca tiraste esta captura.", "Galeria · Capturas", 3, ["ines_last_messages", "old_location"])
 clue("eco_weekly_report", "O resumo semanal", "O ECO Care envia um relatório do teu sono, das tuas pesquisas e das pessoas com quem falas — à Dra. Helena e ao Vasco. O João, o Rui e a Clara são \"contactos sinalizados\".", "Email · ECO Care", 2, ["eco_care_mention", "helena_sees_sleep", "vasco_monitors_phone"])
+clue("train_ticket", "Faro–Lisboa, 07:10", "Junto com o telemóvel antigo, a Sofia encontrou um bilhete de comboio para Lisboa, comprado a 14/10/2025 às 05:12 para o dia seguinte. Nunca foi usado.", "Mensagens · Sofia", 1, ["old_location", "sofia_old_phone"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below
