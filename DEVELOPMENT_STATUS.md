@@ -19,7 +19,7 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 171 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 178 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
 | Steam | 🟡 ponte GodotSteam + 34 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
@@ -29,10 +29,10 @@ ver "Problemas conhecidos")
 
 - **11 capítulos** em `data/chapters/` + `global.story` (chamadas de amigos, reações globais, consola ECO)
 - **21 personagens** com vozes distintas (ver `docs/STORY_BIBLE.md`)
-- **39 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
-- **35 páginas web** (6 escondidas: só aparecem com a pesquisa certa)
+- **42 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
+- **36 páginas web** (7 escondidas: só aparecem com a pesquisa certa)
 - **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **171 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **178 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -50,7 +50,7 @@ ver "Problemas conhecidos")
 | 3 | O número era de uma morta; "Faz quatro dias que me perguntas isso"; "Tu estavas lá."; chamada às 03:17 |
 | 4 | O pescador viu-te ir embora a pé enquanto ela te chamava |
 | 5 | Mensagem antiga muda; mensagem enviada sem ti; pesquisas que não fizeste; nota do futuro; vulto no corredor; contacto muda de nome; "Localização atualizada · Cais Velho"; foto tirada por trás; "Aplicação desconhecida — Algo correu mal."; a tua voz a sussurrar numa gravação; reinício + PIN = data da morte; reflexo no ecrã apagado; 17 min de silêncio; 3 pancadas; a Sofia escreve "Ainda estás acordado?"; a voz repete a tua frase |
-| 6 | Últimas mensagens restauradas ("Ele está aqui"); o fundo de ecrã ganha uma pessoa enquanto olhas |
+| 6 | Últimas mensagens restauradas ("Ele está aqui"); o fundo de ecrã ganha uma pessoa enquanto olhas; o caixote da secretária da Inês (post-it "03:17") |
 | 7 | Rosto na janela; o telemóvel escreve e envia sozinho; mensagem do João que o João não enviou; a médica sabe demais |
 | 8 | O registo prevê as 11:04 e acontece; o telemóvel abre sozinho a captura do que fizeste; a fotografia do cais aproxima-se enquanto olhas; fotografado a dormir; vaga de internamento "sem telemóvel" |
 | 9 | A gravação do cais; alguém atrás de ti na câmara frontal; a Rita "está bem" |
@@ -95,7 +95,7 @@ ver "Problemas conhecidos")
 ## Testes
 
 - `tools/check.sh` — compila todos os scripts (falha em erros de parse).
-- `tools/run_tests.sh` — em paralelo: validação de dados (~4300 verificações: referências, expressões,
+- `tools/run_tests.sh` — em paralelo: validação de dados (~5000 verificações: referências, expressões,
   pistas, finais), gravação/carregamento (incl. ficheiro corrompido → `.bak`), 5 jogadas completas
   (uma por final, via `tests/walkthrough.json`) e varrimento da UI com estado de fim de jogo
   (todas as apps, conversas, fotos, emails, ficheiros, páginas, definições, locais).
