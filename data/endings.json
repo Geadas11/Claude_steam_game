@@ -178,6 +178,18 @@
    {
     "when": "flag(\"rita_talked\")",
     "line": "[ eco.sim 112 — iteração 09 — a reiniciar ]"
+   },
+   {
+    "when": "flag(\"joao_heard_called\") or clue(\"self_voicemail\")",
+    "line": "[ fragmento não apagado: \"ela chamou-me\" · origem: desconhecida ]"
+   },
+   {
+    "when": "flag(\"mae_call_430\")",
+    "line": "[ fragmento não apagado: chamada 04:31 · duração 6:12 · só mar ]"
+   },
+   {
+    "when": "clue(\"wall_note_0317\") or clue(\"december_bookshop\")",
+    "line": "[ aviso: o sujeito deixa marcas fora do dispositivo · não modeladas ]"
    }
   ],
   "coda": [
