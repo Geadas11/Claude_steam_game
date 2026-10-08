@@ -31,6 +31,11 @@ func open() -> void:
 		var b := MenuPanel.menu_button("Continuar", func(): main.continue_game(latest))
 		_col.add_child(b)
 		b.call_deferred("grab_focus")
+		var sm := Saves.slot_meta(latest)
+		if not sm.is_empty():
+			var pt := int(sm.get("playtime", 0))
+			var info := UI.label("%s · %s · %dh%02d de jogo" % [sm.get("chapter_title", ""), Clock.fmt_time(float(sm.get("game_time", 0))), pt / 3600, (pt / 60) % 60], 12, "faint")
+			_col.add_child(info)
 	var nb := MenuPanel.menu_button("Novo jogo", _new_game)
 	_col.add_child(nb)
 	if latest == "":
