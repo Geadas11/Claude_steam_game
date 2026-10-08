@@ -74,6 +74,8 @@ func _update_view() -> void:
 		spec.layers = spec.get("layers", []) + [{"t": "glow", "p": [0.5, 0.6], "r": 0.55, "c": "#fff4dc2a"}]
 		spec.vignette = 0.85
 	_pv.set_scene(spec, _variant)
+	_pv.image_id = _scene_id()
+	_pv._build()
 	_pv.live = true
 	_pv.set_process(true)
 

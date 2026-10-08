@@ -34,6 +34,8 @@ var variant := "base"
 var live := false          # animated grain (camera viewfinder)
 var shake := 0.0
 var _layers: Array = []
+var _tex: Texture2D        # a real photograph (art/photos), when there is one
+var image_id := ""         # which art/photos file to look for (defaults to photo_id)
 var _grain: ColorRect
 var _rng := RandomNumberGenerator.new()
 var _t := 0.0
@@ -57,6 +59,7 @@ func _ready() -> void:
 
 func set_photo(id: String, v := "") -> void:
 	photo_id = id
+	image_id = id
 	var d := Content.get_item("photos", id)
 	spec = d.get("scene", {})
 	variant = v if v != "" else GameState.photo_variant(id)
@@ -65,13 +68,15 @@ func set_photo(id: String, v := "") -> void:
 
 func set_scene(s: Dictionary, v := "base") -> void:
 	photo_id = ""
+	image_id = ""
 	spec = s
 	variant = v
 	_build()
 
 
 func _build() -> void:
-	_layers = PhotoPresets.build(spec, variant)
+	_tex = photo_texture(image_id, variant)
+	_layers = [] if _tex else PhotoPresets.build(spec, variant)
 	_apply_grain()
 	queue_redraw()
 
@@ -99,6 +104,8 @@ func _draw() -> void:
 		r.position += off - Vector2(6, 6)
 		r.size += Vector2(12, 12)
 	draw_rect(Rect2(Vector2.ZERO, size), Color.BLACK)
+	if _tex:
+		_draw_cover(_tex, r)
 	for L in _layers:
 		_draw_layer(L, r)
 
@@ -405,3 +412,25 @@ func _books(L: Dictionary, r: Rect2, a: float) -> void:
 			var col := _col(palette[_rng.randi() % palette.size()], a)
 			draw_rect(Rect2(_P(r, x, y + sh * 0.92 - bh), Vector2(bw * r.size.x, bh * r.size.y)), col.darkened(_rng.randf_range(0.0, 0.35)))
 			x += bw + 0.002
+
+
+## The real photograph for a photo id and variant, if it exists
+## (art/photos/<ID>.jpg, art/photos/<ID>__<variant>.jpg).
+static func photo_texture(id: String, v := "base") -> Texture2D:
+	if id == "":
+		return null
+	if v != "" and v != "base":
+		var vp := "res://art/photos/%s__%s.jpg" % [id, v]
+		if ResourceLoader.exists(vp):
+			return load(vp)
+	var p := "res://art/photos/%s.jpg" % id
+	return load(p) if ResourceLoader.exists(p) else null
+
+
+## Fills the rect keeping the aspect ratio (crops the excess), like a phone gallery.
+func _draw_cover(t: Texture2D, r: Rect2) -> void:
+	var ts := t.get_size()
+	var k := maxf(r.size.x / ts.x, r.size.y / ts.y)
+	var src_size := r.size / k
+	var src := Rect2((ts - src_size) / 2.0, src_size)
+	draw_texture_rect_region(t, r, src)

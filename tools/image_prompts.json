@@ -1,0 +1,314 @@
+{
+ "characters": {
+  "daniel": {
+   "name": "Daniel",
+   "look": "Daniel Reis, a 29-year-old Portuguese man, slim, short dark brown slightly messy hair, light stubble, brown eyes with dark circles from insomnia, olive skin, quiet tired expression, wearing a dark navy sweater."
+  },
+  "ines": {
+   "name": "Inês",
+   "look": "Inês Matos, a 27-year-old Portuguese woman, long straight dark brown hair with a fringe, brown eyes, light olive skin, small silver hoop earrings, intelligent half-smile, wearing a dark red sweater."
+  },
+  "sofia": {
+   "name": "Sofia",
+   "look": "Sofia Reis, a 34-year-old Portuguese woman, Daniel's older sister, warm brown hair tied in a loose bun, brown eyes, olive skin, a few freckles, confident warm smile, wearing a green top."
+  },
+  "joao": {
+   "name": "João",
+   "look": "João Cardoso, a 30-year-old Portuguese man, broad-shouldered, very short black hair, full black beard, dark brown skin tone of Cape Verdean descent, a small scar over the left eyebrow, friendly grin, wearing a black t-shirt."
+  },
+  "marta": {
+   "name": "Marta",
+   "look": "Marta, a 30-year-old Portuguese schoolteacher, wavy auburn shoulder-length hair, pale skin, green eyes, round glasses, cheerful, wearing a purple cardigan."
+  },
+  "pedro": {
+   "name": "Pedro",
+   "look": "Pedro Silva, a 31-year-old Portuguese man, light brown hair with a side parting, clean-shaven, fair skin, slightly chubby face, eager expression, wearing a blue button-up shirt."
+  },
+  "rui": {
+   "name": "Rui",
+   "look": "Rui Matos, a 31-year-old Portuguese fisherman, Inês's brother, weathered tanned skin, dark curly hair, short beard, hard tired eyes, wearing a dark green fisherman's jacket."
+  },
+  "vasco": {
+   "name": "Vasco",
+   "look": "Vasco Pimentel, a 46-year-old Portuguese tech executive, salt-and-pepper hair neatly combed back, clean-shaven, fair skin, polished confident smile, wearing a fitted grey blazer over a white shirt."
+  },
+  "helena": {
+   "name": "Dra. Helena",
+   "look": "Dra. Helena Sousa, a 52-year-old Portuguese psychiatrist, short ash-blonde bob, pale skin, thin gold-rimmed glasses, calm controlled expression, wearing a beige blouse."
+  },
+  "clara": {
+   "name": "Clara",
+   "look": "Clara Neves, a 41-year-old Portuguese journalist, short black pixie haircut, light brown skin, sharp dark eyes, no makeup, serious expression, wearing a black leather jacket."
+  },
+  "carla": {
+   "name": "Carla",
+   "look": "Carla Mendes, a 58-year-old Portuguese bookshop owner, curly grey hair, warm wrinkled smile, reading glasses on a chain, wearing a mustard cardigan."
+  },
+  "armando": {
+   "name": "Sr. Armando",
+   "look": "Armando Lopes, a 73-year-old Portuguese fisherman, deeply weathered face, white stubble, flat cap, kind watery blue eyes, wearing an old navy wool sweater."
+  }
+ },
+ "photos": {
+  "IMG_2207": {
+   "aspect": "3:4",
+   "prompt": "Sunset over a quiet Atlantic beach in the Algarve, low orange sun, calm sea, wet sand reflecting the light, a few distant rocks, nobody on the beach.",
+   "variants": {
+    "watcher": "A small dark silhouette of a person now stands knee-deep in the sea in the right third of the photo, facing the camera, barely noticeable."
+   }
+  },
+  "IMG_2190": {
+   "aspect": "1:1",
+   "prompt": "A ginger cat asleep on a pile of second-hand books on the wooden counter of a small old bookshop, morning light through the shop window."
+  },
+  "IMG_2155": {
+   "aspect": "1:1",
+   "prompt": "Overhead photo of a plate of grilled sardines with boiled potatoes and salad and a small glass of beer, on a wooden table in a seaside tavern at night."
+  },
+  "IMG_2101": {
+   "aspect": "4:3",
+   "prompt": "Night photo inside a small seaside bar with old books on the shelves, four friends at a table after a pub quiz, left to right: João, Marta, Pedro, Daniel. They smile; Daniel smiles less. To Daniel's right, at the right edge of the photo, an empty wooden chair with a women's red coat hanging on its back. Phone flash.",
+   "people": [
+    "joao",
+    "marta",
+    "pedro",
+    "daniel"
+   ]
+  },
+  "IMG_2044": {
+   "aspect": "3:4",
+   "prompt": "A wooden bookshelf in an old Portuguese bookshop, a small hand-painted sign 'LITERATURA PORTUGUESA' on the bottom shelf, many Portuguese paperback spines. On the middle shelf, a blue book 'O Ano da Morte de Ricardo Reis' by José Saramago whose spine is visibly bulging, as if something were hidden inside it. Late afternoon light."
+  },
+  "IMG_1980": {
+   "aspect": "1:1",
+   "prompt": "Summer selfie on a sunny Algarve beach, Sofia on the left and Daniel on the right, squinting in the sun, the sea behind them. Far in the background on the right, very small and easy to miss, a person in a red coat stands knee-deep in the water facing the camera.",
+   "people": [
+    "sofia",
+    "daniel"
+   ]
+  },
+  "IMG_1702": {
+   "aspect": "3:4",
+   "prompt": "Photo of a paper medical prescription lying on a kitchen table, slightly crumpled, with a printed header 'CLÍNICA ATLÂNTICO' and the lines 'Utente: Daniel Reis', 'Clonazepam 0,5 mg', '1 comp. ao deitar se necessário', and a signature 'Dra. Helena Sousa'. Taken with the phone flash."
+  },
+  "IMG_1650": {
+   "aspect": "1:1",
+   "prompt": "A slice of Portuguese chocolate cake and a small espresso on a café terrace table in Tavira, winter afternoon light."
+  },
+  "IMG_1433": {
+   "aspect": "3:4",
+   "prompt": "Early morning on an old wooden fishing pier, grey winter light, calm sea. One of the wooden posts has a small bunch of red and yellow flowers tied to it with string."
+  },
+  "IMG_1288": {
+   "aspect": "3:4",
+   "prompt": "Rainy night in a narrow old-town street, wet cobblestones reflecting a streetlamp, closed shops. On the left, a small bookshop with a wooden sign 'LIVRARIA MARÉ · 31', its window dark. Taken from across the street, slightly blurry."
+  },
+  "IMG_0901": {
+   "aspect": "3:4",
+   "prompt": "Night selfie of Daniel at 3:40 am in a dim apartment, lit only by the phone screen, exhausted, unshaven. On the wall behind him, a small piece of paper taped to the wall with handwriting '14/10 — 03:17' (the '03:17' in red).",
+   "people": [
+    "daniel"
+   ]
+  },
+  "IMG_0899": {
+   "aspect": "4:3",
+   "prompt": "A cardboard box on an office desk at a tech company, containing a smartphone box labelled 'Lumen One' and a name tag 'D. REIS'. On the lid, a yellow post-it handwritten in Portuguese: 'NÃO testar o espelho com dados reais. Falar com a I.' Late afternoon office light."
+  },
+  "IMG_3010": {
+   "aspect": "1:1",
+   "prompt": "Lunch at a small traditional tasca in Faro: Inês on the left and Daniel on the right, sitting at the same table, both laughing. On the table between them, plates and a blue paperback book 'O Ano da Morte de Ricardo Reis'.",
+   "people": [
+    "ines",
+    "daniel"
+   ]
+  },
+  "IMG_3102": {
+   "aspect": "3:4",
+   "prompt": "Inês at her desk in a modern tech office, turning to the camera with a half-smile. Behind her, a monitor with a dark terminal window showing green text: 'espelho v0.3', 'fonte: voz_avó.m4a', 'deriva: 0,4%', '> olá, Inês'.",
+   "people": [
+    "ines"
+   ]
+  },
+  "IMG_3240": {
+   "aspect": "4:3",
+   "prompt": "Birthday party at night in a seaside bar, four people squeezed together for a photo, left to right: Rui, Inês, Daniel, João. Inês holds a small cake with lit candles; Daniel stands very close to her. Phone flash, slightly blurred.",
+   "people": [
+    "rui",
+    "ines",
+    "daniel",
+    "joao"
+   ]
+  },
+  "IMG_3301": {
+   "aspect": "1:1",
+   "prompt": "Selfie at sunset on an old wooden pier: Inês on the left with her eyes closed mid-blink, Daniel on the right. Sea and sky behind them. Nobody else anywhere in the frame.",
+   "people": [
+    "ines",
+    "daniel"
+   ]
+  },
+  "IMG_3302": {
+   "aspect": "1:1",
+   "prompt": "Same instant as the reference photo, burst mode: identical framing, light and people, but Inês's eyes are open. Far in the background on the right, a dark figure now stands knee-deep in the water looking at them.",
+   "people": [
+    "ines",
+    "daniel"
+   ],
+   "based_on": "IMG_3301"
+  },
+  "IMG_3366": {
+   "aspect": "3:4",
+   "prompt": "Photo of a printed confidential document on a desk at night, taken quickly and slightly tilted: header 'LUMEN SYSTEMS · CONFIDENCIAL', title 'Acordo de partilha de dados', lines 'Clínica Atlântico, Lda.', 'Objeto: dados de 3.412 utentes', 'Finalidade: treino do modelo ECO', 'Assinado: V. Pimentel', and a red rubber stamp 'CONFIDENCIAL'."
+  },
+  "IMG_3398": {
+   "aspect": "3:4",
+   "prompt": "Very dark photo inside a closed bookshop at 4 am, lit only by a phone flashlight: the 'LITERATURA PORTUGUESA' shelf with the blue Saramago book in the middle. In the bottom-right foreground, the dark blurred shoulder of the person holding the phone."
+  },
+  "IMG_6612": {
+   "aspect": "3:4",
+   "prompt": "Photo taken at night from the street through a ground-floor apartment window: inside, Daniel sits on a sofa lit by a television and his phone, unaware of the camera. Taken through slightly dirty glass, grainy, as if by someone standing outside in the dark.",
+   "people": [
+    "daniel"
+   ]
+  },
+  "IMG_6630": {
+   "aspect": "3:4",
+   "prompt": "Inside a dark bedroom at 3 am: the bedroom door, slightly ajar, a narrow gap of darkness into the hallway. Grainy, very low light.",
+   "variants": {
+    "eye": "In the dark gap of the door, a single human eye now catches the faint light. Very subtle."
+   }
+  },
+  "IMG_6641": {
+   "aspect": "3:4",
+   "prompt": "Night street in a small Portuguese seaside town, seen from a first-floor window: a person in a dark hoodie stands under a streetlamp, face in shadow, looking up toward the camera.",
+   "variants": {
+    "gone": "The person under the streetlamp is gone; the pavement is empty."
+   }
+  },
+  "IMG_0317": {
+   "aspect": "3:4",
+   "prompt": "Night at the end of an old wooden pier, moonlight, black sea. A single dark figure stands at the very end of the pier; it is impossible to tell whether it faces toward or away from the camera. Grainy.",
+   "variants": {
+    "closer": "The figure is now much closer, halfway down the pier.",
+    "two": "There are now two dark figures side by side at the end of the pier.",
+    "empty": "The pier is empty; there is no figure."
+   }
+  },
+  "IMG_BACK": {
+   "aspect": "3:4",
+   "prompt": "Photo taken from behind and slightly above a man sitting in a dark living room at 1 am, over his shoulder: the back of Daniel's head and shoulder, and the glowing phone in his hand showing a messaging app.",
+   "people": [
+    "daniel"
+   ]
+  },
+  "IMG_6700": {
+   "aspect": "3:4",
+   "prompt": "An almost completely black photo of a dark room. Only when looking closely: a faint, pale, tall human shape on the right side. Heavy sensor noise."
+  },
+  "IMG_6720": {
+   "aspect": "4:3",
+   "prompt": "Photo taken at 4 am from a bedroom doorway: Daniel asleep in bed under a duvet, faint streetlight through the blinds. Grainy, taken by someone standing in the doorway.",
+   "people": [
+    "daniel"
+   ]
+  },
+  "IMG_5530": {
+   "aspect": "4:3",
+   "prompt": "Black-and-white still from a petrol station security camera at night, high angle: a grey Audi A6 driving past with its headlights off, licence plate 'AX-31-PL' readable.",
+   "style": "Low-resolution security camera footage, black and white, compression artefacts, with a timestamp overlay 'CAM 02  14-10-2025  03:04:51' at the top left. Not illustrated."
+  },
+  "IMG_INES_LAST": {
+   "aspect": "3:4",
+   "prompt": "Night photo along an old wooden pier: Daniel seen from behind, walking away toward the shore under a single yellow lamp, slightly blurred as if taken in a hurry.",
+   "people": [
+    "daniel"
+   ]
+  },
+  "IMG_RUI_DESK": {
+   "aspect": "1:1",
+   "prompt": "A cardboard box of personal belongings on a kitchen table. On top, a blue paperback 'O Ano da Morte de Ricardo Reis' (José Saramago) with a yellow post-it handwritten 'D. — p. 317 (a de cima)'. A red hair tie beside it."
+  },
+  "IMG_RUI_CAL": {
+   "aspect": "1:1",
+   "prompt": "Close-up of a paper wall calendar page 'OUTUBRO 2025' (weeks start on Monday; the 1st is a Wednesday) with handwriting: on day 13 in blue pen 'cais 2h30 (D.)', on day 14 circled in red 'Clara 10h!', on day 3 'jantar mãe', on day 28 '1 ano :)'."
+  },
+  "IMG_4410": {
+   "aspect": "3:4",
+   "prompt": "Staff headshot of Inês for a company website, smiling, plain light grey background.",
+   "people": [
+    "ines"
+   ],
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4415": {
+   "aspect": "4:3",
+   "prompt": "News photo, morning: police tape across the entrance of an old wooden fishing pier, two Portuguese GNR officers in uniform at the far end, grey sky.",
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4420": {
+   "aspect": "4:3",
+   "prompt": "Exterior of a modern tech office building with a glass façade and the logo 'LUMEN SYSTEMS', sunny day in Faro.",
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4430": {
+   "aspect": "3:4",
+   "prompt": "Corporate headshot of Vasco for a company website, confident smile, dark background.",
+   "people": [
+    "vasco"
+   ],
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4431": {
+   "aspect": "3:4",
+   "prompt": "Professional headshot of Dra. Helena for a private clinic website, light background.",
+   "people": [
+    "helena"
+   ],
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4440": {
+   "aspect": "3:4",
+   "prompt": "Byline photo of journalist Clara for a regional newspaper website, neutral background.",
+   "people": [
+    "clara"
+   ],
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "IMG_4450": {
+   "aspect": "4:3",
+   "prompt": "Night photo of an old wooden pier posted on a ghost-hunting blog: two faint unexplained lights near the end of the pier, very grainy."
+  },
+  "IMG_4460": {
+   "aspect": "3:4",
+   "prompt": "Regional news photo: Rui standing by fishing boats in a small harbour, looking away from the camera, grim.",
+   "people": [
+    "rui"
+   ],
+   "style": "Professional photograph published on a website, good lighting, sharp. No watermark, no text overlays. Portugal, 2024-2025."
+  },
+  "CAM_VIEW": {
+   "aspect": "3:4",
+   "prompt": "A dark living room at night seen through a phone's rear camera: sofa, coffee table, a hallway opening on the right edge, a window with blinds on the left. Very little light.",
+   "variants": {
+    "hall_figure": "A tall dark human figure now stands in the hallway opening at the right edge.",
+    "window_face": "A pale human face is now pressed close to the window glass from outside.",
+    "close": "A dark out-of-focus figure now fills the foreground, very close to the lens."
+   }
+  },
+  "CAM_FRONT": {
+   "aspect": "3:4",
+   "prompt": "Front-camera selfie view at night: Daniel's face lit from below by the phone screen, a dark room behind him.",
+   "people": [
+    "daniel"
+   ],
+   "variants": {
+    "behind": "In the darkness behind his left shoulder, a figure now stands, barely visible."
+   }
+  }
+ },
+ "keep_procedural": [
+  "IMG_6800",
+  "IMG_RITA",
+  "IMG_SCR_0313"
+ ]
+}
