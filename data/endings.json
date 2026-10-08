@@ -53,6 +53,10 @@
    {
     "when": "flag(\"joao_heard_called\")",
     "line": "Ao tribunal, o João repetiu a única coisa que lhe disseste nessa madrugada: \"Ela chamou-me.\""
+   },
+   {
+    "when": "flag(\"marta_flowers\")",
+    "line": "No dia 14 de novembro, a Marta passou pelo cais às oito. Já lá estavam flores novas, atadas ao poste. Desta vez estavas à espera dela."
    }
   ]
  },
@@ -128,6 +132,10 @@
    {
     "when": "flag(\"mae_call_430\")",
     "line": "A tua mãe continua a ligar-te ao domingo. Nunca mais te perguntou nada. Tu nunca mais lhe contaste nada."
+   },
+   {
+    "when": "flag(\"marta_flowers\")",
+    "line": "Todos os meses, no dia 14, aparecem flores no poste do Cais Velho. A Marta nunca te pergunta nada."
    }
   ]
  },

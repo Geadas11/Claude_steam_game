@@ -425,3 +425,45 @@ unknown> O teu número de utente é o dia dos teus anos. Ninguém escolhe isso p
 wait 3
 unknown> O portal da clínica reconhece o teu telefone. Só te vai pedir quem és.
 @end
+
+# ---------------------------------------------------------------- Marta e as flores
+@beat marta_flowers
+@when at("11:40")
+marta> Daniel. Amanhã é dia 14
+marta> Vou passar pelo cais antes das aulas, como todos os meses. Só para dizer que alguém passou
+@end
+
+@beat marta_flowers_reply
+@when beat("marta_flowers") and read("marta")
+wait 1
+if clue("pier_flowers")
+  choice marta c10_marta
+    > As flores no poste, em janeiro. Foste tu? | set marta10=ask
+    > Eu vou contigo. | set marta10=go
+    > Não consigo, Marta. | set marta10=no
+  end
+else
+  choice marta c10_marta
+    > Eu vou contigo. | set marta10=go
+    > Não consigo, Marta. | set marta10=no
+  end
+endif
+wait 20
+if vs("marta10") == "ask"
+  marta> não querido
+  wait 5
+  marta> em janeiro passei lá às oito e já estavas tu. a atar flores ao poste com as mãos a tremer
+  marta> não te quis incomodar. vim-me embora devagar
+  wait 4
+  marta> achei que sabias que eu te tinha visto. ficaste a olhar para mim da ponta do cais
+  clue marta_saw_flowers
+  set marta_flowers=true
+elif vs("marta10") == "go"
+  marta> às oito. levo café
+  wait 3
+  marta> e não tens de dizer nada. eu também nunca digo
+  set marta_flowers=true
+else
+  marta> está bem. eu digo por ti
+endif
+@end

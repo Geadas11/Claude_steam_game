@@ -1813,6 +1813,16 @@
    "secret_note_book"
   ]
  },
+ "marta_saw_flowers": {
+  "title": "As flores eram tuas",
+  "desc": "A Marta viu-te no Cais Velho às 8h de 14 de janeiro, a atar flores a um poste com as mãos a tremer. Tu não te lembras de lá ter ido.",
+  "source": "Mensagens · Marta",
+  "importance": 2,
+  "related": [
+   "pier_flowers",
+   "marta_remembers_them"
+  ]
+ },
  "ines_receipt": {
   "title": "O recibo da Livraria Maré",
   "desc": "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.",

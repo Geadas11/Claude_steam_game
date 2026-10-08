@@ -217,6 +217,7 @@ clue("ines_calendar", "O calendário dela", "13 de outubro: \"cais 2h30 (D.)\". 
 clue("clara_voicemail_ines", "A mensagem na redação", "13/10/2025, 18:02, linha geral do Jornal do Sul: \"Clara, é a Inês. Amanhã às dez levo tudo. Se eu não aparecer, não é por ter mudado de ideias.\"", "Clara Neves", 3, ["clara_meeting", "ines_calendar"])
 clue("december_bookshop", "Dezembro, à porta da livraria", "IMG_1288: 20/12/2025, 01:33, Rua Direita 31 — a Livraria Maré. Ainda não trabalhavas lá. Voltaste de noite, à chuva.", "Galeria · IMG_1288", 2, ["night_bookshop", "daniel_hides_in_books"])
 clue("wall_note_0317", "\"14/10 — 03:17\"", "Na selfie de 21/11/2025, às 03:40, há um papel na parede atrás de ti com a hora. Um mês depois, já a sabias — e dizias que não te lembravas de nada.", "Galeria · IMG_0901", 2, ["old_location", "secret_note_book"])
+clue("marta_saw_flowers", "As flores eram tuas", "A Marta viu-te no Cais Velho às 8h de 14 de janeiro, a atar flores a um poste com as mãos a tremer. Tu não te lembras de lá ter ido.", "Mensagens · Marta", 2, ["pier_flowers", "marta_remembers_them"])
 clue("ines_receipt", "O recibo da Livraria Maré", "13/10/2025, 19:40: a Inês comprou \"O Ano da Morte de Ricardo Reis\" — um livro que já tinha.", "Rui Matos", 2, ["postit_p317", "saramago_spine"])
 
 # dummies removed below
