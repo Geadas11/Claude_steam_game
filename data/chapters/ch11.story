@@ -24,7 +24,7 @@ battery 47
 if flag("sofia_knows")
   sofia> Saí de Lisboa às 22h. Chego por volta das 2. Não faças nada estúpido até eu chegar
 elif flag("sofia_call11")
-  sofia> Saio às onze e vinte. Tens o telemóvel com bateria? Atende
+  sofia> Às onze e vinte faço intervalo. Tens o telemóvel com bateria? Atende
 else
   sofia> Boa noite mano. Amanhã ligo-te depois da consulta. Gosto de ti
 endif
