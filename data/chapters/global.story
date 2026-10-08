@@ -240,3 +240,24 @@ joao: se precisares, a porta das traseiras fica aberta até às 2 | 3
 contact rita silent
 setting rita_known true
 @end
+
+# ---------------------------------------------------------------- achievements for optional content
+@beat g_ach_rita
+@when flag("rita_keep")
+achieve rita_keep
+@end
+
+@beat g_ach_compare
+@when flag("compared_IMG_3301")
+achieve compare_pair
+@end
+
+@beat g_ach_private
+@when flag("unlocked_note_note_privado")
+achieve private_note
+@end
+
+@beat g_ach_patent
+@when visited("patente")
+achieve patent
+@end

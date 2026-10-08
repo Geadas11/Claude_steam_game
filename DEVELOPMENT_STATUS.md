@@ -19,20 +19,20 @@ ver "Problemas conhecidos")
 | Motor narrativo (DSL `.story`) | ✅ completo; retoma beats a meio após carregar |
 | História — 11 capítulos | ✅ escritos de ponta a ponta + arcos secundários |
 | 5 finais (+ epílogos condicionais) | ✅ todos alcançáveis (testado automaticamente) |
-| Investigação | ✅ 163 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
+| Investigação | ✅ 171 pistas com relações e etiquetas; reconstrução final; 7 puzzles |
 | Terror | 🟡 integrado e variado (ver tabela); falta afinação com jogadores humanos |
 | Áudio | 🟡 procedural, funcional; afinar mistura em jogo real |
-| Steam | 🟡 ponte GodotSteam + 30 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
+| Steam | 🟡 ponte GodotSteam + 34 conquistas + guia (`docs/STEAM.md`); builds Win/Linux testadas; falta App ID |
 | Duração | 🟡 estimativa ~4–6 h na 1.ª passagem, 8–10 h para tudo (objetivo do documento: 14 h+) |
 
 ## Conteúdo
 
 - **11 capítulos** em `data/chapters/` + `global.story` (chamadas de amigos, reações globais, consola ECO)
 - **21 personagens** com vozes distintas (ver `docs/STORY_BIBLE.md`)
-- **38 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
+- **39 fotografias** procedurais com variantes que mudam (algumas *enquanto o jogador olha*)
 - **35 páginas web** (6 escondidas: só aparecem com a pesquisa certa)
 - **29 emails**, **25 ficheiros**, **11 notas** (1 protegida), **7 mensagens de voz**, mapa com 12 locais
-- **163 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
+- **171 pistas**, quadro com etiquetas Facto/Hipótese/Mentira/Incompleta/Dúvida + filtros
 - **Puzzles:** PIN 1410 · palavra-passe do blogue (tejo) · nota "privado" (mesma palavra-passe) ·
   cópia do telemóvel antigo (0202) · modo de programador (7 toques) · chave ECO (mare) ·
   reconstrução da noite (5 perguntas, opções desbloqueadas por pistas)
@@ -63,7 +63,7 @@ ver "Problemas conhecidos")
   Director (beats paralelos, condições via `Expression`, escolhas, chamadas recebidas/efetuadas,
   interpolação `${var}`, ~55 comandos) · Clock (aceleração ×6 quando parado + opção 1–3×; bateria
   drena com avisos) · Saves (5 espaços + auto + rápido; escrita atómica + `.bak`) · Audio
-  procedural (~45 sons) · Achievements (30, espelho Steam) · Settings (volumes por barramento, texto,
+  procedural (~45 sons) · Achievements (34, espelho Steam) · Settings (volumes por barramento, texto,
   velocidade de mensagens/relógio, legendas, alto contraste, reduzir efeitos/movimento,
   ecrã/vsync/resolução, **remapeamento de teclas**)
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
@@ -103,6 +103,8 @@ ver "Problemas conhecidos")
 - Revisão visual por capturas (Xvfb, `--shot`/`--do`): título (3 variantes), bloqueio, mensagens, todas
   as apps, chamada, câmara (3 eventos), cortina, menus, transição de capítulo, final, Steam Deck 1280×800.
 - Export: builds Windows e Linux; a de Linux arranca e carrega a história.
+- Testes de resistência em tempo real (`--autoplay`, Xvfb): cap. 1 completo, cap. 5 → 6, caps. 8, 10,
+  11 até ao ecrã de final — sem erros.
 
 ## Problemas conhecidos
 - **Push para o GitHub falhou (403)**: a app GitHub do Claude não tem acesso a
