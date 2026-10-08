@@ -4,8 +4,7 @@
 
 **Projeto:** Ainda Estás Acordado? (PROJECT UNKNOWN) · Godot 4.3 · GL Compatibility · pt-PT
 **Última atualização:** sessão 1 (2026-10-08) · versão 0.9.0
-**Branch:** `claude/relaxed-cray-lgubk6` (commits locais; o *push* para o GitHub falhou com 403 —
-ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstasAcordado.bundle`)
+**Branch:** `claude/relaxed-cray-lgubk6` — no GitHub (`Geadas11/Claude_steam_game`)
 
 ---
 
@@ -133,10 +132,6 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
   do ecrã, painéis "Até agora"/"Decisões" com conteúdo, resumo para cada capítulo.
 
 ## Problemas conhecidos
-- **Push para o GitHub falhou (403)**: a app GitHub do Claude não tem acesso a
-  `Geadas11/Claude_steam_game`. Ligar/instalar em https://claude.ai/connect-github e fazer push do branch.
-  Entretanto: `git clone -b claude/relaxed-cray-lgubk6 AindaEstasAcordado.bundle AindaEstasAcordado`
-  recupera o projeto inteiro a partir do ficheiro *bundle*.
 - Duração abaixo do objetivo de 14 h (ver prioridades).
 - Ainda sem teste com jogadores humanos: ritmo de capítulos diurnos (`rate 2`) por confirmar.
 - Fotografias com pessoas têm aspeto ilustrado (estilo assumido, mas menos "real").
