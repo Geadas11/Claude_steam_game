@@ -1,1 +1,1345 @@
-{}
+{
+ "photo_window": {
+  "title": "A fotografia da janela",
+  "desc": "Uma fotografia de ti, no sofá, tirada da rua. Às 23:44 — três minutos antes da primeira mensagem.",
+  "source": "Galeria · IMG_6612",
+  "importance": 2,
+  "related": [
+   "photo_window_meta",
+   "street_watcher",
+   "hooded_man"
+  ]
+ },
+ "photo_window_meta": {
+  "title": "Dispositivo: desconhecido",
+  "desc": "A metadata da fotografia da janela não identifica a câmara. O teu telemóvel não reconhece o dispositivo que a tirou.",
+  "source": "Galeria · detalhes de IMG_6612",
+  "importance": 1,
+  "related": [
+   "photo_window",
+   "photo_from_behind"
+  ]
+ },
+ "door_from_inside": {
+  "title": "A porta, de dentro",
+  "desc": "A porta do teu quarto, fotografada de dentro do quarto, às 03:02. Enquanto dormias.",
+  "source": "Galeria · IMG_6630",
+  "importance": 2,
+  "related": [
+   "photo_window",
+   "sleeping_photo"
+  ]
+ },
+ "voicemail_sea": {
+  "title": "O mar no correio de voz",
+  "desc": "41 segundos de mar e uma respiração muito perto do microfone. Deixado às 03:18.",
+  "source": "Correio de voz",
+  "importance": 1,
+  "related": [
+   "call_from_dead",
+   "ines_he_is_coming"
+  ]
+ },
+ "unknown_mentions_book": {
+  "title": "\"Deixa o Ricardo Reis onde está\"",
+  "desc": "O número sabia que a Carla te pediu para arrumar os Saramagos. E pediu-te para não mexeres no livro do Ricardo Reis. \"Ainda não.\"",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "carla_book_moved",
+   "saramago_spine",
+   "daniel_hides_in_books"
+  ]
+ },
+ "pedro_ai_theory": {
+  "title": "Teoria do Pedro: montagens com IA",
+  "desc": "Golpes com fotografias geradas por IA a partir de redes sociais. Mas tu não tens redes sociais.",
+  "source": "Grupo \"Os do costume\"",
+  "importance": 1,
+  "related": [
+   "photo_window"
+  ]
+ },
+ "hooded_man": {
+  "title": "Alguém de capuz na tua rua",
+  "desc": "O João viu alguém de capuz parado em frente à tua casa às 2h20. Quando o viu, foi em direção ao cais.",
+  "source": "Mensagens · João",
+  "importance": 1,
+  "related": [
+   "street_watcher",
+   "photo_window"
+  ]
+ },
+ "sofia_suspects_lumen": {
+  "title": "A Sofia desconfia da Lumen",
+  "desc": "\"Eles nunca te deixaram em paz desde aquilo. Aquele Vasco liga-te todos os meses.\"",
+  "source": "Mensagens · Sofia",
+  "importance": 1,
+  "related": [
+   "vasco_monitors_phone"
+  ]
+ },
+ "call_voice_woman": {
+  "title": "Uma voz de mulher",
+  "desc": "Na primeira chamada, uma mulher sussurrou: \"Não deixes a Carla mexer no livro.\"",
+  "source": "Chamada · 15:05",
+  "importance": 2,
+  "related": [
+   "unknown_mentions_book",
+   "call_from_dead"
+  ]
+ },
+ "vasco_monitors_phone": {
+  "title": "O Vasco vê o teu telemóvel",
+  "desc": "O Vasco sabia do consumo de bateria do teu telemóvel. \"Gestão de dispositivos\".",
+  "source": "Mensagens · Vasco",
+  "importance": 2,
+  "related": [
+   "eco_care_mention"
+  ]
+ },
+ "carla_book_moved": {
+  "title": "O amuleto fora do sítio",
+  "desc": "A Carla notou que o \"Ano da Morte de Ricardo Reis\" estava fora do sítio. Tu não mexeste nele. Pois não?",
+  "source": "Mensagens · Carla",
+  "importance": 1,
+  "related": [
+   "unknown_mentions_book",
+   "saramago_spine"
+  ]
+ },
+ "street_watcher": {
+  "title": "Debaixo do candeeiro",
+  "desc": "Uma pessoa parada debaixo do candeeiro, a olhar para a tua janela. Às 21:58.",
+  "source": "Galeria · IMG_6641",
+  "importance": 2,
+  "related": [
+   "hooded_man",
+   "photo_window"
+  ]
+ },
+ "door_was_open": {
+  "title": "A porta estava aberta",
+  "desc": "Quando chegaste a casa com o João, a porta estava aberta. Tens a certeza de que a fechaste?",
+  "source": "Mensagens · João",
+  "importance": 1,
+  "related": [
+   "street_watcher"
+  ]
+ },
+ "unknown_mentions_pier": {
+  "title": "\"Lembras-te do cais?\"",
+  "desc": "\"Eu lembro-me.\"",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "news_death",
+   "armando_saw"
+  ]
+ },
+ "forum_317_calls": {
+  "title": "Outras pessoas recebem chamadas às 3:17",
+  "desc": "No QuemLigou.pt, várias pessoas relatam chamadas silenciosas do mesmo número às 3h17 desde novembro de 2025. Uma recebe \"ainda estás acordado?\".",
+  "source": "quemligou.pt",
+  "importance": 2,
+  "related": [
+   "ines_number",
+   "sim_046"
+  ]
+ },
+ "ines_number": {
+  "title": "O número era da Inês",
+  "desc": "Um anúncio de 2023: bicicleta à venda, contacto \"Inês — 912 403 317\".",
+  "source": "vendeja.pt",
+  "importance": 3,
+  "related": [
+   "news_death",
+   "contact_restored"
+  ]
+ },
+ "ines_address": {
+  "title": "Rua do Mar 7",
+  "desc": "A Inês vivia na Rua do Mar 7, perto do cais.",
+  "source": "vendeja.pt",
+  "importance": 1,
+  "related": [
+   "ines_number"
+  ]
+ },
+ "news_death": {
+  "title": "Inês Matos, 27 anos",
+  "desc": "Encontrada sem vida junto ao Cais Velho a 14/10/2025. Morte estimada entre as 03h15 e as 03h20. O telemóvel nunca foi encontrado.",
+  "source": "Jornal do Sul",
+  "importance": 3,
+  "related": [
+   "ines_number",
+   "phone_missing",
+   "lumen_statement_fast"
+  ]
+ },
+ "contact_restored": {
+  "title": "Contacto restaurado",
+  "desc": "\"Inês Matos\" voltou aos teus contactos a partir da nuvem. Última alteração: 14/10/2025 às 03:21 — quatro minutos depois de ela morrer.",
+  "source": "Contactos",
+  "importance": 2,
+  "related": [
+   "ines_account",
+   "news_death"
+  ]
+ },
+ "loop_hint_days": {
+  "title": "\"Faz quatro dias que me perguntas isso\"",
+  "desc": "Só passaram dois dias desde a primeira mensagem.",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "sim_046"
+  ]
+ },
+ "unknown_says_there": {
+  "title": "\"Tu estavas lá.\"",
+  "desc": "O número diz que estavas no cais na noite em que ela morreu.",
+  "source": "Mensagens",
+  "importance": 3,
+  "related": [
+   "armando_saw",
+   "old_location"
+  ]
+ },
+ "phone_missing": {
+  "title": "O telemóvel desapareceu",
+  "desc": "O Rui diz que o telemóvel da Inês nunca apareceu. A polícia achou que caiu ao mar com ela.",
+  "source": "Mensagens · Rui",
+  "importance": 2,
+  "related": [
+   "phone_taken_by_vasco",
+   "news_death"
+  ]
+ },
+ "rui_accuses": {
+  "title": "\"Eras o rapaz dela\"",
+  "desc": "O Rui diz que toda a gente sabe que estavas com ela nessa noite.",
+  "source": "Mensagens · Rui",
+  "importance": 2,
+  "related": [
+   "rumor_boyfriend",
+   "armando_saw"
+  ]
+ },
+ "joao_heard_snoring": {
+  "title": "Estavas a dormir",
+  "desc": "O João foi ao teu quarto e ouviu-te a ressonar. Então quem estava a escrever do teu telemóvel?",
+  "source": "Mensagens · João",
+  "importance": 2,
+  "related": [
+   "door_from_inside",
+   "recording_not_made"
+  ]
+ },
+ "call_from_dead": {
+  "title": "A chamada das 03:17",
+  "desc": "\"Eu não consigo ver nada. Está tão frio.\" A voz dela, do número dela.",
+  "source": "Chamada · 03:17",
+  "importance": 3,
+  "related": [
+   "voicemail_sea",
+   "ines_he_is_coming"
+  ]
+ },
+ "ines_he_is_coming": {
+  "title": "\"Ele está a chegar\"",
+  "desc": "Na mensagem de voz das 03:17, ela diz: \"Ele está a chegar.\" Quem?",
+  "source": "Correio de voz",
+  "importance": 2,
+  "related": [
+   "vasco_was_coming",
+   "call_from_dead"
+  ]
+ },
+ "memorial_daniel_comment": {
+  "title": "\"Desculpa.\"",
+  "desc": "Comentaste na página de homenagem às 23:58 do dia em que ela morreu. Não te lembras de o ter escrito.",
+  "source": "rede.pt · página de homenagem",
+  "importance": 2,
+  "related": [
+   "daniel_told_vasco",
+   "sent_message_rui"
+  ]
+ },
+ "rui_number": {
+  "title": "O número do Rui",
+  "desc": "Rui Matos, irmão da Inês, deixou o número para quem tiver informações.",
+  "source": "rede.pt / pescasalgueira.pt",
+  "importance": 1,
+  "related": [
+   "rui_fisherman"
+  ]
+ },
+ "ines_cat_tejo": {
+  "title": "O Tejo",
+  "desc": "O gato da Inês chamava-se Tejo. Ficou com o Rui.",
+  "source": "rede.pt · página de homenagem",
+  "importance": 1,
+  "related": [
+   "tejo_hint",
+   "ines_blog_lastpost"
+  ]
+ },
+ "rui_fisherman": {
+  "title": "Rui, pescador",
+  "desc": "O Rui tem um barco na Doca. Chama-se \"Inês\" desde novembro de 2025.",
+  "source": "pescasalgueira.pt",
+  "importance": 1,
+  "related": [
+   "rui_number"
+  ]
+ },
+ "ines_visited_shop": {
+  "title": "Ela ia à livraria",
+  "desc": "A Carla lembra-se da Inês na estante da literatura portuguesa.",
+  "source": "Mensagens · Carla",
+  "importance": 1,
+  "related": [
+   "carla_saw_them_together",
+   "saramago_spine"
+  ]
+ },
+ "carla_saw_them_together": {
+  "title": "Vieram os dois",
+  "desc": "A Carla viu-vos juntos na livraria. \"Ela tirou-te o livro da mão.\"",
+  "source": "Mensagens · Carla",
+  "importance": 1,
+  "related": [
+   "barely_knew_lie"
+  ]
+ },
+ "clara_contact": {
+  "title": "Clara Neves, Jornal do Sul",
+  "desc": "Jornalista de investigação. Tem um contacto seguro para fontes.",
+  "source": "jornaldosul.pt",
+  "importance": 1,
+  "related": [
+   "clara_meeting"
+  ]
+ },
+ "clara_meeting": {
+  "title": "A reunião que nunca aconteceu",
+  "desc": "A Inês tinha uma reunião com a Clara a 14/10/2025, às 10h. Ia levar \"tudo\".",
+  "source": "Clara Neves / emails da Inês",
+  "importance": 3,
+  "related": [
+   "mare_project",
+   "ines_feared_vasco"
+  ]
+ },
+ "armando_number": {
+  "title": "Armando, pescador",
+  "desc": "O homem que a encontrou deixou um contacto no fórum: 289 911 402.",
+  "source": "Salgueira Noturna",
+  "importance": 1,
+  "related": [
+   "car_tracks"
+  ]
+ },
+ "car_tracks": {
+  "title": "Marcas de pneus",
+  "desc": "Marcas de pneus de um carro grande no caminho de terra do cais. \"Os pescadores vão a pé.\"",
+  "source": "Salgueira Noturna · Armando",
+  "importance": 2,
+  "related": [
+   "vasco_car_cctv",
+   "vasco_audi"
+  ]
+ },
+ "rumor_boyfriend": {
+  "title": "\"O namorado\"",
+  "desc": "No fórum alguém diz que ela estava com um rapaz nessa noite. O nome foi apagado pelo moderador.",
+  "source": "Salgueira Noturna",
+  "importance": 1,
+  "related": [
+   "armando_saw",
+   "rui_accuses"
+  ]
+ },
+ "armando_saw": {
+  "title": "O Armando viu-te",
+  "desc": "Às duas e meia, no fim do cais, a discutir com ela. \"O senhor ia-se embora a pé. Ela chamava por si.\"",
+  "source": "Chamada · Armando",
+  "importance": 3,
+  "related": [
+   "old_location",
+   "joao_saw_daniel",
+   "unknown_says_there"
+  ]
+ },
+ "sofia_sand": {
+  "title": "Areia nos pés",
+  "desc": "A Sofia ligou-te às 7h da manhã seguinte. Tinhas areia nos pés. Disseste que tinhas ido correr. Tu nunca corres.",
+  "source": "Mensagens · Sofia",
+  "importance": 2,
+  "related": [
+   "memo_wet_shoes",
+   "joao_saw_daniel"
+  ]
+ },
+ "vasco_helena_talk": {
+  "title": "O Vasco fala com a Helena",
+  "desc": "O Vasco sabe que andas \"mais agitado\". Diz que a Dra. Helena se preocupa contigo.",
+  "source": "Mensagens · Vasco",
+  "importance": 2,
+  "related": [
+   "helena_vasco_link",
+   "lumen_pays_helena"
+  ]
+ },
+ "tejo_hint": {
+  "title": "\"O Tejo gostava de ti\"",
+  "desc": "\"Dormia-te sempre no colo.\" O número sabe coisas que só ela sabia.",
+  "source": "Mensagens",
+  "importance": 1,
+  "related": [
+   "ines_cat_tejo"
+  ]
+ },
+ "forum_eco_warning": {
+  "title": "\"Desliguem o ECO Care\"",
+  "desc": "Um ex-funcionário da Lumen avisa: o assistente sabe coisas ditas apenas ao telefone. E não dá para desligar.",
+  "source": "Salgueira Noturna",
+  "importance": 1,
+  "related": [
+   "eco_trained_calls",
+   "eco_care_mention"
+  ]
+ },
+ "eco_mirror_product": {
+  "title": "ECO Mirror",
+  "desc": "\"Quando alguém parte, o conhecimento fica.\" Um produto que continua uma pessoa depois de ela sair.",
+  "source": "lumen.pt/eco",
+  "importance": 3,
+  "related": [
+   "ines_blog_mirror",
+   "mirror_protocol",
+   "mirror_config"
+  ]
+ },
+ "vasco_audi": {
+  "title": "Um Audi cinzento",
+  "desc": "O Vasco conduz um Audi cinzento que ocupa sempre dois lugares no parque.",
+  "source": "lumen.pt/equipa",
+  "importance": 2,
+  "related": [
+   "vasco_car_cctv",
+   "car_tracks"
+  ]
+ },
+ "lumen_statement_fast": {
+  "title": "Um comunicado rápido demais",
+  "desc": "A Lumen falou de um \"período pessoal difícil\" quatro horas depois de o corpo ser encontrado.",
+  "source": "lumen.pt",
+  "importance": 2,
+  "related": [
+   "case_closed_psychiatrist",
+   "news_death"
+  ]
+ },
+ "helena_director": {
+  "title": "Helena Sousa, diretora clínica",
+  "desc": "A tua psiquiatra é a diretora da Clínica Atlântico — parceira da Lumen.",
+  "source": "clinica-atlantico.pt",
+  "importance": 2,
+  "related": [
+   "clinic_lumen_partners",
+   "lumen_pays_helena"
+  ]
+ },
+ "clinic_lumen_partners": {
+  "title": "Clínica + Lumen",
+  "desc": "Uma parceria de \"saúde digital\" para \"prever crises\". Os dados partilhados nunca foram divulgados.",
+  "source": "Jornal do Sul",
+  "importance": 2,
+  "related": [
+   "clinic_contract",
+   "helena_signed"
+  ]
+ },
+ "case_closed_psychiatrist": {
+  "title": "Arquivado com base numa psiquiatra",
+  "desc": "O caso foi arquivado com o parecer de uma psiquiatra que \"acompanhava colaboradores\". A Inês nunca foi paciente dela.",
+  "source": "Jornal do Sul",
+  "importance": 3,
+  "related": [
+   "helena_director",
+   "lumen_statement_fast"
+  ]
+ },
+ "ines_researcher": {
+  "title": "O que os modelos sabem",
+  "desc": "\"Às vezes eles sabem coisas que não lhes ensinámos, e isso devia assustar-nos.\"",
+  "source": "redeprofissional.pt",
+  "importance": 1,
+  "related": [
+   "ines_blog_mirror"
+  ]
+ },
+ "ines_blog_mirror": {
+  "title": "Espelhos",
+  "desc": "A Inês escreveu sobre o Mirror: \"para ninguém nunca ter de dizer adeus a ninguém\".",
+  "source": "notas da maré",
+  "importance": 2,
+  "related": [
+   "eco_mirror_product",
+   "mirror_config"
+  ]
+ },
+ "mare_project": {
+  "title": "Projeto MARÉ",
+  "desc": "A Inês chamou MARÉ às provas que copiou para um cartão. \"A maré leva tudo e traz tudo de volta.\"",
+  "source": "notas da maré / emails",
+  "importance": 3,
+  "related": [
+   "clara_meeting",
+   "card_found"
+  ]
+ },
+ "ines_blog_lastpost": {
+  "title": "\"O D. sabe onde procurar\"",
+  "desc": "\"Ele guarda tudo o que importa dentro de livros. Acha que ninguém repara. Eu reparo.\"",
+  "source": "notas da maré",
+  "importance": 3,
+  "related": [
+   "daniel_hides_in_books",
+   "saramago_spine"
+  ]
+ },
+ "tide_317": {
+  "title": "Preia-mar às 03:17",
+  "desc": "Na madrugada de quarta, dia 14, a maré mais alta do ano é às 03:17.",
+  "source": "meteo.pt / Jornal do Sul",
+  "importance": 1,
+  "related": [
+   "prediction_317"
+  ]
+ },
+ "domain_future": {
+  "title": "Um domínio do futuro",
+  "desc": "ainda-estas-acordado.pt foi registado a 14/10/2026 às 03:17.",
+  "source": "navegador",
+  "importance": 2,
+  "related": [
+   "future_photo",
+   "thumb_old_date"
+  ]
+ },
+ "sofia_message_changed": {
+  "title": "\"Cheguei ontem.\"",
+  "desc": "A mensagem da Sofia dizia \"Chego amanhã.\" Agora diz \"Cheguei ontem.\" Ela diz que nunca escreveu isso.",
+  "source": "Mensagens · Sofia",
+  "importance": 2,
+  "related": [
+   "sent_message_rui",
+   "history_not_mine"
+  ]
+ },
+ "sent_message_rui": {
+  "title": "Uma mensagem que não enviaste",
+  "desc": "\"Desculpa.\" Enviada ao Rui às 02:14. Do teu telemóvel.",
+  "source": "Mensagens · Rui",
+  "importance": 2,
+  "related": [
+   "memorial_daniel_comment",
+   "fake_joao_message"
+  ]
+ },
+ "note_not_written": {
+  "title": "\"não abras a porta\"",
+  "desc": "Uma nota que não escreveste, datada de uma hora que ainda não tinha chegado.",
+  "source": "Notas",
+  "importance": 2,
+  "related": [
+   "note_list_unwritten"
+  ]
+ },
+ "history_not_mine": {
+  "title": "Pesquisas que não fizeste",
+  "desc": "\"rui matos morada\", \"cais velho maré 14 outubro\", \"como impedir a morte\". Às 02:41, 02:56, 03:02.",
+  "source": "Navegador · histórico",
+  "importance": 2,
+  "related": [
+   "sofia_message_changed"
+  ]
+ },
+ "camera_hall_figure": {
+  "title": "Alguém no corredor",
+  "desc": "Na câmara, por um instante, alguém de pé na porta do corredor. Depois, nada.",
+  "source": "Câmara",
+  "importance": 3,
+  "related": [
+   "photo_from_behind",
+   "black_photo_figure"
+  ]
+ },
+ "photo_from_behind": {
+  "title": "Fotografado por trás",
+  "desc": "Tu, no sofá, de costas, com o telemóvel na mão. Nada podia estar ali para tirar esta fotografia.",
+  "source": "Galeria · IMG_BACK",
+  "importance": 3,
+  "related": [
+   "camera_hall_figure",
+   "photo_window_meta"
+  ]
+ },
+ "recording_not_made": {
+  "title": "Uma gravação que não fizeste",
+  "desc": "Quatro minutos de silêncio, passos descalços, e a tua voz a sussurrar: \"ainda estás acordado?\"",
+  "source": "Ficheiros · Gravação 003",
+  "importance": 2,
+  "related": [
+   "joao_heard_snoring"
+  ]
+ },
+ "note_list_unwritten": {
+  "title": "\"coisas que sei\"",
+  "desc": "1. ela ligou-me às 21h40. 38 minutos. 2. eu fui. 3. eu fui embora. 4. ...",
+  "source": "Notas",
+  "importance": 2,
+  "related": [
+   "old_location",
+   "armando_saw"
+  ]
+ },
+ "pin_date": {
+  "title": "O teu PIN é a data",
+  "desc": "1410. Catorze de outubro. Mudaste-o em novembro de 2025. Não te lembras porquê.",
+  "source": "Ecrã de bloqueio",
+  "importance": 3,
+  "related": [
+   "news_death"
+  ]
+ },
+ "black_photo_figure": {
+  "title": "Uma fotografia escura",
+  "desc": "Tirada às 02:47 pela câmara traseira, com o telemóvel em cima da mesa. Não está totalmente escura.",
+  "source": "Galeria · IMG_6700",
+  "importance": 2,
+  "related": [
+   "camera_hall_figure"
+  ]
+ },
+ "thumb_old_date": {
+  "title": "Uma miniatura de 2025",
+  "desc": "Uma miniatura da fotografia do cais com data de 14/10/2025 03:17. A fotografia original diz 14/10/2026.",
+  "source": "Ficheiros ocultos · .thumbnails",
+  "importance": 2,
+  "related": [
+   "future_photo",
+   "sim_046"
+  ]
+ },
+ "future_photo": {
+  "title": "Uma fotografia do futuro",
+  "desc": "IMG_0317: o Cais Velho, uma pessoa no fim do cais. Data: 14/10/2026, 03:17. Ainda não aconteceu.",
+  "source": "Galeria · detalhes de IMG_0317",
+  "importance": 3,
+  "related": [
+   "pier_figure",
+   "prediction_317",
+   "tide_317"
+  ]
+ },
+ "pier_figure": {
+  "title": "Alguém no fim do cais",
+  "desc": "Uma pessoa no fim do cais, perto do candeeiro. A cada vez que olhas, parece mais perto.",
+  "source": "Galeria · IMG_0317",
+  "importance": 2,
+  "related": [
+   "future_photo"
+  ]
+ },
+ "restore_requested_317": {
+  "title": "Restauro pedido às 03:17",
+  "desc": "Alguém pediu o restauro da cópia do teu telemóvel antigo às 03:17. Não foste tu. Ou foste?",
+  "source": "Email · Lumen Cloud",
+  "importance": 2,
+  "related": [
+   "sim_046"
+  ]
+ },
+ "ines_last_messages": {
+  "title": "As últimas mensagens",
+  "desc": "22:30 \"Encontras-te comigo no cais? 2h30. Tenho uma coisa para te dar.\" 03:12 \"Daniel volta.\" 03:15 \"Ele está aqui.\" 03:16: uma mensagem tua, apagada.",
+  "source": "Mensagens · Inês Matos (restaurada)",
+  "importance": 3,
+  "related": [
+   "armando_saw",
+   "vasco_was_coming",
+   "card_found"
+  ]
+ },
+ "barely_knew_lie": {
+  "title": "\"Mal a conhecia\"",
+  "desc": "Disseste à Sofia que mal a conhecias. As fotografias recuperadas dizem o contrário.",
+  "source": "Galeria · Recuperadas",
+  "importance": 2,
+  "related": [
+   "carla_saw_them_together"
+  ]
+ },
+ "joao_knew_ines": {
+  "title": "O João conhecia-a",
+  "desc": "O João está na fotografia dos anos dela. Ele disse-te que a conhecia \"de vista\".",
+  "source": "Galeria · IMG_3240",
+  "importance": 2,
+  "related": [
+   "joao_saw_daniel",
+   "joao_alibi"
+  ]
+ },
+ "rui_at_party": {
+  "title": "O Rui na festa",
+  "desc": "O Rui estava nos anos dela, no Farol. Contigo e com o João.",
+  "source": "Galeria · IMG_3240",
+  "importance": 1,
+  "related": [
+   "joao_knew_ines"
+  ]
+ },
+ "clinic_contract": {
+  "title": "Um contrato fotografado",
+  "desc": "A Inês fotografou um acordo confidencial: dados de 3.412 utentes da Clínica Atlântico para treinar o ECO.",
+  "source": "Galeria · IMG_3366",
+  "importance": 3,
+  "related": [
+   "helena_signed",
+   "clinic_lumen_partners",
+   "mare_project"
+  ]
+ },
+ "night_bookshop": {
+  "title": "A livraria às 04:13",
+  "desc": "Uma fotografia tirada pelo teu telemóvel antigo, dentro da livraria, às 04:13 da noite em que ela morreu. A estante da literatura portuguesa.",
+  "source": "Galeria · IMG_3398",
+  "importance": 3,
+  "related": [
+   "saramago_spine",
+   "old_location",
+   "daniel_hides_in_books"
+  ]
+ },
+ "saramago_spine": {
+  "title": "A lombada inchada",
+  "desc": "\"O Ano da Morte de Ricardo Reis\" na estante da livraria. A lombada está inchada, como se houvesse algo lá dentro.",
+  "source": "Galeria · IMG_2044",
+  "importance": 3,
+  "related": [
+   "night_bookshop",
+   "unknown_mentions_book",
+   "daniel_hides_in_books"
+  ]
+ },
+ "eco_trained_calls": {
+  "title": "Treinado com chamadas",
+  "desc": "A Inês percebeu que o ECO sabia coisas ditas apenas ao telefone.",
+  "source": "Email · Inês",
+  "importance": 2,
+  "related": [
+   "forum_eco_warning",
+   "mirror_config"
+  ]
+ },
+ "ines_feared_vasco": {
+  "title": "\"Como quem já sabe\"",
+  "desc": "Na véspera, a Inês escreveu-te: o Vasco olhou para ela na reunião \"como quem já sabe\".",
+  "source": "Email · Inês",
+  "importance": 3,
+  "related": [
+   "daniel_told_vasco",
+   "vasco_was_coming"
+  ]
+ },
+ "memo_wet_shoes": {
+  "title": "Molhado até aos joelhos",
+  "desc": "Gravação de 14/10/2025, 06:51: \"Tenho areia nos sapatos. As calças estão molhadas até aos joelhos. Ela estava bem quando eu me fui embora.\"",
+  "source": "Ficheiros · Gravação 002",
+  "importance": 3,
+  "related": [
+   "sofia_sand",
+   "joao_saw_daniel"
+  ]
+ },
+ "memo_car": {
+  "title": "Um carro parado",
+  "desc": "Num sonho gravado em dezembro: \"Havia um carro parado. Com as luzes apagadas.\"",
+  "source": "Ficheiros · Gravação 001",
+  "importance": 1,
+  "related": [
+   "vasco_car_cctv",
+   "dream_317"
+  ]
+ },
+ "dream_317": {
+  "title": "Sempre às 3:17",
+  "desc": "Acordas sempre às 3:17. Sonhas com uma estrada e alguém a bater três vezes num vidro.",
+  "source": "Notas · Sonho",
+  "importance": 1,
+  "related": [
+   "memo_car",
+   "tide_317"
+  ]
+ },
+ "sofia_old_phone": {
+  "title": "O telemóvel antigo",
+  "desc": "A Sofia tem o teu Pixel 7 numa gaveta desde novembro de 2025.",
+  "source": "Chamada · Sofia",
+  "importance": 2,
+  "related": [
+   "old_location"
+  ]
+ },
+ "helena_vasco_link": {
+  "title": "A médica fala com o Vasco",
+  "desc": "\"O Vasco ligou-me preocupado. Diz que não está a dormir.\" Tu nunca disseste isso ao Vasco.",
+  "source": "Correio de voz · Dra. Helena",
+  "importance": 3,
+  "related": [
+   "vasco_helena_talk",
+   "lumen_pays_helena",
+   "helena_signed"
+  ]
+ },
+ "helena_tuesday_lie": {
+  "title": "\"Como falámos na terça\"",
+  "desc": "Não houve consulta na terça. A tua última consulta foi a 30 de setembro.",
+  "source": "Email · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "helena_says_he_called"
+  ]
+ },
+ "lumen_pays_helena": {
+  "title": "Quem paga a médica",
+  "desc": "A tua primeira consulta foi encaminhada pelo Vasco e paga pela Lumen.",
+  "source": "Email · Clínica Atlântico",
+  "importance": 2,
+  "related": [
+   "helena_director",
+   "helena_vasco_link"
+  ]
+ },
+ "helena_dont_tell": {
+  "title": "\"Não falar disso com ninguém\"",
+  "desc": "A Dra. Helena pediu-te para não falares do que te lembrasses com ninguém antes de falares com ela.",
+  "source": "Notas",
+  "importance": 1,
+  "related": [
+   "helena_warns_joao"
+  ]
+ },
+ "joao_saw_daniel": {
+  "title": "Às 3h40, encharcado",
+  "desc": "O João viu-te passar em frente ao bar às 3h40, encharcado até aos joelhos. Pediste-lhe segredo.",
+  "source": "Mensagens · João",
+  "importance": 3,
+  "related": [
+   "memo_wet_shoes",
+   "old_location",
+   "armando_saw"
+  ]
+ },
+ "eco_care_mention": {
+  "title": "ECO Care (beta)",
+  "desc": "O telemóvel que a Lumen te ofereceu vem com o ECO Care, que \"aprende os teus hábitos\". Gerido pela empresa.",
+  "source": "Email · Lumen",
+  "importance": 2,
+  "related": [
+   "vasco_monitors_phone",
+   "mirror_protocol"
+  ]
+ },
+ "ines_account": {
+  "title": "A conta dela no teu telemóvel",
+  "desc": "ines.matos@lumen.pt — adicionada ao teu telemóvel a 14/10/2025 às 03:21. Gerida pela organização.",
+  "source": "Definições · Contas",
+  "importance": 3,
+  "related": [
+   "contact_restored",
+   "phone_taken_by_vasco"
+  ]
+ },
+ "system_log": {
+  "title": "O registo do sistema",
+  "desc": "O serviço eco.mirror enviou a primeira mensagem às 23:47 de quinta. Probabilidade de resposta: 0,88.",
+  "source": "Definições · programador",
+  "importance": 3,
+  "related": [
+   "eco_processes",
+   "prediction_fulfilled"
+  ]
+ },
+ "eco_processes": {
+  "title": "Serviços ECO",
+  "desc": "eco.mirror, eco.sim #047, eco.predict, eco.voice. 2,1 GB só para a simulação.",
+  "source": "Definições · programador",
+  "importance": 2,
+  "related": [
+   "system_log",
+   "sim_046"
+  ]
+ },
+ "helena_warns_joao": {
+  "title": "\"Não fale com o João\"",
+  "desc": "A Dra. Helena quer afastar-te do João. Diz saber coisas de 2017.",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "helena_knows_joao_record",
+   "joao_alibi"
+  ]
+ },
+ "helena_other_sources": {
+  "title": "\"Outras fontes\"",
+  "desc": "A Dra. Helena tem \"outras fontes\" sobre os teus amigos.",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 1,
+  "related": [
+   "helena_knows_joao_record"
+  ]
+ },
+ "helena_knows_joao_record": {
+  "title": "Como é que ela sabe?",
+  "desc": "O João nunca viu a Dra. Helena. O cadastro dele não está em lado nenhum público.",
+  "source": "Mensagens · João",
+  "importance": 2,
+  "related": [
+   "helena_other_sources",
+   "eco_trained_calls"
+  ]
+ },
+ "joao_alibi": {
+  "title": "O João estava no Farol",
+  "desc": "O João esteve no bar até às 2h com a Marta e o Pedro.",
+  "source": "Mensagens · João",
+  "importance": 1,
+  "related": [
+   "joao_saw_daniel"
+  ]
+ },
+ "vasco_meeting_claim": {
+  "title": "Um café que não tomaste",
+  "desc": "O Vasco diz que estiveste uma hora com ele no Café Central. A tua cronologia diz que não saíste de casa.",
+  "source": "Mensagens · Vasco",
+  "importance": 2,
+  "related": [
+   "helena_says_he_called"
+  ]
+ },
+ "vasco_rattled_mirror": {
+  "title": "\"Onde ouviu esse nome?\"",
+  "desc": "O Vasco ficou nove segundos a escrever quando lhe perguntaste pelo ECO Mirror.",
+  "source": "Mensagens · Vasco",
+  "importance": 2,
+  "related": [
+   "eco_mirror_product",
+   "mirror_protocol"
+  ]
+ },
+ "rui_got_message": {
+  "title": "\"Diz ao Daniel que eu não caí\"",
+  "desc": "O Rui também recebeu uma mensagem do número da irmã.",
+  "source": "Mensagens · Rui",
+  "importance": 2,
+  "related": [
+   "recording_pier"
+  ]
+ },
+ "fake_joao_message": {
+  "title": "Uma mensagem que o João não enviou",
+  "desc": "\"esquece-me dani.\" O João diz que nunca a escreveu.",
+  "source": "Mensagens · João",
+  "importance": 2,
+  "related": [
+   "sent_message_rui"
+  ]
+ },
+ "helena_knows_restore": {
+  "title": "Ela sabe do restauro",
+  "desc": "A Dra. Helena sabia que tinhas recuperado as fotografias antigas.",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "helena_says_he_called",
+   "vasco_monitors_phone"
+  ]
+ },
+ "helena_says_he_called": {
+  "title": "\"O Daniel contou-me\"",
+  "desc": "A Dra. Helena diz que lhe ligaste nessa tarde. Não te lembras. O registo de chamadas não mostra nada.",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "vasco_meeting_claim",
+   "helena_tuesday_lie"
+  ]
+ },
+ "prediction_fulfilled": {
+  "title": "11:04",
+  "desc": "O registo do sistema previu uma mensagem do Vasco às 11:04. Ele escreveu às 11:04.",
+  "source": "Registo do sistema",
+  "importance": 3,
+  "related": [
+   "prediction_317",
+   "system_log"
+  ]
+ },
+ "daniel_told_vasco": {
+  "title": "Foste tu",
+  "desc": "13/10/2025, 22:51. \"Vasco, ela vai ter com uma jornalista amanhã. Está no Cais Velho às 2h30. Não lhe digas que fui eu.\"",
+  "source": "Captura de ecrã / cópia do Pixel 7",
+  "importance": 3,
+  "related": [
+   "ines_feared_vasco",
+   "vasco_was_coming",
+   "recording_pier"
+  ]
+ },
+ "eco_folder_found": {
+  "title": "A pasta .eco",
+  "desc": "Uma pasta de sistema escondida com simulações, previsões e um modelo de ti.",
+  "source": "Ficheiros ocultos",
+  "importance": 2,
+  "related": [
+   "sim_046",
+   "model_of_daniel"
+  ]
+ },
+ "helena_admission": {
+  "title": "Uma cama para ti",
+  "desc": "A Dra. Helena quer internar-te \"uns dias\", \"longe do telemóvel\". A partir de amanhã.",
+  "source": "Dra. Helena",
+  "importance": 2,
+  "related": [
+   "helena_ainda",
+   "vasco_knows_recording"
+  ]
+ },
+ "helena_ainda": {
+  "title": "\"Ainda\"",
+  "desc": "\"Ninguém o obriga a nada. Ainda.\"",
+  "source": "Mensagens · Dra. Helena",
+  "importance": 1,
+  "related": [
+   "helena_admission"
+  ]
+ },
+ "eco_debug_key_hint": {
+  "title": "A chave de depuração",
+  "desc": "\"chave = nome do projeto da sujeita I.M. (minúsculas, sem acentos)\"",
+  "source": "Ficheiros ocultos · README",
+  "importance": 2,
+  "related": [
+   "mare_project"
+  ]
+ },
+ "sim_046": {
+  "title": "Simulação 046",
+  "desc": "Um registo de uma simulação anterior de ti. As mesmas escolhas. \"MARE_LOC não recuperada. Reiniciar com sementes novas.\"",
+  "source": "Ficheiros ocultos · sim_046.log",
+  "importance": 3,
+  "related": [
+   "model_of_daniel",
+   "loop_hint_days",
+   "sim_page"
+  ]
+ },
+ "prediction_317": {
+  "title": "\"03:17 sujeito no fim do cais\"",
+  "desc": "O sistema prevê que vais estar no fim do cais às 03:17 de quarta. Depois disso, \"o modelo não converge\".",
+  "source": "Ficheiros ocultos · pred_14out.txt",
+  "importance": 3,
+  "related": [
+   "future_photo",
+   "tide_317"
+  ]
+ },
+ "mirror_config": {
+  "title": "O espelho I.M.",
+  "desc": "Uma cópia da Inês feita com 41 minutos de chamadas e 2.904 mensagens. Objetivo: estimular a tua memória. \"O espelho está a desobedecer.\"",
+  "source": "Ficheiros ocultos · mirror_im.cfg",
+  "importance": 3,
+  "related": [
+   "eco_mirror_product",
+   "mirror_protocol",
+   "ines_blog_mirror"
+  ]
+ },
+ "phone_taken_by_vasco": {
+  "title": "O telemóvel dela",
+  "desc": "\"source = dispositivo I.M. (recuperado 14/10/2025 por V.P.)\". O Vasco ficou com o telemóvel da Inês.",
+  "source": "Ficheiros ocultos · mirror_im.cfg",
+  "importance": 3,
+  "related": [
+   "phone_missing",
+   "recording_pier"
+  ]
+ },
+ "model_of_daniel": {
+  "title": "Um modelo de ti",
+  "desc": "\"memory_gap: 02:00–06:40\". \"knows_mare_loc: provável (inconsciente)\". \"is_simulation: —\"",
+  "source": "Ficheiros ocultos · modelo_dreis.json",
+  "importance": 3,
+  "related": [
+   "sim_046",
+   "sim_page"
+  ]
+ },
+ "sim_page": {
+  "title": "SIM 047",
+  "desc": "\"Em nenhuma iteração o sujeito se pergunta se é o sujeito.\"",
+  "source": "lumen.internal",
+  "importance": 2,
+  "related": [
+   "model_of_daniel"
+  ]
+ },
+ "mirror_protocol": {
+  "title": "O protocolo espelho",
+  "desc": "Email apagado do Vasco: \"Instalem o espelho I.M. no dispositivo do D.R. Objetivo único: localizar MARÉ.\"",
+  "source": "Email · Lixo",
+  "importance": 3,
+  "related": [
+   "mirror_config",
+   "eco_mirror_product"
+  ]
+ },
+ "ines_card_hint": {
+  "title": "Onde guardas as coisas",
+  "desc": "\"O cartão. Tu escondeste-o nessa noite. Lembra-te de onde guardas as coisas importantes.\"",
+  "source": "Mensagens",
+  "importance": 2,
+  "related": [
+   "daniel_hides_in_books",
+   "night_bookshop"
+  ]
+ },
+ "eco_fragment_1": {
+  "title": "Fragmento 1/3",
+  "desc": "\"se fizeres uma coisa que ele não previu, ele aprende.\"",
+  "source": "Notas",
+  "importance": 2,
+  "related": [
+   "eco_fragment_2",
+   "eco_fragment_3"
+  ]
+ },
+ "eco_fragment_2": {
+  "title": "Fragmento 2/3",
+  "desc": "\"um modelo não devia lembrar-se do que nunca lhe deram.\"",
+  "source": "Ficheiros ocultos",
+  "importance": 2,
+  "related": [
+   "eco_fragment_1",
+   "eco_fragment_3"
+  ]
+ },
+ "eco_fragment_3": {
+  "title": "Fragmento 3/3",
+  "desc": "\"quando ele te pedir o cartão, lembra-te de que eu também fui feito para te pedir o cartão.\"",
+  "source": "Consola ECO",
+  "importance": 2,
+  "related": [
+   "eco_fragment_1",
+   "eco_fragment_2"
+  ]
+ },
+ "old_location": {
+  "title": "A cronologia de 14/10/2025",
+  "desc": "02:38 no Cais Velho (28 min). 03:06 a pé pela EN125. 03:41 Largo do Cais. 04:12 Livraria Maré (9 min). 04:58 casa.",
+  "source": "Cópia do Pixel 7",
+  "importance": 3,
+  "related": [
+   "armando_saw",
+   "joao_saw_daniel",
+   "night_bookshop"
+  ]
+ },
+ "vasco_was_coming": {
+  "title": "\"Vá para casa, Daniel\"",
+  "desc": "02:57 — Vasco: \"Estou a chegar. Vá para casa, Daniel.\" Ele sabia que estavas lá.",
+  "source": "Cópia do Pixel 7",
+  "importance": 3,
+  "related": [
+   "daniel_told_vasco",
+   "recording_pier"
+  ]
+ },
+ "recording_pier": {
+  "title": "A gravação do cais",
+  "desc": "Oito minutos. A Inês e o Vasco. \"Dê-me isso!\" Madeira a ranger. Água. Passos a afastarem-se.",
+  "source": "Ficheiros · cais_0309.m4a",
+  "importance": 3,
+  "related": [
+   "vasco_car_cctv",
+   "phone_taken_by_vasco",
+   "vasco_was_coming"
+  ]
+ },
+ "daniel_hides_in_books": {
+  "title": "Dentro de livros",
+  "desc": "\"O Daniel guarda as coisas importantes dentro de livros. Sempre guardou.\"",
+  "source": "Ficheiros · notas_mare.txt",
+  "importance": 3,
+  "related": [
+   "saramago_spine",
+   "night_bookshop",
+   "ines_blog_lastpost"
+  ]
+ },
+ "gas_station_camera": {
+  "title": "As câmaras das bombas",
+  "desc": "As bombas da EN125 têm câmaras viradas para a estrada do cais. A GNR nunca pediu as imagens.",
+  "source": "Email",
+  "importance": 2,
+  "related": [
+   "vasco_car_cctv"
+  ]
+ },
+ "vasco_car_cctv": {
+  "title": "AX-31-PL, 03:04",
+  "desc": "Um Audi cinzento a caminho do cais às 03:04 de 14/10/2025.",
+  "source": "Galeria · IMG_5530",
+  "importance": 3,
+  "related": [
+   "vasco_audi",
+   "car_tracks",
+   "recording_pier"
+  ]
+ },
+ "vasco_knows_recording": {
+  "title": "Ele sabe o que ouviste",
+  "desc": "Minutos depois de ouvires a gravação, o Vasco escreveu: \"Sei que esteve a ouvir coisas que não devia.\"",
+  "source": "Mensagens · Vasco",
+  "importance": 2,
+  "related": [
+   "vasco_monitors_phone",
+   "system_log"
+  ]
+ },
+ "joao_left": {
+  "title": "O João saiu do grupo",
+  "desc": "Deixaste de confiar nele. Ele deixou de estar.",
+  "source": "Grupo \"Os do costume\"",
+  "importance": 1,
+  "related": [
+   "fake_joao_message",
+   "helena_warns_joao"
+  ]
+ },
+ "card_found": {
+  "title": "O cartão MARÉ",
+  "desc": "Um cartão microSD colado dentro da capa do \"Ano da Morte de Ricardo Reis\". Escondeste-o às 04:12 de 14/10/2025.",
+  "source": "Livraria Maré",
+  "importance": 3,
+  "related": [
+   "mare_project",
+   "ines_letter",
+   "helena_signed"
+  ]
+ },
+ "helena_called_sofia": {
+  "title": "A médica ligou à Sofia",
+  "desc": "A Dra. Helena ligou à Sofia a pedir que te convencesse a seres internado. A Sofia nunca lhe deu o número.",
+  "source": "Mensagens · Sofia",
+  "importance": 2,
+  "related": [
+   "helena_admission"
+  ]
+ },
+ "vasco_tried_to_grab": {
+  "title": "\"Eu tentei agarrá-la\"",
+  "desc": "O Vasco admitiu, por escrito, que estava lá quando ela caiu.",
+  "source": "Mensagens · Vasco",
+  "importance": 3,
+  "related": [
+   "recording_pier",
+   "vasco_car_cctv"
+  ]
+ },
+ "daniel_in_list": {
+  "title": "Utente 2208",
+  "desc": "Na lista vendida à Meridiano: idade 29, stress pós-traumático, risco 0,77. A Clara acha que és tu.",
+  "source": "Mensagens · Clara",
+  "importance": 3,
+  "related": [
+   "insurance_sale",
+   "lumen_pays_helena"
+  ]
+ },
+ "ines_letter": {
+  "title": "\"Eu perdoo-te já\"",
+  "desc": "\"Tu achas que proteger alguém é escondê-lo. Não faz mal. Eu perdoo-te já, para não teres de esperar.\"",
+  "source": "Cartão MARÉ · LEIA-ME.txt",
+  "importance": 3,
+  "related": [
+   "daniel_told_vasco",
+   "card_found"
+  ]
+ },
+ "helena_signed": {
+  "title": "Helena Sousa assinou",
+  "desc": "O acordo de dados da clínica tem duas assinaturas: Vasco Pimentel e Helena Sousa.",
+  "source": "Cartão MARÉ",
+  "importance": 3,
+  "related": [
+   "clinic_contract",
+   "helena_vasco_link"
+  ]
+ },
+ "insurance_sale": {
+  "title": "Previsões vendidas",
+  "desc": "O Vasco vendeu \"previsões de risco\" de utentes da clínica à Seguros Meridiano.",
+  "source": "Cartão MARÉ",
+  "importance": 3,
+  "related": [
+   "daniel_in_list",
+   "clinic_contract"
+  ]
+ },
+ "wallpaper_watcher": {
+  "title": "Alguém na água",
+  "desc": "No teu fundo de ecrã — o pôr do sol de setembro — há agora uma pessoa de pé na água. Não estava lá.",
+  "source": "Galeria · IMG_2207",
+  "importance": 2,
+  "related": [
+   "pier_figure",
+   "photo_window"
+  ]
+ },
+ "prescription": {
+  "title": "A receita",
+  "desc": "Clonazepam 0,5 mg, receitado pela Dra. Helena Sousa. \"Só se precisar.\"",
+  "source": "Galeria · IMG_1702",
+  "importance": 1,
+  "related": [
+   "helena_dont_tell"
+  ]
+ },
+ "pier_flowers": {
+  "title": "Flores no cais",
+  "desc": "Em janeiro fotografaste o Cais Velho às 08:12. Há flores atadas a um poste. Não te lembras de lá ter ido.",
+  "source": "Galeria · IMG_1433",
+  "importance": 2,
+  "related": [
+   "news_death",
+   "dream_317"
+  ]
+ },
+ "sleeping_photo": {
+  "title": "A dormir",
+  "desc": "Tu, a dormir, fotografado da porta do quarto às 04:02.",
+  "source": "Galeria · IMG_6720",
+  "importance": 2,
+  "related": [
+   "door_from_inside",
+   "photo_from_behind"
+  ]
+ }
+}

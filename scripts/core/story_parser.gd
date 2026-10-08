@@ -267,7 +267,7 @@ func _parse_choice(header: String) -> Dictionary:
 			_err("choice option must start with '>' : " + line)
 			continue
 		var body := line.substr(1).strip_edges()
-		var opt := {"text": "", "set": {}, "cond": ""}
+		var opt := {"text": "", "set": {}, "inc": {}, "cond": ""}
 		if body.begins_with("{if "):
 			var e := body.find("}")
 			opt.cond = body.substr(4, e - 4).strip_edges()
@@ -276,15 +276,41 @@ func _parse_choice(header: String) -> Dictionary:
 		if bar != -1:
 			var tail := body.substr(bar + 3).strip_edges()
 			body = body.substr(0, bar).strip_edges()
-			if tail.begins_with("set "):
-				opt.set = _parse_kv(tail.substr(4))
-			else:
-				opt.set = _parse_kv(tail)
+			_parse_option_tail(tail, opt)
 		opt.text = body.replace("\\n", "\n")
 		op.options.append(opt)
 	if op.options.is_empty():
 		_err("choice without options")
 	return op
+
+
+## Option effects: "set a=1 b=true inc trust_x 2 inc other" (set/inc may repeat).
+func _parse_option_tail(tail: String, opt: Dictionary) -> void:
+	var toks := _split_args(tail)
+	var i := 0
+	while i < toks.size():
+		var t: String = toks[i]
+		if t == "set":
+			i += 1
+			continue
+		if t == "inc":
+			if i + 1 >= toks.size():
+				_err("inc without key")
+				break
+			var key: String = toks[i + 1]
+			var n := 1.0
+			if i + 2 < toks.size() and str(toks[i + 2]).is_valid_float():
+				n = float(toks[i + 2])
+				i += 1
+			opt.inc[key] = float(opt.inc.get(key, 0.0)) + n
+			i += 2
+			continue
+		var eq := t.find("=")
+		if eq == -1:
+			opt.set[t] = true
+		else:
+			opt.set[t.substr(0, eq)] = _value(t.substr(eq + 1))
+		i += 1
 
 
 func _parse_call(header: String) -> Dictionary:
@@ -297,6 +323,9 @@ func _parse_call(header: String) -> Dictionary:
 		elif t == "forced":
 			op.missable = false
 		elif t == "autoanswer":
+			op.autoanswer = true
+		elif t == "outgoing":
+			op.outgoing = true
 			op.autoanswer = true
 		elif t.contains("="):
 			var kv := t.split("=")

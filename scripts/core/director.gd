@@ -267,6 +267,8 @@ func missed(call_id: String) -> bool:
 	var s = GameState.get_var("call_" + call_id, "")
 	return s == "missed" or s == "declined"
 func has_photo(pid: String) -> bool: return GameState.data.photos.has(pid)
+func has_msg(th: String, mid: String) -> bool: return not GameState.find_message(th, mid).is_empty()
+func photo_is(pid: String, variant: String) -> bool: return GameState.photo_variant(pid) == variant
 func has_file(fid: String) -> bool: return GameState.data.files.has(fid)
 func has_email(eid: String) -> bool:
 	for e in GameState.data.emails:
@@ -352,7 +354,7 @@ func _do_msg(op: Dictionary, g: int) -> bool:
 	var from: String = op.from
 	if thread == "":
 		return true
-	if from != "me" and not opts.get("instant", false) and not opts.has("time"):
+	if from != "me" and not opts.get("instant", false) and not opts.has("time") and not opts.has("date"):
 		var tt: float = float(opts.get("typing", typing_time(op.text)))
 		Events.thread_typing.emit(thread, from, true)
 		var ok := await _sleep(tt, g)
@@ -368,6 +370,8 @@ func _do_msg(op: Dictionary, g: int) -> bool:
 		msg.att = op.att.duplicate()
 	if opts.has("time"):
 		msg.t = _backdate(str(opts.time))
+	if opts.has("date"):
+		msg.t = Clock.parse_datetime(str(opts.date))
 	if opts.get("deleted", false):
 		msg.del = true
 	if opts.get("unknown", false):
@@ -406,7 +410,7 @@ func _announce_message(thread: String, msg: Dictionary) -> void:
 			"file": body = "Ficheiro"
 	if msg.get("del", false):
 		body = "Esta mensagem foi apagada"
-	var n := GameState.post_notification("messages", title, body, {"thread": thread})
+	var n := GameState.post_notification("messages", title, body, {"thread": thread, "t": float(msg.t)})
 	Events.notification_posted.emit(n)
 
 
@@ -450,6 +454,8 @@ func _do_choice(op: Dictionary, beat_id: String, pc: int, g: int) -> bool:
 	Events.choice_cleared.emit(op.thread)
 	for k in opt.set:
 		GameState.set_var(k, opt.set[k])
+	for k in opt.get("inc", {}):
+		GameState.inc_var(k, float(opt.inc[k]))
 	GameState.set_var("choice_" + op.id, opt.index)
 	GameState.data.choice_log.append({"id": op.id, "option": opt.index, "text": opt.text, "chapter": GameState.data.chapter})
 	var text: String = opt.text
@@ -478,13 +484,23 @@ func _do_call(op: Dictionary, g: int) -> bool:
 	while in_call:
 		if not await _sleep(0.5, g):
 			return false
-	var call := {"id": op.id, "who": op.who, "dir": "in", "unknown": op.unknown, "number": op.number, "t": Clock.now()}
+	var outgoing: bool = op.get("outgoing", false)
+	var call := {"id": op.id, "who": op.who, "dir": "out" if outgoing else "in", "unknown": op.unknown, "number": op.number, "t": Clock.now()}
 	in_call = true
 	current_call = call
 	_call_answer = -1
 	_hangup = false
-	Events.call_incoming.emit(call)
-	Audio.start_ring(op.unknown or op.who == "ines" or op.who == "eco")
+	if outgoing:
+		_call_answer = 1
+		Events.call_started.emit(call)
+		Audio.start_dialtone()
+		if not await _sleep(2.5, g):
+			Audio.stop_ring()
+			in_call = false
+			return false
+	else:
+		Events.call_incoming.emit(call)
+		Audio.start_ring(op.unknown or op.who == "ines" or op.who == "eco" or op.who == "unknown")
 	var waited := 0.0
 	if op.autoanswer:
 		_call_answer = 1
@@ -514,7 +530,8 @@ func _do_call(op: Dictionary, g: int) -> bool:
 		Events.notification_posted.emit(n)
 		return true
 	GameState.set_var("call_" + op.id, "answered")
-	Events.call_started.emit(call)
+	if not outgoing:
+		Events.call_started.emit(call)
 	Audio.play("call_connect")
 	var start_t := Clock.now()
 	for line in op.lines:
@@ -528,7 +545,7 @@ func _do_call(op: Dictionary, g: int) -> bool:
 		elif not await _do_call_line(line, g):
 			in_call = false
 			return false
-	_log_call(call, "in", int(max(Clock.now() - start_t, 4.0)))
+	_log_call(call, call.dir, int(max(Clock.now() - start_t, 4.0)))
 	Audio.play("call_end")
 	in_call = false
 	current_call = {}

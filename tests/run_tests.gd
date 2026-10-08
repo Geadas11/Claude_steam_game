@@ -181,6 +181,8 @@ func _check_op(op: Dictionary, where: String, clue_refs: Dictionary) -> void:
 			for o in op.options:
 				if o.cond != "":
 					_check_expr(o.cond, where + " choice cond")
+				for k in o.set:
+					ok(not (k in ["inc", "set"]) and not str(k).is_valid_float(), "%s: option sets suspicious key '%s'" % [where, k])
 		"call":
 			ok(Content.has_item("characters", op.who), "%s: call who %s" % [where, op.who])
 			for l in op.lines:
@@ -261,6 +263,7 @@ func _test_save_load() -> void:
 
 # =================================================================== playthrough
 var _walk: Dictionary = {}
+var _app_cycle := 0
 
 
 func _playthrough(policy: String) -> void:
@@ -269,17 +272,17 @@ func _playthrough(policy: String) -> void:
 	Director.fast_mode = true
 	Director.auto_answer = func(_c): return true
 	Director.auto_chooser = func(thread, pending): return _choose(policy, thread, pending)
-	var ending_hit := ""
 	var ended_chapters: Array = []
+	var ending_box := {"id": ""}   # lambdas capture locals by value; use a reference type
 	var cb_end := func(ch): ended_chapters.append(ch)
-	var cb_ending := func(e): ending_hit = e
+	var cb_ending := func(e): ending_box.id = e
 	Events.chapter_ended.connect(cb_end)
 	Events.ending_reached.connect(cb_ending)
 	Director.new_game()
 	var safety := 0
 	var last_chapter := ""
 	var stuck_frames := 0
-	while ending_hit == "" and safety < 60000:
+	while ending_box.id == "" and safety < 60000:
 		safety += 1
 		var ch: String = GameState.data.chapter
 		if ch != last_chapter:
@@ -296,10 +299,12 @@ func _playthrough(policy: String) -> void:
 		if stuck_frames > 5000:
 			failures.append("policy %s stuck in %s; running=%s pending=%s" % [policy, ch, str(GameState.data.running.keys()), str(GameState.data.choices.keys())])
 			_dump_pending(ch)
+			print("     flags: final=%s left_home=%s evidence_sent=%s sent_rui=%s ded=%s found_card=%s" % [GameState.get_var("final", ""), GameState.flag("left_home"), GameState.flag("evidence_sent"), GameState.flag("sent_rui"), GameState.get_var("deduction_score", -1), GameState.flag("found_card")])
 			break
 	Events.chapter_ended.disconnect(cb_end)
 	Events.ending_reached.disconnect(cb_ending)
 	print("   chapters ended: %s" % str(ended_chapters))
+	var ending_hit: String = ending_box.id
 	print("   ending: %s   clues: %d   playtime frames: %d" % [ending_hit, GameState.clue_count(), safety])
 	var expect: String = _walk.get("expected_endings", {}).get(policy, "")
 	if expect != "":
@@ -336,7 +341,12 @@ func _auto_player(ch: String, policy: String) -> void:
 		GameState.data.chapter_opened[app_id] = 1
 		GameState.data.opened[app_id] = 1
 	var steps: Dictionary = _walk.get("chapters", {}).get(ch, {})
-	var all_steps: Array = steps.get("all", []) + steps.get(policy, [])
+	# policy-specific steps run first so they can pre-empt generic ones
+	var all_steps: Array = steps.get(policy, []) + steps.get("all", [])
+	var apps: Array = all_steps.filter(func(st): return st[0] == "app")
+	if not apps.is_empty():
+		_app_cycle += 1
+		GameState.current_app = str(apps[_app_cycle % apps.size()][1])
 	for st in all_steps:
 		var kind: String = st[0]
 		var arg: String = str(st[1])
@@ -419,6 +429,8 @@ func _auto_player(ch: String, policy: String) -> void:
 			"pin":
 				GameState.data.phone.pin_required = false
 				GameState.set_var("pin_ok", true)
+			"app":
+				pass
 			"tag":
 				var tp := arg.split("=")
 				if GameState.data.clues.has(tp[0]):

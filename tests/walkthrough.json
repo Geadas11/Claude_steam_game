@@ -1,7 +1,336 @@
 {
-  "expected_endings": {},
-  "choices": {"default": {}, "A": {}, "B": {}, "C": {}, "D": {}, "E": {}},
-  "chapters": {
-    "ch01": {"all": [["view", "IMG_6612"], ["note", "note_sonho"]]}
+ "expected_endings": {
+  "A": "A",
+  "B": "B",
+  "C": "C",
+  "D": "D",
+  "E": "E"
+ },
+ "choices": {
+  "default": {
+   "c1_who": 0,
+   "c11_leave": 0,
+   "c10_book": 0,
+   "c10_book_carla": 0,
+   "c10_book2": 0
+  },
+  "A": {
+   "c4_clara": 0,
+   "c4_clara3": 2,
+   "c7_rui": 0,
+   "c7_rui2": 1,
+   "c7_clara": 0,
+   "c7_helena": 2,
+   "c7_joao": 1,
+   "c6_rui": 0,
+   "c10_clara": 0,
+   "c10_clara_rec": 0,
+   "c10_rui": 0,
+   "c10_joao": 0,
+   "c10_sofia": 0,
+   "c10_vasco": 1,
+   "c7_vasco": 3,
+   "c9_vasco": 0,
+   "c11_final": 0,
+   "c6_joao": 0,
+   "c6_joao2": 1
+  },
+  "B": {
+   "c1_vasco": 0,
+   "c2_vasco": 0,
+   "c4_vasco": 0,
+   "c7_vasco": 1,
+   "c7_helena": 1,
+   "c9_vasco": 1,
+   "c10_vasco": 0,
+   "c11_final": 1
+  },
+  "C": {
+   "c11_final": 3
+  },
+  "D": {
+   "c11_final": 4,
+   "c11_leave": 1
+  },
+  "E": {
+   "c11_final": 2,
+   "c8_eco1": 2,
+   "c8_eco2": 0,
+   "c11_eco": 1
   }
+ },
+ "chapters": {
+  "ch01": {
+   "all": [
+    [
+     "view",
+     "IMG_6612"
+    ],
+    [
+     "note",
+     "note_sonho"
+    ],
+    [
+     "meta",
+     "IMG_6612"
+    ]
+   ]
+  },
+  "ch02": {
+   "all": [
+    [
+     "view",
+     "IMG_6630"
+    ],
+    [
+     "view",
+     "IMG_6641"
+    ],
+    [
+     "search",
+     "912 403 317"
+    ],
+    [
+     "visit",
+     "quemligou"
+    ]
+   ]
+  },
+  "ch03": {
+   "all": [
+    [
+     "visit",
+     "vendeja_bike"
+    ],
+    [
+     "visit",
+     "jornal_morte"
+    ],
+    [
+     "visit",
+     "memorial"
+    ],
+    [
+     "app",
+     "messages:rui"
+    ]
+   ]
+  },
+  "ch04": {
+   "all": [
+    [
+     "visit",
+     "jornal_clara"
+    ],
+    [
+     "visit",
+     "forum_rapariga"
+    ],
+    [
+     "visit",
+     "ines_profile"
+    ],
+    [
+     "visit",
+     "ines_blog"
+    ],
+    [
+     "visit",
+     "lumen_equipa"
+    ],
+    [
+     "visit",
+     "lumen_eco"
+    ],
+    [
+     "call",
+     "armando"
+    ],
+    [
+     "app",
+     "messages:clara"
+    ],
+    [
+     "hotspot",
+     "IMG_2044:saramago_spine"
+    ]
+   ]
+  },
+  "ch05": {
+   "all": [
+    [
+     "camera",
+     "hall"
+    ],
+    [
+     "view",
+     "IMG_BACK"
+    ],
+    [
+     "pin",
+     "1"
+    ],
+    [
+     "file",
+     "gravacao_003"
+    ],
+    [
+     "flag",
+     "viewed_history"
+    ]
+   ]
+  },
+  "ch06": {
+   "all": [
+    [
+     "app",
+     "messages:ines"
+    ],
+    [
+     "view",
+     "IMG_3240"
+    ],
+    [
+     "hotspot",
+     "IMG_3240:joao_knew_ines"
+    ],
+    [
+     "app",
+     "messages:joao"
+    ],
+    [
+     "app",
+     "messages:sofia"
+    ],
+    [
+     "view",
+     "IMG_3398"
+    ],
+    [
+     "hotspot",
+     "IMG_3398:night_bookshop"
+    ]
+   ]
+  },
+  "ch07": {
+   "all": [
+    [
+     "app",
+     "messages:joao"
+    ],
+    [
+     "app",
+     "messages:rui"
+    ],
+    [
+     "app",
+     "messages:clara"
+    ]
+   ]
+  },
+  "ch08": {
+   "all": [
+    [
+     "phone",
+     "dev_mode"
+    ],
+    [
+     "flag",
+     "read_syslog"
+    ],
+    [
+     "view",
+     "IMG_6800"
+    ],
+    [
+     "flag",
+     "opened_hidden_eco"
+    ],
+    [
+     "phone",
+     "hidden_files"
+    ],
+    [
+     "file",
+     "eco_fragment_2"
+    ]
+   ],
+   "E": [
+    [
+     "flag",
+     "eco_console"
+    ],
+    [
+     "phone",
+     "eco_app"
+    ],
+    [
+     "app",
+     "eco"
+    ]
+   ]
+  },
+  "ch09": {
+   "all": [
+    [
+     "file",
+     "backup_pixel7"
+    ],
+    [
+     "file",
+     "pixel7_localizacao"
+    ],
+    [
+     "file",
+     "pixel7_mensagens"
+    ],
+    [
+     "file",
+     "ines_cais_rec"
+    ],
+    [
+     "view",
+     "IMG_5530"
+    ],
+    [
+     "note",
+     "note_eco_1"
+    ],
+    [
+     "deduce",
+     "why=give_copy,told=daniel,daniel_at=walking,who=vasco,where=book"
+    ]
+   ],
+   "D": [
+    [
+     "deduce",
+     "why=suicide,told=joao,daniel_at=home,who=nobody,where=sea"
+    ]
+   ]
+  },
+  "ch10": {
+   "all": [
+    [
+     "app",
+     "messages:clara"
+    ],
+    [
+     "app",
+     "messages:rui"
+    ],
+    [
+     "app",
+     "messages:joao"
+    ],
+    [
+     "app",
+     "messages:sofia"
+    ],
+    [
+     "file",
+     "mare_leiame"
+    ]
+   ]
+  }
+ }
 }
