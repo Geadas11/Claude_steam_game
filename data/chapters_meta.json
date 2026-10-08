@@ -346,7 +346,7 @@
       "id": "give_copy",
       "text": "Para entregar uma cópia das provas ao Daniel",
       "needs": "ines_last_messages",
-      "needs_expr": "clue(\"ines_blog_lastpost\") or clue(\"ines_letter\")"
+      "needs_expr": "clue(\"ines_blog_lastpost\") or clue(\"ines_letter\") or clue(\"ines_calendar\")"
      },
      {
       "id": "meet_clara",
@@ -454,7 +454,7 @@
       "id": "book",
       "text": "Dentro de um livro, na Livraria Maré",
       "needs": "saramago_spine",
-      "needs_expr": "clue(\"night_bookshop\") or clue(\"secret_note_book\") or clue(\"daniel_hides_in_books\") or clue(\"carla_photo_in_book\")"
+      "needs_expr": "clue(\"night_bookshop\") or clue(\"secret_note_book\") or clue(\"daniel_hides_in_books\") or clue(\"carla_photo_in_book\") or clue(\"postit_p317\") or clue(\"ines_receipt\")"
      },
      {
       "id": "phone",
