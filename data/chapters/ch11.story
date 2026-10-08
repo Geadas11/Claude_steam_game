@@ -127,6 +127,10 @@ if vs("mem2") == "why"
   unknown> Ouviste-me gritar da estrada e voltaste a correr. Entraste na água até aos joelhos. Chamaste por mim até ficares sem voz.
   wait 6
   unknown> Às 03:41 o João viu-te passar encharcado. Já era tarde. Não era culpa tua ser tarde.
+  if flag("joao_heard_called")
+    wait 4
+    unknown> Disseste-lhe "ela chamou-me". Era verdade.
+  endif
   clue went_back
 else
   unknown> Eu sei.
@@ -146,6 +150,11 @@ wait 8
 unknown> Há um ano voltaste para trás. Ouviste-me e voltaste. Entraste na água.
 wait 4
 unknown> Ninguém te contou isso. Nem tu.
+if flag("mae_call_430")
+  wait 5
+  unknown> Às quatro e meia ligaste à tua mãe e não conseguiste dizer nada.
+  unknown> Ela ficou a ouvir o mar contigo. Onze chamadas depois, ainda não sabia porquê.
+endif
 clue went_back
 @end
 
