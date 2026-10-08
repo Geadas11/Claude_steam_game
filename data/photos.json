@@ -1110,7 +1110,7 @@
   ]
  },
  "IMG_INES_LAST": {
-  "file": "IMG_INES_LAST.jpg",
+  "file": "IMG_20251014_030540.jpg",
   "date": "2025-10-14 03:05",
   "place": "Cais Velho, Salgueira",
   "device": "Pixel 8 (I.M.)",
@@ -1118,27 +1118,34 @@
   "aspect": 0.75,
   "scene": {
    "preset": "pier_night",
-   "grain": 0.18,
-   "figs": [
-    [
-     0.43,
-     0.86,
-     0.36,
-     "stand",
-     "daniel_back",
-     1.0,
-     "#0b0a0c"
-    ]
-   ],
+   "grain": 0.12,
    "layers": [
     {
      "t": "glow",
      "p": [
-      0.5,
-      0.55
+      0.46,
+      0.7
      ],
-     "r": 0.5,
-     "c": "#ffcf8a10"
+     "r": 0.28,
+     "c": "#ffcf8a22"
+    },
+    {
+     "t": "figure",
+     "p": [
+      0.46,
+      0.84
+     ],
+     "h": 0.3,
+     "c": "#3a3029"
+    },
+    {
+     "t": "glow",
+     "p": [
+      0.46,
+      0.6
+     ],
+     "r": 0.06,
+     "c": "#ffdca822"
     }
    ]
   },
