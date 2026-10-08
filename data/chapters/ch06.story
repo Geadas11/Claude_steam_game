@@ -356,3 +356,42 @@ if vs("old_msg") != "none"
   clue wrote_old_thread
 endif
 @end
+
+# ---------------------------------------------------------------- Clara (domingo)
+@beat clara_sunday
+@when at("14:30") and flag("clara_talked")
+clara> Domingo, eu sei. Desculpe.
+clara> Fui ao arquivo da redação. A Inês ligou para a linha geral três vezes nessa semana. A última no dia 13, às 18:02. Durou onze segundos.
+clara> Ninguém lhe devolveu a chamada. Fui eu que fiquei com a mensagem. Li-a no dia 15.
+@end
+
+@beat clara_sunday_reply
+@when beat("clara_sunday") and read("clara")
+wait 1
+if flag("read_last_messages")
+  choice clara c6_clara
+    > Recuperei as últimas mensagens dela. 03:15: "Ele está aqui." | set clara6=shared inc trust_clara 1
+    > Ainda não tenho nada que possa mostrar. | set clara6=wait
+  end
+else
+  choice clara c6_clara
+    > O que dizia a mensagem? | set clara6=ask
+    > Ainda não tenho nada que possa mostrar. | set clara6=wait
+  end
+endif
+wait 30
+if vs("clara6") == "shared"
+  clara> "Ele."
+  wait 5
+  clara> Uma mensagem não é prova. Mas é a primeira coisa que ouço em um ano que não é "acidente".
+  clara> Guarde tudo. Fora desse telemóvel, se conseguir.
+  set clara_saw_msgs=true
+elif vs("clara6") == "ask"
+  clara> "Clara, é a Inês. Amanhã às dez levo tudo. Se eu não aparecer, não é por ter mudado de ideias."
+  wait 6
+  clara> Li-a dois dias depois. Já tinha saído a notícia do "acidente". Nunca a apaguei.
+  clue clara_voicemail_ines
+else
+  clara> Eu espero. Já esperei um ano.
+endif
+@end

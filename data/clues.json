@@ -1782,5 +1782,15 @@
    "clara_meeting",
    "ines_last_messages"
   ]
+ },
+ "clara_voicemail_ines": {
+  "title": "A mensagem na redação",
+  "desc": "13/10/2025, 18:02, linha geral do Jornal do Sul: \"Clara, é a Inês. Amanhã às dez levo tudo. Se eu não aparecer, não é por ter mudado de ideias.\"",
+  "source": "Clara Neves",
+  "importance": 3,
+  "related": [
+   "clara_meeting",
+   "ines_calendar"
+  ]
  }
 }

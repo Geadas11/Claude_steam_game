@@ -214,6 +214,7 @@ clue("ines_last_photo", "A última fotografia dela", "03:05 de 14/10/2025, tirad
 clue("daniel_forum_account", "ex_lumen_qa eras tu", "A conta que avisava no fórum que o ECO ouvia as chamadas era a tua (\"dani_reads\", mudada em abril de 2025). Um rascunho de 13/10/2025, 22:44: \"Deixem-na em paz.\" Sete minutos depois, escreveste ao Vasco.", "Salgueira Noturna · perfil", 3, ["forum_eco_warning", "daniel_told_vasco", "daniel_postit"])
 clue("postit_p317", "\"D. — p. 317\"", "Na secretária da Inês, um post-it com a letra dela: \"D. — p. 317 (a de cima)\".", "Fotografia do Rui", 3, ["saramago_spine", "daniel_hides_in_books", "ines_blog_lastpost"])
 clue("ines_calendar", "O calendário dela", "13 de outubro: \"cais 2h30 (D.)\". 14 de outubro: \"Clara 10h!\"", "Fotografia do Rui", 2, ["clara_meeting", "ines_last_messages"])
+clue("clara_voicemail_ines", "A mensagem na redação", "13/10/2025, 18:02, linha geral do Jornal do Sul: \"Clara, é a Inês. Amanhã às dez levo tudo. Se eu não aparecer, não é por ter mudado de ideias.\"", "Clara Neves", 3, ["clara_meeting", "ines_calendar"])
 
 # dummies removed below
 for cid in list(C):
