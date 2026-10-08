@@ -75,6 +75,13 @@
   Extras com estatísticas entre partidas e créditos (com contactos de apoio); epígrafes de Pessoa nos
   cartões de capítulo.
 - **Música procedural:** menu, memória e uma caixa de música desafinada (finais C/D e título depois deles).
+- **Telemóvel real (QR) — versão 2:** a página é agora uma cópia do telemóvel do jogo: mesmo ecrã
+  principal (fundo, relógio, 12 apps com os mesmos ícones em SVG, avisos), letra Inter servida pelo
+  jogo. Mensagens, Telefone (recentes + ligar), Contactos, Galeria (fotos reais em JPEG, com zoom),
+  Notas e Email funcionam no próprio telemóvel; Mapas, Ficheiros, Navegador, Relógio, Definições,
+  Câmara e ECO abrem no ecrã do PC. Tudo o que se abre no telemóvel abre também no PC, para a
+  história reagir como sempre; o PIN do telemóvel do jogo nunca é saltado. Botão "voltar" do
+  telemóvel funciona.
 - **Telemóvel real (QR):** o jogador lê um código QR no PC e o telemóvel dele passa a receber as
   mensagens, notificações (som + vibração), chamadas (atender/recusar, legendas) e interferências do
   jogo; pode responder às escolhas. O telemóvel do PC acompanha o que se abre no real. Servidor HTTP +

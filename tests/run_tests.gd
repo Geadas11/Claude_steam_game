@@ -693,6 +693,12 @@ func _test_companion() -> void:
 	ok(typeof(state) == TYPE_DICTIONARY and state.get("t", "") == "state", "phone receives the state")
 	if typeof(state) == TYPE_DICTIONARY:
 		ok(state.get("threads", []).size() > 0, "state lists conversations")
+		ok(state.get("contacts", []).size() > 0, "state lists contacts")
+		ok(state.get("home", {}).has("badges") and state.get("home", {}).has("wallpaper"), "state carries the home screen")
+		ok(state.has("photos") and state.has("notes") and state.has("emails") and state.has("calls"), "state carries gallery, notes, email and calls")
+	# the real photos are served as JPEG (and only with the pairing code)
+	ok(Companion._photo_jpeg("IMG_2207", "base", 320).slice(0, 2) == PackedByteArray([0xFF, 0xD8]), "photos are served as JPEG")
+	ok(Companion._photo_jpeg("NOPE", "base", 320).is_empty(), "unknown photos are not served")
 	ok(Companion.client_count() == 1, "one phone connected")
 	var th: String = GameState.data.thread_order[0]
 	ws.send_text(JSON.stringify({"t": "open", "thread": th}))
@@ -707,6 +713,16 @@ func _test_companion() -> void:
 		if opened.app != "" and got_msg:
 			break
 	ok(opened.app == "messages:" + th, "opening a conversation on the phone opens it on the PC (%s)" % opened.app)
+	opened.app = ""
+	ws.send_text(JSON.stringify({"t": "open", "app": "gallery"}))
+	for i in 60:
+		await _frames(1)
+		ws.poll()
+		while ws.get_available_packet_count() > 0:
+			ws.get_packet()
+		if opened.app != "":
+			break
+	ok(opened.app.begins_with("gallery"), "opening an app on the phone opens it on the PC (%s)" % opened.app)
 	GameState.add_message(th, {"from": th, "text": "teste"})
 	Events.message_added.emit(th, GameState.data.threads[th].messages[-1])
 	for i in 60:

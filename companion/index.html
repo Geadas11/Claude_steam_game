@@ -7,52 +7,132 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Ainda estás acordado?</title>
 <style>
-:root { --bg:#0b0d10; --surf:#15181d; --surf2:#1d2128; --text:#e9e6e1; --dim:#a3a9b0; --faint:#858b93; --accent:#d9a85b; --me:#2c4255; --danger:#d0605a; --ok:#4f9a6b; }
+@font-face { font-family:Inter; font-weight:400; src:url(/font/inter-latin-400-normal.woff2) format("woff2"); font-display:swap; }
+@font-face { font-family:Inter; font-weight:500; src:url(/font/inter-latin-500-normal.woff2) format("woff2"); font-display:swap; }
+@font-face { font-family:Inter; font-weight:600; src:url(/font/inter-latin-600-normal.woff2) format("woff2"); font-display:swap; }
+:root { --bg:#0b0d10; --surf:#15181d; --surf2:#1e2228; --line:#2a2f37; --text:#e9e6e1; --dim:#a3a9b0; --faint:#858b93; --accent:#d9b26f; --me:#2c4255; --danger:#e06c6c; --ok:#6fc59a; --ease:cubic-bezier(.2,.8,.2,1); }
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font:16px/1.35 -apple-system, "Segoe UI", Roboto, sans-serif; overflow:hidden; overscroll-behavior:none; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font:16px/1.38 Inter, -apple-system, "Segoe UI", Roboto, sans-serif; overflow:hidden; overscroll-behavior:none; -webkit-user-select:none; user-select:none; }
+button { font:inherit; color:inherit; }
+svg { display:block; }
 #app { position:fixed; inset:0; display:flex; flex-direction:column; }
-#status { display:flex; justify-content:space-between; padding:calc(env(safe-area-inset-top) + 6px) 16px 6px; font-size:13px; color:var(--dim); }
-#conn.off { color:var(--danger); }
-header { display:flex; align-items:center; gap:10px; padding:8px 12px 10px; border-bottom:1px solid #1f232a; min-height:52px; }
-header h1 { font-size:20px; margin:0; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-#back { background:none; border:0; color:var(--text); font-size:26px; padding:0 8px 0 2px; display:none; }
-main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-.row { display:flex; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid #15181d; }
+/* status bar */
+#status { position:relative; z-index:5; display:flex; align-items:center; gap:8px; padding:calc(env(safe-area-inset-top) + 6px) 16px 4px; font-size:13px; font-weight:500; }
+#status .sp { flex:1; }
+#conn { font-size:11px; color:var(--danger); }
+#conn.on { display:none; }
+/* screens */
+.scr { position:absolute; inset:0; display:flex; flex-direction:column; padding-top:calc(env(safe-area-inset-top) + 26px); background:var(--bg); transition:opacity .2s var(--ease), transform .2s var(--ease); }
+.scr.hidden { opacity:0; transform:scale(.97); pointer-events:none; }
+#home { background:#000 center/cover no-repeat; }
+#home::before { content:""; position:absolute; inset:0; background:linear-gradient(#0008, #0001 30%, #0001 55%, #0009); pointer-events:none; }
+#home > * { position:relative; }
+.hclock { text-align:center; margin-top:28px; }
+.hclock .t { font-size:62px; font-weight:600; letter-spacing:-1px; line-height:1; }
+.hclock .d { color:#ffffffcc; font-size:15px; margin-top:6px; }
+.hspace { flex:1; }
+.grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px 6px; padding:0 14px; }
+.dock { margin:22px 12px calc(env(safe-area-inset-bottom) + 40px); padding:10px; border-radius:26px; background:#ffffff14; display:grid; grid-template-columns:repeat(4, 1fr); }
+.ai { display:flex; flex-direction:column; align-items:center; gap:5px; background:none; border:0; padding:0; position:relative; cursor:pointer; }
+.ai .ic { width:60px; height:60px; border-radius:16px; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 30px 0 #ffffff0a; transition:transform .09s var(--ease); }
+.ai:active .ic { transform:scale(.88); }
+.ai .ic svg { width:31px; height:31px; }
+.ai .lb { font-size:12px; color:#fff; text-shadow:0 1px 3px #000c; }
+.ai .bd { position:absolute; top:-4px; right:calc(50% - 38px); min-width:20px; height:20px; border-radius:10px; background:var(--danger); color:#fff; font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:center; padding:0 6px; }
+/* app screen */
+header { display:flex; align-items:center; gap:6px; padding:6px 10px 8px; min-height:52px; }
+header h1 { font-size:21px; margin:0 0 0 6px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.icb { width:42px; height:42px; border:0; background:none; border-radius:21px; display:flex; align-items:center; justify-content:center; flex:none; }
+.icb:active { background:#ffffff14; }
+.icb svg { width:24px; height:24px; }
+main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:20px; }
+.navbar { height:calc(env(safe-area-inset-bottom) + 30px); display:flex; justify-content:center; align-items:flex-start; padding-top:10px; flex:none; }
+.navbar button { width:120px; height:20px; border:0; background:none; padding:7px 5px; }
+.navbar button::after { content:""; display:block; height:5px; border-radius:3px; background:#ffffff8c; }
+.row { display:flex; gap:12px; align-items:center; padding:10px 16px; min-height:60px; }
 .row:active { background:var(--surf); }
-.av { width:44px; height:44px; border-radius:50%; background:var(--surf2); display:flex; align-items:center; justify-content:center; font-weight:600; color:var(--dim); flex:none; }
+.av { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; color:#fff; flex:none; font-size:15px; }
 .rmain { flex:1; min-width:0; }
-.rname { font-weight:600; }
+.rname { font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rname.unread { font-weight:600; }
 .rprev { color:var(--dim); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.badge { background:var(--accent); color:#111; border-radius:10px; font-size:12px; padding:1px 7px; font-weight:700; }
-.empty { color:var(--faint); text-align:center; padding:40px 24px; }
+.rside { color:var(--faint); font-size:12px; text-align:right; flex:none; }
+.badge { background:var(--accent); color:#111; border-radius:10px; font-size:12px; padding:1px 7px; font-weight:600; display:inline-block; margin-top:4px; }
+.letter { color:var(--accent); font-size:13px; padding:12px 18px 2px; font-weight:600; }
+.empty { color:var(--faint); text-align:center; padding:60px 28px; }
+.card { background:var(--surf); border-radius:14px; margin:0 12px 8px; padding:12px 14px; }
+.card:active { background:var(--surf2); }
+.card .ct { font-weight:500; } .card .cp { color:var(--dim); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .card .cd { color:var(--faint); font-size:11px; margin-top:2px; }
+.doc { padding:4px 20px 30px; -webkit-user-select:text; user-select:text; }
+.doc h2 { font-size:22px; font-weight:600; margin:4px 0 4px; }
+.doc .meta { color:var(--faint); font-size:13px; margin-bottom:16px; }
+.doc .body { white-space:pre-wrap; word-wrap:break-word; }
+.doc img { width:100%; border-radius:10px; margin-top:12px; }
+.fld { padding:10px 0; border-bottom:1px solid var(--surf2); } .fld .k { color:var(--faint); font-size:12px; } .fld .v { -webkit-user-select:text; user-select:text; }
+.acts { display:flex; justify-content:center; gap:28px; margin:16px 0 8px; }
+.act { display:flex; flex-direction:column; align-items:center; gap:6px; background:none; border:0; color:var(--dim); font-size:13px; }
+.act .c { width:52px; height:52px; border-radius:26px; background:var(--surf2); display:flex; align-items:center; justify-content:center; }
+.act:active .c { transform:scale(.92); }
+.act svg { width:24px; height:24px; }
+.big { width:96px; height:96px; font-size:32px; margin:12px auto 10px; }
+.cname { text-align:center; font-size:24px; font-weight:500; }
+/* messages */
 #msgs { padding:10px 12px 16px; display:flex; flex-direction:column; gap:6px; }
-.b { max-width:80%; padding:8px 11px 6px; border-radius:14px; background:var(--surf2); white-space:pre-wrap; word-wrap:break-word; }
+.b { max-width:80%; padding:8px 11px 6px; border-radius:16px; background:#20242b; white-space:pre-wrap; word-wrap:break-word; animation:pop .2s var(--ease); }
+@keyframes pop { from { opacity:0; transform:scale(.94); } }
 .b.me { align-self:flex-end; background:var(--me); }
-.b .who { font-size:12px; color:var(--accent); margin-bottom:2px; }
+.b .who { font-size:12px; color:var(--accent); margin-bottom:2px; font-weight:500; }
 .b .tm { font-size:11px; color:var(--faint); text-align:right; margin-top:2px; }
 .b.del { font-style:italic; color:var(--faint); }
+.b img { display:block; width:220px; max-width:100%; border-radius:10px; margin:2px 0 4px; }
 .day { align-self:center; color:var(--faint); font-size:12px; margin:8px 0 2px; }
 .att { color:var(--dim); font-style:italic; }
-#typing { color:var(--dim); font-size:13px; padding:0 16px 4px; min-height:18px; }
-#choices { display:flex; flex-direction:column; gap:8px; padding:8px 12px calc(env(safe-area-inset-bottom) + 12px); border-top:1px solid #1f232a; }
+#typing { color:var(--dim); font-size:13px; padding:0 16px 4px; min-height:0; }
+#choices { display:flex; flex-direction:column; gap:8px; padding:8px 12px 10px; border-top:1px solid var(--surf2); }
 #choices:empty { display:none; }
-#choices button { background:var(--surf2); color:var(--text); border:1px solid #2a2f37; border-radius:18px; padding:11px 14px; font-size:15px; text-align:left; }
+#choices button { background:var(--surf2); border:1px solid var(--line); border-radius:18px; padding:11px 14px; font-size:15px; text-align:left; }
 #choices button.silent { color:var(--dim); font-style:italic; }
-#choices button:active { border-color:var(--accent); }
-#banner { position:fixed; left:10px; right:10px; top:calc(env(safe-area-inset-top) + 8px); background:#1d2128ee; border-radius:16px; padding:12px 14px; transform:translateY(-140%); transition:transform .25s ease; box-shadow:0 8px 24px #0008; z-index:20; }
+#choices button:active { border-color:var(--accent); transform:scale(.98); }
+/* gallery */
+.pgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:3px; padding:0 3px; }
+.pgrid .th { aspect-ratio:1; background:var(--surf) center/cover no-repeat; position:relative; }
+.pgrid .th:active { opacity:.8; }
+.pgrid .th.new::after { content:""; position:absolute; top:7px; right:7px; width:8px; height:8px; border-radius:4px; background:var(--accent); }
+.pgrid .th.pc { display:flex; align-items:center; justify-content:center; color:var(--faint); font-size:11px; text-align:center; padding:8px; }
+#viewer { position:fixed; inset:0; background:#000; z-index:25; display:none; flex-direction:column; }
+#viewer.show { display:flex; }
+#viewer .vt { display:flex; align-items:center; padding:calc(env(safe-area-inset-top) + 6px) 8px 6px; }
+#viewer .vt .x { flex:1; font-size:13px; color:var(--dim); padding-left:6px; }
+#vbox { flex:1; overflow:auto; display:flex; align-items:center; justify-content:center; }
+#vbox img { max-width:100%; max-height:100%; transition:transform .2s var(--ease); }
+#vbox.zoom { display:block; }
+#vbox.zoom img { max-width:none; max-height:none; width:250%; }
+#viewer .vm { padding:10px 16px calc(env(safe-area-inset-bottom) + 14px); color:var(--dim); font-size:13px; }
+/* apps that live on the PC */
+.pcapp { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:14px; padding:30px; color:var(--dim); }
+.pcapp .ic { width:76px; height:76px; border-radius:20px; display:flex; align-items:center; justify-content:center; }
+.pcapp .ic svg { width:40px; height:40px; }
+.pcapp b { color:var(--text); font-weight:500; font-size:18px; }
+/* overlays */
+#banner { position:fixed; left:10px; right:10px; top:calc(env(safe-area-inset-top) + 8px); background:#202329f2; border-radius:18px; padding:12px 14px; display:flex; gap:12px; align-items:center; transform:translateY(-150%); transition:transform .25s var(--ease); box-shadow:0 10px 30px #000a; z-index:20; }
 #banner.show { transform:none; }
-#banner .bt { font-weight:600; }
+#banner .bi { width:36px; height:36px; border-radius:10px; flex:none; display:flex; align-items:center; justify-content:center; }
+#banner .bi svg { width:20px; height:20px; }
+#banner .bx { min-width:0; flex:1; }
+#banner .bt { font-weight:600; font-size:14px; }
 #banner .bb { color:var(--dim); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-#call { position:fixed; inset:0; background:linear-gradient(#10151b, #07090c); display:none; flex-direction:column; align-items:center; padding:calc(env(safe-area-inset-top) + 70px) 20px 40px; z-index:30; }
+#toast { position:fixed; left:50%; bottom:calc(env(safe-area-inset-bottom) + 50px); transform:translate(-50%, 20px); opacity:0; background:#2a2f37f2; padding:10px 16px; border-radius:20px; font-size:14px; transition:all .25s var(--ease); z-index:22; max-width:86%; text-align:center; pointer-events:none; }
+#toast.show { opacity:1; transform:translate(-50%, 0); }
+#call { position:fixed; inset:0; background:linear-gradient(#141b22, #07090c); display:none; flex-direction:column; align-items:center; padding:calc(env(safe-area-inset-top) + 80px) 20px calc(env(safe-area-inset-bottom) + 50px); z-index:30; }
 #call.show { display:flex; }
-#call .cav { width:96px; height:96px; font-size:32px; }
-#call .cn { font-size:26px; margin-top:16px; }
 #call .cs { color:var(--dim); margin-top:6px; }
 #lines { flex:1; width:100%; overflow-y:auto; margin-top:24px; text-align:center; color:var(--dim); font-style:italic; }
 #lines p { margin:8px 0; }
-.cbtns { display:flex; gap:60px; }
-.cbtns button { width:70px; height:70px; border-radius:50%; border:0; font-size:28px; color:#fff; }
-.yes { background:var(--ok); } .no { background:var(--danger); }
+.cbtns { display:flex; gap:70px; }
+.cbtns button { width:72px; height:72px; border-radius:50%; border:0; display:flex; align-items:center; justify-content:center; }
+.cbtns button svg { width:32px; height:32px; }
+.cbtns button:active { transform:scale(.92); }
+.yes { background:#3f9a68; } .no { background:#d05a55; }
 #gate { position:fixed; inset:0; background:var(--bg); z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px; gap:18px; }
 #gate h2 { margin:0; font-weight:500; font-size:24px; }
 #gate p { color:var(--dim); margin:0; max-width:340px; }
@@ -60,28 +140,40 @@ main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
 #black { position:fixed; inset:0; background:#000; display:none; z-index:50; }
 .glitch #app { animation:gl .12s steps(2) infinite; }
 @keyframes gl { 0%{ transform:translate(2px,-1px); filter:hue-rotate(40deg) contrast(1.4);} 50%{ transform:translate(-3px,1px); filter:invert(.1);} 100%{ transform:none; } }
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
 </style>
 </head>
 <body>
 <div id="app">
-	<div id="status"><span id="clock">--:--</span><span id="conn" class="off">a ligar…</span><span id="bat"></span></div>
-	<header><button id="back" aria-label="Voltar">‹</button><h1 id="title">Mensagens</h1></header>
-	<main id="main"></main>
-	<div id="typing"></div>
-	<div id="choices"></div>
+	<div id="status"><span id="clock">--:--</span><span class="sp"></span><span id="conn">a ligar…</span><span id="sig"></span><span id="bat"></span></div>
+	<div class="scr" id="home">
+		<div class="hclock"><div class="t" id="htime">--:--</div><div class="d" id="hdate"></div></div>
+		<div class="hspace"></div>
+		<div class="grid" id="grid"></div>
+		<div class="dock" id="dock"></div>
+	</div>
+	<div class="scr hidden" id="appv">
+		<header><button class="icb" id="back" aria-label="Voltar"></button><h1 id="title"></h1><span id="hright"></span></header>
+		<main id="main"></main>
+		<div id="typing"></div>
+		<div id="choices"></div>
+		<div class="navbar"><button id="homebtn" aria-label="Ecrã principal"></button></div>
+	</div>
 </div>
-<div id="banner"><div class="bt"></div><div class="bb"></div></div>
+<div id="viewer"><div class="vt"><button class="icb" id="vback" aria-label="Fechar"></button><span class="x" id="vtitle"></span></div><div id="vbox"><img id="vimg" alt=""></div><div class="vm" id="vmeta"></div></div>
+<div id="banner"><div class="bi"></div><div class="bx"><div class="bt"></div><div class="bb"></div></div></div>
+<div id="toast"></div>
 <div id="call">
-	<div class="av cav" id="cav"></div><div class="cn" id="cname"></div><div class="cs" id="cstate"></div>
+	<div class="av big" id="cav"></div><div class="cname" id="cname"></div><div class="cs" id="cstate"></div>
 	<div id="lines"></div>
 	<div class="cbtns" id="cbtns"></div>
 </div>
 <div id="gate">
 	<h2>Ainda estás acordado?</h2>
-	<p>Este telemóvel vai receber as mensagens, as chamadas e as vibrações do jogo.</p>
+	<p>Este telemóvel passa a ser o telemóvel do Daniel: mensagens, chamadas, fotografias, notas e email, com vibração e som.</p>
 	<p>Mantém o ecrã ligado e o som alto. Se possível, auscultadores.</p>
 	<button id="go">Toca para começar</button>
-	<p style="font-size:12px;color:var(--faint)">Esta página não acede à tua câmara, microfone, contactos, ficheiros nem localização. Tudo o que recebes vem do jogo, no teu computador, pela rede local.</p>
+	<p style="font-size:12px;color:var(--faint)">Esta página não acede à tua câmara, microfone, contactos, ficheiros nem localização. Tudo o que vês vem do jogo, no teu computador, pela rede local.</p>
 </div>
 <div id="black"></div>
 <script>
@@ -89,10 +181,47 @@ main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
 const qs = new URLSearchParams(location.search);
 const KEY = qs.get("k") || "";
 const WS_URL = "ws://" + location.hostname + ":__WS_PORT__/";
-const S = { threads: [], open: "", ws: null, retry: 0, ctx: null, ring: null };
+const S = { st: { threads: [], contacts: [], calls: [], photos: [], notes: [], emails: [], home: { badges: {} } }, view: null, ws: null, retry: 0, ctx: null, ring: null, folder: "Entrada" };
 const $ = (id) => document.getElementById(id);
 
-// ---------------------------------------------------------------- audio
+// ---------------------------------------------------------------- icons (same pictograms as the game)
+const G = {
+	messages: '<path fill="currentColor" d="M5 3h14a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H11l-5 4v-4H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z"/>',
+	phone: '<path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/>',
+	hangup: '<path fill="currentColor" d="M12 9c-1.6 0-3.15.25-4.6.72v3.1a1 1 0 0 1-.56.9c-.98.49-1.87 1.12-2.66 1.85a1 1 0 0 1-1.41-.02L.29 13.08a1 1 0 0 1 0-1.41C3.34 8.77 7.46 7 12 7s8.66 1.77 11.71 4.67a1 1 0 0 1 0 1.41l-2.48 2.48a1 1 0 0 1-1.41.02 11.3 11.3 0 0 0-2.67-1.85 1 1 0 0 1-.56-.9v-3.1A15 15 0 0 0 12 9z"/>',
+	contacts: '<circle fill="currentColor" cx="12" cy="8" r="4.2"/><path fill="currentColor" d="M3.5 21a8.5 8.5 0 0 1 17 0z"/>',
+	gallery: '<rect x="3" y="4" width="18" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="currentColor" d="M5 18l5-6.5 3.5 4.5 2.3-2.8L19 18z"/><circle fill="currentColor" cx="16" cy="8.5" r="1.7"/>',
+	camera: '<path fill="currentColor" d="M9 4h6l1.6 2.5H20a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.5a2 2 0 0 1 2-2h3.4z"/><circle cx="12" cy="13" r="4.2" fill="#0008" stroke="currentColor" stroke-width="1.6"/>',
+	browser: '<g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.2"/><ellipse cx="12" cy="12" rx="4" ry="9.2"/><path d="M2.8 12h18.4M4 7.5h16M4 16.5h16"/></g>',
+	maps: '<path fill="currentColor" d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.6" fill="#0009"/>',
+	email: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></g>',
+	notes: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path d="M8 8h8M8 11.5h8M8 15h8M8 18.5h5"/></g>',
+	files: '<path fill="currentColor" d="M2.5 5.5A1.5 1.5 0 0 1 4 4h5.2l2 2.4H20a1.5 1.5 0 0 1 1.5 1.5V19a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 19z"/>',
+	settings: '<g fill="currentColor"><path d="M10.3 2h3.4l.5 2.6 1.9.8 2.2-1.5 2.4 2.4-1.5 2.2.8 1.9 2.6.5v3.4l-2.6.5-.8 1.9 1.5 2.2-2.4 2.4-2.2-1.5-1.9.8-.5 2.6h-3.4l-.5-2.6-1.9-.8-2.2 1.5-2.4-2.4 1.5-2.2-.8-1.9L2 13.7v-3.4l2.6-.5.8-1.9-1.5-2.2 2.4-2.4 2.2 1.5 1.9-.8z"/></g><circle cx="12" cy="12" r="3.2" fill="#0009"/>',
+	clock: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 6.5V12l3.8 2"/></g>',
+	eco: '<g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6"/></g><circle cx="12" cy="12" r="2.4" fill="currentColor"/>',
+	back: '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/>',
+	lock: '<rect x="5" y="10.5" width="14" height="10.5" rx="2" fill="currentColor"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/>',
+	arrow_in: '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 6 7 17M7 9v8h8"/>',
+	arrow_out: '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 18 17 7M9 7h8v8"/>',
+	missed: '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7l7 7 6-6M17 8v5M17 8h-5"/>',
+	doc: '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2.5h8l4.5 4.5v14.5H6zM14 2.5V7h4.5"/>',
+	wifi: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 9a14 14 0 0 1 19 0M5.8 12.5a9 9 0 0 1 12.4 0M9.2 16a4 4 0 0 1 5.6 0"/></g><circle cx="12" cy="19.2" r="1.4" fill="currentColor"/>',
+};
+const APPS = {
+	messages: ["Mensagens", "#3b7357"], phone: ["Telefone", "#33677a"], contacts: ["Contactos", "#6e5a39"], gallery: ["Galeria", "#7a3d5a"],
+	camera: ["Câmara", "#3a3f47"], browser: ["Navegador", "#3b5378"], maps: ["Mapas", "#4d7539"], email: ["Email", "#7a573a"],
+	notes: ["Notas", "#8a7633"], files: ["Ficheiros", "#465566"], settings: ["Definições", "#4a4f57"], clock: ["Relógio", "#2c3240"], eco: ["ECO", "#070707"],
+};
+const GRID = ["contacts", "gallery", "maps", "email", "notes", "files", "clock", "settings"];
+const DOCK = ["phone", "messages", "browser", "camera"];
+const LOCAL = ["messages", "phone", "contacts", "gallery", "notes", "email"];   // usable on this phone
+const svg = (name, extra = "") => `<svg viewBox="0 0 24 24" aria-hidden="true" ${extra}>${G[name] || ""}</svg>`;
+$("back").innerHTML = svg("back"); $("vback").innerHTML = svg("back");
+$("sig").innerHTML = '<svg viewBox="0 0 40 16" width="34" height="14"><g fill="currentColor"><rect x="0" y="11" width="3.5" height="4" rx=".6"/><rect x="5" y="8" width="3.5" height="7" rx=".6"/><rect x="10" y="5" width="3.5" height="10" rx=".6"/><rect x="15" y="2" width="3.5" height="13" rx=".6"/></g><g transform="translate(22 -1) scale(.72)">' + G.wifi + '</g></svg>';
+$("sig").style.color = "#fff";
+
+// ---------------------------------------------------------------- audio / haptics
 function ctx() { if (!S.ctx) S.ctx = new (window.AudioContext || window.webkitAudioContext)(); return S.ctx; }
 function tone(freqs, dur, vol, delay = 0) {
 	try {
@@ -108,122 +237,294 @@ function tone(freqs, dur, vol, delay = 0) {
 }
 const ding = () => tone([880, 1318], 0.12, 0.18);
 function vibrate(p) { if (navigator.vibrate) navigator.vibrate(p); }
-function startRing() {
-	stopRing();
-	const once = () => { tone([660, 880, 660, 880], 0.18, 0.2); vibrate([400, 200, 400]); };
-	once(); S.ring = setInterval(once, 2200);
-}
+function startRing() { stopRing(); const once = () => { tone([660, 880, 660, 880], 0.18, 0.2); vibrate([400, 200, 400]); }; once(); S.ring = setInterval(once, 2200); }
 function stopRing() { if (S.ring) clearInterval(S.ring); S.ring = null; }
 
+// ---------------------------------------------------------------- helpers
+function esc(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+function bb(s) {   // the game's BBCode -> safe HTML
+	return esc(s).replace(/\[(b|i|u|s)\]/g, "<$1>").replace(/\[\/(b|i|u|s)\]/g, "</$1>").replace(/\[\/?[a-z_]+(=[^\]]*)?\]/g, "").replace(/~~(.+?)~~/g, "<s>$1</s>");
+}
+function fmtDate(s) {   // "2026-10-06 18:40" -> "06/10/2026 · 18:40"
+	const m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}:\d{2}))?/.exec(s || "");
+	return m ? `${m[3]}/${m[2]}/${m[1]}` + (m[4] ? " · " + m[4] : "") : (s || "");
+}
+function initials(n) { if (/^[+\d]/.test(n || "")) return "#"; return (n || "?").replace(/[^\p{L}\p{N} ]/gu, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "#"; }
+const PAL = ["#3b6e8f", "#7a4d6e", "#4f7a4d", "#8a6a3a", "#5a5a8a", "#8a4d4d", "#3a7a74", "#6e6e3a"];
+function avatar(name, cls = "av") { let h = 0; for (const ch of name || "") h = (h * 31 + ch.charCodeAt(0)) >>> 0; return `<div class="${cls}" style="background:${PAL[h % PAL.length]}">${esc(initials(name))}</div>`; }
+function photoUrl(id, v, w) { return "/photo/" + encodeURIComponent(id) + "?k=" + encodeURIComponent(KEY) + "&v=" + encodeURIComponent(v || "base") + "&w=" + w; }
+function thread(id) { return S.st.threads.find(t => t.id === id); }
+function send(o) { if (S.ws && S.ws.readyState === 1) S.ws.send(JSON.stringify(o)); }
+let toastTimer = null;
+function toast(text) { const t = $("toast"); t.textContent = text; t.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2600); }
+
+// ---------------------------------------------------------------- navigation
+// view = null (home) or {app, sub}. The phone's own back gesture works too.
+function go(view, push = true) {
+	S.view = view;
+	if (push) history.pushState({ v: view }, "");
+	const pc = view ? { t: "open", app: view.app } : { t: "open", app: "home" };
+	if (view && view.app === "messages" && view.sub) pc.thread = view.sub;
+	if (view && view.app === "email" && view.sub) pc.email = view.sub;
+	if (view && view.app === "contacts" && view.sub) pc.contact = view.sub;
+	send(pc);
+	render();
+	$("main").scrollTop = 0;
+	if (view && view.app === "messages" && view.sub) $("main").scrollTop = 1e9;
+}
+function back() {
+	if ($("viewer").classList.contains("show")) { closeViewer(); return; }
+	if (S.view && S.view.sub) go({ app: S.view.app }, false);
+	else go(null, false);
+}
+$("back").onclick = () => history.back();
+$("homebtn").onclick = () => go(null);
+window.addEventListener("popstate", () => back());
+
 // ---------------------------------------------------------------- render
-function initials(n) { if (/^[+\d]/.test(n || "")) return "?"; return (n || "?").replace(/[^\p{L}\p{N} ]/gu, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "#"; }
-function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
-function thread(id) { return S.threads.find(t => t.id === id); }
+function render() {
+	renderHome();
+	const home = !S.view;
+	$("home").classList.toggle("hidden", !home);
+	$("appv").classList.toggle("hidden", home);
+	$("choices").innerHTML = ""; $("typing").textContent = ""; $("hright").innerHTML = "";
+	if (home) return;
+	const a = S.view.app;
+	$("title").textContent = APPS[a] ? APPS[a][0] : "";
+	const R = { messages: rMessages, phone: rPhone, contacts: rContacts, gallery: rGallery, notes: rNotes, email: rEmail }[a] || rOnPc;
+	R();
+}
+function renderHome() {
+	const st = S.st, h = st.home || { badges: {} };
+	$("htime").textContent = st.time || "--:--"; $("hdate").textContent = st.date || "";
+	if (h.wallpaper) {
+		const u = photoUrl(h.wallpaper, h.wall_v, 900);
+		if ($("home").dataset.wp !== u) { $("home").dataset.wp = u; $("home").style.backgroundImage = `url("${u}")`; }
+	}
+	const icon = (id, label) => {
+		const n = (h.badges || {})[id] || 0;
+		return `<button class="ai" data-app="${id}"><div class="ic" style="background:${APPS[id][1]}">${svg(id, 'style="color:#ffffffeb"')}</div>` +
+			(label ? `<div class="lb">${esc(APPS[id][0])}</div>` : "") + (n > 0 ? `<div class="bd">${n}</div>` : "") + "</button>";
+	};
+	const grid = GRID.concat(h.eco ? ["eco"] : []);
+	const gh = grid.map(id => icon(id, true)).join(""), dh = DOCK.map(id => icon(id, false)).join("");
+	if ($("grid").innerHTML !== gh) $("grid").innerHTML = gh;
+	if ($("dock").innerHTML !== dh) $("dock").innerHTML = dh;
+}
+document.addEventListener("click", (e) => {
+	const b = e.target.closest(".ai"); if (b) { vibrate(8); go({ app: b.dataset.app }); }
+});
+
+function rMessages() {
+	const main = $("main"), id = S.view.sub;
+	if (!id) {
+		const th = S.st.threads;
+		if (!th.length) { main.innerHTML = '<div class="empty">Ainda não há mensagens.</div>'; return; }
+		main.innerHTML = th.map(t => {
+			const last = t.messages[t.messages.length - 1];
+			const pend = t.unread > 0 || (t.options && t.options.length);
+			return `<div class="row" data-th="${esc(t.id)}">${avatar(t.name)}<div class="rmain"><div class="rname${t.unread ? " unread" : ""}">${esc(t.name)}</div><div class="rprev">${esc(preview(last))}</div></div>` +
+				`<div class="rside">${esc(last ? last.time : "")}${pend ? `<br><span class="badge">${t.unread > 0 ? t.unread : "…"}</span>` : ""}</div></div>`;
+		}).join("");
+		main.querySelectorAll(".row").forEach(r => r.onclick = () => { const t = thread(r.dataset.th); if (t) t.unread = 0; go({ app: "messages", sub: r.dataset.th }); });
+		return;
+	}
+	const t = thread(id);
+	if (!t) { S.view = { app: "messages" }; return render(); }
+	$("title").textContent = t.name;
+	let html = '<div id="msgs">', lastDay = "";
+	for (const m of t.messages) {
+		if (m.day && m.day !== lastDay) { lastDay = m.day; html += `<div class="day">${esc(m.day)}</div>`; }
+		const who = t.group && !m.me ? `<div class="who">${esc(m.from)}</div>` : "";
+		let body = m.deleted ? "Esta mensagem foi apagada" : esc(m.text);
+		if (m.att === "photo" && m.att_id) body = `<img src="${photoUrl(m.att_id, "base", 600)}" data-photo="${esc(m.att_id)}" alt="Fotografia">` + (m.text ? esc(m.text) : "");
+		else if (m.att) body = `<span class="att">${m.att === "audio" ? "Mensagem de voz — ouve-a no computador" : "Ficheiro — abre-o no computador"}</span>` + (m.text ? "<br>" + esc(m.text) : "");
+		html += `<div class="b${m.me ? " me" : ""}${m.deleted ? " del" : ""}">${who}${body}<div class="tm">${esc(m.time)}</div></div>`;
+	}
+	$("main").innerHTML = html + "</div>";
+	$("main").querySelectorAll("img[data-photo]").forEach(i => i.onclick = () => openViewer({ id: i.dataset.photo, v: "base" }));
+	renderChoices(t);
+}
 function preview(m) {
 	if (!m) return "";
 	if (m.deleted) return "Esta mensagem foi apagada";
 	if (m.att) return (m.me ? "Tu: " : "") + (m.att === "photo" ? "Fotografia" : m.att === "audio" ? "Mensagem de voz" : "Ficheiro");
 	return (m.me ? "Tu: " : "") + m.text;
 }
-function render() {
-	const main = $("main");
-	if (!S.open) {
-		$("title").textContent = "Mensagens"; $("back").style.display = "none";
-		$("choices").innerHTML = ""; $("typing").textContent = "";
-		if (!S.threads.length) { main.innerHTML = '<div class="empty">Ainda não há mensagens.<br>Começa ou continua um jogo no computador.</div>'; return; }
-		main.innerHTML = "";
-		for (const t of S.threads) {
-			const last = t.messages[t.messages.length - 1];
-			const r = document.createElement("div"); r.className = "row";
-			r.innerHTML = `<div class="av">${esc(initials(t.name))}</div><div class="rmain"><div class="rname">${esc(t.name)}</div><div class="rprev">${esc(preview(last))}</div></div>` +
-				(t.unread > 0 || (t.options && t.options.length) ? `<span class="badge">${t.unread > 0 ? t.unread : "…"}</span>` : "");
-			r.onclick = () => openThread(t.id);
-			main.appendChild(r);
-		}
-		return;
-	}
-	const t = thread(S.open);
-	if (!t) { S.open = ""; return render(); }
-	$("title").textContent = t.name; $("back").style.display = "block";
-	let html = '<div id="msgs">';
-	let lastDay = "";
-	for (const m of t.messages) {
-		if (m.day && m.day !== lastDay) { lastDay = m.day; html += `<div class="day">${esc(m.day)}</div>`; }
-		const cls = "b" + (m.me ? " me" : "") + (m.deleted ? " del" : "");
-		const who = t.group && !m.me ? `<div class="who">${esc(m.from)}</div>` : "";
-		let body = m.deleted ? "Esta mensagem foi apagada" : esc(m.text);
-		if (m.att) body = `<span class="att">${m.att === "photo" ? "Fotografia — vê-a no ecrã do computador" : m.att === "audio" ? "Mensagem de voz — ouve-a no computador" : "Ficheiro"}</span>` + (m.text ? "<br>" + esc(m.text) : "");
-		html += `<div class="${cls}">${who}${body}<div class="tm">${esc(m.time)}</div></div>`;
-	}
-	main.innerHTML = html + "</div>";
-	main.scrollTop = main.scrollHeight;
-	renderChoices(t);
-}
 function renderChoices(t) {
 	const box = $("choices"); box.innerHTML = "";
 	for (const o of (t.options || [])) {
 		const b = document.createElement("button");
 		b.textContent = o.text; if (o.silent) b.className = "silent";
-		b.onclick = () => { send({ t: "choose", thread: t.id, index: o.index }); box.innerHTML = ""; };
+		b.onclick = () => { send({ t: "choose", thread: t.id, index: o.index }); box.innerHTML = ""; vibrate(10); };
 		box.appendChild(b);
 	}
 }
-function openThread(id) {
-	S.open = id;
-	const t = thread(id); if (t) t.unread = 0;
-	send({ t: "open", thread: id });
-	render();
+
+function rPhone() {
+	const calls = S.st.calls || [];
+	if (!calls.length) { $("main").innerHTML = '<div class="empty">Sem chamadas recentes.</div>'; return; }
+	$("main").innerHTML = calls.map((c, i) => {
+		const ic = c.dir === "out" ? "arrow_out" : c.dir === "missed" ? "missed" : "arrow_in";
+		const sub = { in: "Recebida", out: "Efetuada", missed: "Perdida" }[c.dir] + (c.dir !== "missed" ? ` · ${Math.floor(c.dur / 60)}:${String(c.dur % 60).padStart(2, "0")}` : "");
+		const canCall = (S.st.contacts || []).some(k => k.id === c.who && k.call);
+		return `<div class="row"><span style="color:${c.dir === "missed" ? "var(--danger)" : "var(--dim)"};width:20px">${svg(ic, 'width="20" height="20"')}</span><div class="rmain"><div class="rname" style="${c.dir === "missed" ? "color:var(--danger)" : ""}">${esc(c.name)}</div><div class="rprev">${esc(sub)}</div></div><div class="rside">${esc(c.when)}</div>` +
+			(canCall ? `<button class="icb" data-call="${esc(c.who)}" aria-label="Ligar" style="color:var(--ok)">${svg("phone")}</button>` : "") + "</div>";
+	}).join("");
+	$("main").querySelectorAll("[data-call]").forEach(b => b.onclick = () => { send({ t: "call", who: b.dataset.call }); vibrate(10); });
 }
-$("back").onclick = () => { S.open = ""; render(); };
+
+function rContacts() {
+	const list = S.st.contacts || [], id = S.view.sub;
+	if (!id) {
+		if (!list.length) { $("main").innerHTML = '<div class="empty">Sem contactos.</div>'; return; }
+		let html = "", last = "";
+		for (const c of list) {
+			const l = (c.name.normalize("NFD").replace(/[̀-ͯ]/g, "")[0] || "#").toUpperCase();
+			if (l !== last) { last = l; html += `<div class="letter">${esc(l)}</div>`; }
+			html += `<div class="row" data-c="${esc(c.id)}">${avatar(c.name)}<div class="rmain"><div class="rname">${esc(c.name)}</div></div></div>`;
+		}
+		$("main").innerHTML = html + `<div class="empty" style="padding:16px">${list.length} contactos</div>`;
+		$("main").querySelectorAll("[data-c]").forEach(r => r.onclick = () => go({ app: "contacts", sub: r.dataset.c }));
+		return;
+	}
+	const c = list.find(k => k.id === id);
+	if (!c) { S.view = { app: "contacts" }; return render(); }
+	$("title").textContent = "";
+	const f = (k, v) => v ? `<div class="fld"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>` : "";
+	$("main").innerHTML = `<div class="doc">${avatar(c.name, "av big")}<div class="cname">${esc(c.name)}</div>` +
+		`<div class="acts"><button class="act" id="cmsg"><div class="c">${svg("messages")}</div>Mensagem</button>` +
+		(c.call ? `<button class="act" id="ccall"><div class="c" style="color:var(--ok)">${svg("phone")}</div>Ligar</button>` : "") + "</div>" +
+		f("Telemóvel", c.number) + f("Email", c.email) + f("Aniversário", c.birthday) + f("Morada", c.address) + f("Notas", c.note) + "</div>";
+	$("cmsg").onclick = () => { if (thread(c.id)) go({ app: "messages", sub: c.id }); else toast("Ainda não há conversa com " + c.name + "."); };
+	if ($("ccall")) $("ccall").onclick = () => { send({ t: "call", who: c.id }); vibrate(10); };
+}
+
+function rGallery() {
+	const ps = S.st.photos || [];
+	if (!ps.length) { $("main").innerHTML = '<div class="empty">Sem fotografias.</div>'; return; }
+	$("main").innerHTML = '<div class="pgrid">' + ps.map((p, i) => p.real
+		? `<div class="th${p.new ? " new" : ""}" data-i="${i}" style="background-image:url('${photoUrl(p.id, p.v, 360)}')"></div>`
+		: `<div class="th pc" data-i="${i}">Abre no computador</div>`).join("") + "</div>";
+	$("main").querySelectorAll(".th").forEach(t => t.onclick = () => {
+		const p = ps[+t.dataset.i]; p.new = false;
+		send({ t: "open", app: "gallery", photo: p.id });
+		if (p.real) openViewer(p); else toast("Esta fotografia abriu no ecrã do computador.");
+	});
+}
+function openViewer(p) {
+	// the thumbnail is already loaded: show it at once, swap in the sharp version
+	const big = photoUrl(p.id, p.v, 1400);
+	$("vimg").src = photoUrl(p.id, p.v, 360);
+	const pre = new Image(); pre.onload = () => { if ($("viewer").classList.contains("show")) $("vimg").src = big; }; pre.src = big;
+	$("vtitle").textContent = p.id + ".jpg";
+	$("vmeta").textContent = [fmtDate(p.date), p.place].filter(Boolean).join(" · ") + (p.date || p.place ? " — " : "") + "Para procurar pistas, amplia-a no computador.";
+	$("vbox").classList.remove("zoom");
+	$("viewer").classList.add("show");
+	history.pushState({ viewer: true }, "");
+}
+function closeViewer() { $("viewer").classList.remove("show"); }
+$("vback").onclick = () => history.back();
+$("vimg").onclick = (e) => {
+	const box = $("vbox"); const z = !box.classList.contains("zoom");
+	const rx = e.offsetX / e.target.clientWidth, ry = e.offsetY / e.target.clientHeight;
+	box.classList.toggle("zoom", z);
+	if (z) requestAnimationFrame(() => { box.scrollLeft = rx * box.scrollWidth - box.clientWidth / 2; box.scrollTop = ry * box.scrollHeight - box.clientHeight / 2; });
+};
+
+function rNotes() {
+	const ns = S.st.notes || [], id = S.view.sub;
+	if (!id) {
+		if (!ns.length) { $("main").innerHTML = '<div class="empty">Sem notas.</div>'; return; }
+		$("main").innerHTML = '<div style="height:6px"></div>' + ns.map(n => `<div class="card" data-n="${esc(n.id)}"><div class="ct">${esc(n.title || "(sem título)")}</div><div class="cp">${n.locked ? "Nota protegida" : esc((n.text || "").replace(/\n/g, " ").replace(/\[[^\]]*\]/g, "").replace(/~~/g, ""))}</div><div class="cd">${esc(fmtDate(n.date))}</div></div>`).join("");
+		$("main").querySelectorAll("[data-n]").forEach(r => r.onclick = () => go({ app: "notes", sub: r.dataset.n }));
+		return;
+	}
+	const n = ns.find(k => k.id === id);
+	if (!n) { S.view = { app: "notes" }; return render(); }
+	$("title").textContent = "";
+	$("main").innerHTML = n.locked
+		? `<div class="pcapp"><div class="ic" style="background:var(--surf2)">${svg("lock")}</div><b>${esc(n.title)}</b>Nota protegida. Escreve a palavra-passe no ecrã do computador.</div>`
+		: `<div class="doc"><h2>${esc(n.title || "(sem título)")}</h2><div class="meta">${esc(fmtDate(n.date))}</div><div class="body">${bb(n.text)}</div></div>`;
+}
+
+function rEmail() {
+	const es = S.st.emails || [], id = S.view.sub;
+	if (!id) {
+		const folders = [...new Set(es.map(e => e.folder))];
+		if (!folders.includes(S.folder)) S.folder = folders[0] || "Entrada";
+		$("hright").innerHTML = folders.length > 1 ? `<select id="fold" style="background:var(--surf2);color:var(--text);border:0;border-radius:14px;padding:6px 10px;font:inherit;font-size:14px">${folders.map(f => `<option${f === S.folder ? " selected" : ""}>${esc(f)}</option>`).join("")}</select>` : "";
+		if ($("fold")) $("fold").onchange = (e) => { S.folder = e.target.value; render(); };
+		const list = es.filter(e => e.folder === S.folder);
+		if (!list.length) { $("main").innerHTML = '<div class="empty">Sem emails.</div>'; return; }
+		$("main").innerHTML = list.map(e => `<div class="row" data-e="${esc(e.id)}">${avatar(e.from)}<div class="rmain"><div class="rname${e.unread ? " unread" : ""}">${esc(e.from)}</div><div class="rprev" style="color:${e.unread ? "var(--text)" : "var(--dim)"}">${esc(e.subject)}</div></div><div class="rside">${esc(e.date)}${e.unread ? '<br><span class="badge"> </span>' : ""}</div></div>`).join("");
+		$("main").querySelectorAll("[data-e]").forEach(r => r.onclick = () => go({ app: "email", sub: r.dataset.e }));
+		return;
+	}
+	const e = es.find(k => k.id === id);
+	if (!e) { S.view = { app: "email" }; return render(); }
+	e.unread = false;
+	$("title").textContent = "";
+	const atts = (e.atts || []).map(a => a.type === "photo" ? `<img src="${photoUrl(a.id, "base", 1000)}" data-photo="${esc(a.id)}" alt="">` : `<div class="card" style="margin:12px 0 0;display:flex;gap:10px;align-items:center">${svg("doc", 'width="22" height="22"')}<span>${esc(a.name)} — abre no computador</span></div>`).join("");
+	$("main").innerHTML = `<div class="doc"><h2>${esc(e.subject)}</h2><div class="meta">${esc(e.from)}${e.addr && e.addr !== e.from ? " &lt;" + esc(e.addr) + "&gt;" : ""} · ${esc(e.date)}</div><div class="body">${bb(e.body)}</div>${atts}</div>`;
+	$("main").querySelectorAll("img[data-photo]").forEach(i => i.onclick = () => openViewer({ id: i.dataset.photo, v: "base" }));
+}
+
+function rOnPc() {
+	const a = S.view.app;
+	$("main").innerHTML = `<div class="pcapp" style="min-height:70vh"><div class="ic" style="background:${APPS[a][1]}">${svg(a, 'style="color:#fff"')}</div><b>${esc(APPS[a][0])}</b>Esta app abriu no ecrã do computador. Usa-a lá; as mensagens e as chamadas continuam a chegar aqui.</div>`;
+}
 
 let bannerTimer = null;
-function banner(title, body, threadId) {
-	const b = $("banner");
+function banner(app, title, body, threadId) {
+	const b = $("banner"), A = APPS[app] || APPS.messages;
+	b.querySelector(".bi").style.background = A[1]; b.querySelector(".bi").innerHTML = svg(APPS[app] ? app : "messages", 'style="color:#fff"');
 	b.querySelector(".bt").textContent = title; b.querySelector(".bb").textContent = body;
-	b.onclick = () => { b.classList.remove("show"); if (threadId) openThread(threadId); };
+	b.onclick = () => { b.classList.remove("show"); if (threadId) go({ app: "messages", sub: threadId }); else if (APPS[app]) go({ app }); };
 	b.classList.add("show"); clearTimeout(bannerTimer);
 	bannerTimer = setTimeout(() => b.classList.remove("show"), 4200);
 }
 
-// ---------------------------------------------------------------- events
+// ---------------------------------------------------------------- events from the game
 function onEvent(e) {
 	switch (e.t) {
-	case "state":
-		S.threads = e.threads || [];
-		if (e.time) $("clock").textContent = e.time;
-		if (e.battery !== undefined) $("bat").textContent = e.battery + "%";
-		render(); break;
-	case "status":
-		if (e.time) $("clock").textContent = e.time;
-		if (e.battery !== undefined) $("bat").textContent = e.battery + "%";
-		break;
+	case "state": {
+		const keep = S.st.threads;
+		S.st = Object.assign({ contacts: [], calls: [], photos: [], notes: [], emails: [], home: { badges: {} } }, e);
+		if (!S.st.threads) S.st.threads = keep;
+		status(e); render(); break;
+	}
+	case "status": status(e); break;
 	case "thread": {
-		const i = S.threads.findIndex(t => t.id === e.thread.id);
-		if (i >= 0) S.threads[i] = e.thread; else S.threads.unshift(e.thread);
-		render(); break;
+		const i = S.st.threads.findIndex(t => t.id === e.thread.id);
+		if (i >= 0) S.st.threads[i] = e.thread; else S.st.threads.unshift(e.thread);
+		if (S.view && S.view.app === "messages") render(); break;
 	}
 	case "msg": {
 		let t = thread(e.thread);
-		if (!t) { t = { id: e.thread, name: e.name, unread: 0, messages: [], options: [] }; S.threads.unshift(t); }
+		if (!t) { t = { id: e.thread, name: e.name, unread: 0, messages: [], options: [] }; S.st.threads.unshift(t); }
 		if (t.messages.some(m => m.id === e.msg.id)) break;
 		t.messages.push(e.msg);
-		S.threads = [t, ...S.threads.filter(x => x !== t)];
-		if (S.open !== e.thread && !e.msg.me) t.unread = (t.unread || 0) + 1;
-		render(); break;
+		S.st.threads = [t, ...S.st.threads.filter(x => x !== t)];
+		const here = S.view && S.view.app === "messages" && S.view.sub === e.thread;
+		if (!here && !e.msg.me) t.unread = (t.unread || 0) + 1;
+		if (!S.view || S.view.app === "messages") { render(); if (here) $("main").scrollTop = 1e9; }
+		break;
 	}
 	case "typing":
-		if (e.thread === S.open) $("typing").textContent = e.on ? e.who + " está a escrever…" : "";
+		if (S.view && S.view.app === "messages" && e.thread === S.view.sub) $("typing").textContent = e.on ? e.who + " está a escrever…" : "";
 		break;
 	case "choice": {
 		const t = thread(e.thread); if (t) t.options = e.options;
-		if (e.thread === S.open && t) renderChoices(t); else if (!S.open) render();
+		if (S.view && S.view.app === "messages") { if (S.view.sub === e.thread && t) renderChoices(t); else if (!S.view.sub) render(); }
 		break;
 	}
 	case "notif":
-		if (e.app === "messages" && e.thread && e.thread === S.open) break;
+		if (e.app === "messages" && S.view && S.view.sub === e.thread) break;
 		ding(); vibrate([120, 80, 120]);
-		banner(e.title || "Notificação", e.body || "", e.app === "messages" ? e.thread : "");
+		banner(e.app, e.title || "Notificação", e.body || "", e.app === "messages" ? e.thread : "");
 		break;
+	case "toast": toast(e.text || ""); break;
 	case "vibrate": vibrate(Array(Math.max(1, e.n)).fill(0).flatMap(() => [180, 120])); break;
 	case "call": call(e); break;
 	case "call_line": {
@@ -238,32 +539,34 @@ function onEvent(e) {
 		setTimeout(() => $("black").style.display = "none", Math.min(30000, (e.d || 3) * 1000)); break;
 	}
 }
+function status(e) {
+	if (e.time) { $("clock").textContent = e.time; S.st.time = e.time; $("htime").textContent = e.time; }
+	if (e.battery !== undefined) { $("bat").textContent = e.battery + "%"; $("bat").style.color = e.battery <= 15 ? "var(--danger)" : ""; }
+}
 function call(e) {
 	const box = $("call"), btns = $("cbtns");
 	if (e.state === "ended") { stopRing(); box.classList.remove("show"); return; }
 	box.classList.add("show");
-	$("cav").textContent = initials(e.name); $("cname").textContent = e.name;
+	$("cav").outerHTML = avatar(e.name, "av big").replace("<div ", '<div id="cav" ');
+	$("cname").textContent = e.name;
 	btns.innerHTML = "";
+	const mk = (cls, icon, label, fn) => { const b = document.createElement("button"); b.className = cls; b.setAttribute("aria-label", label); b.innerHTML = svg(icon, 'style="color:#fff"'); b.onclick = fn; return b; };
 	if (e.state === "ringing") {
 		$("cstate").textContent = "a ligar…"; $("lines").innerHTML = ""; startRing();
-		const y = document.createElement("button"); y.className = "yes"; y.textContent = "✆"; y.onclick = () => { stopRing(); send({ t: "answer" }); };
-		const n = document.createElement("button"); n.className = "no"; n.textContent = "✕"; n.onclick = () => { stopRing(); send({ t: "decline" }); };
-		btns.append(n, y);
+		btns.append(mk("no", "hangup", "Recusar", () => { stopRing(); send({ t: "decline" }); }), mk("yes", "phone", "Atender", () => { stopRing(); send({ t: "answer" }); }));
 	} else {
 		stopRing(); $("cstate").textContent = "em chamada";
-		const n = document.createElement("button"); n.className = "no"; n.textContent = "✕"; n.onclick = () => send({ t: "hangup" });
-		btns.append(n);
+		btns.append(mk("no", "hangup", "Desligar", () => send({ t: "hangup" })));
 	}
 }
 
 // ---------------------------------------------------------------- socket
-function send(o) { if (S.ws && S.ws.readyState === 1) S.ws.send(JSON.stringify(o)); }
 function connect() {
 	const ws = new WebSocket(WS_URL); S.ws = ws;
-	ws.onopen = () => { S.retry = 0; ws.send(JSON.stringify({ t: "hello", k: KEY })); $("conn").textContent = "ligado"; $("conn").className = ""; };
+	ws.onopen = () => { S.retry = 0; ws.send(JSON.stringify({ t: "hello", k: KEY })); $("conn").textContent = ""; $("conn").className = "on"; };
 	ws.onmessage = (ev) => { try { onEvent(JSON.parse(ev.data)); } catch (err) {} };
 	ws.onclose = (ev) => {
-		$("conn").className = "off";
+		$("conn").className = "";
 		if (ev.code === 4001) { $("conn").textContent = "código inválido — lê o QR outra vez"; return; }
 		$("conn").textContent = "sem ligação…";
 		S.retry = Math.min(S.retry + 1, 6); setTimeout(connect, 500 * S.retry);
@@ -273,9 +576,11 @@ $("go").onclick = () => {
 	ctx().resume && ctx().resume(); tone([440], 0.05, 0.01); vibrate(30);
 	$("gate").style.display = "none";
 	if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+	history.replaceState({ v: null }, "");
 	connect();
 };
 document.addEventListener("visibilitychange", () => { if (!document.hidden && S.ws && S.ws.readyState !== 1) connect(); });
+render();
 </script>
 </body>
 </html>

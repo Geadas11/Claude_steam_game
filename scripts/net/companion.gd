@@ -6,6 +6,11 @@ extends Node
 ## phone then receives the in-game messages, notifications, calls and
 ## vibrations, and can answer them. The page runs in the phone's browser only:
 ## the game never reads anything from the real phone.
+##
+## The page is a full copy of the in-game phone: same home screen and apps.
+## Messages, calls, contacts, gallery (real photos, served as JPEG), notes and
+## email can be used on the real phone; everything opened there also opens on
+## the PC phone, so the story reacts exactly as if it had been opened there.
 
 signal clients_changed(count: int)
 
@@ -27,6 +32,9 @@ var _pending_ws: Array = []   # WebSocketPeer not yet authenticated
 var _clients: Array = []      # authenticated WebSocketPeer
 var _page_cache := ""
 var _last_minute := -1
+var _dirty := false            # full state must be resent (throttled)
+var _dirty_t := 0
+var _img_cache := {}           # "id:variant:w" -> JPEG bytes
 
 
 func _ready() -> void:
@@ -47,8 +55,11 @@ func _ready() -> void:
 	Events.time_changed.connect(_on_time)
 	Events.state_loaded.connect(func(): _send_state_all())
 	Events.chapter_started.connect(func(_c): _send_state_all())
-	Events.content_changed.connect(func(k): if k == "contacts": _send_state_all())
-	Events.phone_state_changed.connect(func(): broadcast({"t": "status", "battery": int(GameState.data.get("battery", 100))}))
+	Events.content_changed.connect(func(_k): _mark_dirty())
+	Events.thread_read.connect(func(_th): _mark_dirty())
+	Events.phone_state_changed.connect(func():
+		broadcast({"t": "status", "battery": int(GameState.data.get("battery", 100))})
+		_mark_dirty())
 
 
 # ================================================================= lifecycle
@@ -128,6 +139,15 @@ func _process(_delta: float) -> void:
 		return
 	_poll_http()
 	_poll_ws()
+	if _dirty and Time.get_ticks_msec() - _dirty_t > 600:
+		_dirty = false
+		_send_state_all()
+
+
+func _mark_dirty() -> void:
+	if not _dirty:
+		_dirty = true
+		_dirty_t = Time.get_ticks_msec()
 
 
 func _poll_http() -> void:
@@ -150,12 +170,28 @@ func _poll_http() -> void:
 
 func _serve(peer: StreamPeerTCP, request: String) -> void:
 	var first := request.get_slice("\r\n", 0)
-	var path := first.get_slice(" ", 1).get_slice("?", 0)
+	var target := first.get_slice(" ", 1)
+	var path := target.get_slice("?", 0)
+	var query := _query(target.get_slice("?", 1) if target.contains("?") else "")
 	var body: PackedByteArray
 	var ctype := "text/html; charset=utf-8"
 	var status := "200 OK"
 	if path == "/" or path == "/index.html":
 		body = _page().to_utf8_buffer()
+	elif path.begins_with("/font/") and path.ends_with(".woff2") and not path.contains(".."):
+		body = FileAccess.get_file_as_bytes("res://assets/fonts/" + path.trim_prefix("/font/"))
+		if body.is_empty():
+			status = "404 Not Found"
+			ctype = "text/plain"
+		else:
+			ctype = "font/woff2"
+	elif path.begins_with("/photo/") and query.get("k", "") == token:
+		body = _photo_jpeg(path.trim_prefix("/photo/").uri_decode(), str(query.get("v", "base")), int(query.get("w", "1080")))
+		if body.is_empty():
+			status = "404 Not Found"
+			ctype = "text/plain"
+		else:
+			ctype = "image/jpeg"
 	elif path == "/favicon.ico":
 		status = "204 No Content"
 		body = PackedByteArray()
@@ -163,10 +199,45 @@ func _serve(peer: StreamPeerTCP, request: String) -> void:
 		status = "404 Not Found"
 		ctype = "text/plain"
 		body = "404".to_utf8_buffer()
-	var head := "HTTP/1.1 %s\r\nContent-Type: %s\r\nContent-Length: %d\r\nCache-Control: no-store\r\nConnection: close\r\n\r\n" % [status, ctype, body.size()]
+	var cache := "no-store" if ctype.begins_with("text/") else "max-age=600"
+	var head := "HTTP/1.1 %s\r\nContent-Type: %s\r\nContent-Length: %d\r\nCache-Control: %s\r\nConnection: close\r\n\r\n" % [status, ctype, body.size(), cache]
 	peer.put_data(head.to_utf8_buffer())
 	if body.size() > 0:
 		peer.put_data(body)
+
+
+static func _query(q: String) -> Dictionary:
+	var out := {}
+	for pair in q.split("&", false):
+		out[pair.get_slice("=", 0).uri_decode()] = pair.get_slice("=", 1).uri_decode() if pair.contains("=") else ""
+	return out
+
+
+## A photo of the game as a JPEG for the real phone (scaled to `w` pixels wide).
+## Photos drawn by the game itself (no image file) are not served.
+func _photo_jpeg(id: String, v: String, w: int) -> PackedByteArray:
+	if not Content.has_item("photos", id) and not GameState.data.photos.has(id):
+		return PackedByteArray()
+	w = clampi(w, 160, 1600)
+	var key := "%s:%s:%d" % [id, v, w]
+	if _img_cache.has(key):
+		return _img_cache[key]
+	var tex := PhotoView.photo_texture(id, v)
+	if tex == null:
+		return PackedByteArray()
+	var img := tex.get_image()
+	if img == null:
+		return PackedByteArray()
+	if img.is_compressed():
+		img.decompress()
+	img.convert(Image.FORMAT_RGB8)
+	if img.get_width() > w:
+		img.resize(w, int(img.get_height() * float(w) / img.get_width()), Image.INTERPOLATE_LANCZOS)
+	var bytes := img.save_jpg_to_buffer(0.85)
+	if _img_cache.size() > 40:
+		_img_cache.clear()
+	_img_cache[key] = bytes
+	return bytes
 
 
 func _page() -> String:
@@ -219,9 +290,11 @@ func _handle(ws: WebSocketPeer, msg: Dictionary) -> void:
 	match str(msg.get("t", "")):
 		"open":
 			# the PC phone follows what the player opens on the real phone
-			var th := str(msg.get("thread", ""))
-			if GameState.data.threads.has(th) and GameState.in_game:
-				Events.open_app_requested.emit("messages", {"param": th, "forced": true})
+			_open_on_pc(ws, msg)
+		"call":
+			var who := str(msg.get("who", ""))
+			if GameState.in_game and GameState.contact(who).get("saved", false):
+				Director.player_call(who)
 		"choose":
 			Director.pick_choice(str(msg.get("thread", "")), int(msg.get("index", 0)))
 		"answer":
@@ -232,6 +305,42 @@ func _handle(ws: WebSocketPeer, msg: Dictionary) -> void:
 			Events.call_hangup_requested.emit()
 		"sync":
 			_send(ws, _state())
+
+
+func _open_on_pc(ws: WebSocketPeer, msg: Dictionary) -> void:
+	if not GameState.in_game:
+		return
+	var app := str(msg.get("app", "messages"))
+	var p := {"forced": true}
+	match app:
+		"messages":
+			var th := str(msg.get("thread", ""))
+			if th != "" and not GameState.data.threads.has(th):
+				return
+			if th != "":
+				p.param = th
+		"gallery":
+			if str(msg.get("photo", "")) != "":
+				p.photo = str(msg.photo)
+		"email":
+			if str(msg.get("email", "")) != "":
+				p.email = str(msg.email)
+		"contacts":
+			if str(msg.get("contact", "")) != "":
+				p.param = str(msg.contact)
+		"home":
+			Events.open_app_requested.emit("home", {})
+			return
+		_:
+			if not ["phone", "notes", "files", "maps", "browser", "camera", "clock", "settings", "eco"].has(app):
+				return
+	# never let the real phone skip the PIN of the in-game phone
+	var main := get_tree().root.get_node_or_null("Main")
+	var ph = main.get("phone") if main else null
+	if ph and ph.locked and GameState.data.phone.get("pin_required", false):
+		_send(ws, {"t": "toast", "text": "O telemóvel está bloqueado. Desbloqueia-o no computador."})
+		return
+	Events.open_app_requested.emit(app, p)
 
 
 # ================================================================= outbound
@@ -259,13 +368,82 @@ func _state() -> Dictionary:
 			if GameState.data.hidden_threads.has(th) or not GameState.data.threads.has(th):
 				continue
 			threads.append(_thread_dict(th))
-	return {
+	var st := {
 		"t": "state",
 		"in_game": GameState.in_game,
 		"time": Clock.fmt_time(Clock.now()) if GameState.in_game else "",
+		"date": Clock.fmt_date_long(Clock.now()) if GameState.in_game else "",
 		"battery": int(GameState.data.get("battery", 100)),
 		"threads": threads,
 	}
+	if GameState.in_game:
+		st.merge(_apps_state())
+	return st
+
+
+## Everything the other apps of the real phone show.
+func _apps_state() -> Dictionary:
+	var d: Dictionary = GameState.data
+	var wp: String = d.phone.get("wallpaper", "IMG_2207")
+	var home := {
+		"wallpaper": wp,
+		"wall_v": GameState.photo_variant(wp),
+		"eco": bool(d.phone.get("eco_app", false)),
+		"badges": {
+			"messages": GameState.unread_total(),
+			"phone": d.calls.filter(func(c): return c.dir == "missed" and not c.get("seen", false)).size(),
+			"email": d.emails.filter(func(e): return not d.emails_read.has(e.id)).size(),
+			"gallery": d.photos.values().filter(func(p): return p.get("new", false)).size(),
+		},
+	}
+	var contacts: Array = []
+	for id in Content.all("characters"):
+		var c := GameState.contact(id)
+		if c.get("saved", false) and not c.get("group", false) and not c.get("hidden", false):
+			contacts.append({"id": id, "name": GameState.contact_name(id), "number": str(c.get("number", "")),
+				"email": str(c.get("email", "")), "birthday": str(c.get("birthday", "")),
+				"address": str(c.get("address", "")), "note": str(c.get("note", "")),
+				"call": not c.get("no_call", false)})
+	contacts.sort_custom(func(a, b): return UI.norm(a.name) < UI.norm(b.name))
+	var calls: Array = []
+	for c in d.calls.slice(0, 40):
+		calls.append({"name": str(c.get("number", "")) if c.get("unknown", false) else GameState.contact_name(str(c.who)),
+			"who": str(c.who), "dir": str(c.dir), "dur": int(c.get("dur", 0)),
+			"when": Clock.fmt_relative(float(c.t)) if float(c.get("t", 0)) > 0 else ""})
+	var photos: Array = []
+	for pid in d.photo_order:
+		if not d.photos.has(pid):
+			continue
+		var info := Content.get_item("photos", pid)
+		var v := GameState.photo_variant(pid)
+		photos.append({"id": pid, "v": v, "album": str(d.photos[pid].get("album", "")),
+			"date": str(info.get("date", "")), "place": str(info.get("place", "")),
+			"aspect": float(info.get("aspect", 0.75)), "new": d.photos[pid].get("new", false),
+			"real": PhotoView.photo_texture(pid, v) != null})
+	var notes: Array = []
+	for nid in d.notes:
+		var n := Content.get_item("notes", nid)
+		if n.is_empty():
+			continue
+		var locked := str(n.get("locked", "")) != "" and not GameState.flag("unlocked_note_" + nid)
+		notes.append({"id": nid, "title": str(n.get("title", "")), "text": "" if locked else str(n.get("text", "")),
+			"locked": locked, "date": str(n.get("date", ""))})
+	for i in d.player_notes.size():
+		var pn: Dictionary = d.player_notes[i]
+		notes.append({"id": "p%d" % i, "title": str(pn.title), "text": str(pn.text), "locked": false, "date": ""})
+	var emails: Array = []
+	for en in d.emails:
+		var e := Content.get_item("emails", en.id)
+		if e.is_empty():
+			continue
+		var atts: Array = []
+		for a in e.get("attachments", []):
+			atts.append({"type": str(a.get("type", "")), "id": str(a.get("id", "")), "name": str(a.get("name", a.get("id", "")))})
+		emails.append({"id": en.id, "from": str(e.get("from_name", e.get("from", ""))), "addr": str(e.get("from", "")),
+			"subject": str(e.get("subject", "")), "body": str(e.get("body", "")), "folder": str(e.get("folder", "Entrada")),
+			"date": Clock.fmt_relative(float(en.get("t", 0))) if float(en.get("t", 0)) > 0 else str(e.get("date", "")),
+			"unread": not d.emails_read.has(en.id), "atts": atts})
+	return {"home": home, "contacts": contacts, "calls": calls, "photos": photos, "notes": notes, "emails": emails}
 
 
 func _thread_dict(th: String) -> Dictionary:
@@ -296,6 +474,7 @@ func _msg_dict(th: String, m: Dictionary) -> Dictionary:
 	}
 	if m.has("att"):
 		d.att = str(m.att.get("type", ""))
+		d.att_id = str(m.att.get("id", ""))
 	return d
 
 
