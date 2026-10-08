@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Ainda estás acordado?</title>
 <style>
-:root { --bg:#0b0d10; --surf:#15181d; --surf2:#1d2128; --text:#e9e6e1; --dim:#9a968f; --faint:#5d5a55; --accent:#d9a85b; --me:#2c4255; --danger:#d0605a; --ok:#4f9a6b; }
+:root { --bg:#0b0d10; --surf:#15181d; --surf2:#1d2128; --text:#e9e6e1; --dim:#a3a9b0; --faint:#858b93; --accent:#d9a85b; --me:#2c4255; --danger:#d0605a; --ok:#4f9a6b; }
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font:16px/1.35 -apple-system, "Segoe UI", Roboto, sans-serif; overflow:hidden; overscroll-behavior:none; }
 #app { position:fixed; inset:0; display:flex; flex-direction:column; }
@@ -122,7 +122,7 @@ function thread(id) { return S.threads.find(t => t.id === id); }
 function preview(m) {
 	if (!m) return "";
 	if (m.deleted) return "Esta mensagem foi apagada";
-	if (m.att) return (m.me ? "Tu: " : "") + (m.att === "photo" ? "📷 Fotografia" : m.att === "audio" ? "🎤 Mensagem de voz" : "📎 Ficheiro");
+	if (m.att) return (m.me ? "Tu: " : "") + (m.att === "photo" ? "Fotografia" : m.att === "audio" ? "Mensagem de voz" : "Ficheiro");
 	return (m.me ? "Tu: " : "") + m.text;
 }
 function render() {
@@ -152,7 +152,7 @@ function render() {
 		const cls = "b" + (m.me ? " me" : "") + (m.deleted ? " del" : "");
 		const who = t.group && !m.me ? `<div class="who">${esc(m.from)}</div>` : "";
 		let body = m.deleted ? "Esta mensagem foi apagada" : esc(m.text);
-		if (m.att) body = `<span class="att">${m.att === "photo" ? "📷 Fotografia — vê-a no ecrã do computador" : m.att === "audio" ? "🎤 Mensagem de voz — ouve-a no computador" : "📎 Ficheiro"}</span>` + (m.text ? "<br>" + esc(m.text) : "");
+		if (m.att) body = `<span class="att">${m.att === "photo" ? "Fotografia — vê-a no ecrã do computador" : m.att === "audio" ? "Mensagem de voz — ouve-a no computador" : "Ficheiro"}</span>` + (m.text ? "<br>" + esc(m.text) : "");
 		html += `<div class="${cls}">${who}${body}<div class="tm">${esc(m.time)}</div></div>`;
 	}
 	main.innerHTML = html + "</div>";

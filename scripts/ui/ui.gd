@@ -10,8 +10,8 @@ const PALETTE := {
 	"surf2": Color("1e2228"),
 	"line": Color("2a2f37"),
 	"text": Color("e9e6e1"),
-	"dim": Color("8d939b"),
-	"faint": Color("5a6068"),
+	"dim": Color("a3a9b0"),
+	"faint": Color("858b93"),
 	"accent": Color("d9b26f"),
 	"me": Color("2c4255"),
 	"them": Color("20242b"),
@@ -47,10 +47,32 @@ static func fs(base: int) -> int:
 	return Settings.text_size(base)
 
 
+# ------------------------------------------------------------------ type
+## Inter (SIL OFL, assets/fonts) — the typeface of modern phone UIs. Glyphs it
+## lacks (✓, arrows, symbols) fall back to Godot's default font.
+static var _fonts := {}
+
+
+static func font(weight := "regular") -> Font:
+	if _fonts.is_empty():
+		var files := {"regular": "inter-latin-400-normal", "medium": "inter-latin-500-normal",
+			"semibold": "inter-latin-600-normal", "italic": "inter-latin-400-italic"}
+		for k in files:
+			var path: String = "res://assets/fonts/%s.woff2" % files[k]
+			if ResourceLoader.exists(path):
+				var f: FontFile = load(path)
+				f.fallbacks = [ThemeDB.fallback_font]
+				_fonts[k] = f
+	return _fonts.get(weight, ThemeDB.fallback_font)
+
+
 # ------------------------------------------------------------------ theme
 static func build_theme() -> Theme:
 	var t := Theme.new()
+	t.default_font = font("regular")
 	t.default_font_size = fs(16)
+	t.set_font("bold_font", "RichTextLabel", font("semibold"))
+	t.set_font("italics_font", "RichTextLabel", font("italic"))
 	var flat := StyleBoxEmpty.new()
 	var hover := box(Color(1, 1, 1, 0.05), 10)
 	var pressed := box(Color(1, 1, 1, 0.09), 10)
@@ -143,6 +165,11 @@ static func label(text: String, size := 16, color_key := "text", wrap := false) 
 	l.text = text
 	l.add_theme_font_size_override("font_size", fs(size))
 	l.add_theme_color_override("font_color", c(color_key))
+	# hierarchy by weight, like a phone OS: titles semibold, subheads medium
+	if size >= 20:
+		l.add_theme_font_override("font", font("semibold"))
+	elif size >= 17:
+		l.add_theme_font_override("font", font("medium"))
 	if wrap:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE

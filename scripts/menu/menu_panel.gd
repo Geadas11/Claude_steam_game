@@ -61,6 +61,7 @@ func _unhandled_input(event: InputEvent) -> void:
 static func menu_button(text: String, cb: Callable, size := 22) -> Button:
 	var b := UI.button(text, cb, size)
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	b.add_theme_font_override("font", UI.font("medium"))
 	b.custom_minimum_size = Vector2(320, 48)
 	b.add_theme_color_override("font_hover_color", UI.c("accent"))
 	b.add_theme_color_override("font_focus_color", UI.c("accent"))
