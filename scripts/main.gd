@@ -215,6 +215,34 @@ func _debug_script(steps: PackedStringArray) -> void:
 					mb.global_position = pos
 					Input.parse_input_event(mb)
 				await get_tree().process_frame
+			"click":
+				# a real mouse click at a point of the phone screen (fractions 0..1)
+				var p: Vector2 = get_tree().root.get_final_transform() * (phone.screen.get_global_transform_with_canvas() * (phone.screen.size * Vector2(float(kv[1]), float(kv[2]))))
+				var mm := InputEventMouseMotion.new()
+				mm.position = p
+				mm.global_position = p
+				Input.parse_input_event(mm)
+				await get_tree().process_frame
+				for down in [true, false]:
+					var mc := InputEventMouseButton.new()
+					mc.button_index = MOUSE_BUTTON_LEFT
+					mc.pressed = down
+					mc.position = p
+					mc.global_position = p
+					Input.parse_input_event(mc)
+					await get_tree().create_timer(0.08).timeout
+				print("CLICK ", kv[1], ",", kv[2], " -> app=", GameState.current_app)
+			"wclick":
+				# a real mouse click at a point of the window (fractions 0..1)
+				var wp := Vector2(get_window().size) * Vector2(float(kv[1]), float(kv[2]))
+				for down in [true, false]:
+					var wc := InputEventMouseButton.new()
+					wc.button_index = MOUSE_BUTTON_LEFT
+					wc.pressed = down
+					wc.position = wp
+					wc.global_position = wp
+					Input.parse_input_event(wc)
+					await get_tree().create_timer(0.08).timeout
 			"hit":
 				var pt: Vector2 = phone.screen.get_global_rect().position + phone.screen.get_global_rect().size * Vector2(float(kv[1]), float(kv[2]))
 				for c in phone.screen.find_children("*", "CanvasItem", true, false):
