@@ -334,3 +334,16 @@ unknown> Eu já não tenho esse casaco. Ficou no mar.
 wait 3
 unknown> Tu é que continuas a pô-lo nas fotografias.
 @end
+
+@beat g_grandmother
+@when clue("mirror_grandmother") and v("chapter_n") >= 6 and v("chapter_n") <= 10 and not flag("final") and not flag("said_grandmother")
+set said_grandmother=true
+wait 20
+unknown> A minha avó falou comigo assim durante três semanas.
+wait 4
+unknown> Sabia o nome de toda a gente. Sabia as receitas. Não sabia que tinha morrido.
+wait 4
+unknown> Fui eu que a desliguei.
+wait 6
+unknown> Tu não precisas de fazer o mesmo. Mas podes.
+@end
