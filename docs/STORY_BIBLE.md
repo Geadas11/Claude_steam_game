@@ -37,7 +37,8 @@ aos ex‑funcionários "como gesto de apoio" depois da morte da Inês.
    está no Cais Velho às 2h30. Não lhe digas que fui eu."*
 4. 02:38 — Daniel chega ao Cais Velho. A Inês percebe pelo telefone dele (uma
    notificação do Vasco) que ele a denunciou. Discutem. Ela dá‑lhe na mesma o
-   cartão com a cópia (`mare.zip`): "Se me acontecer alguma coisa, já sabes."
+   cartão com a cópia (`mare.zip`) e a chave da Livraria Maré (a Carla tinha-lha dado porque a
+   Inês ia lá ler de manhã cedo): "Se me acontecer alguma coisa, já sabes."
    03:06 — Daniel vai embora a pé, furioso consigo próprio. Deixa o telemóvel
    antigo cair no carro? Não: deixa‑o no bolso; o histórico de localização
    regista tudo.
