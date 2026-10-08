@@ -48,7 +48,13 @@ func open() -> void:
 			var p := SlotsPanel.new()
 			p.main = main
 			add_child(p)))
-	v.add_child(MenuPanel.menu_button("Telemóvel real", func(): add_child(CompanionPanel.new())))
+	if main.phone_mode == "own":
+		v.add_child(MenuPanel.menu_button("Voltar a ligar o telemóvel", func():
+			var p := PhoneChoicePanel.new()
+			p.mode = "reconnect"
+			p.allow_back = true
+			p.chosen.connect(func(m): main.set_phone_mode(m))
+			add_child(p)))
 	v.add_child(MenuPanel.menu_button("Até agora", func(): add_child(RecapPanel.new())))
 	v.add_child(MenuPanel.menu_button("Decisões", func(): add_child(ChoicesPanel.new())))
 	v.add_child(MenuPanel.menu_button("Definições", func(): add_child(SettingsPanel.new())))

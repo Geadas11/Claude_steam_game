@@ -82,12 +82,15 @@
   Câmara e ECO abrem no ecrã do PC. Tudo o que se abre no telemóvel abre também no PC, para a
   história reagir como sempre; o PIN do telemóvel do jogo nunca é saltado. Botão "voltar" do
   telemóvel funciona.
-- **Telemóvel real (QR):** o jogador lê um código QR no PC e o telemóvel dele passa a receber as
-  mensagens, notificações (som + vibração), chamadas (atender/recusar, legendas) e interferências do
-  jogo; pode responder às escolhas. O telemóvel do PC acompanha o que se abre no real. Servidor HTTP +
-  WebSocket na rede local (`scripts/net/companion.gd`, página `companion/index.html`), código QR gerado
-  pelo próprio jogo (`scripts/net/qr.gd`, verificado com um leitor real). Testado ponta a ponta com um
-  browser móvel (Chromium) e com testes automáticos (`--only=companion`).
+- **Telemóvel real (QR) — v3, espelho do telemóvel do jogo:** no início de cada sessão o jogo pergunta
+  "Que telemóvel vais usar?" (o meu / o do jogo). Com o do jogador, o telemóvel do jogo é desenhado
+  numa SubViewport (630×1320) e enviado em JPEG por WebSocket (8 fps parado, 20 fps a mexer, só quando
+  muda; codificação numa thread). O toque volta como toque/arrastar/deslizar (scroll), o teclado do
+  telemóvel escreve nos campos do jogo, o gesto "voltar" funciona, há som de notificação, toque de
+  chamada e vibração. Ecrã inteiro + "Adicionar ao ecrã principal" (manifest e ícones). O PC mostra só
+  um relógio; o outro telemóvel não aparece nessa sessão. Se a ligação cai, o jogo pausa e mostra o QR
+  para voltar a ligar. Ficheiros: `scripts/net/companion.gd`, `companion/index.html`,
+  `scripts/menu/phone_choice_panel.gd`. Testes: `--only=companion` (15 verificações).
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.
 - **Qualidade visual (sessão 2):** letra Inter, contraste ≥ 4,5:1, sem emojis como ícones; fundo do
@@ -156,7 +159,10 @@
 - **Multiplayer cooperativo online** → 🟡 fase 1 feita: ligação direta (código de sala, UPnP),
   Daniel (anfitrião) + Sofia (convidada), conversa partilhada, relógio e capítulos sincronizados,
   cap. 1 da Sofia. Steam preparado, por ativar quando houver App ID. Ver `docs/COOP.md`.
-- **Telemóvel real** do jogador como segundo ecrã → ✅ feito (página web via QR).
+- **Telemóvel real** do jogador → ✅ v3: escolha por sessão, o telemóvel do jogo passa para o real (stream).
+- **Jogo 3D realista (tipo Phasmophobia)** com perigo real, sustos e cooperativo em locais diferentes →
+  plano em 5 fases: 1) telemóvel real + escolha ✅; 2) base 3D (Forward+, primeira pessoa, casa do
+  Daniel); 3) entidade que caça e mata, esconderijos; 4) mais locais; 5) cooperativo 3D (Sofia em Lisboa).
 
 ## Higgsfield (sessão 2)
 

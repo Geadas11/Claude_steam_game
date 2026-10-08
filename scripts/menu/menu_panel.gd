@@ -5,6 +5,7 @@ extends Control
 signal closed
 
 var body: VBoxContainer
+var no_back := false   # no "Voltar" button and Esc does nothing (blocking dialogs)
 var _title: Label
 
 
@@ -42,6 +43,8 @@ func make(title: String, width := 560.0, compact := false) -> void:
 		sc.add_child(body)
 		v.add_child(sc)
 		sc.custom_minimum_size.y = minf(620.0, get_viewport_rect().size.y - 260.0) if is_inside_tree() else 560.0
+	if no_back:
+		return
 	var back := UI.pill_button("Voltar", close, "surf2")
 	back.size_flags_horizontal = Control.SIZE_SHRINK_END
 	v.add_child(back)
@@ -53,7 +56,7 @@ func close() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause_menu") or event.is_action_pressed("ui_cancel"):
+	if (event.is_action_pressed("pause_menu") or event.is_action_pressed("ui_cancel")) and not no_back:
 		close()
 		get_viewport().set_input_as_handled()
 

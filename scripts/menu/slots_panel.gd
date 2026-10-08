@@ -51,6 +51,11 @@ func _save(slot: String) -> void:
 
 
 func _load(slot: String) -> void:
+	if main and main.mode == main.Mode.TITLE and not Saves.read_slot(slot).is_empty():
+		# from the title: which phone, then load
+		close()
+		main.choose_phone_then(func(): main.continue_game(slot))
+		return
 	if main and main.continue_game(slot):
 		close()
 	else:

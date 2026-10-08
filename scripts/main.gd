@@ -12,6 +12,14 @@ var overlay: Control          # menus outside the fiction
 var caption: Label            # chapter date captions on the desk
 var pause_menu: PauseMenu
 var title_menu: TitleMenu
+## "game": the phone is on the PC screen. "own": the player's own phone is the
+## phone of the game (the phone here is rendered off-screen and streamed).
+var phone_mode := "game"
+var phone_vp: SubViewport
+var own_hud: Control
+var _own_clock: Label
+var _reconnect: PhoneChoicePanel
+const STREAM_SCALE := 1.5
 
 
 func _ready() -> void:
@@ -27,6 +35,7 @@ func _ready() -> void:
 	phone = Phone.new()
 	phone_holder.add_child(phone)
 	phone.position = -phone.custom_minimum_size / 2.0
+	_build_own_hud()
 	caption = UI.label("", 24, "text")
 	caption.set_anchors_preset(Control.PRESET_CENTER_LEFT)
 	caption.position = Vector2(120, -40)
@@ -54,6 +63,8 @@ func _ready() -> void:
 	Events.achievement_unlocked.connect(_on_achievement)
 	Events.state_loaded.connect(_on_state_loaded)
 	Events.deduction_requested.connect(func(): phone.open_app("notes", {"deduction": true, "forced": true}))
+	Companion.clients_changed.connect(_on_phone_clients)
+	Companion.on_back = func(): phone.back()
 	resized.connect(_layout)
 	_layout()
 	show_title()
@@ -203,6 +214,10 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"companion":
 				Companion.start()
 				print("COMPANION_URL ", Companion.url())
+			"phonemode":
+				set_phone_mode(kv[1])
+			"dumpapp":
+				print("APP ", GameState.current_app, " frames=", Companion.frames_sent, " locked=", phone.locked)
 			"call": Director.player_call(kv[1])
 			"clicktoast":
 				var tpc: Control = phone.screen.get_node("Toast")
@@ -273,6 +288,7 @@ func _layout() -> void:
 
 func show_title() -> void:
 	mode = Mode.TITLE
+	set_phone_mode("game")
 	if Coop.active:
 		Coop.leave()
 	Content.set_role("daniel")
@@ -530,6 +546,97 @@ func _on_achievement(id: String) -> void:
 	tw.tween_callback(p.queue_free)
 
 
+# ---------------------------------------------------------------- which phone
+## Asks which phone this session uses, then runs `then` (start or continue).
+func choose_phone_then(then: Callable) -> void:
+	var p := PhoneChoicePanel.new()
+	p.chosen.connect(func(m: String):
+		set_phone_mode(m)
+		then.call())
+	overlay.add_child(p)
+
+
+func set_phone_mode(m: String) -> void:
+	if m == phone_mode:
+		return
+	phone_mode = m
+	if m == "own":
+		if phone_vp == null:
+			phone_vp = SubViewport.new()
+			phone_vp.size = Vector2i(UI.SCREEN * STREAM_SCALE)
+			phone_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+			phone_vp.transparent_bg = false
+			add_child(phone_vp)
+		phone.reparent(phone_vp, false)
+		phone.theme = theme
+		phone.scale = Vector2.ONE * STREAM_SCALE
+		phone.position = -Vector2(Phone.BEZEL, Phone.BEZEL) * STREAM_SCALE
+		phone._base_pos = phone.position
+		phone_holder.visible = false
+		Companion.stream_vp = phone_vp
+		_own_clock.text = Clock.fmt_time(Clock.now()) if GameState.in_game else ""
+	else:
+		phone.reparent(phone_holder, false)
+		phone.theme = null
+		phone.scale = Vector2.ONE
+		phone.position = -phone.custom_minimum_size / 2.0
+		phone_holder.visible = true
+		Companion.stream_vp = null
+		_layout()
+	Companion.stream_changed()
+	own_hud.visible = m == "own"
+
+
+## What the PC shows while the phone is in the player's hand.
+func _build_own_hud() -> void:
+	own_hud = Control.new()
+	own_hud.set_anchors_preset(Control.PRESET_FULL_RECT)
+	own_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	own_hud.visible = false
+	add_child(own_hud)
+	var c := CenterContainer.new()
+	c.set_anchors_preset(Control.PRESET_FULL_RECT)
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	own_hud.add_child(c)
+	var v := UI.vbox(8)
+	c.add_child(v)
+	_own_clock = UI.label("", 64, "text")
+	_own_clock.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_own_clock.modulate.a = 0.85
+	v.add_child(_own_clock)
+	var l := UI.label("O telemóvel está contigo.", 18, "dim")
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(l)
+	var k := UI.label("Esc · pausa", 13, "faint")
+	k.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(k)
+	Events.time_changed.connect(func(t): if own_hud.visible: _own_clock.text = Clock.fmt_time(t))
+
+
+## The own phone dropped out mid-session: wait a moment, then pause and show
+## the QR code again (or let the player switch to the phone on the PC).
+func _on_phone_clients(n: int) -> void:
+	if n > 0:
+		if is_instance_valid(_reconnect):
+			_reconnect.queue_free()
+			_reconnect = null
+			get_tree().paused = false
+		return
+	if phone_mode != "own" or mode != Mode.GAME:
+		return
+	await get_tree().create_timer(4.0, true).timeout
+	if Companion.client_count() > 0 or phone_mode != "own" or mode != Mode.GAME or is_instance_valid(_reconnect):
+		return
+	get_tree().paused = true
+	_reconnect = PhoneChoicePanel.new()
+	_reconnect.mode = "reconnect"
+	_reconnect.chosen.connect(func(m: String):
+		_reconnect = null
+		set_phone_mode(m)
+		get_tree().paused = false)
+	overlay.add_child(_reconnect)
+
+
 # ---------------------------------------------------------------- co-op
 func _on_coop_start(as_host: bool) -> void:
 	for c in overlay.get_children() + title_menu.get_children() + pause_menu.get_children():
@@ -538,6 +645,10 @@ func _on_coop_start(as_host: bool) -> void:
 	pause_menu.visible = false
 	get_tree().paused = false
 	Content.set_role("daniel" if as_host else "sofia")
+	choose_phone_then(func(): _coop_begin(as_host))
+
+
+func _coop_begin(as_host: bool) -> void:
 	start_new_game(false)
 	Events.toast_requested.emit("És o Daniel. A Sofia está do outro lado." if as_host else "És a Sofia. O Daniel está do outro lado.")
 

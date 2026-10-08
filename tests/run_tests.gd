@@ -654,86 +654,110 @@ func _test_companion() -> void:
 		return
 	ok(Companion.url().contains("?k=" + Companion.token), "pairing url carries the code")
 	ok(QR.encode(Companion.url()).size() >= 21, "pairing url fits in a QR code")
-	# the page over HTTP
-	var http := StreamPeerTCP.new()
-	http.connect_to_host("127.0.0.1", Companion.http_port)
-	var page := ""
-	for i in 300:
-		await _frames(1)
-		http.poll()
-		if http.get_status() == StreamPeerTCP.STATUS_CONNECTED:
-			if page == "":
-				http.put_data("GET /?k=x HTTP/1.1\r\nHost: test\r\n\r\n".to_utf8_buffer())
-				page = " "
-			var n := http.get_available_bytes()
-			if n > 0:
-				page += http.get_utf8_string(n)
-		elif page.length() > 1:
-			break
+	var page := await _http_get("/?k=x")
 	ok(page.contains("200 OK") and page.contains("Ainda estás acordado?"), "page served over HTTP")
 	ok(page.contains(":%d/" % Companion.ws_port) and not page.contains("__WS_PORT__"), "page knows the websocket port")
-	# a phone with the right code gets the state; actions reach the game
-	var opened := {"app": ""}
-	var on_open := func(app_id: String, p: Dictionary): opened.app = app_id + ":" + str(p.get("param", ""))
-	Events.open_app_requested.connect(on_open)
+	ok((await _http_get("/manifest.webmanifest")).contains("fullscreen"), "page can be added to the home screen (manifest)")
+	# a stand-in for the in-game phone, rendered off-screen and streamed
+	var vp := SubViewport.new()
+	vp.size = Vector2i(300, 400)
+	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(vp)
+	var root := Control.new()
+	root.size = Vector2(300, 400)
+	vp.add_child(root)
+	var clicked := [0]
+	var b := Button.new()
+	b.text = "ok"
+	b.position = Vector2(20, 20)
+	b.size = Vector2(120, 60)
+	b.pressed.connect(func(): clicked[0] += 1)
+	root.add_child(b)
+	var le := LineEdit.new()
+	le.position = Vector2(20, 120)
+	le.size = Vector2(200, 40)
+	root.add_child(le)
+	var sc := ScrollContainer.new()
+	sc.position = Vector2(0, 200)
+	sc.size = Vector2(300, 200)
+	root.add_child(sc)
+	var tall := VBoxContainer.new()
+	tall.custom_minimum_size = Vector2(280, 1200)
+	sc.add_child(tall)
+	Companion.stream_vp = vp
+	Companion.stream_changed()
+	# a phone with the right code gets the screen and frames
 	var ws := WebSocketPeer.new()
 	ws.connect_to_url("ws://127.0.0.1:%d/" % Companion.ws_port)
-	var state = null
+	var got := {"screen": false, "frame": false, "kbd": false}
 	var said_hello := false
-	for i in 300:
+	for i in 400:
 		await _frames(1)
 		ws.poll()
 		if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 			if not said_hello:
 				ws.send_text(JSON.stringify({"t": "hello", "k": Companion.token}))
 				said_hello = true
-			if ws.get_available_packet_count() > 0:
-				state = JSON.parse_string(ws.get_packet().get_string_from_utf8())
-				break
-	ok(typeof(state) == TYPE_DICTIONARY and state.get("t", "") == "state", "phone receives the state")
-	if typeof(state) == TYPE_DICTIONARY:
-		ok(state.get("threads", []).size() > 0, "state lists conversations")
-		ok(state.get("contacts", []).size() > 0, "state lists contacts")
-		ok(state.get("home", {}).has("badges") and state.get("home", {}).has("wallpaper"), "state carries the home screen")
-		ok(state.has("photos") and state.has("notes") and state.has("emails") and state.has("calls"), "state carries gallery, notes, email and calls")
-	# the real photos are served as JPEG (and only with the pairing code)
-	ok(Companion._photo_jpeg("IMG_2207", "base", 320).slice(0, 2) == PackedByteArray([0xFF, 0xD8]), "photos are served as JPEG")
-	ok(Companion._photo_jpeg("NOPE", "base", 320).is_empty(), "unknown photos are not served")
+			while ws.get_available_packet_count() > 0:
+				var pk := ws.get_packet()
+				if ws.was_string_packet():
+					var e = JSON.parse_string(pk.get_string_from_utf8())
+					if typeof(e) == TYPE_DICTIONARY and e.get("t", "") == "screen" and e.get("on", false) and int(e.w) == 300:
+						got.screen = true
+				elif pk.size() > 2 and pk[0] == 0xFF and pk[1] == 0xD8:
+					got.frame = true
+		if got.screen and (got.frame or (DisplayServer.get_name() == "headless" and i > 60)):
+			break
+	ok(got.screen, "phone learns the size of the streamed screen")
+	# (the headless test runner has no renderer, so it cannot capture frames)
+	ok(got.frame or DisplayServer.get_name() == "headless", "phone receives the phone screen as JPEG frames")
 	ok(Companion.client_count() == 1, "one phone connected")
-	var th: String = GameState.data.thread_order[0]
-	ws.send_text(JSON.stringify({"t": "open", "thread": th}))
-	var got_msg := false
-	for i in 120:
+	# a tap on the real phone presses the button of the in-game phone
+	var send := func(o: Dictionary): ws.send_text(JSON.stringify(o))
+	send.call({"t": "touch", "a": "down", "x": 80.0 / 300, "y": 50.0 / 400})
+	send.call({"t": "touch", "a": "up", "x": 80.0 / 300, "y": 50.0 / 400})
+	for i in 30:
 		await _frames(1)
 		ws.poll()
-		while ws.get_available_packet_count() > 0:
-			var e = JSON.parse_string(ws.get_packet().get_string_from_utf8())
-			if typeof(e) == TYPE_DICTIONARY and e.get("t", "") == "msg":
-				got_msg = true
-		if opened.app != "" and got_msg:
-			break
-	ok(opened.app == "messages:" + th, "opening a conversation on the phone opens it on the PC (%s)" % opened.app)
-	opened.app = ""
-	ws.send_text(JSON.stringify({"t": "open", "app": "gallery"}))
+	ok(clicked[0] == 1, "a tap on the phone presses the button under the finger (%d)" % clicked[0])
+	# a drag inside a long list scrolls it and clicks nothing
+	send.call({"t": "touch", "a": "down", "x": 0.5, "y": 380.0 / 400})
+	for k in 6:
+		send.call({"t": "touch", "a": "move", "x": 0.5, "y": (380.0 - k * 30.0) / 400})
+	send.call({"t": "touch", "a": "up", "x": 0.5, "y": 230.0 / 400})
+	for i in 30:
+		await _frames(1)
+		ws.poll()
+	ok(sc.scroll_vertical > 100, "dragging a list scrolls it (%d)" % sc.scroll_vertical)
+	# typing: focusing a text field opens the phone's keyboard; text comes back
+	le.grab_focus()
 	for i in 60:
 		await _frames(1)
 		ws.poll()
 		while ws.get_available_packet_count() > 0:
-			ws.get_packet()
-		if opened.app != "":
+			var pk2 := ws.get_packet()
+			if ws.was_string_packet():
+				var e2 = JSON.parse_string(pk2.get_string_from_utf8())
+				if typeof(e2) == TYPE_DICTIONARY and e2.get("t", "") == "kbd" and e2.get("on", false):
+					got.kbd = true
+		if got.kbd:
 			break
-	ok(opened.app.begins_with("gallery"), "opening an app on the phone opens it on the PC (%s)" % opened.app)
-	GameState.add_message(th, {"from": th, "text": "teste"})
-	Events.message_added.emit(th, GameState.data.threads[th].messages[-1])
-	for i in 60:
+	ok(got.kbd, "a focused text field opens the keyboard on the phone")
+	send.call({"t": "text", "value": "olá"})
+	for i in 20:
 		await _frames(1)
 		ws.poll()
-		while ws.get_available_packet_count() > 0:
-			var e = JSON.parse_string(ws.get_packet().get_string_from_utf8())
-			if typeof(e) == TYPE_DICTIONARY and e.get("t", "") == "msg" and e.msg.text == "teste":
-				got_msg = true
-	ok(got_msg, "new messages reach the phone")
-	Events.open_app_requested.disconnect(on_open)
+	ok(le.text == "olá", "what is typed on the phone reaches the field (%s)" % le.text)
+	# the back gesture
+	var backs := [0]
+	var old_back: Callable = Companion.on_back
+	Companion.on_back = func(): backs[0] += 1
+	send.call({"t": "back"})
+	for i in 20:
+		await _frames(1)
+		ws.poll()
+	ok(backs[0] == 1, "the phone's back gesture reaches the game")
+	Companion.on_back = old_back
 	# a wrong code is refused
 	var bad := WebSocketPeer.new()
 	bad.connect_to_url("ws://127.0.0.1:%d/" % Companion.ws_port)
@@ -748,8 +772,29 @@ func _test_companion() -> void:
 			break
 	ok(bad.get_ready_state() == WebSocketPeer.STATE_CLOSED and Companion.client_count() == 1, "wrong code refused")
 	ws.close()
+	Companion.stream_vp = null
+	vp.queue_free()
 	Companion.stop()
 	Director.stop()
+
+
+func _http_get(path: String) -> String:
+	var http := StreamPeerTCP.new()
+	http.connect_to_host("127.0.0.1", Companion.http_port)
+	var page := ""
+	for i in 300:
+		await _frames(1)
+		http.poll()
+		if http.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+			if page == "":
+				http.put_data(("GET %s HTTP/1.1\r\nHost: test\r\n\r\n" % path).to_utf8_buffer())
+				page = " "
+			var n := http.get_available_bytes()
+			if n > 0:
+				page += http.get_utf8_string(n)
+		elif page.length() > 1:
+			break
+	return page
 
 
 ## The second player's story (co-op): same checks on its chapters.

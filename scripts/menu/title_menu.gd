@@ -28,7 +28,7 @@ func open() -> void:
 	_col.add_child(UI.spacer(40))
 	var latest := Saves.latest_slot()
 	if latest != "":
-		var b := MenuPanel.menu_button("Continuar", func(): main.continue_game(latest))
+		var b := MenuPanel.menu_button("Continuar", func(): main.choose_phone_then(func(): main.continue_game(latest)))
 		_col.add_child(b)
 		b.call_deferred("grab_focus")
 		var sm := Saves.slot_meta(latest)
@@ -46,7 +46,6 @@ func open() -> void:
 		add_child(p)))
 	_col.add_child(MenuPanel.menu_button("Definições", func(): add_child(SettingsPanel.new())))
 	_col.add_child(MenuPanel.menu_button("Jogar online", func(): add_child(CoopPanel.new())))
-	_col.add_child(MenuPanel.menu_button("Telemóvel real", func(): add_child(CompanionPanel.new())))
 	_col.add_child(MenuPanel.menu_button("Extras", func(): add_child(ExtrasPanel.new())))
 	_col.add_child(MenuPanel.menu_button("Sair", func(): get_tree().quit()))
 	_col.add_child(UI.spacer(60))
@@ -83,7 +82,7 @@ func _new_game() -> void:
 
 func _confirm_overwrite() -> void:
 	if Saves.slot_meta("auto").is_empty():
-		main.start_new_game()
+		main.choose_phone_then(func(): main.start_new_game())
 		return
 	var w := MenuPanel.new()
 	add_child(w)
@@ -93,7 +92,7 @@ func _confirm_overwrite() -> void:
 	var h := UI.hbox(12)
 	var yes := UI.pill_button("Começar jogo novo", func():
 		w.queue_free()
-		main.start_new_game(), "surf2", "accent")
+		main.choose_phone_then(func(): main.start_new_game()), "surf2", "accent")
 	h.add_child(yes)
 	h.add_child(UI.pill_button("Cancelar", w.close, "surf", "dim"))
 	w.body.add_child(UI.spacer(8))

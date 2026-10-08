@@ -1,29 +1,32 @@
 extends Node
-## "Telemóvel real": the player's own phone joins the game through a web page.
+## "O teu telemóvel": the player's own phone becomes the phone of the game.
 ##
-## The game hosts a tiny HTTP server (the page) and a WebSocket server (live
-## events) on the local network. The player scans a QR code on the PC; their
-## phone then receives the in-game messages, notifications, calls and
-## vibrations, and can answer them. The page runs in the phone's browser only:
+## When the player chooses their own phone at the start of a session, the
+## in-game phone is rendered off-screen (see Main.set_phone_mode) and this
+## node streams it to the player's phone as JPEG frames over a WebSocket on the
+## local network. Touches, typing and the back gesture come back and are
+## applied to the in-game phone, so every app works exactly as in the game.
+## The page (companion/index.html) runs in the phone's browser, full screen;
 ## the game never reads anything from the real phone.
-##
-## The page is a full copy of the in-game phone: same home screen and apps.
-## Messages, calls, contacts, gallery (real photos, served as JPEG), notes and
-## email can be used on the real phone; everything opened there also opens on
-## the PC phone, so the story reacts exactly as if it had been opened there.
 
 signal clients_changed(count: int)
 
 const HTTP_PORT := 8317
 const WS_PORT := 8417
 const PAGE := "res://companion/index.html"
-const MAX_MESSAGES := 60
+const FPS_ACTIVE := 20.0     # right after a touch
+const FPS_IDLE := 8.0
+const JPEG_QUALITY := 0.82
 
 var running := false
 var persist_token := true   # tests turn this off (no writes to the player's settings)
 var http_port := 0
 var ws_port := 0
 var token := ""
+## The SubViewport holding the in-game phone while it is streamed (null = not streaming).
+var stream_vp: SubViewport
+## Called when the phone's back gesture is used (set by Main).
+var on_back: Callable
 
 var _http: TCPServer
 var _ws: TCPServer
@@ -31,35 +34,37 @@ var _http_conns: Array = []   # [{peer, buf, t}]
 var _pending_ws: Array = []   # WebSocketPeer not yet authenticated
 var _clients: Array = []      # authenticated WebSocketPeer
 var _page_cache := ""
-var _last_minute := -1
-var _dirty := false            # full state must be resent (throttled)
-var _dirty_t := 0
-var _img_cache := {}           # "id:variant:w" -> JPEG bytes
+var _icon_cache := {}
+
+# streaming
+var _last_capture := 0
+var _last_input := -100000
+var _last_raw := PackedByteArray()
+var _encoding := false
+var _frame_task := -1
+var _frame_out := PackedByteArray()
+var _need_full := false       # a new client needs a frame even if nothing changed
+var frames_sent := 0
+
+# remote touch
+var _t_down := false
+var _t_start := Vector2.ZERO
+var _t_last := Vector2.ZERO
+var _t_mode := ""             # "" (maybe a tap), "scroll", "drag"
+var _t_scroll: ScrollContainer
+var _t_last_tap := 0
+var _t_last_tap_pos := Vector2.ZERO
+var _kbd_owner: Control
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	Events.message_added.connect(_on_message)
-	Events.message_changed.connect(func(th, _id): _send_thread(th))
-	Events.thread_typing.connect(func(th, who, typing): broadcast({"t": "typing", "thread": th, "who": GameState.contact_name(who), "on": typing}))
-	Events.choice_offered.connect(func(th): _send_choice(th))
-	Events.choice_cleared.connect(func(th): broadcast({"t": "choice", "thread": th, "options": []}))
-	Events.notification_posted.connect(_on_notification)
-	Events.call_incoming.connect(func(c): broadcast({"t": "call", "state": "ringing", "name": _call_name(c)}))
-	Events.call_started.connect(func(c): broadcast({"t": "call", "state": "connected", "name": _call_name(c)}))
-	Events.call_line.connect(func(who, text): broadcast({"t": "call_line", "who": GameState.contact_name(who) if who != "" else "", "text": text}))
-	Events.call_ended.connect(func(_c): broadcast({"t": "call", "state": "ended"}))
+	Events.notification_posted.connect(func(n): broadcast({"t": "notif", "app": str(n.get("app", ""))}))
+	Events.call_incoming.connect(func(_c): broadcast({"t": "ring", "on": true}))
+	Events.call_started.connect(func(_c): broadcast({"t": "ring", "on": false}))
+	Events.call_ended.connect(func(_c): broadcast({"t": "ring", "on": false}))
 	Events.vibrate_requested.connect(func(n): broadcast({"t": "vibrate", "n": n}))
-	Events.glitch_requested.connect(func(i, d): broadcast({"t": "glitch", "i": i, "d": d}))
-	Events.screen_off_requested.connect(func(d): broadcast({"t": "screen_off", "d": d}))
-	Events.time_changed.connect(_on_time)
-	Events.state_loaded.connect(func(): _send_state_all())
-	Events.chapter_started.connect(func(_c): _send_state_all())
-	Events.content_changed.connect(func(_k): _mark_dirty())
-	Events.thread_read.connect(func(_th): _mark_dirty())
-	Events.phone_state_changed.connect(func():
-		broadcast({"t": "status", "battery": int(GameState.data.get("battery", 100))})
-		_mark_dirty())
+	Events.glitch_requested.connect(func(_i, _d): broadcast({"t": "vibrate", "n": 1}))
 
 
 # ================================================================= lifecycle
@@ -139,15 +144,7 @@ func _process(_delta: float) -> void:
 		return
 	_poll_http()
 	_poll_ws()
-	if _dirty and Time.get_ticks_msec() - _dirty_t > 600:
-		_dirty = false
-		_send_state_all()
-
-
-func _mark_dirty() -> void:
-	if not _dirty:
-		_dirty = true
-		_dirty_t = Time.get_ticks_msec()
+	_stream()
 
 
 func _poll_http() -> void:
@@ -170,74 +167,38 @@ func _poll_http() -> void:
 
 func _serve(peer: StreamPeerTCP, request: String) -> void:
 	var first := request.get_slice("\r\n", 0)
-	var target := first.get_slice(" ", 1)
-	var path := target.get_slice("?", 0)
-	var query := _query(target.get_slice("?", 1) if target.contains("?") else "")
+	var path := first.get_slice(" ", 1).get_slice("?", 0)
 	var body: PackedByteArray
 	var ctype := "text/html; charset=utf-8"
 	var status := "200 OK"
-	if path == "/" or path == "/index.html":
-		body = _page().to_utf8_buffer()
-	elif path.begins_with("/font/") and path.ends_with(".woff2") and not path.contains(".."):
-		body = FileAccess.get_file_as_bytes("res://companion/fonts/" + path.trim_prefix("/font/"))
-		if body.is_empty():
+	match path:
+		"/", "/index.html":
+			body = _page().to_utf8_buffer()
+		"/manifest.webmanifest":
+			ctype = "application/manifest+json"
+			body = JSON.stringify({
+				"name": "Ainda estás acordado?", "short_name": "Acordado?",
+				"display": "fullscreen", "orientation": "portrait",
+				"background_color": "#000000", "theme_color": "#000000",
+				"start_url": "/", "icons": [
+					{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
+					{"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}],
+			}).to_utf8_buffer()
+		"/icon-192.png", "/icon-512.png", "/apple-touch-icon.png":
+			ctype = "image/png"
+			body = _icon(512 if path == "/icon-512.png" else (180 if path == "/apple-touch-icon.png" else 192))
+		"/favicon.ico":
+			status = "204 No Content"
+			body = PackedByteArray()
+		_:
 			status = "404 Not Found"
 			ctype = "text/plain"
-		else:
-			ctype = "font/woff2"
-	elif path.begins_with("/photo/") and query.get("k", "") == token:
-		body = _photo_jpeg(path.trim_prefix("/photo/").uri_decode(), str(query.get("v", "base")), int(query.get("w", "1080")))
-		if body.is_empty():
-			status = "404 Not Found"
-			ctype = "text/plain"
-		else:
-			ctype = "image/jpeg"
-	elif path == "/favicon.ico":
-		status = "204 No Content"
-		body = PackedByteArray()
-	else:
-		status = "404 Not Found"
-		ctype = "text/plain"
-		body = "404".to_utf8_buffer()
-	var cache := "no-store" if ctype.begins_with("text/") else "max-age=600"
+			body = "404".to_utf8_buffer()
+	var cache := "no-store" if ctype.begins_with("text/") else "max-age=3600"
 	var head := "HTTP/1.1 %s\r\nContent-Type: %s\r\nContent-Length: %d\r\nCache-Control: %s\r\nConnection: close\r\n\r\n" % [status, ctype, body.size(), cache]
 	peer.put_data(head.to_utf8_buffer())
 	if body.size() > 0:
 		peer.put_data(body)
-
-
-static func _query(q: String) -> Dictionary:
-	var out := {}
-	for pair in q.split("&", false):
-		out[pair.get_slice("=", 0).uri_decode()] = pair.get_slice("=", 1).uri_decode() if pair.contains("=") else ""
-	return out
-
-
-## A photo of the game as a JPEG for the real phone (scaled to `w` pixels wide).
-## Photos drawn by the game itself (no image file) are not served.
-func _photo_jpeg(id: String, v: String, w: int) -> PackedByteArray:
-	if not Content.has_item("photos", id) and not GameState.data.photos.has(id):
-		return PackedByteArray()
-	w = clampi(w, 160, 1600)
-	var key := "%s:%s:%d" % [id, v, w]
-	if _img_cache.has(key):
-		return _img_cache[key]
-	var tex := PhotoView.photo_texture(id, v)
-	if tex == null:
-		return PackedByteArray()
-	var img := tex.get_image()
-	if img == null:
-		return PackedByteArray()
-	if img.is_compressed():
-		img.decompress()
-	img.convert(Image.FORMAT_RGB8)
-	if img.get_width() > w:
-		img.resize(w, int(img.get_height() * float(w) / img.get_width()), Image.INTERPOLATE_LANCZOS)
-	var bytes := img.save_jpg_to_buffer(0.85)
-	if _img_cache.size() > 40:
-		_img_cache.clear()
-	_img_cache[key] = bytes
-	return bytes
 
 
 func _page() -> String:
@@ -246,11 +207,26 @@ func _page() -> String:
 	return _page_cache.replace("__WS_PORT__", str(ws_port))
 
 
+## The game's icon as PNG (home-screen icon on the phone).
+func _icon(px: int) -> PackedByteArray:
+	if _icon_cache.has(px):
+		return _icon_cache[px]
+	var tex: Texture2D = load("res://icon.svg")
+	var img := tex.get_image() if tex else null
+	if img == null:
+		return PackedByteArray()
+	if img.is_compressed():
+		img.decompress()
+	img.resize(px, px, Image.INTERPOLATE_LANCZOS)
+	_icon_cache[px] = img.save_png_to_buffer()
+	return _icon_cache[px]
+
+
 func _poll_ws() -> void:
 	while _ws.is_connection_available():
 		var peer := WebSocketPeer.new()
 		peer.inbound_buffer_size = 1 << 16
-		peer.outbound_buffer_size = 1 << 20
+		peer.outbound_buffer_size = 1 << 22
 		if peer.accept_stream(_ws.take_connection()) == OK:
 			_pending_ws.append({"ws": peer, "t": Time.get_ticks_msec()})
 	for p in _pending_ws.duplicate():
@@ -265,9 +241,10 @@ func _poll_ws() -> void:
 			if typeof(msg) == TYPE_DICTIONARY and msg.get("t", "") == "hello" and str(msg.get("k", "")) == token:
 				_pending_ws.erase(p)
 				_clients.append(ws)
-				_send(ws, _state())
+				_send(ws, _screen_info())
+				_need_full = true
+				_kbd_owner = null
 				clients_changed.emit(_clients.size())
-				Events.toast_requested.emit("Telemóvel ligado")
 			else:
 				ws.close(4001, "token")
 				_pending_ws.erase(p)
@@ -284,63 +261,189 @@ func _poll_ws() -> void:
 				_handle(ws, msg)
 
 
+func _screen_info() -> Dictionary:
+	var sz := stream_vp.size if stream_vp else Vector2i(0, 0)
+	return {"t": "screen", "w": sz.x, "h": sz.y, "on": stream_vp != null}
+
+
+## Main calls this when streaming starts or stops.
+func stream_changed() -> void:
+	_last_raw = PackedByteArray()
+	_need_full = true
+	_kbd_owner = null
+	_t_down = false
+	broadcast(_screen_info())
+
+
 # ================================================================= inbound
 func _handle(ws: WebSocketPeer, msg: Dictionary) -> void:
 	Clock.notify_activity()
 	match str(msg.get("t", "")):
-		"open":
-			# the PC phone follows what the player opens on the real phone
-			_open_on_pc(ws, msg)
-		"call":
-			var who := str(msg.get("who", ""))
-			if GameState.in_game and GameState.contact(who).get("saved", false):
-				Director.player_call(who)
-		"choose":
-			Director.pick_choice(str(msg.get("thread", "")), int(msg.get("index", 0)))
-		"answer":
-			Events.call_response.emit(true)
-		"decline":
-			Events.call_response.emit(false)
-		"hangup":
-			Events.call_hangup_requested.emit()
+		"touch":
+			_last_input = Time.get_ticks_msec()
+			if stream_vp:
+				var p := Vector2(float(msg.get("x", 0)), float(msg.get("y", 0))) * Vector2(stream_vp.size)
+				_touch(str(msg.get("a", "")), p)
+		"text":
+			_last_input = Time.get_ticks_msec()
+			_set_text(str(msg.get("value", "")))
+		"enter":
+			_last_input = Time.get_ticks_msec()
+			if _kbd_owner is LineEdit and is_instance_valid(_kbd_owner):
+				var le := _kbd_owner as LineEdit
+				le.text_submitted.emit(le.text)
+		"back":
+			_last_input = Time.get_ticks_msec()
+			if on_back.is_valid():
+				on_back.call()
 		"sync":
-			_send(ws, _state())
+			_send(ws, _screen_info())
+			_need_full = true
 
 
-func _open_on_pc(ws: WebSocketPeer, msg: Dictionary) -> void:
-	if not GameState.in_game:
-		return
-	var app := str(msg.get("app", "messages"))
-	var p := {"forced": true}
-	match app:
-		"messages":
-			var th := str(msg.get("thread", ""))
-			if th != "" and not GameState.data.threads.has(th):
+# ---------------------------------------------------------------- touch → phone
+## A finger on the real phone becomes taps, scrolls and drags on the in-game
+## phone. Inside scrolling lists a drag scrolls (and never clicks what is
+## under the finger); elsewhere (sliders, the photo viewer) it drags.
+func _touch(a: String, p: Vector2) -> void:
+	match a:
+		"down":
+			_t_down = true
+			_t_start = p
+			_t_last = p
+			_t_mode = ""
+			_t_scroll = _scroll_ancestor(_control_at(p))
+			_mouse_move(p, 0)
+			if _t_scroll == null:
+				_t_mode = "drag"
+				_mouse_button(p, true, _is_double(p))
+		"move":
+			if not _t_down:
 				return
-			if th != "":
-				p.param = th
-		"gallery":
-			if str(msg.get("photo", "")) != "":
-				p.photo = str(msg.photo)
-		"email":
-			if str(msg.get("email", "")) != "":
-				p.email = str(msg.email)
-		"contacts":
-			if str(msg.get("contact", "")) != "":
-				p.param = str(msg.contact)
-		"home":
-			Events.open_app_requested.emit("home", {})
-			return
-		_:
-			if not ["phone", "notes", "files", "maps", "browser", "camera", "clock", "settings", "eco"].has(app):
+			if _t_mode == "drag":
+				_mouse_move(p, MOUSE_BUTTON_MASK_LEFT)
+			elif _t_mode == "" and p.distance_to(_t_start) > 14.0:
+				_t_mode = "scroll"
+			if _t_mode == "scroll" and is_instance_valid(_t_scroll):
+				var k := _scale_of(_t_scroll)
+				_t_scroll.scroll_vertical -= int(round((p.y - _t_last.y) / k))
+				_t_scroll.scroll_horizontal -= int(round((p.x - _t_last.x) / k))
+			_t_last = p
+		"up":
+			if not _t_down:
 				return
-	# never let the real phone skip the PIN of the in-game phone
-	var main := get_tree().root.get_node_or_null("Main")
-	var ph = main.get("phone") if main else null
-	if ph and ph.locked and GameState.data.phone.get("pin_required", false):
-		_send(ws, {"t": "toast", "text": "O telemóvel está bloqueado. Desbloqueia-o no computador."})
+			_t_down = false
+			if _t_mode == "drag":
+				_mouse_button(p, false)
+			elif _t_mode == "":
+				# a tap inside a list: press and release where the finger went down
+				_mouse_button(_t_start, true, _is_double(_t_start))
+				_mouse_button(_t_start, false)
+			_t_mode = ""
+			_mouse_move(Vector2(-50, -50), 0)   # a finger leaves no hover behind
+		"cancel":
+			if _t_down and _t_mode == "drag":
+				_mouse_button(_t_last, false)
+			_t_down = false
+			_t_mode = ""
+
+
+func _is_double(p: Vector2) -> bool:
+	var now := Time.get_ticks_msec()
+	var dbl := now - _t_last_tap < 350 and p.distance_to(_t_last_tap_pos) < 40.0
+	_t_last_tap = now
+	_t_last_tap_pos = p
+	return dbl
+
+
+func _mouse_move(p: Vector2, mask: int) -> void:
+	var ev := InputEventMouseMotion.new()
+	ev.position = p
+	ev.global_position = p
+	ev.button_mask = mask
+	stream_vp.push_input(ev)
+
+
+func _mouse_button(p: Vector2, down: bool, double := false) -> void:
+	var ev := InputEventMouseButton.new()
+	ev.position = p
+	ev.global_position = p
+	ev.button_index = MOUSE_BUTTON_LEFT
+	ev.pressed = down
+	ev.double_click = double and down
+	ev.button_mask = MOUSE_BUTTON_MASK_LEFT if down else 0
+	stream_vp.push_input(ev)
+
+
+static func _scale_of(c: Control) -> float:
+	return maxf(0.01, c.get_global_transform().get_scale().y)
+
+
+## The topmost visible control under a point that takes mouse input.
+func _control_at(p: Vector2) -> Control:
+	if stream_vp == null:
+		return null
+	var best: Control = null
+	for n in stream_vp.find_children("*", "Control", true, false):
+		var c := n as Control
+		if c.mouse_filter == Control.MOUSE_FILTER_IGNORE or not c.is_visible_in_tree():
+			continue
+		if c.get_global_rect().has_point(p):
+			best = c   # tree order: later siblings are drawn on top
+	return best
+
+
+static func _scroll_ancestor(c: Control) -> ScrollContainer:
+	var n: Node = c
+	while n:
+		if n is Range:
+			return null   # sliders drag, they do not scroll their list
+		if n is ScrollContainer:
+			var sc := n as ScrollContainer
+			var child := sc.get_child(0) as Control if sc.get_child_count() > 0 else null
+			if child and (child.size.y > sc.size.y + 1 or child.size.x > sc.size.x + 1):
+				return sc
+		n = n.get_parent()
+	return null
+
+
+# ---------------------------------------------------------------- keyboard
+## When a text field of the in-game phone gets the focus, the real phone opens
+## its own keyboard; what is typed there is written into that field.
+func _check_keyboard() -> void:
+	var f := stream_vp.gui_get_focus_owner() if stream_vp else null
+	var editable: Control = null
+	if (f is LineEdit and (f as LineEdit).editable) or (f is TextEdit and (f as TextEdit).editable):
+		editable = f
+	if editable == _kbd_owner:
 		return
-	Events.open_app_requested.emit(app, p)
+	_kbd_owner = editable
+	if editable == null:
+		broadcast({"t": "kbd", "on": false})
+		return
+	var le := editable as LineEdit
+	broadcast({"t": "kbd", "on": true, "text": str(editable.get("text")), "multi": editable is TextEdit,
+		"secret": le != null and le.secret, "hint": str(editable.get("placeholder_text")),
+		"digits": le != null and le.virtual_keyboard_type == LineEdit.KEYBOARD_TYPE_NUMBER})
+
+
+func _set_text(value: String) -> void:
+	if not is_instance_valid(_kbd_owner):
+		return
+	if _kbd_owner is LineEdit:
+		var le := _kbd_owner as LineEdit
+		if le.max_length > 0:
+			value = value.left(le.max_length)
+		le.text = value
+		le.caret_column = value.length()
+		le.text_changed.emit(value)
+	elif _kbd_owner is TextEdit:
+		var te := _kbd_owner as TextEdit
+		te.text = value
+		var last := te.get_line_count() - 1
+		te.set_caret_line(last)
+		te.set_caret_column(te.get_line(last).length())
+		te.text_changed.emit()
 
 
 # ================================================================= outbound
@@ -356,174 +459,36 @@ func _send(ws: WebSocketPeer, msg: Dictionary) -> void:
 	ws.send_text(JSON.stringify(msg))
 
 
-func _send_state_all() -> void:
-	if not _clients.is_empty():
-		broadcast(_state())
-
-
-func _state() -> Dictionary:
-	var threads: Array = []
-	if GameState.in_game:
-		for th in GameState.data.thread_order:
-			if GameState.data.hidden_threads.has(th) or not GameState.data.threads.has(th):
-				continue
-			threads.append(_thread_dict(th))
-	var st := {
-		"t": "state",
-		"in_game": GameState.in_game,
-		"time": Clock.fmt_time(Clock.now()) if GameState.in_game else "",
-		"date": Clock.fmt_date_long(Clock.now()) if GameState.in_game else "",
-		"battery": int(GameState.data.get("battery", 100)),
-		"threads": threads,
-	}
-	if GameState.in_game:
-		st.merge(_apps_state())
-	return st
-
-
-## Everything the other apps of the real phone show.
-func _apps_state() -> Dictionary:
-	var d: Dictionary = GameState.data
-	var wp: String = d.phone.get("wallpaper", "IMG_2207")
-	var home := {
-		"wallpaper": wp,
-		"wall_v": GameState.photo_variant(wp),
-		"eco": bool(d.phone.get("eco_app", false)),
-		"badges": {
-			"messages": GameState.unread_total(),
-			"phone": d.calls.filter(func(c): return c.dir == "missed" and not c.get("seen", false)).size(),
-			"email": d.emails.filter(func(e): return not d.emails_read.has(e.id)).size(),
-			"gallery": d.photos.values().filter(func(p): return p.get("new", false)).size(),
-		},
-	}
-	var contacts: Array = []
-	for id in Content.all("characters"):
-		var c := GameState.contact(id)
-		if c.get("saved", false) and not c.get("group", false) and not c.get("hidden", false):
-			contacts.append({"id": id, "name": GameState.contact_name(id), "number": str(c.get("number", "")),
-				"email": str(c.get("email", "")), "birthday": str(c.get("birthday", "")),
-				"address": str(c.get("address", "")), "note": str(c.get("note", "")),
-				"call": not c.get("no_call", false)})
-	contacts.sort_custom(func(a, b): return UI.norm(a.name) < UI.norm(b.name))
-	var calls: Array = []
-	for c in d.calls.slice(0, 40):
-		calls.append({"name": str(c.get("number", "")) if c.get("unknown", false) else GameState.contact_name(str(c.who)),
-			"who": str(c.who), "dir": str(c.dir), "dur": int(c.get("dur", 0)),
-			"when": Clock.fmt_relative(float(c.t)) if float(c.get("t", 0)) > 0 else ""})
-	var photos: Array = []
-	for pid in d.photo_order:
-		if not d.photos.has(pid):
-			continue
-		var info := Content.get_item("photos", pid)
-		var v := GameState.photo_variant(pid)
-		photos.append({"id": pid, "v": v, "album": str(d.photos[pid].get("album", "")),
-			"date": str(info.get("date", "")), "place": str(info.get("place", "")),
-			"aspect": float(info.get("aspect", 0.75)), "new": d.photos[pid].get("new", false),
-			"real": PhotoView.photo_texture(pid, v) != null})
-	var notes: Array = []
-	for nid in d.notes:
-		var n := Content.get_item("notes", nid)
-		if n.is_empty():
-			continue
-		var locked := str(n.get("locked", "")) != "" and not GameState.flag("unlocked_note_" + nid)
-		notes.append({"id": nid, "title": str(n.get("title", "")), "text": "" if locked else str(n.get("text", "")),
-			"locked": locked, "date": str(n.get("date", ""))})
-	for i in d.player_notes.size():
-		var pn: Dictionary = d.player_notes[i]
-		notes.append({"id": "p%d" % i, "title": str(pn.title), "text": str(pn.text), "locked": false, "date": ""})
-	var emails: Array = []
-	for en in d.emails:
-		var e := Content.get_item("emails", en.id)
-		if e.is_empty():
-			continue
-		var atts: Array = []
-		for a in e.get("attachments", []):
-			atts.append({"type": str(a.get("type", "")), "id": str(a.get("id", "")), "name": str(a.get("name", a.get("id", "")))})
-		emails.append({"id": en.id, "from": str(e.get("from_name", e.get("from", ""))), "addr": str(e.get("from", "")),
-			"subject": str(e.get("subject", "")), "body": str(e.get("body", "")), "folder": str(e.get("folder", "Entrada")),
-			"date": Clock.fmt_relative(float(en.get("t", 0))) if float(en.get("t", 0)) > 0 else str(e.get("date", "")),
-			"unread": not d.emails_read.has(en.id), "atts": atts})
-	return {"home": home, "contacts": contacts, "calls": calls, "photos": photos, "notes": notes, "emails": emails}
-
-
-func _thread_dict(th: String) -> Dictionary:
-	var data: Dictionary = GameState.data.threads[th]
-	var msgs: Array = []
-	var all: Array = data.get("messages", [])
-	for i in range(maxi(0, all.size() - MAX_MESSAGES), all.size()):
-		msgs.append(_msg_dict(th, all[i]))
-	return {
-		"id": th,
-		"name": GameState.contact_name(th),
-		"unread": int(data.get("unread", 0)),
-		"group": Content.character(th).get("group", false),
-		"messages": msgs,
-		"options": _options(th),
-	}
-
-
-func _msg_dict(th: String, m: Dictionary) -> Dictionary:
-	var d := {
-		"id": str(m.get("id", "")),
-		"me": m.get("from", "") == "me",
-		"from": GameState.contact_name(str(m.get("from", th))),
-		"text": "" if m.get("del", false) else str(m.get("text", "")),
-		"deleted": m.get("del", false),
-		"time": Clock.fmt_time(float(m.get("t", 0))),
-		"day": _day_label(float(m.get("t", 0))),
-	}
-	if m.has("att"):
-		d.att = str(m.att.get("type", ""))
-		d.att_id = str(m.att.get("id", ""))
-	return d
-
-
-func _options(th: String) -> Array:
-	var pending: Dictionary = GameState.data.choices.get(th, {})
-	var out: Array = []
-	for o in pending.get("options", []):
-		out.append({"index": int(o.index), "text": str(o.text).trim_prefix("[").trim_suffix("]"), "silent": str(o.text).begins_with("[")})
-	return out
-
-
-func _send_thread(th: String) -> void:
-	if not _clients.is_empty() and GameState.data.threads.has(th):
-		broadcast({"t": "thread", "thread": _thread_dict(th)})
-
-
-func _send_choice(th: String) -> void:
-	broadcast({"t": "choice", "thread": th, "options": _options(th)})
-
-
-func _on_message(th: String, m: Dictionary) -> void:
-	if _clients.is_empty():
+## Captures the in-game phone and sends it when it changed. The JPEG is
+## encoded on a worker thread so the game never stutters.
+func _stream() -> void:
+	if stream_vp == null or _clients.is_empty():
 		return
-	broadcast({"t": "msg", "thread": th, "name": GameState.contact_name(th), "msg": _msg_dict(th, m)})
-
-
-func _on_notification(n: Dictionary) -> void:
-	broadcast({"t": "notif", "app": str(n.get("app", "")), "title": str(n.get("title", "")), "body": str(n.get("body", "")), "thread": str(n.get("thread", ""))})
-
-
-func _on_time(unix: float) -> void:
-	var minute := int(unix / 60.0)
-	if minute == _last_minute:
+	_check_keyboard()
+	if _encoding:
+		if WorkerThreadPool.is_task_completed(_frame_task):
+			WorkerThreadPool.wait_for_task_completion(_frame_task)
+			_encoding = false
+			if _frame_out.size() > 0:
+				for ws in _clients:
+					if ws.get_current_outbound_buffered_amount() < (1 << 21):   # a slow network skips frames
+						ws.send(_frame_out, WebSocketPeer.WRITE_MODE_BINARY)
+				frames_sent += 1
 		return
-	_last_minute = minute
-	broadcast({"t": "status", "time": Clock.fmt_time(unix), "battery": int(GameState.data.get("battery", 100))})
-
-
-func _call_name(c: Dictionary) -> String:
-	if c.get("unknown", false):
-		return str(c.get("number", "Desconhecido"))
-	return GameState.contact_name(str(c.get("who", "")))
-
-
-static func _day_label(t: float) -> String:
-	var day := floori(t / 86400.0)
-	var now_day := floori(Clock.now() / 86400.0)
-	if day == now_day:
-		return "Hoje"
-	if day == now_day - 1:
-		return "Ontem"
-	return Clock.fmt_date_long(t)
+	var now := Time.get_ticks_msec()
+	var fps := FPS_ACTIVE if now - _last_input < 1500 or _t_down else FPS_IDLE
+	if now - _last_capture < int(1000.0 / fps):
+		return
+	_last_capture = now
+	var img := stream_vp.get_texture().get_image()
+	if img == null:
+		return
+	var raw := img.get_data()
+	if raw == _last_raw and not _need_full:
+		return
+	_last_raw = raw
+	_need_full = false
+	_encoding = true
+	_frame_task = WorkerThreadPool.add_task(func():
+		img.convert(Image.FORMAT_RGB8)
+		_frame_out = img.save_jpg_to_buffer(JPEG_QUALITY))
