@@ -45,6 +45,7 @@ func open() -> void:
 		p.main = main
 		add_child(p)))
 	_col.add_child(MenuPanel.menu_button("Definições", func(): add_child(SettingsPanel.new())))
+	_col.add_child(MenuPanel.menu_button("Telemóvel real", func(): add_child(CompanionPanel.new())))
 	_col.add_child(MenuPanel.menu_button("Extras", func(): add_child(ExtrasPanel.new())))
 	_col.add_child(MenuPanel.menu_button("Sair", func(): get_tree().quit()))
 	_col.add_child(UI.spacer(60))

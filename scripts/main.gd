@@ -179,6 +179,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 					phone.current_app._render()
 			"ending": _on_ending(kv[1])
 			"continue": continue_game(kv[1])
+			"companion":
+				Companion.start()
+				print("COMPANION_URL ", Companion.url())
 			"call": Director.player_call(kv[1])
 			"clicktoast":
 				var tpc: Control = phone.screen.get_node("Toast")

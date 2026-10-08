@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b0d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Ainda estás acordado?</title>
+<style>
+:root { --bg:#0b0d10; --surf:#15181d; --surf2:#1d2128; --text:#e9e6e1; --dim:#9a968f; --faint:#5d5a55; --accent:#d9a85b; --me:#2c4255; --danger:#d0605a; --ok:#4f9a6b; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font:16px/1.35 -apple-system, "Segoe UI", Roboto, sans-serif; overflow:hidden; overscroll-behavior:none; }
+#app { position:fixed; inset:0; display:flex; flex-direction:column; }
+#status { display:flex; justify-content:space-between; padding:calc(env(safe-area-inset-top) + 6px) 16px 6px; font-size:13px; color:var(--dim); }
+#conn.off { color:var(--danger); }
+header { display:flex; align-items:center; gap:10px; padding:8px 12px 10px; border-bottom:1px solid #1f232a; min-height:52px; }
+header h1 { font-size:20px; margin:0; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#back { background:none; border:0; color:var(--text); font-size:26px; padding:0 8px 0 2px; display:none; }
+main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.row { display:flex; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid #15181d; }
+.row:active { background:var(--surf); }
+.av { width:44px; height:44px; border-radius:50%; background:var(--surf2); display:flex; align-items:center; justify-content:center; font-weight:600; color:var(--dim); flex:none; }
+.rmain { flex:1; min-width:0; }
+.rname { font-weight:600; }
+.rprev { color:var(--dim); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.badge { background:var(--accent); color:#111; border-radius:10px; font-size:12px; padding:1px 7px; font-weight:700; }
+.empty { color:var(--faint); text-align:center; padding:40px 24px; }
+#msgs { padding:10px 12px 16px; display:flex; flex-direction:column; gap:6px; }
+.b { max-width:80%; padding:8px 11px 6px; border-radius:14px; background:var(--surf2); white-space:pre-wrap; word-wrap:break-word; }
+.b.me { align-self:flex-end; background:var(--me); }
+.b .who { font-size:12px; color:var(--accent); margin-bottom:2px; }
+.b .tm { font-size:11px; color:var(--faint); text-align:right; margin-top:2px; }
+.b.del { font-style:italic; color:var(--faint); }
+.day { align-self:center; color:var(--faint); font-size:12px; margin:8px 0 2px; }
+.att { color:var(--dim); font-style:italic; }
+#typing { color:var(--dim); font-size:13px; padding:0 16px 4px; min-height:18px; }
+#choices { display:flex; flex-direction:column; gap:8px; padding:8px 12px calc(env(safe-area-inset-bottom) + 12px); border-top:1px solid #1f232a; }
+#choices:empty { display:none; }
+#choices button { background:var(--surf2); color:var(--text); border:1px solid #2a2f37; border-radius:18px; padding:11px 14px; font-size:15px; text-align:left; }
+#choices button.silent { color:var(--dim); font-style:italic; }
+#choices button:active { border-color:var(--accent); }
+#banner { position:fixed; left:10px; right:10px; top:calc(env(safe-area-inset-top) + 8px); background:#1d2128ee; border-radius:16px; padding:12px 14px; transform:translateY(-140%); transition:transform .25s ease; box-shadow:0 8px 24px #0008; z-index:20; }
+#banner.show { transform:none; }
+#banner .bt { font-weight:600; }
+#banner .bb { color:var(--dim); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#call { position:fixed; inset:0; background:linear-gradient(#10151b, #07090c); display:none; flex-direction:column; align-items:center; padding:calc(env(safe-area-inset-top) + 70px) 20px 40px; z-index:30; }
+#call.show { display:flex; }
+#call .cav { width:96px; height:96px; font-size:32px; }
+#call .cn { font-size:26px; margin-top:16px; }
+#call .cs { color:var(--dim); margin-top:6px; }
+#lines { flex:1; width:100%; overflow-y:auto; margin-top:24px; text-align:center; color:var(--dim); font-style:italic; }
+#lines p { margin:8px 0; }
+.cbtns { display:flex; gap:60px; }
+.cbtns button { width:70px; height:70px; border-radius:50%; border:0; font-size:28px; color:#fff; }
+.yes { background:var(--ok); } .no { background:var(--danger); }
+#gate { position:fixed; inset:0; background:var(--bg); z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px; gap:18px; }
+#gate h2 { margin:0; font-weight:500; font-size:24px; }
+#gate p { color:var(--dim); margin:0; max-width:340px; }
+#gate button { background:var(--accent); color:#111; border:0; border-radius:24px; padding:14px 28px; font-size:17px; font-weight:600; }
+#black { position:fixed; inset:0; background:#000; display:none; z-index:50; }
+.glitch #app { animation:gl .12s steps(2) infinite; }
+@keyframes gl { 0%{ transform:translate(2px,-1px); filter:hue-rotate(40deg) contrast(1.4);} 50%{ transform:translate(-3px,1px); filter:invert(.1);} 100%{ transform:none; } }
+</style>
+</head>
+<body>
+<div id="app">
+	<div id="status"><span id="clock">--:--</span><span id="conn" class="off">a ligar…</span><span id="bat"></span></div>
+	<header><button id="back" aria-label="Voltar">‹</button><h1 id="title">Mensagens</h1></header>
+	<main id="main"></main>
+	<div id="typing"></div>
+	<div id="choices"></div>
+</div>
+<div id="banner"><div class="bt"></div><div class="bb"></div></div>
+<div id="call">
+	<div class="av cav" id="cav"></div><div class="cn" id="cname"></div><div class="cs" id="cstate"></div>
+	<div id="lines"></div>
+	<div class="cbtns" id="cbtns"></div>
+</div>
+<div id="gate">
+	<h2>Ainda estás acordado?</h2>
+	<p>Este telemóvel vai receber as mensagens, as chamadas e as vibrações do jogo.</p>
+	<p>Mantém o ecrã ligado e o som alto. Se possível, auscultadores.</p>
+	<button id="go">Toca para começar</button>
+	<p style="font-size:12px;color:var(--faint)">Esta página não acede à tua câmara, microfone, contactos, ficheiros nem localização. Tudo o que recebes vem do jogo, no teu computador, pela rede local.</p>
+</div>
+<div id="black"></div>
+<script>
+"use strict";
+const qs = new URLSearchParams(location.search);
+const KEY = qs.get("k") || "";
+const WS_URL = "ws://" + location.hostname + ":__WS_PORT__/";
+const S = { threads: [], open: "", ws: null, retry: 0, ctx: null, ring: null };
+const $ = (id) => document.getElementById(id);
+
+// ---------------------------------------------------------------- audio
+function ctx() { if (!S.ctx) S.ctx = new (window.AudioContext || window.webkitAudioContext)(); return S.ctx; }
+function tone(freqs, dur, vol, delay = 0) {
+	try {
+		const c = ctx(); const t0 = c.currentTime + delay;
+		freqs.forEach((f, i) => {
+			const o = c.createOscillator(), g = c.createGain();
+			o.frequency.value = f; o.type = "sine";
+			g.gain.setValueAtTime(0, t0 + i * dur); g.gain.linearRampToValueAtTime(vol, t0 + i * dur + 0.01);
+			g.gain.exponentialRampToValueAtTime(0.0001, t0 + (i + 1) * dur);
+			o.connect(g).connect(c.destination); o.start(t0 + i * dur); o.stop(t0 + (i + 1) * dur + 0.05);
+		});
+	} catch (e) {}
+}
+const ding = () => tone([880, 1318], 0.12, 0.18);
+function vibrate(p) { if (navigator.vibrate) navigator.vibrate(p); }
+function startRing() {
+	stopRing();
+	const once = () => { tone([660, 880, 660, 880], 0.18, 0.2); vibrate([400, 200, 400]); };
+	once(); S.ring = setInterval(once, 2200);
+}
+function stopRing() { if (S.ring) clearInterval(S.ring); S.ring = null; }
+
+// ---------------------------------------------------------------- render
+function initials(n) { return (n || "?").replace(/[^\p{L}\p{N} ]/gu, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "#"; }
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function thread(id) { return S.threads.find(t => t.id === id); }
+function preview(m) {
+	if (!m) return "";
+	if (m.deleted) return "Esta mensagem foi apagada";
+	if (m.att) return (m.me ? "Tu: " : "") + (m.att === "photo" ? "📷 Fotografia" : m.att === "audio" ? "🎤 Mensagem de voz" : "📎 Ficheiro");
+	return (m.me ? "Tu: " : "") + m.text;
+}
+function render() {
+	const main = $("main");
+	if (!S.open) {
+		$("title").textContent = "Mensagens"; $("back").style.display = "none";
+		$("choices").innerHTML = ""; $("typing").textContent = "";
+		if (!S.threads.length) { main.innerHTML = '<div class="empty">Ainda não há mensagens.<br>Começa ou continua um jogo no computador.</div>'; return; }
+		main.innerHTML = "";
+		for (const t of S.threads) {
+			const last = t.messages[t.messages.length - 1];
+			const r = document.createElement("div"); r.className = "row";
+			r.innerHTML = `<div class="av">${esc(initials(t.name))}</div><div class="rmain"><div class="rname">${esc(t.name)}</div><div class="rprev">${esc(preview(last))}</div></div>` +
+				(t.unread > 0 || (t.options && t.options.length) ? `<span class="badge">${t.unread > 0 ? t.unread : "…"}</span>` : "");
+			r.onclick = () => openThread(t.id);
+			main.appendChild(r);
+		}
+		return;
+	}
+	const t = thread(S.open);
+	if (!t) { S.open = ""; return render(); }
+	$("title").textContent = t.name; $("back").style.display = "block";
+	let html = '<div id="msgs">';
+	let lastDay = "";
+	for (const m of t.messages) {
+		if (m.day && m.day !== lastDay) { lastDay = m.day; html += `<div class="day">${esc(m.day)}</div>`; }
+		const cls = "b" + (m.me ? " me" : "") + (m.deleted ? " del" : "");
+		const who = t.group && !m.me ? `<div class="who">${esc(m.from)}</div>` : "";
+		let body = m.deleted ? "Esta mensagem foi apagada" : esc(m.text);
+		if (m.att) body = `<span class="att">${m.att === "photo" ? "📷 Fotografia — vê-a no ecrã do computador" : m.att === "audio" ? "🎤 Mensagem de voz — ouve-a no computador" : "📎 Ficheiro"}</span>` + (m.text ? "<br>" + esc(m.text) : "");
+		html += `<div class="${cls}">${who}${body}<div class="tm">${esc(m.time)}</div></div>`;
+	}
+	main.innerHTML = html + "</div>";
+	main.scrollTop = main.scrollHeight;
+	renderChoices(t);
+}
+function renderChoices(t) {
+	const box = $("choices"); box.innerHTML = "";
+	for (const o of (t.options || [])) {
+		const b = document.createElement("button");
+		b.textContent = o.text; if (o.silent) b.className = "silent";
+		b.onclick = () => { send({ t: "choose", thread: t.id, index: o.index }); box.innerHTML = ""; };
+		box.appendChild(b);
+	}
+}
+function openThread(id) {
+	S.open = id;
+	const t = thread(id); if (t) t.unread = 0;
+	send({ t: "open", thread: id });
+	render();
+}
+$("back").onclick = () => { S.open = ""; render(); };
+
+let bannerTimer = null;
+function banner(title, body, threadId) {
+	const b = $("banner");
+	b.querySelector(".bt").textContent = title; b.querySelector(".bb").textContent = body;
+	b.onclick = () => { b.classList.remove("show"); if (threadId) openThread(threadId); };
+	b.classList.add("show"); clearTimeout(bannerTimer);
+	bannerTimer = setTimeout(() => b.classList.remove("show"), 4200);
+}
+
+// ---------------------------------------------------------------- events
+function onEvent(e) {
+	switch (e.t) {
+	case "state":
+		S.threads = e.threads || [];
+		if (e.time) $("clock").textContent = e.time;
+		if (e.battery !== undefined) $("bat").textContent = e.battery + "%";
+		render(); break;
+	case "status":
+		if (e.time) $("clock").textContent = e.time;
+		if (e.battery !== undefined) $("bat").textContent = e.battery + "%";
+		break;
+	case "thread": {
+		const i = S.threads.findIndex(t => t.id === e.thread.id);
+		if (i >= 0) S.threads[i] = e.thread; else S.threads.unshift(e.thread);
+		render(); break;
+	}
+	case "msg": {
+		let t = thread(e.thread);
+		if (!t) { t = { id: e.thread, name: e.name, unread: 0, messages: [], options: [] }; S.threads.unshift(t); }
+		if (t.messages.some(m => m.id === e.msg.id)) break;
+		t.messages.push(e.msg);
+		S.threads = [t, ...S.threads.filter(x => x !== t)];
+		if (S.open !== e.thread && !e.msg.me) t.unread = (t.unread || 0) + 1;
+		render(); break;
+	}
+	case "typing":
+		if (e.thread === S.open) $("typing").textContent = e.on ? e.who + " está a escrever…" : "";
+		break;
+	case "choice": {
+		const t = thread(e.thread); if (t) t.options = e.options;
+		if (e.thread === S.open && t) renderChoices(t); else if (!S.open) render();
+		break;
+	}
+	case "notif":
+		if (e.app === "messages" && e.thread && e.thread === S.open) break;
+		ding(); vibrate([120, 80, 120]);
+		banner(e.title || "Notificação", e.body || "", e.app === "messages" ? e.thread : "");
+		break;
+	case "vibrate": vibrate(Array(Math.max(1, e.n)).fill(0).flatMap(() => [180, 120])); break;
+	case "call": call(e); break;
+	case "call_line": {
+		const p = document.createElement("p"); p.textContent = (e.who ? e.who + ": " : "") + e.text;
+		$("lines").appendChild(p); $("lines").scrollTop = 1e9; break;
+	}
+	case "glitch":
+		document.body.classList.add("glitch"); vibrate(60);
+		setTimeout(() => document.body.classList.remove("glitch"), Math.min(3000, (e.d || 0.4) * 1000)); break;
+	case "screen_off":
+		$("black").style.display = "block";
+		setTimeout(() => $("black").style.display = "none", Math.min(30000, (e.d || 3) * 1000)); break;
+	}
+}
+function call(e) {
+	const box = $("call"), btns = $("cbtns");
+	if (e.state === "ended") { stopRing(); box.classList.remove("show"); return; }
+	box.classList.add("show");
+	$("cav").textContent = initials(e.name); $("cname").textContent = e.name;
+	btns.innerHTML = "";
+	if (e.state === "ringing") {
+		$("cstate").textContent = "a ligar…"; $("lines").innerHTML = ""; startRing();
+		const y = document.createElement("button"); y.className = "yes"; y.textContent = "✆"; y.onclick = () => { stopRing(); send({ t: "answer" }); };
+		const n = document.createElement("button"); n.className = "no"; n.textContent = "✕"; n.onclick = () => { stopRing(); send({ t: "decline" }); };
+		btns.append(n, y);
+	} else {
+		stopRing(); $("cstate").textContent = "em chamada";
+		const n = document.createElement("button"); n.className = "no"; n.textContent = "✕"; n.onclick = () => send({ t: "hangup" });
+		btns.append(n);
+	}
+}
+
+// ---------------------------------------------------------------- socket
+function send(o) { if (S.ws && S.ws.readyState === 1) S.ws.send(JSON.stringify(o)); }
+function connect() {
+	const ws = new WebSocket(WS_URL); S.ws = ws;
+	ws.onopen = () => { S.retry = 0; ws.send(JSON.stringify({ t: "hello", k: KEY })); $("conn").textContent = "ligado"; $("conn").className = ""; };
+	ws.onmessage = (ev) => { try { onEvent(JSON.parse(ev.data)); } catch (err) {} };
+	ws.onclose = (ev) => {
+		$("conn").className = "off";
+		if (ev.code === 4001) { $("conn").textContent = "código inválido — lê o QR outra vez"; return; }
+		$("conn").textContent = "sem ligação…";
+		S.retry = Math.min(S.retry + 1, 6); setTimeout(connect, 500 * S.retry);
+	};
+}
+$("go").onclick = () => {
+	ctx().resume && ctx().resume(); tone([440], 0.05, 0.01); vibrate(30);
+	$("gate").style.display = "none";
+	if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+	connect();
+};
+document.addEventListener("visibilitychange", () => { if (!document.hidden && S.ws && S.ws.readyState !== 1) connect(); });
+</script>
+</body>
+</html>

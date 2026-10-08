@@ -41,6 +41,8 @@ func _ready() -> void:
 		_validate()
 	if _only == "" or _only == "save":
 		await _test_save_load()
+	if _only == "" or _only == "companion":
+		await _test_companion()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -635,3 +637,96 @@ func _ui_smoke(policy: String) -> void:
 func _frames(n: int) -> void:
 	for i in n:
 		await get_tree().process_frame
+
+
+# ---------------------------------------------------------------- telemóvel real
+func _test_companion() -> void:
+	print("-- companion")
+	Companion.persist_token = false
+	Director.new_game()
+	await _frames(5)
+	ok(Companion.start(), "companion server starts")
+	if not Companion.running:
+		return
+	ok(Companion.url().contains("?k=" + Companion.token), "pairing url carries the code")
+	ok(QR.encode(Companion.url()).size() >= 21, "pairing url fits in a QR code")
+	# the page over HTTP
+	var http := StreamPeerTCP.new()
+	http.connect_to_host("127.0.0.1", Companion.http_port)
+	var page := ""
+	for i in 300:
+		await _frames(1)
+		http.poll()
+		if http.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+			if page == "":
+				http.put_data("GET /?k=x HTTP/1.1\r\nHost: test\r\n\r\n".to_utf8_buffer())
+				page = " "
+			var n := http.get_available_bytes()
+			if n > 0:
+				page += http.get_utf8_string(n)
+		elif page.length() > 1:
+			break
+	ok(page.contains("200 OK") and page.contains("Ainda estás acordado?"), "page served over HTTP")
+	ok(page.contains(":%d/" % Companion.ws_port) and not page.contains("__WS_PORT__"), "page knows the websocket port")
+	# a phone with the right code gets the state; actions reach the game
+	var opened := {"app": ""}
+	var on_open := func(app_id: String, p: Dictionary): opened.app = app_id + ":" + str(p.get("param", ""))
+	Events.open_app_requested.connect(on_open)
+	var ws := WebSocketPeer.new()
+	ws.connect_to_url("ws://127.0.0.1:%d/" % Companion.ws_port)
+	var state = null
+	var said_hello := false
+	for i in 300:
+		await _frames(1)
+		ws.poll()
+		if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+			if not said_hello:
+				ws.send_text(JSON.stringify({"t": "hello", "k": Companion.token}))
+				said_hello = true
+			if ws.get_available_packet_count() > 0:
+				state = JSON.parse_string(ws.get_packet().get_string_from_utf8())
+				break
+	ok(typeof(state) == TYPE_DICTIONARY and state.get("t", "") == "state", "phone receives the state")
+	if typeof(state) == TYPE_DICTIONARY:
+		ok(state.get("threads", []).size() > 0, "state lists conversations")
+	ok(Companion.client_count() == 1, "one phone connected")
+	var th: String = GameState.data.thread_order[0]
+	ws.send_text(JSON.stringify({"t": "open", "thread": th}))
+	var got_msg := false
+	for i in 120:
+		await _frames(1)
+		ws.poll()
+		while ws.get_available_packet_count() > 0:
+			var e = JSON.parse_string(ws.get_packet().get_string_from_utf8())
+			if typeof(e) == TYPE_DICTIONARY and e.get("t", "") == "msg":
+				got_msg = true
+		if opened.app != "" and got_msg:
+			break
+	ok(opened.app == "messages:" + th, "opening a conversation on the phone opens it on the PC (%s)" % opened.app)
+	GameState.add_message(th, {"from": th, "text": "teste"})
+	Events.message_added.emit(th, GameState.data.threads[th].messages[-1])
+	for i in 60:
+		await _frames(1)
+		ws.poll()
+		while ws.get_available_packet_count() > 0:
+			var e = JSON.parse_string(ws.get_packet().get_string_from_utf8())
+			if typeof(e) == TYPE_DICTIONARY and e.get("t", "") == "msg" and e.msg.text == "teste":
+				got_msg = true
+	ok(got_msg, "new messages reach the phone")
+	Events.open_app_requested.disconnect(on_open)
+	# a wrong code is refused
+	var bad := WebSocketPeer.new()
+	bad.connect_to_url("ws://127.0.0.1:%d/" % Companion.ws_port)
+	var sent := false
+	for i in 300:
+		await _frames(1)
+		bad.poll()
+		if bad.get_ready_state() == WebSocketPeer.STATE_OPEN and not sent:
+			bad.send_text(JSON.stringify({"t": "hello", "k": "errado"}))
+			sent = true
+		if bad.get_ready_state() == WebSocketPeer.STATE_CLOSED:
+			break
+	ok(bad.get_ready_state() == WebSocketPeer.STATE_CLOSED and Companion.client_count() == 1, "wrong code refused")
+	ws.close()
+	Companion.stop()
+	Director.stop()
