@@ -116,7 +116,7 @@ function startRing() {
 function stopRing() { if (S.ring) clearInterval(S.ring); S.ring = null; }
 
 // ---------------------------------------------------------------- render
-function initials(n) { return (n || "?").replace(/[^\p{L}\p{N} ]/gu, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "#"; }
+function initials(n) { if (/^[+\d]/.test(n || "")) return "?"; return (n || "?").replace(/[^\p{L}\p{N} ]/gu, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "#"; }
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function thread(id) { return S.threads.find(t => t.id === id); }
 function preview(m) {

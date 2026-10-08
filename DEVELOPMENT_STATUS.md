@@ -76,6 +76,12 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
   Extras com estatísticas entre partidas e créditos (com contactos de apoio); epígrafes de Pessoa nos
   cartões de capítulo.
 - **Música procedural:** menu, memória e uma caixa de música desafinada (finais C/D e título depois deles).
+- **Telemóvel real (QR):** o jogador lê um código QR no PC e o telemóvel dele passa a receber as
+  mensagens, notificações (som + vibração), chamadas (atender/recusar, legendas) e interferências do
+  jogo; pode responder às escolhas. O telemóvel do PC acompanha o que se abre no real. Servidor HTTP +
+  WebSocket na rede local (`scripts/net/companion.gd`, página `companion/index.html`), código QR gerado
+  pelo próprio jogo (`scripts/net/qr.gd`, verificado com um leitor real). Testado ponta a ponta com um
+  browser móvel (Chromium) e com testes automáticos (`--only=companion`).
 - **Telemóvel:** ver README. Inclui cortina de notificações com atalhos (não incomodar, lanterna que
   ilumina a sala), auto-bloqueio, foco para comando, transições, interferência por shader.
 
@@ -136,6 +142,11 @@ ver "Problemas conhecidos"; há uma cópia completa do histórico em `AindaEstas
 - Fotografias com pessoas têm aspeto ilustrado (estilo assumido, mas menos "real").
 - Sem tradução para inglês.
 - No contentor de desenvolvimento não há placa de som (erros ALSA nos logs são do ambiente).
+
+## Pedidos do dono do projeto (sessão 2)
+- Duração **acima de 10 h** → capítulos novos + mais profundidade nos atuais (plano em `docs/EXPANSION.md`).
+- **Multiplayer cooperativo online** (plano em `docs/COOP.md`).
+- **Telemóvel real** do jogador como segundo ecrã → ✅ feito (página web via QR).
 
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
