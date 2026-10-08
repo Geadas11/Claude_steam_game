@@ -11,6 +11,7 @@ if [ $# -gt 0 ]; then
   if grep -q "SCRIPT ERROR" "$LOG"; then echo "SCRIPT ERRORS:"; grep -A3 "SCRIPT ERROR" "$LOG" | head -40; CODE=1; fi
   rm -f "$LOG"; exit $CODE
 fi
+python3 tools/flag_audit.py || exit 1
 DIR=$(mktemp -d)
 run_one --only=validate > "$DIR/validate.log" &
 run_one --only=save > "$DIR/save.log" &
