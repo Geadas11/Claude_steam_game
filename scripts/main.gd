@@ -138,6 +138,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 			"answer": Events.call_response.emit(true)
 			"arm": GameState.data.camera.armed = kv[1]
 			"settings": overlay.add_child(SettingsPanel.new())
+			"newgame_menu": title_menu._new_game()
 			"extras": overlay.add_child(ExtrasPanel.new())
 			"pause": toggle_pause()
 			"shade": phone.open_shade()

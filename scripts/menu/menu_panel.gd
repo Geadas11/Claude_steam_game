@@ -14,7 +14,7 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
-func make(title: String, width := 560.0) -> void:
+func make(title: String, width := 560.0, compact := false) -> void:
 	UI.clear(self)
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.82)
@@ -31,14 +31,17 @@ func make(title: String, width := 560.0) -> void:
 	_title = UI.label(title, 26)
 	v.add_child(_title)
 	v.add_child(UI.separator())
-	var sc := UI.scroll()
-	sc.custom_minimum_size = Vector2(0, 0)
-	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body = UI.vbox(10)
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sc.add_child(body)
-	v.add_child(sc)
-	sc.custom_minimum_size.y = minf(620.0, get_viewport_rect().size.y - 260.0) if is_inside_tree() else 560.0
+	if compact:
+		# short dialogs: no scroll area, the panel hugs its content
+		v.add_child(body)
+	else:
+		var sc := UI.scroll()
+		sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		sc.add_child(body)
+		v.add_child(sc)
+		sc.custom_minimum_size.y = minf(620.0, get_viewport_rect().size.y - 260.0) if is_inside_tree() else 560.0
 	var back := UI.pill_button("Voltar", close, "surf2")
 	back.size_flags_horizontal = Control.SIZE_SHRINK_END
 	v.add_child(back)

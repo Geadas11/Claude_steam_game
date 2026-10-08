@@ -55,7 +55,7 @@ func _new_game() -> void:
 		return
 	var w := MenuPanel.new()
 	add_child(w)
-	w.make("Antes de começares", 640)
+	w.make("Antes de começares", 640, true)
 	for line in [
 		"Ainda Estás Acordado? é um jogo de terror psicológico.",
 		"Aborda morte, luto, perda de memória, vigilância, manipulação e menções a suicídio. Contém sons súbitos, cintilação e interferências visuais (podes reduzi-los nas Definições).",
@@ -79,7 +79,7 @@ func _confirm_overwrite() -> void:
 		return
 	var w := MenuPanel.new()
 	add_child(w)
-	w.make("Começar de novo?", 560)
+	w.make("Começar de novo?", 560, true)
 	var m := Saves.slot_meta("auto")
 	w.body.add_child(UI.label("A gravação automática (%s) será substituída. As gravações manuais e as conquistas mantêm-se." % m.get("chapter_title", ""), 16, "text", true))
 	var h := UI.hbox(12)
