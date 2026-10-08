@@ -275,7 +275,7 @@ unknown> E depois esqueceste-te de que a tinhas escrito.
 @when clue("december_bookshop") and v("chapter_n") >= 4 and v("chapter_n") <= 10 and not flag("final") and not flag("said_december")
 set said_december=true
 wait 25
-unknown> Em dezembro ficaste vinte minutos à chuva à porta da livraria.
+unknown> Em dezembro ficaste vinte e quatro minutos à chuva à porta da livraria.
 wait 3
 unknown> Não entraste. Eu vi.
 @end

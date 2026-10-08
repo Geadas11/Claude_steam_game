@@ -50,6 +50,7 @@
   },
   "timeline": {
     "2026-01-14": {"stops": [{"t": "07:41", "loc": "casa"}, {"t": "08:09", "loc": "cais", "note": "12 min"}, {"t": "08:40", "loc": "livraria"}]},
+    "2025-12-20": {"stops": [{"t": "00:52", "loc": "casa"}, {"t": "01:14", "loc": "livraria", "note": "24 min · à porta"}, {"t": "01:40", "loc": "cais", "note": "3 min"}, {"t": "02:21", "loc": "casa"}]},
     "2025-10-14": {"requires": "flag(\"old_backup\")", "empty_text": "Sem dados de localização para este dia.\nOs registos podem ter sido eliminados ou o dispositivo estava desligado.",
       "stops": [{"t": "00:12", "loc": "casa"}, {"t": "02:38", "loc": "cais", "note": "28 min · dispositivo: Pixel 7"}, {"t": "03:06", "loc": "bombas", "note": "a pé · 4,8 km/h"}, {"t": "03:41", "loc": "farol", "note": "a pé"}, {"t": "04:12", "loc": "livraria", "note": "9 min"}, {"t": "04:58", "loc": "casa"}],
       "clues": ["old_location"]},
