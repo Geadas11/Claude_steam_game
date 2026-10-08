@@ -23,6 +23,7 @@ func _ready() -> void:
 	_toggle("Alto contraste", "high_contrast")
 	_toggle("Reduzir efeitos visuais (interferências, cintilação)", "reduce_effects")
 	_toggle("Reduzir movimento (transições, tremor)", "reduce_motion")
+	_toggle("Suavizar sons súbitos (pancadas, interferências)", "soften_sudden")
 	_section("Ecrã")
 	_toggle("Ecrã inteiro (F11)", "fullscreen")
 	_toggle("Sincronização vertical", "vsync")

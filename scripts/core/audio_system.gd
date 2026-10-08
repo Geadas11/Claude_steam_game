@@ -76,10 +76,16 @@ func _get_stream(sound_name: String) -> AudioStreamWAV:
 	return s
 
 
+## Stingers that can make people jump; "Suavizar sons súbitos" lowers them.
+const SUDDEN := ["knock", "knock_one", "glitch", "static", "door", "drop", "creak", "sub", "footsteps"]
+
+
 func play(sound_name: String, volume_db := 0.0, pitch := 1.0) -> void:
 	if muted_for_tests or sound_name == "":
 		return
 	var stream := _get_stream(sound_name)
+	if sound_name in SUDDEN and Settings.get_value("soften_sudden", false):
+		volume_db -= 14.0
 	for p in _sfx:
 		if not p.playing:
 			p.stream = stream
@@ -90,6 +96,7 @@ func play(sound_name: String, volume_db := 0.0, pitch := 1.0) -> void:
 			return
 	_sfx[0].stop()
 	_sfx[0].stream = stream
+	_sfx[0].volume_db = volume_db
 	_sfx[0].play()
 
 

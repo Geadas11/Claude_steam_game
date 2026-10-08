@@ -14,6 +14,7 @@ var values := {
 	"clock_speed": 1.0,         # how fast the in-game clock runs (1x..3x)
 	"subtitles": true,          # captions for calls / recordings / sound cues
 	"clue_toasts": true,        # "Nova pista: ..." at the bottom of the screen
+	"soften_sudden": false,     # lower the volume of knocks, glitches and other stingers
 	"sound_captions": false,    # [respiração], [estática] ...
 	"high_contrast": false,
 	"reduce_effects": false,    # glitches / flicker scaled down
