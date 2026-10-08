@@ -1704,5 +1704,16 @@
    "pier_figure",
    "street_watcher"
   ]
+ },
+ "someone_in_the_room": {
+  "title": "No meio da sala",
+  "desc": "Na última noite, na câmara, alguém de pé no meio da sala, a um metro de ti. \"Não era eu. Tranca a porta.\"",
+  "source": "Câmara",
+  "importance": 3,
+  "related": [
+   "camera_hall_figure",
+   "front_camera_figure",
+   "photo_from_behind"
+  ]
  }
 }

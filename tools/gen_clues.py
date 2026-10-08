@@ -205,6 +205,8 @@ clue("vasco_sent_window", "A mesma fotografia", "Depois de recusares, o Vasco en
 
 clue("pier_watcher_2025", "Alguém na água (2025)", "Duas fotografias tiradas no mesmo segundo, a 28/09/2025. Na segunda, alguém de pé dentro de água, ao fundo, a olhar para vocês. Duas semanas antes. Como no teu fundo de ecrã.", "Galeria · IMG_3302", 2, ["wallpaper_watcher", "pier_figure", "street_watcher"])
 
+clue("someone_in_the_room", "No meio da sala", "Na última noite, na câmara, alguém de pé no meio da sala, a um metro de ti. \"Não era eu. Tranca a porta.\"", "Câmara", 3, ["camera_hall_figure", "front_camera_figure", "photo_from_behind"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

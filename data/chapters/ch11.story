@@ -149,6 +149,23 @@ unknown> Ninguém te contou isso. Nem tu.
 clue went_back
 @end
 
+@beat home_camera
+@when vs("going") == "false" and at("02:10")
+camera close
+unknown> Já que ficaste.
+wait 3
+unknown> Abre a câmara. Uma última vez. Quero ver a sala onde nunca estive.
+@end
+
+@beat home_camera_seen
+@when flag("cam_close_seen")
+wait 5
+unknown> Não era eu.
+wait 4
+unknown> Tranca a porta, Daniel.
+clue someone_in_the_room
+@end
+
 @beat sofia_arrives
 @when flag("sofia_knows") and at("02:05")
 sofia> Cheguei.
