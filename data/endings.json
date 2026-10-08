@@ -115,7 +115,7 @@
  "C": {
   "name": "Silêncio",
   "achievement": "ending_C",
-  "music": "menu",
+  "music": "lullaby",
   "summary": "Desligaste o telemóvel no fim do cais. Escolheste não saber.",
   "hint": "O silêncio também é uma resposta. Só não é a última.",
   "lines": [
@@ -154,7 +154,7 @@
  "D": {
   "name": "Loop",
   "achievement": "ending_D",
-  "music": "menu",
+  "music": "lullaby",
   "summary": "Chegaste ao cais sem saber o que aconteceu. O modelo também não. Recomeça.",
   "hint": "Em todas as iterações, procuraste. Procura melhor.",
   "lines": [

@@ -52,7 +52,7 @@ func _make_player(bus: String) -> AudioStreamPlayer:
 
 
 func _prewarm() -> void:
-	var names := ["msg", "notif", "tap", "key", "sent", "unlock", "lock", "vibrate", "app_open", "room", "menu", "ring", "dialtone", "night", "tension", "static", "glitch", "breath", "sea", "dread", "memory", "ring_wrong", "call_connect", "call_end", "shutter", "mail", "clue", "boot"]
+	var names := ["msg", "notif", "tap", "key", "sent", "unlock", "lock", "vibrate", "app_open", "room", "menu", "ring", "dialtone", "night", "tension", "static", "glitch", "breath", "sea", "dread", "memory", "lullaby", "ring_wrong", "call_connect", "call_end", "shutter", "mail", "clue", "boot"]
 	for n in names:
 		_get_stream(n)
 

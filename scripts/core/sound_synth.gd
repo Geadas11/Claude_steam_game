@@ -5,7 +5,7 @@ extends RefCounted
 ## tuned in code.
 
 const RATE := 22050
-const LOOPS := ["room", "night", "tension", "dread", "rain", "sea", "static", "ring", "ring_wrong", "dialtone", "menu", "memory", "hum"]
+const LOOPS := ["room", "night", "tension", "dread", "rain", "sea", "static", "ring", "ring_wrong", "dialtone", "menu", "memory", "lullaby", "hum"]
 
 var _rng := RandomNumberGenerator.new()
 
@@ -82,6 +82,7 @@ func make(sound_name: String) -> AudioStreamWAV:
 		"dialtone": buf = _dialtone()
 		"menu": buf = _music_menu()
 		"memory": buf = _music_memory()
+		"lullaby": buf = _music_lullaby()
 		_:
 			push_warning("unknown sound " + sound_name)
 			buf = _click(0.02, 0.1, 1000.0)
@@ -513,6 +514,31 @@ func _music_memory() -> PackedFloat32Array:
 		_pluck(b, n[0], n[1], 2.6, 0.11)
 	for k in 4:
 		_pluck(b, k * 3.6, 130.81, 3.6, 0.05)
+	return b
+
+
+## A music box slightly out of tune, as if the tape were stretching: the
+## "Dorme, Daniel" theme for the quiet endings.
+func _music_lullaby() -> PackedFloat32Array:
+	var secs := 16.0
+	var b := _alloc(secs)
+	# D minor; the last note of the phrase lands a semitone too low.
+	var seq := [[0.0, 587.33], [0.5, 698.46], [1.0, 880.0], [2.0, 783.99], [2.5, 698.46], [3.0, 659.25],
+		[4.0, 587.33], [4.5, 698.46], [5.0, 880.0], [6.0, 1046.5], [7.0, 932.33],
+		[8.0, 587.33], [8.5, 698.46], [9.0, 880.0], [10.0, 783.99], [10.5, 698.46], [11.0, 659.25],
+		[12.0, 587.33], [13.0, 554.37]]
+	for n in seq:
+		var start := int(n[0] * RATE)
+		var f: float = n[1]
+		for i in int(2.2 * RATE):
+			var idx := (start + i) % b.size()
+			var t := float(i) / RATE
+			# tape wow: slow pitch wobble that grows towards the end of the loop
+			var wow := 1.0 + 0.004 * sin(TAU * 0.6 * (float(start + i) / RATE)) * (0.5 + float(start) / b.size())
+			var env := minf(1.0, t * 300.0) * exp(-t * 3.4)
+			b[idx] += (sin(TAU * f * wow * t) + 0.25 * sin(TAU * f * 3.0 * wow * t) * exp(-t * 6.0)) * env * 0.13
+	for k in 4:
+		_pluck(b, k * 4.0, 146.83, 4.0, 0.06)
 	return b
 
 
