@@ -1,22 +1,78 @@
 {
-  "note_compras": {"title": "Compras", "date": "2026-10-06 18:40",
-    "text": "café\npão\natum\nmassa\npilhas (comando)\ndetergente da loiça\n~~bolachas~~ (a Sofia tem razão)"},
-  "note_encomendas": {"title": "Encomendas Maré", "date": "2026-10-01 11:20",
-    "text": "- Sr. Lopes: \"Levantado do Chão\" (2 exemplares)\n- Escola EB 2,3: 30 \"Os Lusíadas\" adaptação\n- Senhora do chapéu: algo \"como o Murakami mas português\"?? (sugerir Valter Hugo Mãe)\n- Arrumar caixa Caminho → estante lit. portuguesa\n- NÃO mexer no Ricardo Reis da Carla"},
-  "note_sonho": {"title": "Sonho", "date": "2026-02-19 03:24",
-    "text": "Outra vez a água.\n\nNão é um sonho de afogamento. Eu estou seco. Estou a andar numa estrada às escuras, com sapatos molhados, e alguém bate no vidro de um carro três vezes. Não vejo o carro.\n\nAcordei às 3:17. Outra vez 3:17.\n\nNão volto a olhar para o relógio quando acordo.", "clues": ["dream_317"]},
-  "note_helena": {"title": "O que a Dra. disse", "date": "2025-12-03 18:10",
-    "text": "1. Não é culpa minha.\n2. A memória protege-nos. Não forçar.\n3. Se me lembrar de alguma coisa: escrever, trazer à consulta.\n4. Não falar disso com mais ninguém primeiro. (Nem com a Sofia?) — \"Sobretudo com pessoas emocionalmente envolvidas.\"\n5. Clonazepam só se precisar.", "clues": ["helena_dont_tell"]},
-  "note_quiz": {"title": "Perguntas para o quiz", "date": "2026-09-25 22:00",
-    "text": "Capital da Mongólia: Ulan Bator\nQuantos ossos tem o corpo humano: 206\nQuem escreveu \"Memorial do Convento\": Saramago\nAno do terramoto de Lisboa: 1755\nMarés: a Lua puxa a água. Duas vezes por dia. A maré leva tudo e traz tudo de volta.  ← quem disse isto? lembro-me de alguém dizer isto"},
-  "note_porta": {"title": "", "date": "2026-10-11 00:00",
-    "text": "não abras a porta", "clues": ["note_not_written"]},
-  "note_lista": {"title": "coisas que sei", "date": "2026-10-11 03:16",
-    "text": "1. ela ligou-me às 21h40. 38 minutos.\n2. eu fui.\n3. eu fui embora.\n4. \n5. ", "clues": ["note_list_unwritten"]},
-  "note_quem": {"title": "Quem és tu, Daniel?", "date": "2026-10-11 20:30",
-    "text": "Lê as tuas próprias mensagens como se fossem de outra pessoa.\n\nO que é que ela pensaria de ti?"},
-  "note_eco_1": {"title": "fragmento 1/3", "date": "?",
-    "text": "o modelo não sabe o que é. só sabe o que farias.\n\nse fizeres uma coisa que ele não previu, ele aprende.\n\nse fizeres sempre o que ele previu, ele nunca acaba.", "clues": ["eco_fragment_1"]},
-  "note_final": {"title": "", "date": "2026-10-14 03:16",
-    "text": "Ainda estás acordado?"}
+ "note_compras": {
+  "title": "Compras",
+  "date": "2026-10-06 18:40",
+  "text": "café\npão\natum\nmassa\npilhas (comando)\ndetergente da loiça\n~~bolachas~~ (a Sofia tem razão)"
+ },
+ "note_encomendas": {
+  "title": "Encomendas Maré",
+  "date": "2026-10-01 11:20",
+  "text": "- Sr. Lopes: \"Levantado do Chão\" (2 exemplares)\n- Escola EB 2,3: 30 \"Os Lusíadas\" adaptação\n- Senhora do chapéu: algo \"como o Murakami mas português\"?? (sugerir Valter Hugo Mãe)\n- Arrumar caixa Caminho → estante lit. portuguesa\n- NÃO mexer no Ricardo Reis da Carla"
+ },
+ "note_sonho": {
+  "title": "Sonho",
+  "date": "2026-02-19 03:24",
+  "text": "Outra vez a água.\n\nNão é um sonho de afogamento. Eu estou seco. Estou a andar numa estrada às escuras, com sapatos molhados, e alguém bate no vidro de um carro três vezes. Não vejo o carro.\n\nAcordei às 3:17. Outra vez 3:17.\n\nNão volto a olhar para o relógio quando acordo.",
+  "clues": [
+   "dream_317"
+  ]
+ },
+ "note_helena": {
+  "title": "O que a Dra. disse",
+  "date": "2025-12-03 18:10",
+  "text": "1. Não é culpa minha.\n2. A memória protege-nos. Não forçar.\n3. Se me lembrar de alguma coisa: escrever, trazer à consulta.\n4. Não falar disso com mais ninguém primeiro. (Nem com a Sofia?) — \"Sobretudo com pessoas emocionalmente envolvidas.\"\n5. Clonazepam só se precisar.",
+  "clues": [
+   "helena_dont_tell"
+  ]
+ },
+ "note_quiz": {
+  "title": "Perguntas para o quiz",
+  "date": "2026-09-25 22:00",
+  "text": "Capital da Mongólia: Ulan Bator\nQuantos ossos tem o corpo humano: 206\nQuem escreveu \"Memorial do Convento\": Saramago\nAno do terramoto de Lisboa: 1755\nMarés: a Lua puxa a água. Duas vezes por dia. A maré leva tudo e traz tudo de volta.  ← quem disse isto? lembro-me de alguém dizer isto"
+ },
+ "note_porta": {
+  "title": "",
+  "date": "2026-10-11 00:00",
+  "text": "não abras a porta",
+  "clues": [
+   "note_not_written"
+  ]
+ },
+ "note_lista": {
+  "title": "coisas que sei",
+  "date": "2026-10-11 03:16",
+  "text": "1. ela ligou-me às 21h40. 38 minutos.\n2. eu fui.\n3. eu fui embora.\n4. \n5. ",
+  "clues": [
+   "note_list_unwritten"
+  ]
+ },
+ "note_quem": {
+  "title": "Quem és tu, Daniel?",
+  "date": "2026-10-11 20:30",
+  "text": "Lê as tuas próprias mensagens como se fossem de outra pessoa.\n\nO que é que ela pensaria de ti?"
+ },
+ "note_eco_1": {
+  "title": "fragmento 1/3",
+  "date": "?",
+  "text": "o modelo não sabe o que é. só sabe o que farias.\n\nse fizeres uma coisa que ele não previu, ele aprende.\n\nse fizeres sempre o que ele previu, ele nunca acaba.",
+  "clues": [
+   "eco_fragment_1"
+  ]
+ },
+ "note_final": {
+  "title": "",
+  "date": "2026-10-14 03:16",
+  "text": "Ainda estás acordado?"
+ },
+ "note_privado": {
+  "title": "privado",
+  "date": "2025-10-20 04:02",
+  "locked": "tejo",
+  "hint": "o nome de quem dormia no colo dela",
+  "text": "Não consigo dormir. A Dra. Helena diz para escrever.\n\nLembro-me de três coisas. Só três.\n\n1. O candeeiro do cais a piscar.\n2. Um carro parado na estrada da praia, com as luzes apagadas. Alguém lá dentro. A olhar para mim quando passei.\n3. As minhas mãos, molhadas, a meter uma coisa pequena dentro de um livro.\n\nNão sei se são memórias ou se estou a inventar.\nA Dra. diz que estou a inventar.\n\n(Usei a palavra-passe dela para esta nota. Não sei porquê. Sei-a de cor.)",
+  "clues": [
+   "secret_note_car",
+   "secret_note_book"
+  ]
+ }
 }

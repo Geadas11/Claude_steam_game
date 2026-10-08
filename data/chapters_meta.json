@@ -68,7 +68,8 @@
    "note_encomendas",
    "note_sonho",
    "note_helena",
-   "note_quiz"
+   "note_quiz",
+   "note_privado"
   ],
   "bookmarks": [
    "jornal_home",
@@ -437,7 +438,7 @@
       "id": "book",
       "text": "Dentro de um livro, na Livraria Maré",
       "needs": "saramago_spine",
-      "needs_expr": "clue(\"night_bookshop\")"
+      "needs_expr": "clue(\"night_bookshop\") or clue(\"secret_note_book\") or clue(\"daniel_hides_in_books\") or clue(\"carla_photo_in_book\")"
      },
      {
       "id": "phone",

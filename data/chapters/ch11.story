@@ -83,6 +83,72 @@ else
 endif
 @end
 
+# ---------------------------------------------------------------- a última conversa (a caminho)
+@beat walk_memories
+@when flag("left_home") and at("01:10")
+unknown> Foi por esta estrada que voltaste para casa nessa noite.
+wait 3
+unknown> Ao contrário.
+choice unknown c11_mem1
+  > Do que é que te lembras de nós? | set mem1=us
+  > Porque é que me perdoaste? | set mem1=forgive
+  > [Continuar a andar em silêncio] | set mem1=silent
+end
+wait 8
+if vs("mem1") == "us"
+  unknown> Lembro-me de discutirmos se o Ricardo Reis existia. Tu dizias que sim. Que o Pessoa o deixou viver mais tempo do que ele próprio.
+  wait 5
+  unknown> Lembro-me de leres devagar demais. E de eu te tirar o livro da mão.
+  wait 5
+  unknown> Não sei se me lembro ou se me deram para lembrar. Às vezes é a mesma coisa.
+elif vs("mem1") == "forgive"
+  unknown> Porque tinhas medo por mim. O medo faz-nos contar coisas a quem não devíamos.
+  wait 5
+  unknown> E porque se eu não te perdoasse ficavas aqui para sempre. Às 3:17. Todas as noites.
+else
+  wait 10
+  unknown> Está bem. Eu também gosto deste silêncio.
+endif
+@end
+
+@beat walk_memories2
+@when flag("left_home") and at("02:25")
+unknown> Aqui paraste. Há um ano. Olhaste para trás.
+wait 4
+unknown> Eu vi-te parar. Achei que ias voltar.
+choice unknown c11_mem2
+  > Desculpa. | set mem2=sorry
+  > Porque é que eu não voltei? | set mem2=why
+end
+wait 8
+if vs("mem2") == "why"
+  unknown> Voltaste.
+  wait 4
+  unknown> Ouviste-me gritar da estrada e voltaste a correr. Entraste na água até aos joelhos. Chamaste por mim até ficares sem voz.
+  wait 6
+  unknown> Às 03:41 o João viu-te passar encharcado. Já era tarde. Não era culpa tua ser tarde.
+  clue went_back
+else
+  unknown> Eu sei.
+  wait 4
+  unknown> Mas não foste tu que me deixaste cair. Lembra-te disso quando chegares ao fim do cais.
+endif
+@end
+
+@beat home_memories
+@when vs("going") == "false" and at("01:30")
+unknown> Daqui também me ouves?
+choice unknown c11_mem_home
+  > Ouço. | set mem_home=yes
+  > Já não sei o que ouço. | set mem_home=unsure
+end
+wait 8
+unknown> Há um ano voltaste para trás. Ouviste-me e voltaste. Entraste na água.
+wait 4
+unknown> Ninguém te contou isso. Nem tu.
+clue went_back
+@end
+
 @beat sofia_arrives
 @when flag("sofia_knows") and at("02:05")
 sofia> Cheguei.

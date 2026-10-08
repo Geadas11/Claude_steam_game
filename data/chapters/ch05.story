@@ -361,7 +361,7 @@ endif
 @end
 
 @beat end_ch5
-@when beat("believe") and beat("echo_call")
+@when beat("believe") and (beat("echo_call") or vs("last_reply") == "" or at("04:20"))
 wait 4
 lock
 wait 2

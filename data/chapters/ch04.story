@@ -217,7 +217,7 @@ endif
 
 # ---------------------------------------------------------------- fim
 @beat dont_trust
-@when beat("vasco_invite_reply") and at("18:35")
+@when (beat("vasco_invite_reply") or at("18:50")) and at("18:35")
 wait 3
 unknown> Não confies nele.
 choice unknown c4_trust

@@ -179,6 +179,11 @@ clue("aquario_reviews", "O aquário", "Ex-colaboradores falam de um piso onde se
 clue("ines_coinventor", "Ela ajudou a criar o espelho", "A patente do \"espelho\" tem dois inventores: Vasco Pimentel e Inês Matos. Reivindicação 7: o modelo pode \"orientar o interlocutor para a recuperação de informação\".", "Registo de patentes", 3, ["eco_mirror_product", "mirror_protocol", "ines_blog_mirror"])
 clue("daniel_postit", "O post-it", "Na caixa do teu último dia na Lumen: \"NÃO testar o espelho com dados reais. Falar com a I.\" — com a tua letra.", "Galeria · IMG_0899", 2, ["ines_coinventor", "eco_trained_calls"])
 
+clue("secret_note_car", "Um carro sem luzes", "Na tua nota privada de 20/10/2025: um carro parado na estrada da praia, luzes apagadas, alguém lá dentro a olhar para ti quando passaste.", "Notas · privado", 3, ["memo_car", "vasco_car_cctv", "dream_317"])
+clue("secret_note_book", "Mãos molhadas, um livro", "\"As minhas mãos, molhadas, a meter uma coisa pequena dentro de um livro.\" Escreveste isto seis dias depois.", "Notas · privado", 3, ["daniel_hides_in_books", "night_bookshop", "saramago_spine"])
+
+clue("went_back", "Voltaste", "Depois de te ires embora, ouviste-a gritar da estrada e voltaste a correr. Entraste na água até aos joelhos. Às 03:41 o João viu-te encharcado. Já era tarde.", "Mensagens · última noite", 3, ["joao_saw_daniel", "memo_wet_shoes", "old_location"])
+
 # dummies removed below
 for cid in list(C):
     C[cid]["related"] = [r for r in C[cid]["related"] if not r.endswith("_dummy")]

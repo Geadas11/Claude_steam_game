@@ -111,7 +111,11 @@ func get_value(key: String, default = null):
 	return values.get(key, default)
 
 
+var last_changed_key := ""
+
+
 func set_value(key: String, v) -> void:
+	last_changed_key = key
 	values[key] = v
 	apply()
 	save_settings()

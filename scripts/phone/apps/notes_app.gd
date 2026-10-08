@@ -70,7 +70,7 @@ func _all_notes() -> Array:
 		var n := Content.get_item("notes", nid)
 		if n.is_empty():
 			continue
-		out.append({"id": nid, "title": n.get("title", ""), "text": n.get("text", ""), "t": Clock.parse_datetime(n.date) if n.has("date") else 0.0, "static": true})
+		out.append({"id": nid, "title": n.get("title", ""), "text": n.get("text", ""), "t": Clock.parse_datetime(n.date) if n.has("date") else 0.0, "static": true, "locked": str(n.get("locked", "")) != "" and not GameState.flag("unlocked_note_" + nid), "hint": str(n.get("hint", ""))})
 	for i in GameState.data.player_notes.size():
 		var pn: Dictionary = GameState.data.player_notes[i]
 		out.append({"id": "p%d" % i, "title": pn.title, "text": pn.text, "t": float(pn.t), "static": false})
@@ -95,7 +95,7 @@ func _notes_list() -> void:
 		var t := UI.label(str(n.title) if str(n.title) != "" else "(sem título)", 16)
 		t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		rv.add_child(t)
-		var pv := UI.label(str(n.text).replace("\n", " ").left(90), 13, "dim")
+		var pv := UI.label("Nota protegida" if n.get("locked", false) else str(n.text).replace("\n", " ").left(90), 13, "dim")
 		pv.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		rv.add_child(pv)
 		rv.add_child(UI.label(Clock.fmt_relative(float(n.t)) if float(n.t) > 0 else "", 11, "faint"))
@@ -105,6 +105,9 @@ func _notes_list() -> void:
 
 
 func _show_note(n: Dictionary) -> void:
+	if n.get("locked", false):
+		_locked_note(n)
+		return
 	_open_note = n.id
 	UI.clear(_root)
 	if n.static:
@@ -320,3 +323,43 @@ func _confirm_deduction(data: Dictionary) -> void:
 	Audio.play("clue")
 	Director.notify_player_action()
 	_render()
+
+
+func _locked_note(n: Dictionary) -> void:
+	_open_note = n.id
+	UI.clear(_root)
+	_root.add_child(UI.header("", func(): on_back()))
+	var m := UI.margin(24, 30, 24, 20)
+	var v := UI.vbox(12)
+	m.add_child(v)
+	_root.add_child(m)
+	var g := UI.glyph("lock", 44, "dim")
+	g.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	v.add_child(g)
+	var t := UI.label(str(n.title), 20)
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(t)
+	var sub := UI.label("Esta nota está protegida com palavra-passe.", 14, "dim", true)
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(sub)
+	var le := LineEdit.new()
+	le.secret = true
+	le.placeholder_text = "Palavra-passe"
+	v.add_child(le)
+	var err := UI.label("", 13, "danger", true)
+	var attempt := func(_x = ""):
+		var want := str(Content.get_item("notes", n.id).get("locked", ""))
+		if le.text.strip_edges().to_lower() == want:
+			GameState.set_var("unlocked_note_" + n.id, true)
+			Audio.play("unlock")
+			n.locked = false
+			_show_note(n)
+		else:
+			Audio.play("error")
+			GameState.inc_var("pw_fail_note_" + n.id)
+			err.text = "Palavra-passe incorreta."
+			if int(GameState.get_var("pw_fail_note_" + n.id, 0)) >= 2 and str(n.hint) != "":
+				err.text += "\nDica: " + str(n.hint)
+	le.text_submitted.connect(attempt)
+	v.add_child(UI.pill_button("Abrir", attempt, "surf2", "accent"))
+	v.add_child(err)

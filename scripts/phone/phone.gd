@@ -54,6 +54,7 @@ var _lock_screen: LockScreen
 var _home_badges := {}
 var _base_pos := Vector2.ZERO
 var using_pad := false
+var _home_has_eco := false
 
 
 func _ready() -> void:
@@ -84,8 +85,17 @@ func _ready() -> void:
 
 
 func _on_settings_changed() -> void:
+	if not (Settings.last_changed_key in ["text_scale", "high_contrast"]):
+		return
 	theme = UI.build_theme()
 	_refresh_home()
+	# rebuild the open app so text size / contrast apply immediately
+	if current_app and not locked:
+		var id := current_app_id
+		var p: Dictionary = current_app.params.duplicate()
+		p["forced"] = true
+		_close_current()
+		open_app(id, p)
 
 
 # ================================================================= building
@@ -277,7 +287,8 @@ func _build_home() -> void:
 	gm.add_child(grid)
 	v.add_child(gm)
 	var apps: Array = GRID.duplicate()
-	if GameState.data.phone.get("eco_app", false):
+	_home_has_eco = bool(GameState.data.phone.get("eco_app", false))
+	if _home_has_eco:
 		apps.append("eco")
 	for id in apps:
 		grid.add_child(_app_icon(id, true))
@@ -336,6 +347,7 @@ func refresh_all() -> void:
 	_close_current()
 	var br := float(GameState.data.phone.get("brightness", 1.0))
 	screen.modulate = Color(br, br, br, 1.0)
+	_wallpaper_key = ""
 	_update_wallpaper()
 	_build_home()
 	_update_status()
@@ -364,13 +376,20 @@ func _update_status() -> void:
 func _on_phone_state() -> void:
 	_update_status()
 	_update_wallpaper()
-	if (GameState.data.phone.get("eco_app", false)) != home.find_children("*", "AppIcon", true, false).any(func(i): return i.glyph == "eco"):
+	if bool(GameState.data.phone.get("eco_app", false)) != _home_has_eco:
 		_build_home()
 	_status_icons.queue_redraw()
 
 
+var _wallpaper_key := ""
+
+
 func _update_wallpaper() -> void:
 	var wp: String = GameState.data.phone.get("wallpaper", "IMG_2207")
+	var key := wp + ":" + GameState.photo_variant(wp)
+	if key == _wallpaper_key:
+		return
+	_wallpaper_key = key
 	if Content.has_item("photos", wp):
 		wallpaper.set_photo(wp)
 

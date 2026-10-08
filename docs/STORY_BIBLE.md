@@ -41,6 +41,10 @@ aos ex‑funcionários "como gesto de apoio" depois da morte da Inês.
    03:06 — Daniel vai embora a pé, furioso consigo próprio. Deixa o telemóvel
    antigo cair no carro? Não: deixa‑o no bolso; o histórico de localização
    regista tudo.
+4b. 03:06–03:20 — Na EN125, perto das bombas, o Daniel cruza-se com um carro de luzes apagadas
+   (o Audi do Vasco, 03:04). Às 03:17 ouve um grito vindo do cais. Volta a correr, entra na água
+   até aos joelhos, chama por ela. Não a encontra. Às 03:41 passa encharcado no Largo do Cais
+   (o João vê-o). Às 04:12, em choque, esconde o cartão na livraria. (Revelado no cap. 11.)
 5. 03:09 — Vasco chega. A Inês grava a conversa no telemóvel (gravação
    `cais_0309.m4a`, 8 minutos). Vasco tenta convencê‑la, depois ameaça, depois
    agarra‑lhe o telemóvel. Ela cai do cais às 03:17. A gravação acaba aí.

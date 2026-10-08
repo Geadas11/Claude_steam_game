@@ -55,7 +55,7 @@ endif
 
 # ---------------------------------------------------------------- o livro
 @beat book_prompt
-@when at("11:00") and (clue("saramago_spine") or clue("night_bookshop") or clue("daniel_hides_in_books") or clue("ines_card_hint") or v("deduction_score") >= 4)
+@when at("11:00") and (clue("saramago_spine") or clue("night_bookshop") or clue("daniel_hides_in_books") or clue("ines_card_hint") or clue("secret_note_book") or clue("carla_photo_in_book") or v("deduction_score") >= 4)
 unknown> Estás à frente da estante.
 wait 3
 unknown> Já sabes qual é.
