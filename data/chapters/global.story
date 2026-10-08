@@ -323,3 +323,14 @@ else
   eco> {typing=3} Respondo que sim. Não sei se é verdade. Ninguém me pediu essa previsão.
 endif
 @end
+
+@beat g_red_coat
+@when (clue("red_coat_chair") or clue("red_figure_beach")) and v("chapter_n") >= 3 and v("chapter_n") <= 10 and not flag("final") and not flag("said_red_coat")
+set said_red_coat=true
+wait 20
+unknown> Não era eu.
+wait 4
+unknown> Eu já não tenho esse casaco. Ficou no mar.
+wait 3
+unknown> Tu é que continuas a pô-lo nas fotografias.
+@end
