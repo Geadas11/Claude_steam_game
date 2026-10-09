@@ -6,11 +6,11 @@ consegue dizer: se tem ritmo, se assusta, se se percebe.
 
 ## Preparação
 
-- Build: `godot --headless --export-release "Windows Desktop" builds/windows/AindaEstasAcordado.exe`
+- Build: `godot --headless --export-release "Windows Desktop" builds/windows/UNKNOWN.exe`
   (ou `"Linux"`). Ou correr do editor: `godot --path .`
 - Jogar **à noite, com auscultadores**, sem guia. Quem observa não ajuda.
 - Gravações em `user://saves/`, perfil (conquistas, finais) em `user://profile.json`.
-  Para recomeçar do zero, apagar a pasta `AindaEstasAcordado` em `~/.local/share/` (Linux)
+  Para recomeçar do zero, apagar a pasta `UNKNOWN` em `~/.local/share/` (Linux)
   ou `%APPDATA%` (Windows).
 
 ## Sessões sugeridas

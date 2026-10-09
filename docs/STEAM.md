@@ -17,17 +17,17 @@ As gravações são JSON pequenos (< 1 MB). Configurar Auto-Cloud no Steamworks:
 
 | SO | Raiz | Subcaminho | Padrão |
 |---|---|---|---|
-| Windows | `WinAppDataRoaming` | `AindaEstasAcordado/saves` | `*.json` |
-| Linux | `LinuxXdgDataHome` | `AindaEstasAcordado/saves` | `*.json` |
-| Windows/Linux | (idem) | `AindaEstasAcordado` | `profile.json` (conquistas/finais) |
+| Windows | `WinAppDataRoaming` | `UNKNOWN/saves` | `*.json` |
+| Linux | `LinuxXdgDataHome` | `UNKNOWN/saves` | `*.json` |
+| Windows/Linux | (idem) | `UNKNOWN` | `profile.json` (conquistas/finais) |
 
 `settings.cfg` deve ficar **fora** da nuvem (resolução/ecrã inteiro são por máquina).
 
 ## 3. Builds
 
 ```bash
-godot --headless --export-release "Windows Desktop" builds/windows/AindaEstasAcordado.exe
-godot --headless --export-release "Linux" builds/linux/AindaEstasAcordado.x86_64
+godot --headless --export-release "Windows Desktop" builds/windows/UNKNOWN.exe
+godot --headless --export-release "Linux" builds/linux/UNKNOWN.x86_64
 ```
 Os presets incluem `*.json, *.story` e excluem `tests/` e `tools/`. Ambas as builds foram
 geradas e a de Linux foi testada a arrancar e a carregar a história.

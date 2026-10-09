@@ -177,7 +177,7 @@ func _serve(peer: StreamPeerTCP, request: String) -> void:
 		"/manifest.webmanifest":
 			ctype = "application/manifest+json"
 			body = JSON.stringify({
-				"name": "Ainda estás acordado?", "short_name": "Acordado?",
+				"name": "UNKNOWN", "short_name": "UNKNOWN",
 				"display": "fullscreen", "orientation": "portrait",
 				"background_color": "#000000", "theme_color": "#000000",
 				"start_url": "/", "icons": [

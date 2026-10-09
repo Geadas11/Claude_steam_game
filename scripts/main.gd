@@ -33,6 +33,8 @@ var _last_hour := -1.0
 func _ready() -> void:
 	theme = UI.build_theme()
 	set_anchors_preset(Control.PRESET_FULL_RECT)
+	# the root covers the whole window: it must not catch the mouse itself
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	room = Room.new()
 	room.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(room)
@@ -339,6 +341,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 				Input.parse_input_event(ku)
 				await get_tree().process_frame
 			"mouse":
+				world.player.force_look = true
 				var mm2 := InputEventMouseMotion.new()
 				mm2.relative = Vector2(float(kv[1]), float(kv[2]))
 				Input.parse_input_event(mm2)

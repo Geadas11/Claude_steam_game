@@ -2,7 +2,7 @@
 
 > Ler isto no início de cada sessão. Continuar de onde ficou. Nunca recomeçar do zero.
 
-**Projeto:** Ainda Estás Acordado? (PROJECT UNKNOWN) · Godot 4.3 · GL Compatibility · pt-PT
+**Projeto:** UNKNOWN (antes «Ainda Estás Acordado?») · Godot 4.3 · Forward+ · pt-PT
 **Última atualização:** sessão 1 (2026-10-08) · versão 0.9.0
 **Branch:** `claude/relaxed-cray-lgubk6` — no GitHub (`Geadas11/Claude_steam_game`)
 

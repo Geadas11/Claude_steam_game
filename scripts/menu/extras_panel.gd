@@ -64,7 +64,7 @@ func _credits() -> void:
 	body.add_child(UI.spacer(14))
 	body.add_child(UI.label("CRÉDITOS", 13, "accent"))
 	for line in [
-		"Ainda Estás Acordado? — um thriller num telemóvel.",
+		"UNKNOWN — terror psicológico na primeira pessoa.",
 		"Feito com Godot Engine (godotengine.org, licença MIT). Tipo de letra predefinido do Godot.",
 		"Todos os sons e fotografias são gerados em tempo real pelo jogo.",
 		"Epígrafes dos capítulos: Fernando Pessoa, Ricardo Reis e Álvaro de Campos (domínio público).",

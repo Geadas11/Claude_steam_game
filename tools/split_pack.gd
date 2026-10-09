@@ -1,6 +1,6 @@
 extends SceneTree
-## Splits an exported ZIP pack into AindaEstasAcordado.pck (everything but the
-## 3D assets) and AindaEstasAcordado_3d_N.pck parts under a size limit, so a
+## Splits an exported ZIP pack into UNKNOWN.pck (everything but the
+## 3D assets) and UNKNOWN_3d_N.pck parts under a size limit, so a
 ## test build fits in downloads with a per-file limit.
 ##   godot --headless --script res://tools/split_pack.gd -- full.zip outdir 26
 
@@ -44,9 +44,9 @@ func _init() -> void:
 			sizes[-1] += data.size()
 		else:
 			base.append([f, local])
-	_pack(out.path_join("AindaEstasAcordado.pck"), base)
+	_pack(out.path_join("UNKNOWN.pck"), base)
 	for i in parts.size():
-		_pack(out.path_join("AindaEstasAcordado_3d_%d.pck" % (i + 1)), parts[i])
+		_pack(out.path_join("UNKNOWN_3d_%d.pck" % (i + 1)), parts[i])
 	for e in base + parts.reduce(func(a, b): return a + b, []):
 		DirAccess.remove_absolute(e[1])
 	DirAccess.remove_absolute(tmp)

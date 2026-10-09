@@ -1,5 +1,5 @@
-# Ainda Estás Acordado?
-*(codename: PROJECT UNKNOWN)*
+# UNKNOWN
+*(antes: «Ainda Estás Acordado?»)*
 
 Thriller de terror psicológico para PC/Steam. O Daniel anda pela casa dele em
 primeira pessoa (3D realista) e a história chega pelo telemóvel: o do jogo, na
@@ -87,5 +87,5 @@ telemóvel estão em `art/photos/`.
 `scripts/core/achievements.gd` usa o singleton `Steam` do
 [GodotSteam](https://godotsteam.com) quando presente (37 conquistas, ids iguais
 aos de `data/achievements.json`). Sem Steam, tudo funciona localmente.
-As gravações ficam em `user://saves/` (pasta `AindaEstasAcordado`) — configurar
+As gravações ficam em `user://saves/` (pasta `UNKNOWN`) — configurar
 o Steam Auto-Cloud para esse caminho. Ver `DEVELOPMENT_STATUS.md`.

@@ -1,12 +1,12 @@
 ; Engine configuration file.
-; Ainda Estás Acordado? (codename: PROJECT UNKNOWN)
+; UNKNOWN
 
 config_version=5
 
 [application]
 
-config/name="Ainda Estás Acordado?"
-config/description="Um thriller de terror psicológico jogado inteiramente através de um smartphone."
+config/name="UNKNOWN"
+config/description="Terror psicológico na primeira pessoa. Uma mensagem às 23:47: «Ainda estás acordado?»"
 config/version="0.9.0"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
@@ -14,7 +14,7 @@ config/icon="res://icon.svg"
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/use_custom_user_dir=true
-config/custom_user_dir_name="AindaEstasAcordado"
+config/custom_user_dir_name="UNKNOWN"
 
 [autoload]
 

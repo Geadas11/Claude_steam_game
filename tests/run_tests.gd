@@ -869,6 +869,25 @@ func _test_world() -> void:
 	await _physics(240)
 	Input.action_release("move_forward")
 	ok(p.global_position.z > 0.15, "the wall stops him (z=%.2f)" % p.global_position.z)
+	# mouse look still works with a full-screen Control on top (the bug: the
+	# root Control swallowed every mouse motion before it reached the camera)
+	var cover := Control.new()
+	cover.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	cover.mouse_filter = Control.MOUSE_FILTER_STOP
+	hud_parent.add_child(cover)
+	p.force_look = true
+	p.look_enabled = true
+	var yaw0 := p.yaw_deg()
+	var mm := InputEventMouseMotion.new()
+	mm.relative = Vector2(-200, -60)
+	mm.position = Vector2(400, 300)
+	Input.parse_input_event(mm)
+	await _frames(3)
+	ok(absf(p.yaw_deg() - yaw0) > 10.0, "mouse turns the camera (yaw %.1f -> %.1f)" % [yaw0, p.yaw_deg()])
+	ok(p.head.rotation.x > 0.1, "mouse tilts the camera up (%.2f)" % p.head.rotation.x)
+	p.force_look = false
+	cover.queue_free()
+	p.set_view(-90.0)
 	# running drains stamina, crouching lowers the head
 	p.global_position = Vector3(1.0, 0.02, 5.15)
 	p.set_view(-90.0)

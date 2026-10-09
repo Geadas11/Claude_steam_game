@@ -22,6 +22,7 @@ var shape: CollisionShape3D
 var look_enabled := true      # mouse look (the phone is down)
 var move_enabled := true      # feet (not while typing or paused)
 var crouching := false
+var force_look := false      # debug/tests: look without a captured mouse
 var stamina := 1.0
 var target: Node = null       # what the crosshair is on
 var target_prompt := ""
@@ -85,22 +86,42 @@ func yaw_deg() -> float:
 	return rad_to_deg(_yaw)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+## Mouse look is read in _input: full-screen menus and HUD Controls must never
+## swallow it on the way to the camera.
+func _input(event: InputEvent) -> void:
 	if not look_enabled:
 		return
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED or force_look):
 		var sens := 0.0022 * float(Settings.get_value("mouse_sens", 1.0))
 		var inv := -1.0 if Settings.get_value("invert_y", false) else 1.0
 		_yaw -= event.relative.x * sens
 		_pitch = clampf(_pitch - event.relative.y * sens * inv, deg_to_rad(-85), deg_to_rad(85))
 		rotation.y = _yaw
 		head.rotation.x = _pitch
-	elif event.is_action_pressed("flashlight"):
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not look_enabled:
+		return
+	if event.is_action_pressed("flashlight"):
 		toggle_flashlight()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("interact"):
 		use_target()
 		get_viewport().set_input_as_handled()
+
+
+func _process(delta: float) -> void:
+	# right stick looks around too
+	if not look_enabled:
+		return
+	var rs := Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+	if rs.length() > 0.15:
+		var k := 2.6 * float(Settings.get_value("mouse_sens", 1.0)) * delta
+		_yaw -= rs.x * k
+		_pitch = clampf(_pitch - rs.y * k * (-1.0 if Settings.get_value("invert_y", false) else 1.0), deg_to_rad(-85), deg_to_rad(85))
+		rotation.y = _yaw
+		head.rotation.x = _pitch
 
 
 func toggle_flashlight(on := not flashlight.visible) -> void:

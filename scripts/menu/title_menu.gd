@@ -21,9 +21,10 @@ func open() -> void:
 	_col = UI.vbox(6)
 	_col.alignment = BoxContainer.ALIGNMENT_CENTER
 	m.add_child(_col)
-	var t := UI.label("Ainda estás acordado?", 40)
+	var t := UI.label("UNKNOWN", 64)
+	t.add_theme_constant_override("outline_size", 0)
 	_col.add_child(t)
-	var sub := UI.label("um thriller num telemóvel", 16, "faint")
+	var sub := UI.label("Ainda estás acordado?", 17, "faint")
 	_col.add_child(sub)
 	_col.add_child(UI.spacer(40))
 	var latest := Saves.latest_slot()
@@ -63,7 +64,7 @@ func _new_game() -> void:
 	add_child(w)
 	w.make("Antes de começares", 640, true)
 	for line in [
-		"Ainda Estás Acordado? é um jogo de terror psicológico.",
+		"UNKNOWN é um jogo de terror psicológico.",
 		"Aborda morte, luto, perda de memória, vigilância, manipulação e menções a suicídio. Contém sons súbitos, cintilação e interferências visuais (podes reduzi-los nas Definições).",
 		"Se algum destes temas te toca de perto, há contactos de apoio em Extras → Créditos.",
 		"Para a melhor experiência: joga à noite, com auscultadores, sem pressa.",

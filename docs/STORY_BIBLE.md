@@ -1,4 +1,4 @@
-# Ainda Estás Acordado? — Story Bible
+# UNKNOWN — Story Bible
 
 > Documento interno. Contém spoilers completos. Toda a contradição no jogo deve
 > ser **intencional** e estar listada aqui (secção "Contradições intencionais").

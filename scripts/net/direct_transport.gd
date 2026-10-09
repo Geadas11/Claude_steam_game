@@ -43,7 +43,7 @@ func _open_router_port() -> void:
 	var gw := u.get_gateway()
 	if gw == null or not gw.is_valid_gateway():
 		return
-	if u.add_port_mapping(_port, _port, "Ainda Estas Acordado", "UDP", 0) != UPNP.UPNP_RESULT_SUCCESS:
+	if u.add_port_mapping(_port, _port, "UNKNOWN", "UDP", 0) != UPNP.UPNP_RESULT_SUCCESS:
 		return
 	var ext := u.query_external_address()
 	if ext == "" or ext.contains(":"):
