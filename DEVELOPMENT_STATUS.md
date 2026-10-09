@@ -223,7 +223,7 @@
   (entrevista em modo diferido: respostas em `.pending/interview_scratch.md`, «build» escreve o Story Bible).
 - Story Bible v1 construído (entrevista + rascunho aprovado): 15 capítulos (prólogo + 14), 5 finais, regras da
   coisa (R1–R16), provas equilibradas das duas versões, segredo da Sofia (chamada das 03:52).
-- Plano dos capítulos aprovado: `lore-forge/projects/active/unknown/story/chapters/_outline.md`.
+- Plano dos capítulos (à espera de leitura do autor; 2 pontos já decididos): `lore-forge/projects/active/unknown/story/chapters/_outline.md`.
 - **Fase 4 do jogo passa a incluir** os cenários 3D: Livraria Maré, casa do Rui, Clínica Atlântico, caminho até
   ao cais (EN125, bombas, Largo do Cais), Cais Velho e, no cooperativo, casa e hospital da Sofia em Lisboa.
   Exigência do autor: cenários «bem bons» (realismo igual ou superior à casa).

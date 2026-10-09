@@ -1,6 +1,7 @@
 # Plano dos capítulos — UNKNOWN
 
-> Fase 3 do Lore Forge (Narrative Designer). **Proposta para o autor aprovar.**
+> Fase 3 do Lore Forge (Narrative Designer). **Proposta — o autor ainda não leu o plano completo.**
+> Já decididos: os dois pontos no fim do documento.
 > Deriva de: `story/vision.md`, `themes.md`, `emotional_core.md`, `timeline.md`, `ending_design.md`,
 > `knowledge/canon.md`, `knowledge/rules.md`, `characters/`.
 
@@ -243,7 +244,7 @@ As pistas de um nem sempre fazem sentido para o outro (R15): por exemplo, a Sofi
 
 Todos os finais são alcançáveis a partir desta estrutura.
 
-## Aprovado pelo autor (2026-10-09)
+## Decididos pelo autor (2026-10-09) — o resto do plano ainda está por ler
 
 1. ✅ Os sítios 3D novos — entram na fase 4 do jogo; o autor exige cenários «bem bons»: **Livraria Maré, casa do Rui, Clínica Atlântico, caminho até ao cais** (mais o cais e, no cooperativo, a casa e o hospital da Sofia).
 2. ✅ A exceção ao R6 na Clínica (de dia, mas pode matar porque o interior fica às escuras).
