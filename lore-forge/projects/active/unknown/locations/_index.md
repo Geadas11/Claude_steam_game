@@ -2,19 +2,13 @@
 
 ## Registry
 
-| ID | Name | Type | Region | First Appearance | Status |
-|----|------|------|--------|-----------------|--------|
-| LOC-001 | {name} | city / village / dungeon / wilderness | {region} | Ch.{N} | accessible / locked / destroyed |
-| LOC-002 | {name} | ... | ... | ... | ... |
-
-## Location Details
-
-Each location file (`locations/{name}.md`) should contain:
-- **Description**: sensory details (sight, sound, smell, feel)
-- **Atmosphere**: the mood this location evokes
-- **Function**: what purpose does this place serve in the story?
-- **Inhabitants**: who lives/works here?
-- **Connected Locations**: adjacent areas, travel routes
-- **Secrets**: hidden elements the player can discover
-- **Chapter Appearances**: which chapters/scenes use this location?
-- **Map Reference**: link to map asset if applicable
+| ID | Name | Type | Region | First Appearance | Status (3D) |
+|----|------|------|--------|-----------------|-------------|
+| LOC-001 | Casa do Daniel (Rua das Gaivotas 12, r/c) | casa | Salgueira | Ch.1 | feita (fase 2) |
+| LOC-002 | Cais Velho | cais | Salgueira | Prólogo | por fazer |
+| LOC-003 | Livraria Maré (n.º 31) | loja | Salgueira | Ch.2 | por fazer |
+| LOC-004 | Clínica Atlântico | clínica | Faro | Ch.11 | por fazer |
+| LOC-005 | Caminho casa → cais (EN125, bombas, Largo do Cais) | rua | Salgueira | Ch.13 | por fazer |
+| LOC-006 | Casa do Rui | casa | Salgueira | Ch.6 | _pending (3D ou só telemóvel) |
+| LOC-007 | Casa e hospital da Sofia | casa / hospital | Lisboa | cooperativo | por fazer |
+| LOC-008 | Bar O Farol | bar | Salgueira | Ch.1 (mencionado) | só mencionado |

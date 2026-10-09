@@ -1,37 +1,35 @@
 # Ending Design
 
 ## Ending Philosophy
-
-{What makes an ending "good" in this story? What should the player feel — closure, ambiguity, transcendence, loss, triumph?}
+Nenhum final responde em voz alta a «ele empurrou-a?». Só o final secreto (E), difícil de alcançar, dá uma resposta — e até essa se pode pôr em causa.
 
 ## Ending Inventory
 
-### Ending A: {Name}
-- **Type**: true / good / neutral / bad / secret
-- **Conditions**: {what the player must do to reach this ending}
-- **Emotional Payoff**: {what the player feels}
-- **Thematic Resolution**: {how this ending answers the central question}
-- **Point of No Return**: Ch.{N} — {the decision that locks this ending}
-- **Character Fates**: {what happens to each major character}
+### Ending A: Verdade
+- **Condição:** cartão + gravação + localização; noite reconstruída corretamente; enviou à Clara e ao Rui; não confiou no Vasco.
+- **Resultado:** o ECO e o Vasco caem. A culpa fica: ele denunciou-a e não sabe o que fez entre 03:06 e 03:41.
+- _pending: variante em que o Daniel confessa publicamente a denúncia.
 
-### Ending B: {Name}
-- ...
+### Ending B: Mentira
+- **Condição:** confiou no Vasco/Helena (trust_vasco ≥ 2) ou entregou o cartão.
+- **Resultado:** internado, calmo, com um telemóvel novo; a mensagem nunca mais chega. O final mais calmo e o mais assustador.
 
-### Ending C: {Name}
-- ...
+### Ending C: Silêncio
+- **Condição:** desliga o telemóvel às 03:17.
+- **Resultado:** escuro e mar; sem resposta.
+
+### Ending D: Ciclo
+- **Condição:** chega às 03:17 sem provas suficientes ou com a noite mal montada.
+- **Resultado:** acorda às 21:30 de quinta: «Ainda estás acordado?»
+
+### Ending E: ECO (secreto, difícil)
+- **Condição:** três fragmentos do ECO + modo de programador + escolher falar com o ECO.
+- **Resultado:** joga os 35 minutos (03:06 → 03:41). Ele voltou, estendeu a mão, ela caiu. O ECO: «Foi isto que aconteceu. Ou é disto que precisas.»
 
 ## Branching Logic
-
-```
-                    ┌──→ Ending A
-Ch.01 → Ch.02 → Ch.03 ──→ Ending B
-                    └──→ Ch.04 → Ch.05 ──→ Ending C
-```
+Variáveis atuais do motor (`data/chapters/*.story`) mantêm-se: `trust_vasco`, provas encontradas, reconstrução da noite, fragmentos ECO. Novas variáveis: ver `story/branches/_outline.md`.
 
 ## Ending Quality Checklist
-
-- [ ] Every ending is reachable from the story's decision points
-- [ ] Every ending provides emotional resolution to the central question
-- [ ] No ending is "the same but slightly different" — each must be distinct
-- [ ] Player decisions that lock endings are clearly telegraphed (or intentionally hidden)
-- [ ] All character arcs are resolved (or intentionally left unresolved) in each ending
+- [x] Cada final responde ao tema principal (culpa) de forma diferente.
+- [x] Nenhum final confirma a culpa sem possibilidade de dúvida.
+- [ ] Testar que cada final é alcançável (testes do jogo, depois da escrita).

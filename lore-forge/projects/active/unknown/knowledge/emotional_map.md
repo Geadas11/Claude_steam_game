@@ -1,61 +1,29 @@
 # Emotional Map
 
-## Purpose
-
-The Emotional Map is the Story Bible's emotional skeleton. It defines the intended emotional experience moment-by-moment across the entire story. Every agent references this to ensure their output serves the right emotional beat.
-
 ## Emotional Palette
-
-{The range of emotions this story uses. Not every story needs every emotion.}
-
-**Primary Emotions**: {fear, hope, grief, wonder, rage, love, ...}
-**Secondary Emotions**: {nostalgia, dread, relief, awe, ...}
-**Absent Emotions**: {emotions intentionally excluded from this story}
-
----
+Medo psicológico · confusão · stress (pedido do autor). Secundárias: culpa, solidão, desconfiança.
 
 ## Act-Level Emotional Arc
 
 | Act | Opening Emotion | Dominant Emotion | Closing Emotion | Key Shift |
 |-----|----------------|------------------|-----------------|-----------|
-| 1   | {emotion}      | {emotion}        | {emotion}       | {event}   |
-| 2   | {emotion}      | {emotion}        | {emotion}       | {event}   |
-| 3   | {emotion}      | {emotion}        | {emotion}       | {event}   |
-
----
-
-## Chapter Emotional Beats
-
-| Chapter | Beat ID | Emotion | Intensity (1-10) | Duration | Trigger | Agent Responsible |
-|---------|---------|---------|-------------------|----------|---------|-------------------|
-| Ch.01   | EB-001  | {emotion} | {N} | {short/medium/long} | {what causes it} | {agent} |
-
----
-
-## Character Emotional Arcs
-
-### {Character Name}
-```
-Start:  {emotion} ──→ {emotion} ──→ {emotion} ──→ End: {emotion}
-        Ch.01        Ch.04        Ch.07        Ch.10
-```
-
----
+| 1 (Prólogo–4) | Inquietação | Curiosidade / medo | Desconfiança | Primeira aparição (Ch.3) |
+| 2 (5–10) | Paranoia | Confusão e stress | Pavor | A gravação (Ch.10) |
+| 3 (11–Final) | Desamparo | Solidão | Decisão | Ninguém atende (Ch.12) |
 
 ## Emotional Contrast Design
 
-{Where does the story intentionally juxtapose opposing emotions for effect?}
-
 | Contrast | Chapters | Purpose |
 |----------|----------|---------|
-| {emotion A} → {emotion B} | Ch.{N} → Ch.{M} | {why the whiplash} |
-
----
+| Riso do grupo → silêncio | Ch.2 → Ch.12 | A normalidade desaparece (ronda 5) |
+| Dia calmo → noite perigosa | Pares dia/noite | Ritmo de tensão |
 
 ## Emotional Safety Valve
-
-{Where does the story provide relief? Tension without release becomes numbing.}
+Diminui ao longo do jogo (ronda 5: os momentos leves vão desaparecendo).
 
 | Relief Point | Chapter | Type | Duration |
 |-------------|---------|------|----------|
-| {scene} | Ch.{N} | comic / quiet / hopeful / bonding | {short/medium} |
+| Grupo, quiz do Farol, a mãe | Ch.1–2 | cómico | medium |
+| Carla e os livros | Ch.2, 4 | quiet | short |
+| Sofia ao telefone | até Ch.9 | bonding | short |
+| — | Ch.12 em diante | nenhum | — |

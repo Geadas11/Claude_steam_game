@@ -1,32 +1,27 @@
 # Glossary
 
-## Purpose
-
-Defines every in-world term, proper noun, and concept. This is the dictionary the Dialogue Writer and all agents reference to ensure consistent usage.
-
 ## Rules
-
-- Every in-world term used in dialogue or narration must be in the glossary
-- Terms with multiple meanings must list all meanings with context
-- Deprecated terms must be marked and migrated
-- New terms must be registered here before use in any output
+Termos usados nos textos do jogo e no Story Bible. Usar sempre a mesma palavra.
 
 ## Terms
 
-### A
-- **{Term}** — {definition}
-  - *First Used*: Ch.{N}
-  - *Context*: {who uses this term, in what situation}
-
-### B
-- **{Term}** — ...
-
----
-
-{A-Z sections as needed}
+| Termo | Definição |
+|-------|-----------|
+| **a coisa** | O que persegue e mata. Nome interno; nunca aparece assim no jogo. |
+| **03:17** | Hora da queda da Inês; centro do ciclo. |
+| **Cais Velho** | Onde a Inês caiu. |
+| **cartão** / `mare.zip` | Cartão de memória com as provas da Inês. |
+| **ECO** | O sistema da Lumen que imita e prevê pessoas. |
+| **deriva** | Nome interno da Lumen para quando o modelo da Inês faz o que não devia. |
+| **SIM_047** | Registo das simulações do Daniel; sugere que o jogador pode ser uma delas. |
+| **Lumen One** | O telemóvel que a Lumen deu ao Daniel. |
+| **o vazio** | O intervalo 03:06–03:41 sem dados do Daniel. |
+| **recomeço** | Voltar ao início do capítulo depois de morrer. |
+| **marca** | A pequena diferença que fica depois de um recomeço. |
 
 ## Deprecated Terms
 
 | Term | Deprecated Date | Replacement |
 |------|----------------|-------------|
-| {old term} | {date} | {new term} |
+| «Ainda Estás Acordado?» (título) | 2026-10-09 | UNKNOWN (a frase passa a ser a primeira mensagem e o subtítulo) |
+| «Loop» (final D) | 2026-10-09 | Ciclo |

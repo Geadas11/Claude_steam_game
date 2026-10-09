@@ -1,66 +1,51 @@
 # World Rules
 
 ## Purpose
+Regras que o jogo cumpre sempre. Cada regra diz o que seria uma violação.
 
-Defines the hard rules of this world — magic systems, technology, sociology, economics, physics. Rules must be falsifiable: there must be a clear way to determine if something violates a rule.
+## A coisa (sem nome, nunca explicada)
 
-## Rule Design Principles
+| # | Regra | Violação |
+|---|-------|----------|
+| R1 | Nunca é explicada nem nomeada por ninguém, nem pelo ECO. | Um texto, final ou personagem diz o que ela é. |
+| R2 | Nunca se vê bem: sombras, pegadas molhadas, portas mudadas; inteira só no ecrã do telemóvel (fotos, câmara, reflexo). | Aparece nítida, iluminada, em plano direto fora do ecrã. |
+| R3 | A forma muda por capítulo, conforme o medo do Daniel nesse capítulo (`story/timeline.md`). | Duas noites seguidas com a mesma forma sem razão. |
+| R4 | É atraída por: (a) olhar para o telemóvel tempo demais / atender quando não se devia; (b) escuro e proximidade das 03:17; (c) barulho (correr, bater portas, falar ao telefone). | Ataca sem nenhum destes estímulos. |
+| R5 | Afasta-se com luz, silêncio, esconder-se, guardar o telemóvel. Não há armas. | O jogador consegue ferir ou matar a coisa. |
+| R6 | Nos capítulos de dia não mata; só muda a casa. | Morte num capítulo de dia. |
 
-- **Falsifiability**: every rule must define what constitutes a violation
-- **Consistency**: rules apply universally unless an explicit exception is documented
-- **Cost**: powerful abilities must have proportional costs or limitations
-- **Knowledge**: what is common knowledge vs. hidden knowledge about each rule system
+## Morte e recomeço
 
----
+| # | Regra | Violação |
+|---|-------|----------|
+| R7 | Morrer volta ao início do capítulo em que se está. | Volta a um capítulo anterior ou a um ponto a meio. |
+| R8 | Cada recomeço deixa pelo menos uma marca discreta: um objeto mudado, alguém diz «já falámos sobre isto», uma mensagem com uma palavra diferente. | Recomeço idêntico ao anterior. |
+| R9 | O Daniel não sabe que morreu; nenhuma personagem o diz diretamente. | Uma personagem diz «morreste». |
 
-## Magic System
+## Realidade
 
-### {System Name}
+| # | Regra | Violação |
+|---|-------|----------|
+| R10 | A casa muda quando não se está a olhar; as horas saltam; pessoas lembram-se de conversas que não aconteceram. | — (é permitido sempre) |
+| R11 | **Cada mudança tem um som discreto no momento em que acontece** (regra do autor). | Uma mudança sem som. |
+| R12 | Os «factos provados» (`knowledge/canon.md`) nunca mudam, mesmo quando a realidade mente. | Um facto provado aparece diferente sem ser uma contradição registada. |
 
-- **Source**: {where does the power come from?}
-- **Mechanism**: {how is it used?}
-- **Cost**: {what does using it cost the user?}
-- **Limitations**: {what can it NOT do?}
-- **Known By**: {who knows about this? who can use it?}
-- **Violation Example**: {what would breaking this rule look like?}
+## O telemóvel
 
-### Rule Details
+| # | Regra | Violação |
+|---|-------|----------|
+| R13 | É a ponte da história: mensagens, chamadas, fotografias, provas. | Uma revelação principal chega sem passar pelo telemóvel ou pela casa. |
+| R14 | O jogo nunca acede de verdade a câmara, microfone, ficheiros ou localização do jogador. | Qualquer acesso real. |
 
-1. {specific rule}
-2. {specific rule}
+## Cooperativo
 
----
-
-## Technology
-
-### {Technology}
-
-- **Function**: {what does it do?}
-- **Limitations**: {what are its constraints?}
-- **Availability**: {who has access?}
-- **Violation Example**: ...
-
----
-
-## Social Rules
-
-### {Social Structure}
-
-- **Hierarchy**: {how is society organized?}
-- **Mobility**: {can people change their status?}
-- **Taboos**: {what is forbidden?}
-- **Violation Example**: ...
-
----
-
-## Economic Rules
-
-- {rule about trade, currency, resources}
-
----
+| # | Regra | Violação |
+|---|-------|----------|
+| R15 | Cada jogador está no seu sítio (Daniel em Salgueira, Sofia em Lisboa); as pistas de um podem não fazer sentido para o outro. | Os dois no mesmo espaço. |
+| R16 | A coisa também persegue a Sofia, sempre através do telemóvel (chamadas do número do irmão, às 03:17). | A Sofia está totalmente segura. |
 
 ## Exception Register
 
 | Rule | Exception | Reason | Approved By | Date |
 |------|-----------|--------|-------------|------|
-| {rule} | {exception} | {narrative justification} | {user} | {date} |
+| R1 | Final E: o ECO dá uma resposta sobre a noite (não sobre a coisa) | Ronda 4: um final secreto responde, de forma questionável | autor | 2026-10-09 |
