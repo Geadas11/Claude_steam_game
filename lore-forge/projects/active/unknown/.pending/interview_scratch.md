@@ -60,3 +60,19 @@ tenha empurrado. Nunca se confirma; a gravação e as memórias contradizem-se.
 **Area:** rules, glossary
 **A:** c) Cada morte volta ao início do capítulo em que o jogador está.
 _pending: se o recomeço é só mecânica de jogo ou se a história "se lembra" (coisas que ficam mudadas, "já falámos sobre isto").
+
+## [Round 4] — 2026-10-09
+
+### Q: Quando se morre e o capítulo recomeça, a história dá por isso?
+**Area:** rules, foreshadowing
+**A:** b) Sim, discretamente: fica uma coisa mudada na casa, alguém diz "já falámos sobre isto", a mensagem
+chega um pouco diferente. Alimenta a ideia do ciclo (SIM_047).
+
+### Q: Algum final responde a "ele empurrou-a?"
+**Area:** endings, canon
+**A:** b) Um final secreto e difícil dá uma resposta — mas mesmo essa pode ser posta em causa.
+_pending: qual é essa resposta, e qual dos finais é (o atual E "Eco" ou um novo).
+
+### Q: A Sofia no cooperativo também é perseguida?
+**Area:** rules, characters
+**A:** a) Sim. A culpa do Daniel chega até ela pelo telemóvel; cada um tem o seu perigo no seu sítio.
