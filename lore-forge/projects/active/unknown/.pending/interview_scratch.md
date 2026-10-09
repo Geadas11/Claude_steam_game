@@ -39,3 +39,24 @@
 aconteceram, nunca há certeza.
 **Regra do autor:** cada mudança tem um som discreto quando acontece (o jogador atento consegue perceber
 que algo mudou, mesmo sem ver).
+
+## [Round 3] — 2026-10-09
+
+### Q: Até onde vai a culpa do Daniel?
+**Area:** characters, canon, emotional_core, foreshadowing
+**A:** b) Mais escura e ambígua: há sinais de que ele pode ter estado lá quando ela caiu, talvez até a
+tenha empurrado. Nunca se confirma; a gravação e as memórias contradizem-se.
+**Impacto no canon atual:** o ponto 4b/5 do STORY_BIBLE (Daniel foi-se embora às 03:06, Vasco estava lá
+às 03:17) deixa de ser "a verdade" e passa a ser uma das versões. _pending: que provas apontam para cada versão.
+
+### Q: O que atrai a coisa / a faz aparecer?
+**Area:** rules
+**A:** Mistura de todas:
+- olhar para o telemóvel tempo demais / atender quando não se devia;
+- o escuro e as horas (mais forte perto das 03:17, com as luzes apagadas);
+- barulho (correr, bater portas, falar ao telefone).
+
+### Q: O que acontece quando se morre?
+**Area:** rules, glossary
+**A:** c) Cada morte volta ao início do capítulo em que o jogador está.
+_pending: se o recomeço é só mecânica de jogo ou se a história "se lembra" (coisas que ficam mudadas, "já falámos sobre isto").
