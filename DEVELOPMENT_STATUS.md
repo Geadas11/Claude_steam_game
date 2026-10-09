@@ -215,6 +215,14 @@
 - **Ainda não:** perigo/entidade (fase 3), outros locais — livraria, cais, farol (fase 4; por
   agora esses capítulos passam-se em casa), cooperativo 3D da Sofia (fase 5).
 
+## História — Lore Forge (sessão 3)
+
+- O autor vai escrever a história de novo antes das fases 3–5. Instalado o framework
+  [Lore Forge](https://github.com/immane/lore-forge) (MIT) em `lore-forge/` (detalhes em `lore-forge/VENDOR.md`).
+- Projeto: `lore-forge/projects/active/unknown/` (modelo de ficção interativa). Fase atual: Concept Discovery
+  (entrevista em modo diferido: respostas em `.pending/interview_scratch.md`, «build» escreve o Story Bible).
+- A história atual (`docs/STORY_BIBLE.md`, `data/chapters/`) ainda não é canon do novo Story Bible.
+
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
