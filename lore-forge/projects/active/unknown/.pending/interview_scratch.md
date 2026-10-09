@@ -92,3 +92,12 @@ cada vez conforme o que o Daniel teme naquele capítulo.
 ### Q: Os momentos leves (amigos, mãe, piadas do João)?
 **Area:** emotional_map, vision
 **A:** b) Diminuem ao longo do jogo, até a normalidade desaparecer.
+
+## [Round 6] — 2026-10-09
+
+### Q: Quantos capítulos e quantas horas?
+**Area:** vision, project
+**A (autor):** 15 capítulos.
+**Proposta do assistente (por confirmar):** prólogo (noite de 13→14/10/2025, memória pouco fiável) + os 11
+atuais + 3 novos em locais novos: Livraria Maré à noite, Clínica Atlântico, Cais Velho.
+Estimativa: ~16–20 h na primeira vez; ~28–35 h para ver todos os finais.
