@@ -76,3 +76,19 @@ _pending: qual é essa resposta, e qual dos finais é (o atual E "Eco" ou um nov
 ### Q: A Sofia no cooperativo também é perseguida?
 **Area:** rules, characters
 **A:** a) Sim. A culpa do Daniel chega até ela pelo telemóvel; cada um tem o seu perigo no seu sítio.
+
+## [Round 5] — 2026-10-09
+
+### Q: Como é a coisa quando aparece?
+**Area:** rules, symbolism
+**A:** c + d) Nunca se vê bem — sombras, pegadas molhadas, às vezes só no ecrã do telemóvel — e muda de
+cada vez conforme o que o Daniel teme naquele capítulo.
+
+### Q: Temas principais?
+**Area:** themes
+**A:** Culpa · Não poder confiar na própria memória · Solidão.
+(Luto e vigilância/tecnologia passam a secundários.)
+
+### Q: Os momentos leves (amigos, mãe, piadas do João)?
+**Area:** emotional_map, vision
+**A:** b) Diminuem ao longo do jogo, até a normalidade desaparecer.
