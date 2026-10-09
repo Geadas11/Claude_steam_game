@@ -48,4 +48,5 @@ Regras que o jogo cumpre sempre. Cada regra diz o que seria uma violação.
 
 | Rule | Exception | Reason | Approved By | Date |
 |------|-----------|--------|-------------|------|
+| R6 | Cap. 11 (Clínica): pode matar à tarde, porque depois do fecho o interior fica às escuras | Exceção aprovada no plano dos capítulos | autor | 2026-10-09 |
 | R1 | Final E: o ECO dá uma resposta sobre a noite (não sobre a coisa) | Ronda 4: um final secreto responde, de forma questionável | autor | 2026-10-09 |

@@ -243,7 +243,7 @@ As pistas de um nem sempre fazem sentido para o outro (R15): por exemplo, a Sofi
 
 Todos os finais são alcançáveis a partir desta estrutura.
 
-## Por aprovar
+## Aprovado pelo autor (2026-10-09)
 
-1. Os quatro sítios 3D novos: **Livraria Maré, casa do Rui, Clínica Atlântico, caminho até ao cais** (mais o cais e, no cooperativo, a casa e o hospital da Sofia).
-2. A exceção ao R6 na Clínica (de dia, mas pode matar porque o interior fica às escuras).
+1. ✅ Os sítios 3D novos — entram na fase 4 do jogo; o autor exige cenários «bem bons»: **Livraria Maré, casa do Rui, Clínica Atlântico, caminho até ao cais** (mais o cais e, no cooperativo, a casa e o hospital da Sofia).
+2. ✅ A exceção ao R6 na Clínica (de dia, mas pode matar porque o interior fica às escuras).

@@ -221,7 +221,13 @@
   [Lore Forge](https://github.com/immane/lore-forge) (MIT) em `lore-forge/` (detalhes em `lore-forge/VENDOR.md`).
 - Projeto: `lore-forge/projects/active/unknown/` (modelo de ficção interativa). Fase atual: Concept Discovery
   (entrevista em modo diferido: respostas em `.pending/interview_scratch.md`, «build» escreve o Story Bible).
-- A história atual (`docs/STORY_BIBLE.md`, `data/chapters/`) ainda não é canon do novo Story Bible.
+- Story Bible v1 construído (entrevista + rascunho aprovado): 15 capítulos (prólogo + 14), 5 finais, regras da
+  coisa (R1–R16), provas equilibradas das duas versões, segredo da Sofia (chamada das 03:52).
+- Plano dos capítulos aprovado: `lore-forge/projects/active/unknown/story/chapters/_outline.md`.
+- **Fase 4 do jogo passa a incluir** os cenários 3D: Livraria Maré, casa do Rui, Clínica Atlântico, caminho até
+  ao cais (EN125, bombas, Largo do Cais), Cais Velho e, no cooperativo, casa e hospital da Sofia em Lisboa.
+  Exigência do autor: cenários «bem bons» (realismo igual ou superior à casa).
+- Próximo passo da história: cenas e diálogos capítulo a capítulo; depois exportar para `data/chapters/*.story`.
 
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
