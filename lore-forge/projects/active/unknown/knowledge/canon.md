@@ -34,6 +34,25 @@ Factos que não mudam. Tudo o resto deriva daqui. Base: entrevista (rondas 1–6
 - O que é a coisa.
 - Se o telemóvel do jogador é uma simulação (SIM_047).
 
+### As provas das duas versões
+Nenhuma inocenta nem condena sozinha.
+
+| ID | Prova | Aponta para | Onde aparece |
+|----|-------|-------------|--------------|
+| P-A | Captura das 03:13: «Vou já» por enviar, antena da EN125 (o telemóvel estava na água — contradição) | foi-se embora | Cap. 6 |
+| P-B | Câmara do café: Audi do Vasco chega 03:04, foge 03:21 de luzes apagadas | foi-se embora / Vasco | Cap. 9 |
+| P-C | Empregado das bombas viu um rapaz a afastar-se a pé ~03:10 (o Rui descobre) | foi-se embora | Cap. 6 |
+| P-E | Mensagem das 03:15: «Ele está aqui» | estava lá | Cap. 6 |
+| P-F | O João viu-o encharcado às 03:41: «ela chamou-me» | estava lá | Cap. 6 / 9 |
+| P-G | Selfie de novembro (IMG_0901): arranhão a sarar no pulso | estava lá | Cap. 5 |
+| P-H | Gravação, 03:16: voz de homem «Inês, dá-me a mão» (impercetível) | estava lá / Vasco | Cap. 10 |
+| P-I | A Helena diz que ele confessou sedado; sem gravação | ruído | Cap. 11 |
+
+### A chamada das 03:52
+Às 03:52 de 14/10/2025 o Daniel ligou à Sofia (de turno): «Sofia. Eu fiz uma coisa.» — depois só o mar.
+A Sofia nunca lhe perguntou; disse à polícia que não falou com ele; guardou o telemóvel antigo molhado
+numa gaveta e nunca o ligou.
+
 ### Tecnologia
 - **ECO**: modelo que reconstrói uma pessoa a partir do telemóvel e prevê o que ela fará. Explicado pouco (decisão delegada, ronda 2).
 - **Lumen One**: o telemóvel do Daniel desde 3/11/2025.
@@ -53,6 +72,6 @@ Factos que não mudam. Tudo o resto deriva daqui. Base: entrevista (rondas 1–6
 
 | Proposed Fact | Proposed By | Date | Status |
 |--------------|-------------|------|--------|
-| O que a Sofia sabe sobre a noite e nunca contou | assistente | 2026-10-09 | pending |
-| Que provas apontam para cada versão (foi-se embora / estava lá) | assistente | 2026-10-09 | pending |
+| A Sofia recebeu a chamada das 03:52 («Sofia. Eu fiz uma coisa.») e mentiu à polícia | assistente (delegado) | 2026-10-09 | confirmed |
+| Provas equilibradas A, B, C / E, F, G, H (ver abaixo) | assistente (delegado) | 2026-10-09 | confirmed |
 | Variante do final A com confissão pública | assistente | 2026-10-09 | pending |

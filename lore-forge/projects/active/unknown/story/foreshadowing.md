@@ -13,7 +13,9 @@
 | FS-007 | A chave da Inês no porta-chaves do Daniel | Ch.2–Ch.6 | Ch.8 | planned |
 | FS-008 | SIM_047 / «faz quatro dias que me perguntas isso» | Ch.3 | Ch.9, D, E | planted |
 | FS-009 | A Helena: «já falámos disto na terça» | Ch.7 | Ch.11 | planned |
-| FS-010 | A Sofia esconde parte da noite | _pending | _pending | planned |
+| FS-010 | A Sofia esconde a chamada das 03:52 | Ch.2 (hesita ao telefone) | Ch.10 / cooperativo | planned |
+| FS-011 | Arranhão no pulso (P-G) | Ch.5 | Ch.12 | planned |
+| FS-012 | Empregado das bombas (P-C) | Ch.4 (mencionado) | Ch.6 | planned |
 
 ## Red Herrings
 

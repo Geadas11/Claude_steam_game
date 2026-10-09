@@ -28,6 +28,8 @@ Datas e factos fixos herdados de `docs/STORY_BIBLE.md` (raiz do repositório), e
 | 03:15 | Inês → Daniel: «Ele está aqui» | provado — «ele» nunca se sabe |
 | 03:17 | A Inês cai. A gravação acaba | provado |
 | 03:41 | O João vê o Daniel encharcado no Largo do Cais: «ela chamou-me» | provado (testemunho) |
+| 03:21 | Audi do Vasco foge do cais de luzes apagadas | provado (câmara) — **novo** |
+| 03:52 | Daniel → Sofia: «Sofia. Eu fiz uma coisa.» Depois só o mar | provado (só a Sofia sabe) — **novo** |
 | 04:12 | Daniel na Livraria Maré; esconde o cartão; papel «Não confies em ti» | **novo (rascunho aprovado)** |
 | ~04:30 | Liga à mãe sem dizer nada (só o mar) | provado |
 | 05:12 | Compra bilhete Faro–Lisboa (nunca usado) | provado |
