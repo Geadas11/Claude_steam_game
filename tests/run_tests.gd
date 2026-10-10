@@ -1079,12 +1079,13 @@ func _test_presence() -> void:
 	p.global_position = Vector3(7.7, 0.02, 2.0)   # in the bedroom, door closed
 	pr.pos = pr._on_nav(Vector3(1.5, 0.0, 6.5))  # in the kitchen
 	pr.story_cmd(["stalk", "40"])
+	pr._change_t = 9999.0   # no "change out of sight" opening these doors for it
 	t = 0
 	var opened0 := int(GameState.get_var("w_doors_opened", 0))
 	while int(GameState.get_var("w_doors_opened", 0)) == opened0 and t < 900:
 		await _physics(1)
 		t += 1
-	ok(int(GameState.get_var("w_doors_opened", 0)) > opened0, "it opens the doors in its way (%d frames)" % t)
+	ok(int(GameState.get_var("w_doors_opened", 0)) > opened0, "it opens the doors in its way (%d frames, %s at %s, path %d/%d, pause %.1f, wait %.1f)" % [t, pr.state_name(), pr.pos, pr._path_i, pr._path.size(), pr._pause, pr._wait])
 	# hiding: it searches, then gives up
 	var spot: Dictionary = h.hides[0]
 	pr.story_cmd(["calm"])
