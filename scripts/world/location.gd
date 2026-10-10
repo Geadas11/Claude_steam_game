@@ -26,6 +26,7 @@ var outdoor := false
 var aliases: Array = []      # other story ids that are this same place ("cais" → the road)
 var nav_cell := 0.08         # navigation mesh resolution (outdoors can be coarser)
 var nav: NavigationRegion3D
+var lamps: Array = []        # lights outside any room (street lamps) that count as light
 var _uses := {}
 var _probes: Array[ReflectionProbe] = []
 
@@ -94,6 +95,14 @@ func light_at(p: Vector3, daylight := 0.0) -> float:
 			var d := lt.global_position.distance_to(p)
 			if d < rng * 0.75:
 				best = maxf(best, 1.0 - d / (rng * 0.75))
+	for l in lamps:
+		var lt := l as Light3D
+		if not lt.visible:
+			continue
+		var rng2: float = lt.omni_range if lt is OmniLight3D else (lt as SpotLight3D).spot_range
+		var d2 := lt.global_position.distance_to(p)
+		if d2 < rng2 * 0.6:
+			best = maxf(best, 1.0 - d2 / (rng2 * 0.6))
 	return best
 
 

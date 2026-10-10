@@ -135,6 +135,7 @@ func _lamp(x: float, z: float, yaw: float, shadow := true, y := 0.0) -> SpotLigh
 	add_child(g)
 	l.set_meta("glow", glow)
 	street_lights.append(l)
+	lamps.append(l)
 	return l
 
 

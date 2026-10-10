@@ -358,6 +358,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 				await get_tree().process_frame
 			"hudsize": print("HUD ", world.hud.size, " ui=", world_ui.size, " main=", size, " anchors=", world.hud.anchor_right, " ", world.hud.offset_right)
 			"hour": world.set_hour(float(kv[1]))
+			"ps":
+				var pz: Presence = world.presence
+				print("PRESENCE t=%s form=%s state=%s att=%.1f screen=%s light=%.2f dist=%.1f" % [Clock.fmt_time(Clock.now()), pz.form, pz.state_name(), pz.attention, pz.screen_on, pz._player_light(), pz.pos.distance_to(world.player.global_position)])
 			"ent":
 				# ent:x:z:fade[:prints] the thing standing there (visual QA)
 				world.presence.show_at(Vector3(float(kv[1]), 0.0, float(kv[2])), float(kv[3]), kv.size() > 4)

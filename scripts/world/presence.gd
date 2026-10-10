@@ -187,7 +187,9 @@ func _update_attention(delta: float) -> void:
 		_heard = p.global_position
 	_noise = clampf(_noise - delta * 2.0, 0.0, 10.0)
 	var hidden := not world.hiding.is_empty()
-	var gain := 0.5 * dark + 1.6 * _near_317() + (2.6 if screen_on else 0.0) + _noise * 0.6
+	# the phone's glow matters in the dark; under a lamp it is just a phone
+	var glow := (1.5 * (0.25 + 0.75 * dark)) if screen_on else 0.0
+	var gain := 0.5 * dark + 1.6 * _near_317() + glow + _noise * 0.6
 	if screen_on:
 		_heard = p.global_position
 	gain *= float(cfg.get("aggr", 1.0)) * threat_scale()

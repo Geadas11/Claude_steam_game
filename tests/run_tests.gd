@@ -1099,6 +1099,31 @@ func _test_presence() -> void:
 		t += 1
 	ok(pr.state != Presence.State.SEARCH and not caught[0], "silent in the wardrobe, it gives up (%s, %d frames)" % [pr.state_name(), t])
 	w.unhide()
+	# every place: in the dark it finds its way to him (stairs, corridors, the quay)
+	pr.configure("ch05")
+	for id in ["livraria", "clinica", "rui", "caminho"]:
+		w.go_to(id)
+		w.set_hour(2.0)
+		var loc: Location = w.location
+		for r in loc.rooms:
+			loc.set_room_light(r, false)
+		for l in loc.lamps:
+			l.visible = false
+		await _physics(3)
+		pr.held = false
+		caught[0] = false
+		pr._park()
+		pr.attention = 0.0
+		pr.story_cmd(["hunt", "60"])
+		t = 0
+		while not caught[0] and t < 1200:
+			await _physics(1)
+			t += 1
+		ok(caught[0], "%s: in the dark it reaches him (%d frames, %s m)" % [id, t, snappedf(pr.pos.distance_to(p.global_position), 0.1)])
+	pr.held = false
+	pr.story_cmd(["calm"])
+	w.go_to("casa", "sofa")
+	await _physics(3)
 	Engine.time_scale = 1.0
 	# the place changes out of sight, with a sound where it happens (R10/R11)
 	p.global_position = Vector3(1.5, 0.02, 2.0)

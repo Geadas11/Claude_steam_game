@@ -256,6 +256,37 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).
 
+## A coisa (fase 3, sessão 3)
+
+`scripts/world/presence.gd` + `data/world/presence.json` (forma, mata?, agressividade e mudanças por capítulo).
+Segue `knowledge/rules.md` R1–R11.
+
+- **Atenção (0–100)** sobe com: ecrã do telemóvel aceso na mão *no escuro* (debaixo de uma luz é só um
+  telemóvel), atender chamadas, escuro, aproximação das 03:17, barulho (correr, portas, falar ao
+  telefone). Desce com luz, silêncio, esconder-se, telemóvel guardado.
+- **Estados:** longe → perto (sons, pegadas, aparece fora de vista) → espreita (vem para onde te ouviu,
+  fica a olhar a 3 m) → caça (vem buscar-te; batimento) → procura (estás escondido: procura uns segundos
+  e desiste; se acenderes o ecrã ao pé dela, encontra-te). No escuro total com o telemóvel: perto ~20 s,
+  espreita ~45 s, caça ~65 s.
+- **Luz afasta (R5):** pára onde começa a luz, faz piscar a lâmpada e acaba por ir embora; acender a luz onde
+  ela está ou apontar a lanterna faz com que «nunca tenha estado lá». Candeeiros de rua contam (`lamps`).
+- **Nunca nítida (R2):** silhueta de fumo escuro (alfa pontilhado, contorno a desfazer-se, pés perdidos no
+  chão); olhada de frente desaparece. Pegadas molhadas (decals). Abre portas no caminho (com som); portas
+  trancadas: abana o puxador e aparece noutro lado.
+- **Formas (R3):** pegada, telemovel (só falhas no ecrã), observado, substituido (altura do Daniel, passos
+  dele), vozes (sussurros), proprio (os teus passos continuam depois de parares), afogar (água, respiração),
+  fechado (fecha portas atrás de ti), sozinho (apaga as luzes divisão a divisão), todas.
+- **De dia não mata (R6)**, salvo `day_kills` (clínica, cap. 11). Capítulo sem mortes: chega, e desaparece.
+- **Mudanças fora de vista (R10/R11)** com o som no sítio (`w_changes`).
+- **Morte (R7–R9):** vira-se, ela está ali (desfocada), negro, silêncio → volta ao início do capítulo
+  (slot `chapter`, guardado em cada início; `run_id` evita misturar jogos). Marca: `deaths_<cap>`,
+  `deaths_total`, `ja_falamos` (para a história) e 1–3 coisas mudadas, ouvidas no escuro. Ninguém diz «morreste».
+- **História:** `world presence off|on|calm|near|stalk|hunt [s]|form <f>|attention <n>`. Variáveis para os
+  `.story`: `w_presence`, `w_caught`, `w_glimpses`, `w_footprints`, `w_doors_opened`, `w_doors_closed`.
+- **Definições → Ameaça:** Normal / Reduzida / Só história (nunca apanha).
+- Teste `--only=presence` (29): atrai/afasta, de dia nada, caça e apanha em todos os sítios, luz protege,
+  cap. sem mortes, pegadas, portas, esconderijo, mudanças com som, morte → recomeço com marca.
+
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.
 2. **Mais profundidade por capítulo** para chegar às 14 h: mais conversas laterais com escolhas,
