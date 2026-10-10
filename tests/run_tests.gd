@@ -1025,6 +1025,7 @@ func _test_presence() -> void:
 	ok(h.nav != null and h.nav.navigation_mesh.get_polygon_count() > 20, "the house has a floor for it")
 	for id in h.rooms:
 		h.set_room_light(id, false)
+	pr._change_t = 1e9   # random changes (lights, doors) would make these checks a lottery
 	pr.configure("ch05")
 	ok(pr.form == "substituido" and pr.can_kill() and pr.walks(), "ch05 at night: walks, can kill")
 	var p := w.player
@@ -1093,6 +1094,8 @@ func _test_presence() -> void:
 	ok(h.find_children("*", "Decal", true, false).size() > 0, "footprint decals in the flat")
 	# closed doors on its way open, and are heard
 	pr.configure("ch05")
+	for id in h.rooms:
+		h.set_room_light(id, false)
 	for d in h.doors.values():
 		if not d.locked:
 			d.set_open(false, true)
