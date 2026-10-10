@@ -9,13 +9,13 @@
 | FS-003 | Calendário com o dia 14 marcado | Ch.1 | Ch.14 | planted |
 | FS-004 | Casaco de mulher, vermelho, no roupeiro | Ch.1 (casa) | Ch.4, Ch.13 | planted |
 | FS-005 | «Daniel volta» / «Ele está aqui» | Ch.6 | Ch.10, Ch.12, E | planted |
-| FS-006 | Post-it «D. — p. 317 (a de cima)» | Ch.6 (caixa do Rui) | Ch.8 | planted |
-| FS-007 | A chave da Inês no porta-chaves do Daniel | Ch.2–Ch.6 | Ch.8 | planned |
+| FS-006 | Post-it «D. — p. 317 (a de cima)» | Ch.6 (caixa do Rui) | Ch.8 | paid |
+| FS-007 | A chave da Inês no porta-chaves do Daniel | Ch.2–Ch.6 | Ch.8 | paid |
 | FS-008 | SIM_047 / «faz quatro dias que me perguntas isso» | Ch.3 | Ch.9, D, E | planted |
-| FS-009 | A Helena: «já falámos disto na terça» | Ch.7 | Ch.11 | planned |
-| FS-010 | A Sofia esconde a chamada das 03:52 | Ch.2 (hesita ao telefone) | Ch.10 / cooperativo | planned |
-| FS-011 | Arranhão no pulso (P-G) | Ch.5 | Ch.12 | planned |
-| FS-012 | Empregado das bombas (P-C) | Ch.4 (mencionado) | Ch.6 | planned |
+| FS-009 | A Helena: «já falámos disto na terça» | Ch.7 | Ch.11 | paid |
+| FS-010 | A Sofia esconde a chamada das 03:52 | Ch.2 (hesita ao telefone) | Ch.10 / cooperativo | paid |
+| FS-011 | Arranhão no pulso (P-G) | Ch.5 | Ch.12 | paid |
+| FS-012 | Empregado das bombas (P-C) | Ch.4 (mencionado) | Ch.6 | paid |
 
 ## Red Herrings
 

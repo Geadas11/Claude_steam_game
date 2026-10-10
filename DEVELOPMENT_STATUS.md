@@ -227,7 +227,15 @@
 - **Fase 4 do jogo passa a incluir** os cenários 3D: Livraria Maré, casa do Rui, Clínica Atlântico, caminho até
   ao cais (EN125, bombas, Largo do Cais), Cais Velho e, no cooperativo, casa e hospital da Sofia em Lisboa.
   Exigência do autor: cenários «bem bons» (realismo igual ou superior à casa).
-- Próximo passo da história: cenas e diálogos capítulo a capítulo; depois exportar para `data/chapters/*.story`.
+- **Exportado (sessão 3):** 15 capítulos no jogo (`ch00`–`ch14`). Resumo por capítulo em
+  `lore-forge/projects/active/unknown/story/chapters/_implementado.md`. Novos: prólogo (3D no cais, 2025),
+  cap. 8 Livraria (noite), cap. 11 Clínica, caps. 13/14 (o caminho a pé e o final). Os antigos foram
+  renumerados (8→9, 9→10, 10→12, 11→13+14) e receberam as mudanças do plano.
+- Novos comandos de história: `world say|screen|hold|sound|figure|prints|printnear|change|change_all|presence|phone|fade|title`,
+  `world door <id> shut_unseen <pensamento>`; escolhas ditas em pessoa no fio `aqui` (teclas 1–4).
+- Variáveis do 3D para a história: `w_<hotspot>`, `w_zone_<zona|divisão>` (por capítulo), `w_room` (onde está agora),
+  `w_lit_<sítio>`, `w_saiu_livraria`, `left_rui`, `deaths_<cap>`, `last_death_hm`.
+- Testes: 6 políticas (A–E + F: fica na clínica → B); nenhum capítulo acaba duas vezes.
 
 ## Cenários 3D (fase 4, sessão 3)
 
