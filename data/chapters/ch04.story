@@ -76,6 +76,15 @@ clue tejo_hint
 @beat home
 @when at("14:20")
 location casa
+wait 3
+world change cadeira
+@end
+
+@beat chair_seen
+@when beat("home") and flag("w_zone_cozinha")
+wait 1
+world think Uma cadeira da cozinha está virada para a janela. Como se alguém se tivesse sentado a ver a rua. Ninguém mais tem a chave.
+clue chair_turned
 @end
 
 # ---------------------------------------------------------------- Clara
@@ -132,6 +141,7 @@ armando: Eu vi-o lá nessa noite. Eu saí de casa mais cedo para ver o barco por
 armando: O senhor ia-se embora a pé. Ela chamava por si. | 4
 wait 2
 armando: Eu não disse isto à Guarda. Ninguém me perguntou pelo senhor. | 4
+armando: O rapaz das bombas também viu passar gente nessa noite. Esse disse. Mas ele trabalha de noite e ninguém acredita em quem trabalha de noite. | 6
 armando: Boa tarde. | 1.5
 set armando_saw=true
 clue armando_saw

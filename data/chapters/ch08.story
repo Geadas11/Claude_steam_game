@@ -22,7 +22,11 @@ world spawn noite
 world lights off
 world presence calm
 wait 2
-world think Duas chaves iguais no porta-chaves. A minha, e uma com uma fita vermelha. Experimentei a da fita. Rodou à primeira.
+if flag("saw_red_key")
+  world think A chave da fita vermelha. A Carla disse que já a tinha visto em algum lado. Experimentei-a na porta da loja. Rodou à primeira.
+else
+  world think Duas chaves iguais no porta-chaves. A minha, e uma com uma fita vermelha. Experimentei a da fita. Rodou à primeira.
+endif
 wait 8
 unknown> Não acendas as luzes.
 wait 2

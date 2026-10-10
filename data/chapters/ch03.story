@@ -183,6 +183,16 @@ endif
 @end
 
 # ---------------------------------------------------------------- silêncio
+@beat watched
+@when at("02:20")
+world presence near 120
+@end
+
+@beat restart_mark
+@when beat("setup") and v("deaths_ch03") >= 1 and since("setup", 20)
+world think O roupeiro está entreaberto. Fechei-o antes de me deitar. Fecho-o sempre.
+@end
+
 @beat silence
 @when at("02:58")
 ambient off
@@ -234,9 +244,19 @@ endif
 if answered("c3_ines")
   achieve answered_dead
   clue call_from_dead
+  wait 3
+  if v("deaths_ch03") >= 1
+    unknown> Outra vez.
+    wait 2
+  endif
+  unknown> Guarda o telemóvel.
+  wait 2
+  unknown> Há alguém no corredor.
+  world presence hunt 45
 else
   wait 4
   voicemail vm_ines_317
+  world presence stalk 40
 endif
 ambient night
 @end

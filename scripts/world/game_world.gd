@@ -371,6 +371,15 @@ func _on_cue(cmd: String, args: Array) -> void:
 			hud.show_screen(all2.substr(0, cut2).strip_edges() if cut2 > 0 else "", all2.substr(cut2 + 1).trim_suffix("»") if cut2 >= 0 else all2)
 		"hold":
 			hold_t = float(args[0]) if args.size() > 0 else 4.0
+		"change":
+			# change <id> — that thing changes now, out of his sight, with its sound
+			for c in location.changeables:
+				if c.id == args[0] and not c.get("done", false):
+					c.done = true
+					c.apply.call()
+					play_at(str(c.sound), c.pos, float(c.volume))
+					GameState.inc_var("w_changes")
+					break
 		"printnear":
 			# printnear [dist] — wet footprints just behind him, a drop where they are
 			var back := player.global_transform.basis.z
@@ -391,13 +400,15 @@ func _process(delta: float) -> void:
 		return
 	hold_t = maxf(0.0, hold_t - delta)
 	_zone_t -= delta
-	if _zone_t <= 0.0 and not location.zones.is_empty():
+	if _zone_t <= 0.0:
 		_zone_t = 0.4
 		var pp := player.global_position
-		for id in location.zones:
-			if (location.zones[id] as AABB).has_point(pp) and not GameState.flag("w_zone_" + id):
-				GameState.set_var("w_zone_" + id, true)
-				Director.notify_player_action()
+		# outdoor zones and the rooms of a place both tell the story where he went
+		for zs in [location.zones, location.room_bounds]:
+			for id in zs:
+				if (zs[id] as AABB).has_point(pp) and not GameState.flag("w_zone_" + id):
+					GameState.set_var("w_zone_" + id, true)
+					Director.notify_player_action()
 	for d in _shut_unseen.duplicate():
 		var c: Vector3 = d.global_transform * Vector3(d.width / 2.0, 1.2, 0.0)
 		if not presence._in_view(c):

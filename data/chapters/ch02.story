@@ -96,6 +96,23 @@ carla> Obrigada querido. A máquina do café tem um feitio. Bate-lhe do lado esq
 @beat to_work
 @when at("09:52")
 location livraria
+wait 2
+world spawn entrada
+world lights on
+wait 2
+world think No porta-chaves, ao lado da chave da loja, outra igual. Com uma fita vermelha, desbotada. Não sei de onde veio. Está lá há meses.
+set saw_red_key=true
+wait 6
+world say Carla «Bom dia, querido! Abres tu a caixa? Eu vou lá acima arrumar a poesia, que alguém a deixou toda trocada.»
+wait 7
+world say Carla «E arruma-me os Saramagos, por favor. É outubro.»
+@end
+
+@beat carla_red_key
+@when beat("to_work") and since("to_work", 200) and loc("livraria")
+world say Carla «Daniel, essa fita vermelha no teu porta-chaves... eu já vi isso em algum lado.»
+wait 6
+world say Carla «Não me lembro onde. Estou a ficar velha.»
 @end
 
 # ---------------------------------------------------------------- saramagos

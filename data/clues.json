@@ -2012,5 +2012,12 @@
   "related": [
    "went_back"
   ]
+ },
+ "chair_turned": {
+  "title": "A cadeira virada",
+  "desc": "Voltaste para casa ao princípio da tarde e uma cadeira da cozinha estava virada para a janela. Ninguém mais tem a chave.",
+  "source": "Casa",
+  "importance": 1,
+  "related": []
  }
 }

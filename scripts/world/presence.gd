@@ -75,6 +75,11 @@ func setup(w: GameWorld) -> void:
 	_cfg_all = parsed if parsed is Dictionary else {}
 	_build_body()
 	Events.call_started.connect(_on_call)
+	# a phone ringing in the dark is noise (R4c)
+	Events.call_incoming.connect(func(_c):
+		if world and world.active:
+			_noise = minf(10.0, _noise + 4.0)
+			_heard = world.player.global_position)
 	Events.chapter_started.connect(func(ch): configure(ch))
 	Events.state_loaded.connect(func(): configure(str(GameState.data.chapter)))
 	configure(str(GameState.data.get("chapter", "")))
