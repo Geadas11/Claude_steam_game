@@ -153,7 +153,7 @@
   "type": "log",
   "size": "88 KB",
   "date": "2026-10-04 04:00",
-  "content": "SIM 046 · sujeito D.REIS · início 2026-10-08 21:30\n\n[ch1] sujeito responde à primeira mensagem: sim (p=0.88)\n[ch2] sujeito bloqueia o número: não\n[ch3] sujeito atende chamada 03:17: sim\n[ch5] sujeito introduz PIN à primeira: não (3 tentativas)\n[ch7] sujeito confia em J.CARDOSO: sim\n[ch9] sujeito reconstrói a noite: parcial\n[ch11] sujeito vai ao cais às 03:17: sim\n\nRESULTADO: MARE_LOC não recuperada.\nNOTA: o sujeito apagou o telemóvel no cais. Reiniciar com sementes novas.\n\nSIM 047 · início 2026-10-08 21:30",
+  "content": "SIM 046 · sujeito D.REIS · início 2026-10-08 21:30\n\n[ch1] sujeito responde à primeira mensagem: sim (p=0.88)\n[ch2] sujeito bloqueia o número: não\n[ch3] sujeito atende chamada 03:17: sim\n[ch5] sujeito introduz PIN à primeira: não (3 tentativas)\n[ch7] sujeito confia em J.CARDOSO: sim\n[ch10] sujeito reconstrói a noite: parcial\n[ch14] sujeito vai ao cais às 03:17: sim\n\nRESULTADO: MARE_LOC não recuperada.\nNOTA: o sujeito apagou o telemóvel no cais. Reiniciar com sementes novas.\n\nSIM 047 · início 2026-10-08 21:30",
   "clues": [
    "sim_046"
   ]

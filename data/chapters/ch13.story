@@ -1,16 +1,16 @@
 # =====================================================================
-# CAPÍTULO 11 — FINAL
+# CAPÍTULO 13 — FINAL
 # terça 13 → quarta 14 de outubro, 23:00 → 03:17
 # A última noite. Quem está contigo depende do que fizeste. As opções
 # finais dependem do que descobriste, do que enviaste e de em quem
 # confiaste. Cinco finais: Verdade, Mentira, Silêncio, Loop, Eco.
 # =====================================================================
-@chapter ch11
+@chapter ch13
 @title Final
 @start 2026-10-13 23:00
 
 @beat setup
-set chapter_n=11
+set chapter_n=13
 setting signal 4
 rate 1
 ambient night

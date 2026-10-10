@@ -779,7 +779,7 @@ func _on_state_loaded() -> void:
 
 func _chapter_ambient(ch: String) -> String:
 	match ch:
-		"ch01", "ch02", "ch04", "ch06", "ch08", "ch10": return "room"
+		"ch01", "ch02", "ch04", "ch06", "ch09", "ch11", "ch12": return "room"
 		_: return "night"
 
 

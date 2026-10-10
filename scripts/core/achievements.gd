@@ -88,7 +88,7 @@ func ending_seen(id: String) -> bool:
 
 
 func on_chapter_end(ch: String) -> void:
-	var map := {"ch01": "ch1_done", "ch03": "ch3_done", "ch05": "ch5_done", "ch08": "ch8_done"}
+	var map := {"ch01": "ch1_done", "ch03": "ch3_done", "ch05": "ch5_done", "ch09": "ch8_done"}
 	if map.has(ch):
 		unlock(map[ch])
 

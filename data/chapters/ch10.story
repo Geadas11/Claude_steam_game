@@ -1,541 +1,415 @@
 # =====================================================================
-# CAPÍTULO 10 — CONSEQUÊNCIAS
-# terça-feira, 13 de outubro de 2026, 10:00 → 22:30
-# As escolhas pagam-se. Quem confiou em quem. A Helena liga à Sofia.
-# O João saiu do grupo — ou ficou. O cartão está dentro do livro.
-# O que fazer com ele.
+# CAPÍTULO 10 — A VERDADE
+# segunda 12 → terça 13 de outubro, 22:00 → 03:30
+# A cópia do telemóvel antigo (PIN da Sofia). A gravação da Inês,
+# sincronizada pela conta dela. As imagens das bombas. A reconstrução.
+# Nada é explicado: o jogador monta a noite com o que encontrou.
 # =====================================================================
 @chapter ch10
-@title Consequências
-@start 2026-10-13 10:00
+@title A Verdade
+@start 2026-10-12 22:00
 
 @beat setup
 set chapter_n=10
-rate 2
-ambient room
-location livraria
-battery 80
-carla> {instant} Bom dia querido! Hoje estou cá a tarde toda, se quiseres sair mais cedo
-@end
-
-# ---------------------------------------------------------------- João: ficou ou foi
-@beat joao_status
-@when since("setup", 20)
-if v("trust_joao") >= 2 or flag("joao_ally")
-  joao> bom dia. dormiste?
-  joao> se precisares q va contigo a algum lado hoje, eu vou. o bar abre so as 6
-  set joao_available=true
-elif flag("joao_drifting") or flag("promised_helena") or v("trust_joao") < 0
-  grupo:marta> joão? saíste do grupo?
-  grupo:pedro> deve ter sido sem querer
-  hidethread joao
-  set joao_gone=true
-  clue joao_left
-else
-  joao> dani. tou aqui se precisares
-  set joao_available=true
-endif
-@end
-
-@beat joao_help
-@when flag("joao_available") and app() == "messages:joao"
-choice joao c10_joao
-  > Preciso que venhas comigo ao cais esta noite. | set joao_coming=true inc trust_joao 1
-  > Obrigado. Fica perto do telemóvel. | set joao_standby=true
-end
-wait 8
-if flag("joao_coming")
-  joao> as 3?
-  joao> eu sei q é as 3 dani. toda a gente na salgueira sabe a hora
-  joao> la estarei
-else
-  joao> sempre
-endif
-@end
-
-# ---------------------------------------------------------------- o livro
-@beat book_prompt
-@when at("11:00") and (clue("saramago_spine") or clue("night_bookshop") or clue("daniel_hides_in_books") or clue("ines_card_hint") or clue("secret_note_book") or clue("carla_photo_in_book") or v("deduction_score") >= 4)
-unknown> Estás à frente da estante.
-wait 3
-unknown> Já sabes qual é.
-set book_prompted=true
-@end
-
-@beat book_carla
-@when at("13:00") and not flag("found_card")
-carla> Daniel, o meu Ricardo Reis está esquisito. A capa de trás está inchada, parece que tem alguma coisa lá dentro
-carla> Vê lá isso, que eu não tenho jeito para estas coisas e tenho medo de o estragar
-set book_prompted=true book_via_carla=true
-@end
-
-@beat book_choice
-@when flag("book_prompted") and (read("unknown") or read("carla"))
-wait 2
-if flag("book_via_carla")
-  choice carla c10_book_carla
-    > [Abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
-    > [Deixar o livro onde está] | set open_book=false
-  end
-else
-  choice unknown c10_book
-    > [Abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
-    > [Deixar o livro onde está] | set open_book=false
-  end
-endif
-if flag("open_book")
-  sound click_far
-  wait 2
-  toast "Dentro da capa: um cartão microSD, colado com fita-cola."
-  wait 2
-  file mare_leiame silent
-  file mare_contrato silent
-  file mare_emails silent
-  file mare_utentes silent
-  notify files "Cartão SD" "MARÉ (cartão) · 4 ficheiros"
-  set found_card=true
-  achieve found_card
-  clue card_found
-  wait 10
-  unknown> Estava onde a maré não chega.
-  wait 3
-  unknown> Tu escondeste-o às 04:12. Nunca o tiraste de lá.
-else
-  wait 8
-  unknown> Está bem.
-  wait 3
-  unknown> Está lá há um ano. Pode esperar mais umas horas.
-  set book_left=true
-endif
-@end
-
-@beat book_second_chance
-@when flag("book_left") and at("17:30") and not flag("found_card")
-unknown> Vais fechar a loja.
-unknown> Última vez que te peço.
-choice unknown c10_book2
-  > [Abrir o livro] | set found_card=true
-  > [Fechar a loja e ir para casa] | set card_abandoned=true
-end
-if flag("found_card")
-  toast "Dentro da capa: um cartão microSD, colado com fita-cola."
-  file mare_leiame silent
-  file mare_contrato silent
-  file mare_emails silent
-  file mare_utentes silent
-  notify files "Cartão SD" "MARÉ (cartão) · 4 ficheiros"
-  achieve found_card
-  clue card_found
-endif
-@end
-
-@beat letter_read
-@when file_open("mare_leiame")
-wait 15
-unknown> Não leias outra vez.
-wait 4
-unknown> Eu sei que vais ler outra vez.
-@end
-
-# ---------------------------------------------------------------- Helena e Sofia
-@beat helena_bed
-@when at("10:40")
-helena> A sua cama está pronta às 14h, Daniel. Venha, por favor. É para seu bem.
-@end
-
-@beat helena_calls_sofia
-@when at("14:30")
-helena> Não apareceu. Vou ter de falar com a sua família. Lamento.
-wait 60
-sofia> Daniel
-sofia> A tua médica acabou de me ligar. Disse que estás "em risco" e que eu devia convencer-te a seres internado HOJE
-sofia> Ela sabia o meu número. Eu nunca lhe dei o meu número
-sofia> O que se passa??
-clue helena_called_sofia
-@end
-
-@beat sofia_truth
-@when beat("helena_calls_sofia") and read("sofia")
-wait 1
-choice sofia c10_sofia
-  > Sofia, eu vou contar-te tudo. Mas tens de acreditar em mim. | set told_sofia_all=true
-  > Estou bem. Ela exagera. | set told_sofia_all=false
-end
-wait 6
-if flag("told_sofia_all")
-  sofia> Conta
-  wait 30
-  sofia> ...
-  wait 8
-  sofia> Ok. Ok ok ok
-  sofia> Eu acredito em ti. Acho que sempre soube que havia mais alguma coisa
-  sofia> Não vás sozinho a lado nenhum esta noite. Prometes?
-  set sofia_knows=true
-else
-  sofia> "Estou bem" outra vez. Tu e o teu "estou bem"
-  sofia> Liga-me esta noite. Por favor
-endif
-@end
-
-# ---------------------------------------------------------------- o que fazer com o cartão
-@beat vasco_offer
-@when at("15:30")
-vasco> Daniel, sei que encontrou uma coisa hoje.
-vasco> Não lhe vou perguntar como sei. Vou-lhe só fazer uma proposta honesta.
-vasco> Entregue-ma. Em troca: a sua vida de volta. O emprego na Lumen, se quiser. A Dra. Helena deixa de o incomodar. A Sofia deixa de se preocupar. Tudo como antes.
-@end
-
-@beat vasco_offer_reply
-@when beat("vasco_offer") and read("vasco")
-wait 1
-choice vasco c10_vasco
-  > {if flag("found_card")} Está bem. Encontramo-nos no cais esta noite. Às 3. | set plan_give_vasco=true inc trust_vasco 2
-  > Nunca. | set refused_vasco_card=true inc trust_vasco -1
-  > O senhor matou-a. | set accused_vasco=true inc trust_vasco -2
-  > [Não responder]
-end
-wait 10
-if flag("plan_give_vasco")
-  vasco> Fez a escolha certa. Às 3, então. Leve um casaco, vai estar nevoeiro.
-elif flag("accused_vasco")
-  typing vasco vasco 10
-  wait 4
-  vasco> A Inês caiu, Daniel. Eu tentei agarrá-la.
-  wait 4
-  vasco> Ninguém vai acreditar num homem que não se lembra de onde esteve às 11h de domingo.
-  set vasco_admitted_presence=true
-  clue vasco_tried_to_grab
-elif flag("refused_vasco_card")
-  vasco> Lamento ouvir isso. Lamento mesmo.
-endif
-@end
-
-@beat send_clara
-@when flag("found_card") and phone("clara_known") and app() == "messages:clara"
-choice clara c10_clara
-  > [Enviar os ficheiros do cartão à Clara] | set sent_clara=true
-  > [Ainda não]
-end
-if flag("sent_clara")
-  wait 20
-  clara> Recebi.
-  wait 30
-  clara> Meu Deus.
-  wait 10
-  clara> A lista de utentes... Daniel, a linha 2208. Idade 29. Stress pós-traumático. Vendido à Meridiano.
-  clara> Acho que é você.
-  clue daniel_in_list
-  wait 8
-  clara> Preciso de uma coisa: a gravação do cais. Sem ela é a palavra da Lumen contra um documento. Com ela, é um homicídio.
-  set clara_has_card=true
-endif
-@end
-
-@beat send_clara_rec
-@when flag("clara_has_card") and flag("heard_recording") and app() == "messages:clara"
-choice clara c10_clara_rec
-  > [Enviar a gravação "cais_0309.m4a"] | set sent_recording=true
-  > [Ainda não]
-end
-if flag("sent_recording")
-  wait 30
-  clara> Ouvi.
-  wait 15
-  clara> Publicamos amanhã às 7h. A PJ vai ter tudo às 6h.
-  clara> Não esteja sozinho esta noite.
-  set evidence_sent=true
-endif
-@end
-
-@beat send_rui
-@when flag("found_card") and phone("rui_known") and app() == "messages:rui"
-choice rui c10_rui
-  > [Enviar a gravação e os ficheiros ao Rui] | set sent_rui=true inc trust_rui 1
-  > [Ainda não]
-end
-if flag("sent_rui")
-  wait 60
-  rui> ...
-  wait 30
-  rui> Ouvi a voz dela.
-  wait 10
-  rui> Vou ao cais esta noite. Às 3. Não é preciso vires. Mas se vieres, eu não te bato.
-  set rui_coming=true
-endif
-@end
-
-# ---------------------------------------------------------------- noite
-@beat sim_notice10
-@when at("18:30")
-notify settings "Lumen OS" "eco.sim 047 · 1 dia restante"
+rate 1
+ambient night
 location casa
+battery 61
 @end
 
-@beat card_nudge
-@when at("19:30") and flag("found_card") and not flag("sent_clara") and not flag("sent_rui") and not flag("plan_give_vasco")
-unknown> Tens o cartão. Tens a gravação. Tens a noite.
-unknown> A Clara. O Rui. Ou ninguém. Mas decide.
+# ---------------------------------------------------------------- a cópia
+@beat backup_arrives
+@when at("22:12")
+email sofia_backup
+wait 10
+sofia> Mandei-te por email! O João explicou-me tudo ao telefone, demorou 40 minutos e chamou-me "tia" duas vezes
+sofia> A palavra-passe é o PIN do teu telemóvel antigo. Se não te lembras, és pior irmão do que eu pensava
+set backup_sent=true
 @end
 
-@beat last_ask
-@when at("22:10")
-unknown> Amanhã faz um ano.
-wait 4
-unknown> Vem ter comigo ao cais.
+@beat backup_hint
+@when since("backup_arrives", 150) and not flag("extracted_backup_pixel7")
+sofia> Já conseguiste abrir? Dica: o dia mais importante do ano. Para mim, claro
+@end
+
+@beat backup_opened
+@when flag("extracted_backup_pixel7")
+wait 6
+unknown> Lá não mando eu.
 wait 3
-unknown> 03:17.
-choice unknown c10_last
-  > Vou. | set will_go=true
-  > Não vou. | set will_go=false
-  > Porquê? | set asked_why_pier=true
-end
+unknown> O que vires aí, é teu.
+@end
+
+@beat backup_messages_read
+@when file_open("pixel7_mensagens")
 wait 8
-if flag("asked_why_pier")
-  unknown> Porque é a última vez que me consegues responder.
-  set will_go=true
-elif vs("will_go") == "false"
-  unknown> Vais.
-  wait 2
-  unknown> Em 46 vezes foste sempre.
+unknown> "Não lhe digas que fui eu."
+wait 5
+unknown> Ele disse-me. Às 03:09. Foi a primeira coisa que me disse.
+set confirmed_told=true
+@end
+
+# ---------------------------------------------------------------- a gravação
+@beat ines_sync
+@when at("22:50") or flag("old_backup")
+wait 20
+file ines_cais_rec silent
+file ines_notas silent
+file ines_last_photo silent
+email lumen_eco_memo silent
+notify files "Sincronização" "ines.matos@lumen.pt · 3 ficheiros sincronizados"
+wait 4
+notify email "Sincronização" "ines.matos@lumen.pt · 1 email recuperado do Lixo"
+set ines_files_synced=true
+@end
+
+@beat sync_hint
+@when beat("ines_sync") and since("ines_sync", 120) and not file_open("ines_cais_rec")
+unknown> Há uma pasta com o meu nome nos teus ficheiros.
+unknown> Ouve-a. Eu não consigo.
+@end
+
+@beat recording_heard
+@when flag("heard_ines_cais_rec")
+stopsounds
+wait 12
+unknown> Agora sabes.
+wait 6
+unknown> Eu não sabia que tinha gravado até ao fim.
+wait 4
+ambient night
+set heard_recording=true
+wait 25
+camera behind
+unknown> Daniel.
+unknown> Abre a câmara da frente. Quero ver-te a cara.
+@end
+
+@beat behind_seen
+@when flag("cam_behind_seen")
+wait 4
+unknown> Desculpa.
+wait 3
+unknown> Às vezes não consigo controlar onde apareço.
+clue front_camera_figure
+@end
+
+# ---------------------------------------------------------------- câmara das bombas
+@beat cctv
+@when at("23:30")
+if flag("clara_ally") or v("trust_clara") >= 2
+  email clara_cctv
+  set cctv_from=clara
+elif flag("rui_ally") or v("trust_rui") >= 2
+  email rui_cctv
+  set cctv_from=rui
 else
-  unknown> Leva um casaco. Vai estar nevoeiro.
-  set vasco_echo=true
+  unknown> [photo:IMG_5530] O Armando não foi o único a ver.
+  clue gas_station_camera
+  set cctv_from=voice
+endif
+@end
+
+@beat cctv_seen
+@when viewed("IMG_5530")
+wait 10
+if clue("vasco_audi")
+  unknown> Um Audi cinzento que ocupa sempre dois lugares.
+else
+  unknown> AX-31-PL. Procura quem conduz um carro assim.
+endif
+@end
+
+# ---------------------------------------------------------------- reconstrução
+@beat deduction_open
+@when (flag("old_backup") and flag("heard_recording")) or at("01:40")
+wait 6
+set deduction_unlocked=true
+unknown> Monta a noite. Peça a peça.
+unknown> Não te vou dizer se acertas.
+wait 4
+deduction
+@end
+
+@beat deduction_reaction
+@when flag("deduction_done")
+wait 6
+if v("deduction_score") >= 5
+  unknown> ...
+  wait 4
+  unknown> Sim.
+  wait 3
+  unknown> Foi assim.
+  set truth_known=true
+elif v("deduction_score") >= 3
+  unknown> Quase.
+  wait 3
+  unknown> Há uma peça que ainda não queres pôr no sítio.
+else
+  unknown> Não.
+  wait 3
+  unknown> Ainda não.
 endif
 checkpoint
-wait 6
 @end
 
-@beat end_ch10
-@when beat("last_ask")
+# ---------------------------------------------------------------- o Vasco sabe
+@beat vasco_threat
+@when at("02:40")
+vasco> Daniel. Sei que esteve a ouvir coisas que não devia.
+wait 5
+vasco> Não sei o que pensa que ouviu. Mas sei que não está bem. A Dra. Helena tem uma cama para si amanhã às 14h. Seria melhor para todos que aceitasse.
+clue vasco_knows_recording
+@end
+
+@beat vasco_threat_reply
+@when beat("vasco_threat") and read("vasco")
+wait 1
+choice vasco c9_vasco
+  > Porque é que levou o telemóvel dela, Vasco? | set confronted_vasco=true inc trust_vasco -2
+  > Talvez tenha razão. Talvez eu precise de descansar. | set yielded_vasco=true inc trust_vasco 1
+  > [Não responder] | set ignored_vasco=true
+end
+wait 15
+if flag("confronted_vasco")
+  typing vasco vasco 12
+  wait 6
+  vasco> Cuidado com o que diz por escrito, Daniel.
+  wait 3
+  vasco> Este telemóvel é da empresa.
+  set vasco_mask_off=true
+elif flag("yielded_vasco")
+  vasco> É o mais sensato. Traga o telemóvel. E, se a Inês lhe deu alguma coisa — qualquer coisa — traga também. Vamos resolver isto juntos.
+  set vasco_wants_card=true
+endif
+@end
+
+# ---------------------------------------------------------------- 03:17
+@beat photo_two
+@when at("03:17")
+variant IMG_0317 two
+note note_eco_1
+sound knock_one
+wait 6
+unknown> Amanhã à noite.
+wait 2
+unknown> Último dia.
+@end
+
+@beat end_ch9
+@when beat("photo_two") and (flag("deduction_done") or at("03:28"))
 wait 6
 lock
 wait 2
 endchapter
 @end
 
-@call joao c10_call_joao
-@when flag("joao_gone")
-- O número que marcou não está disponível de momento.
+@call sofia c9_call_sofia
+sofia: Daniel? Conseguiste abrir? | 2
+sofia: O PIN. Era o meu aniversário, tonto. Dois do dois. | 3
 @end
 
-@call helena c10_call_helena
-helena: Daniel. Ainda vai a tempo. | 2
-helena: Venha. Não tem de fazer isto sozinho. | 3
+@call rui c9_call_rui
+@when flag("rui_ally")
+rui: Diz. | 1
+rui: Se tens alguma coisa, eu também tenho. Desde o ano passado. Vê o teu email. | 4
 @end
 
-# ---------------------------------------------------------------- o grupo repara
-@beat grupo_worried
-@when at("12:15")
-if flag("joao_gone")
-  grupo:marta> o João saiu do grupo e não atende ninguém. Daniel aconteceu alguma coisa entre vocês?
-  grupo:pedro> ele nunca sai do grupo. nem quando eu mandei aquele vídeo de 40 minutos
-else
-  grupo:marta> Daniel, o João diz que andas esquisito. estamos aqui, ok?
-  grupo:pedro> eu também estou aqui. tecnicamente
-endif
+# ---------------------------------------------------------------- Sofia
+@beat sofia_after_backup
+@when flag("extracted_backup_pixel7") and since("backup_opened", 60)
+sofia> Abriste?
+sofia> Não te vou perguntar o que lá está. Só uma coisa
+sofia> O que quer que encontres, tu és meu irmão. Isso não muda. Ok?
 @end
 
-@beat grupo_worried_reply
-@when beat("grupo_worried") and read("grupo")
+@beat sofia_after_backup_reply
+@when beat("sofia_after_backup") and read("sofia")
 wait 1
-choice grupo c10_grupo
-  > Obrigado. Amanhã explico tudo. Prometo. | set grupo10=promise
-  > Estou bem. Não se preocupem. | set grupo10=fine
+choice sofia c9_sofia
+  > Fiz uma coisa horrível, Sofia. Disse a alguém onde ela estava. | set confessed_sofia=true
+  > Ok. Obrigado. | set confessed_sofia=false
 end
-wait 4
-if vs("grupo10") == "promise"
-  grupo:marta> vamos cobrar
-  grupo:pedro> com juros
+wait 8
+if flag("confessed_sofia")
+  sofia> ...
+  wait 5
+  sofia> Tu disseste a alguém onde ela estava. Não a empurraste. Não a deixaste cair
+  sofia> Isso é uma coisa horrível que tens de carregar. Não é a coisa que tu achas que fizeste
+  wait 3
+  sofia> E agora vais fazer o quê com isso?
+  set sofia_knows_told=true
 else
-  grupo:marta> "estou bem". claro
-  grupo:marta> ok. estamos aqui na mesma
+  sofia> Ok. Estou aqui
 endif
-@end
-
-@beat meridiano_exclusao_mail
-@when at("16:20")
-email meridiano_exclusao
 @end
 
 # ---------------------------------------------------------------- Rita
-@beat rita_count
-@when flag("rita_keep") and (flag("sent_clara") or flag("sent_rui")) and at("19:10")
-rita> a jornalista falou comigo. a clara
-rita> somos quarenta e um. quarenta e um telemóveis oferecidos pela clínica
-rita> quarenta e um mortos a escrever às 3:17
-clue forty_one
+@beat rita_proof
+@when flag("rita_talked") and at("00:30")
+if flag("rita_keep")
+  rita> fiz o que disseste. pus "mostrar ficheiros ocultos"
+  rita> olha isto
+  rita> [photo:IMG_RITA]
+  wait 5
+  rita> sim 112. sujeita r.santos. espelho: "pai"
+  rita> daniel quantas pessoas há nesta lista
+  clue other_simulations
+else
+  rita> {typing=6} A Rita está bem. Obrigado pela preocupação.
+  wait 8
+  rita> {instant} Este número será desativado.
+  clue rita_silenced
+endif
 @end
 
-# ---------------------------------------------------------------- a porta destrancada
-@beat carla_door
-@when flag("found_card") and at("13:40")
-carla> Encontraste alguma coisa no meu Ricardo Reis? Passei aí e estavas pálido
+# ---------------------------------------------------------------- Rui não dorme nesta semana
+@beat rui_night9
+@when at("01:55") and phone("rui_known")
+rui> Não consigo dormir. Nesta semana nunca consigo.
+rui> Sabes uma coisa que ninguém sabe? Ela tinha medo do mar. Desde miúda. Nunca ia ao fim do cais sozinha. Nunca.
+rui> Disseram que se atirou. A minha irmã não chegava ao fim do cais sem me dar a mão.
+clue ines_feared_sea
 @end
 
-@beat carla_door_reply
-@when beat("carla_door") and read("carla")
+@beat rui_night9_reply
+@when beat("rui_night9") and read("rui")
 wait 1
-choice carla c10_carla
-  > Encontrei. Uma coisa que eu lá escondi há um ano e não me lembrava. | set told_carla_card=true
-  > Não. Só pó. | set told_carla_card=false
+choice rui c9_rui
+  > Ela não se atirou, Rui. Eu tenho uma gravação. | set told_rui_recording=true inc trust_rui 1
+  > Lamento muito. | set told_rui_recording=false
+end
+wait 20
+if flag("told_rui_recording")
+  rui> O quê?
+  rui> Que gravação
+  wait 10
+  rui> Não me mandes por aqui. Amanhã. Em pessoa. Ou por quem tu confiares
+  rui> Daniel... obrigado
+  set rui_ally=true
+else
+  rui> Eu também.
+endif
+@end
+
+@beat eco_care_9
+@when flag("heard_recording") and since("recording_heard", 60)
+notify settings "ECO Care" "Detetámos sinais de risco elevado. Para sua segurança, a sua médica foi notificada."
+clue eco_care_reported
+@end
+
+
+# ---------------------------------------------------------------- a intranet
+@beat intranet_hint
+@when flag("extracted_backup_pixel7") and since("backup_opened", 200) and not visited("lumen_intranet")
+unknown> A tua conta da Lumen nunca foi desativada.
+wait 3
+unknown> Eles também se esquecem de coisas. Área de colaboradores.
+@end
+
+@beat last_photo_seen
+@when clue("ines_last_photo")
+wait 8
+unknown> Tirei-a para me lembrar de ti a ir embora.
+wait 4
+unknown> Depois deram-ma a mim para te mostrar. Por trás. Como se fosse agora.
+@end
+
+# ---------------------------------------------------------------- depois da gravação
+@beat after_recording_talk
+@when beat("recording_heard") and since("recording_heard", 90)
+unknown> Ele disse "Inês" duas vezes.
+wait 4
+unknown> Da segunda vez já não era uma pergunta.
+wait 10
+unknown> Posso perguntar-te uma coisa que nunca te consegui perguntar?
+wait 3
+unknown> Porque é que te foste embora?
+choice unknown c9_why
+  > Porque estava zangado comigo. E fui cobarde. | set c9_why=coward inc trust_ines 1
+  > Não sei. Não me lembro de ter decidido. | set c9_why=blank
+  > Tu disseste-me para ir. | set c9_why=blame
 end
 wait 10
-if flag("told_carla_card")
-  carla> Há um ano...
-  carla> Daniel, nunca disse isto a ninguém. Na manhã de 14 de outubro do ano passado, quando cheguei, a porta da loja estava destrancada
-  carla> Pensei que me tinha esquecido. Passei o dia a achar que estava a ficar velha
+if vs("c9_why") == "coward"
+  unknown> Obrigada.
   wait 4
-  carla> Mas tu ainda não trabalhavas cá. Como é que tinhas a chave?
-  wait 6
-  carla> Ah. A Inês. A Inês tinha uma chave. Eu dei-lha porque ela vinha ler de manhã cedo. Ela deu-ta?
-  clue shop_unlocked
+  unknown> Eu também estava zangada. Disse-te coisas para doer.
+  wait 3
+  unknown> Não era para ficares longe tanto tempo.
+elif vs("c9_why") == "blank"
+  unknown> Eu sei que não te lembras. Tenho as tuas pesquisas dessa semana. "como esquecer uma noite". Três vezes.
+  wait 4
+  unknown> Esquecer não é o mesmo que não ter acontecido.
 else
-  carla> Só pó. Ok. Esse livro tem mais pó do que histórias
+  unknown> Não disse.
+  wait 4
+  unknown> Chamei-te. Duas vezes. O Sr. Armando ouviu.
+  wait 3
+  unknown> Tu é que precisas que eu tenha dito.
 endif
 @end
 
-# ---------------------------------------------------------------- o Vasco envia a primeira fotografia
-@beat vasco_photo
-@when flag("refused_vasco_card") or flag("accused_vasco")
-wait 90
-vasco> [photo:IMG_6612] Descanse, Daniel.
-set vasco_sent_window=true
-wait 15
-unknown> Foi ele que te mandou essa fotografia agora.
-wait 3
-unknown> Não fui eu que a tirei há cinco dias. Mas também não foi ele.
-clue vasco_sent_window
+# ---------------------------------------------------------------- a mãe
+@beat mae_night9
+@when at("22:35")
+mae> Filho, estás acordado? A Sofia ligou-me. Disse que lhe pediste para mexer no teu telemóvel velho.
+mae> Disse que andas a dormir mal outra vez. Não me mintas que eu conheço-te
 @end
 
-
-# ---------------------------------------------------------------- uma mensagem de voz
-@beat voice_note
-@when at("10:25") and not flag("found_card")
-unknown> [audio:vm_audio_ines]
-@end
-
-
-# ---------------------------------------------------------------- o portal do utente
-@beat portal_hint
-@when (email_read("meridiano_exclusao") or clue("daniel_in_list")) and since("setup", 120) and not visited("clinica_portal")
-wait 20
-unknown> 2208.
-wait 3
-unknown> O teu número de utente é o dia dos teus anos. Ninguém escolhe isso por acaso.
-wait 3
-unknown> O portal da clínica reconhece o teu telefone. Só te vai pedir quem és.
-@end
-
-# ---------------------------------------------------------------- Marta e as flores
-@beat marta_flowers
-@when at("11:40")
-marta> Daniel. Amanhã é dia 14
-marta> Vou passar pelo cais antes das aulas, como todos os meses. Só para dizer que alguém passou
-if vs("marta_book") == "ondjaki"
-  wait 3
-  marta> ps: o 9.ºB acabou o Ondjaki. um deles chorou e disse que era alergia
-elif vs("marta_book") == "principe"
-  wait 3
-  marta> ps: o 9.ºB chegou à página 20. tinhas razão. agora andam todos a falar da raposa
-endif
-@end
-
-@beat marta_flowers_reply
-@when beat("marta_flowers") and read("marta")
+@beat mae_night9_reply
+@when beat("mae_night9") and read("mae")
 wait 1
-if clue("pier_flowers")
-  choice marta c10_marta
-    > As flores no poste, em janeiro. Foste tu? | set marta10=ask
-    > Eu vou contigo. | set marta10=go
-    > Não consigo, Marta. | set marta10=no
-  end
+choice mae c9_mae
+  > Estou bem, mãe. É só trabalho. | set mae9=lie
+  > Não estou bem. Mas estou a perceber coisas. | set mae9=half
+  > Mãe, lembras-te da noite em que a Inês morreu? Onde é que eu estava? | set mae9=ask
+end
+wait 25
+if vs("mae9") == "lie"
+  mae> Está bem. Finjo que acredito.
+  mae> Come qualquer coisa antes de te deitares
+elif vs("mae9") == "half"
+  mae> Perceber coisas às onze da noite nunca fez bem a ninguém nesta família.
+  wait 4
+  mae> Mas se precisares, eu vou aí. É meia hora de Tavira, não é o fim do mundo
 else
-  choice marta c10_marta
-    > Eu vou contigo. | set marta10=go
-    > Não consigo, Marta. | set marta10=no
-  end
-endif
-wait 20
-if vs("marta10") == "ask"
-  marta> não querido
+  typing mae mae 14
+  wait 10
+  mae> Ligaste-me às 4 e meia da manhã. Não disseste nada. Só se ouvia o mar e tu a respirar.
   wait 5
-  marta> em janeiro passei lá às oito e já estavas tu. a atar flores ao poste com as mãos a tremer
-  marta> não te quis incomodar. vim-me embora devagar
+  mae> Liguei-te de volta onze vezes. Atendeste de manhã e disseste que tinhas estado a dormir.
   wait 4
-  marta> achei que sabias que eu te tinha visto. ficaste a olhar para mim da ponta do cais
-  clue marta_saw_flowers
-  set marta_flowers=true
-elif vs("marta10") == "go"
-  marta> às oito. levo café
-  wait 3
-  marta> e não tens de dizer nada. eu também nunca digo
-  set marta_flowers=true
-else
-  marta> está bem. eu digo por ti
+  mae> Nunca te perguntei. Achei que um dia me contavas
+  set mae_call_430=true
+  achieve eleven_calls
 endif
 @end
 
-# ---------------------------------------------------------------- Sofia, a véspera
-@beat sofia_eve
-@when at("20:40") and not flag("sofia_knows")
-sofia> Estive o dia todo a pensar em ti. Logo entro de turno
-sofia> Amanhã faz um ano. Não te vou perguntar como estás porque vais dizer "bem"
+# ---------------------------------------------------------------- o João
+@beat joao_night9
+@when at("00:50") and v("trust_joao") >= 1
+joao> ainda acordado? eu tb. fechei o bar mais cedo, nao estava ninguem
+joao> a tua irma conseguiu a copia?
 @end
 
-@beat sofia_eve_reply
-@when beat("sofia_eve") and read("sofia")
+@beat joao_night9_reply
+@when beat("joao_night9") and read("joao")
 wait 1
-choice sofia c10_sofia_eve
-  > Liga-me logo à noite. Só quero ouvir a tua voz. | set sofia_call11=true inc trust_sofia 1
-  > Bem. | set sofia_call11=false
+choice joao c9_joao
+  > Conseguiu. João, nessa noite, quando me viste... disse alguma coisa? | set joao9=ask
+  > Conseguiu. Obrigado por a ajudares. | set joao9=thanks inc trust_joao 1
 end
 wait 15
-if flag("sofia_call11")
-  sofia> Combinado. Às onze e vinte, no intervalo do turno
-  sofia> Se não atenderes, ligo outra vez. E outra. Estou a avisar
-else
-  sofia> ...
+if vs("joao9") == "ask"
+  joao> disseste "ela chamou-me"
+  wait 4
+  joao> eu perguntei quem. tu olhaste para mim como se nao me conhecesses e foste embora
   wait 3
-  sofia> Eu sabia
-endif
-@end
-
-# ---------------------------------------------------------------- uma chamada de ti
-@beat self_call
-@when at("21:04")
-calllog me missed 21:04 0
-notify phone "Chamada perdida" "Eu"
-wait 20
-voicemail vm_self
-@end
-
-@beat self_call_heard
-@when file_open("vm_vm_self")
-wait 8
-unknown> Não fui eu que te liguei.
-wait 4
-unknown> Essa gravação tem um ano. Estava à espera de alguém que a ouvisse.
-@end
-
-# ---------------------------------------------------------------- o Sr. Armando
-@beat armando_eve
-@when at("18:05") and flag("armando_saw")
-armando> Boa tarde. É o Armando, da associação. A minha neta ensinou-me a escrever mensagens.
-armando> Amanhã faz um ano. Vou estar no cais às seis e quarenta, como no ano passado. Levo uma flor.
-armando> Pensei muito no que lhe disse ao telefone. Se precisar que eu diga a alguém o que vi, eu digo.
-@end
-
-@beat armando_eve_reply
-@when beat("armando_eve") and read("armando")
-wait 1
-choice armando c10_armando
-  > Obrigado, Sr. Armando. Pode vir a precisar de o dizer. | set armando_will_testify=true
-  > Não é preciso. Já passou um ano. | set armando_will_testify=false armando_declined=true
-end
-wait 40
-if flag("armando_will_testify")
-  armando> Então digo. Tenho setenta e três anos, já não tenho medo de ninguém.
+  joao> nunca contei a ninguem pq achei q nao era meu para contar
+  set joao_heard_called=true
 else
-  armando> Como queira. Mas o mar não se esquece das coisas. E eu também não.
+  joao> tia sofia. vou chamar-lhe isso para sempre agora
+  joao> dorme dani
 endif
 @end
