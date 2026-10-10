@@ -22,7 +22,9 @@ var hides: Array = []        # HideSpot nodes
 var changeables: Array = []  # Callables(): changes one thing, returns its position or null
 var texts := {}
 var peep: Array = []         # [cam position, yaw] when the place has a peephole
-var outdoor := false         # the street/cais: no rooms, the sky is the light
+var outdoor := false
+var aliases: Array = []      # other story ids that are this same place ("cais" → the road)
+var nav_cell := 0.08         # navigation mesh resolution (outdoors can be coarser)         # the street/cais: no rooms, the sky is the light
 var nav: NavigationRegion3D
 var _uses := {}
 var _probes: Array[ReflectionProbe] = []
@@ -49,7 +51,7 @@ func bake_navigation() -> void:
 	nm.agent_radius = 0.28
 	nm.agent_height = 1.7
 	nm.agent_max_climb = 0.2
-	nm.cell_size = 0.08
+	nm.cell_size = nav_cell
 	nm.cell_height = 0.05
 	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
 	nm.geometry_collision_mask = 1

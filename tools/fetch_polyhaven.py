@@ -43,6 +43,14 @@ MODELS = {
     "korean_fire_extinguisher_01": "1k", "fire_alarm": "1k", "medical_box": "1k", "clipboard": "1k",
     "stationery_supplies": "1k", "modern_arm_chair_01": "1k", "drawer_cabinet": "1k",
     "steel_frame_shelves_01": "1k", "potted_plant_04": "1k", "office_notepads": "1k",
+    # the road and the pier (caminho, Cais Velho) and Rui's house
+    "lifebuoy": "1k", "lateral_sea_marker": "1k", "ocean_buoy": "1k", "wooden_barrels_01": "1k",
+    "wooden_crate_01": "1k", "plastic_crate_01": "1k", "metal_jerrycan": "1k", "rubber_boots": "1k",
+    "fishermans_hat": "1k", "Lantern_01": "1k", "coast_rocks_01": "1k",
+    "boulder_01": "1k", "modular_street_seating": "1k", "fire_hydrant": "1k",
+    "utility_box_01": "1k", "concrete_road_barrier": "1k", "rollershutter_door": "1k",
+    "exterior_aircon_unit": "1k", "security_light": "1k", "street_lamp_02": "1k",
+    "shrub_02": "1k", "old_tyre": "1k", "wooden_bucket_01": "1k",
     # hall / outside
     "fancy_picture_frame_01": "1k", "street_lamp_01": "1k", "covered_car": "1k",
     "metal_trash_can": "1k", "trashbag": "1k",
@@ -54,6 +62,8 @@ TEXTURES = {
     "stone_pavers": "1k", "asphalt_06": "1k", "kitchen_wood": "1k",
     "dark_wooden_planks": "1k", "dark_wood": "1k", "roof_planks": "1k",
     "old_linoleum_flooring_01": "1k", "painted_concrete": "1k", "grey_tiles": "1k",
+    "coast_sand_02": "1k", "damp_sand": "1k", "stone_wall": "1k", "weathered_planks": "1k",
+    "cobblestone_floor_04": "1k", "rough_block_wall": "1k", "concrete_wall_003": "1k", "forest_ground_05": "1k",
 }
 
 

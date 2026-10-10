@@ -14,7 +14,7 @@ const LOCATIONS := {
 	"rui": "res://scripts/world/rui_house.gd",
 	"clinica": "res://scripts/world/clinic.gd",
 	"caminho": "res://scripts/world/road.gd",
-	"cais": "res://scripts/world/pier.gd",
+	"cais": "res://scripts/world/road.gd",
 }
 
 signal location_changed(id: String)
@@ -28,6 +28,7 @@ var hiding: Dictionary = {}
 var _hide_cam: Camera3D
 var _hide_mask: ColorRect
 var _hour := 21.5
+var _base_env := {"bg": Color(0.008, 0.01, 0.018), "amb": 0.045, "fog": 0.012}
 var player: Player
 var hud: WorldHud
 var env: WorldEnvironment
@@ -120,16 +121,16 @@ func set_hour(h: float) -> void:
 	if d > 0.02:
 		e.background_mode = Environment.BG_SKY
 		e.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-		e.ambient_light_energy = lerpf(0.05, 0.9, d)
+		e.ambient_light_energy = lerpf(_base_env.amb, 0.9, d)
 		e.background_energy_multiplier = lerpf(0.05, 1.0, d)
 		e.tonemap_exposure = lerpf(1.05, 0.9, d)
-		e.volumetric_fog_density = lerpf(0.012, 0.004, d)
+		e.volumetric_fog_density = lerpf(_base_env.fog, 0.004, d)
 	else:
 		e.background_mode = Environment.BG_COLOR
 		e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-		e.ambient_light_energy = 0.045
+		e.ambient_light_energy = _base_env.amb
 		e.tonemap_exposure = 1.05
-		e.volumetric_fog_density = 0.012
+		e.volumetric_fog_density = _base_env.fog
 	sun.visible = d > 0.02
 	sun.light_energy = lerpf(0.0, 1.6, d)
 	# low warm sun near the edges of the day
@@ -168,7 +169,11 @@ func _apply_quality() -> void:
 func go_to(id: String, where := "") -> bool:
 	if not LOCATIONS.has(id):
 		return false
-	if location and location.loc_id == id:
+	if where == "" and id != "" and location and location.spawns.has(id):
+		where = id
+	if location and (location.loc_id == id or location.aliases.has(id)):
+		if where == "" and location.spawns.has(id):
+			where = id
 		if where != "":
 			spawn(where)
 		return true
@@ -186,9 +191,17 @@ func go_to(id: String, where := "") -> bool:
 	location.peephole_requested.connect(func(): peek(true))
 	location.hide_requested.connect(hide_in)
 	player.floor_kind = location.floor_kind
+	env.environment = _night_environment()
+	if location.has_method("tweak_env"):
+		location.tweak_env(env.environment)
+	_base_env = {"bg": env.environment.background_color, "amb": env.environment.ambient_light_energy, "fog": env.environment.volumetric_fog_density}
 	_apply_quality()
 	set_hour(_hour)
+	if where == "" and location.spawns.has(id):
+		where = id
 	spawn(where)
+	if location.has_method("set_rain"):
+		location.set_rain(daylight < 0.35, player)
 	location_changed.emit(id)
 	return true
 
@@ -305,6 +318,9 @@ func _on_cue(cmd: String, args: Array) -> void:
 			spawn(args[0])
 		"goto":
 			go_to(args[0], args[1] if args.size() > 1 else "")
+		"rain":
+			if location.has_method("set_rain"):
+				location.set_rain(args.size() == 0 or args[0] == "on", player)
 		"think":
 			player.think(" ".join(PackedStringArray(args)))
 		"shake":
