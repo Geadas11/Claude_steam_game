@@ -308,3 +308,12 @@ Segue `knowledge/rules.md` R1–R11.
 5. Afinar mistura de áudio por capítulo; considerar música original para o menu e finais
    (já há 3 peças procedurais: menu, memória, caixa de música).
 6. Rever com um falante nativo os textos novos (sobretudo as vozes da Marta, do João e da mãe).
+
+## Cooperativo 3D (fase 5, sessão 3)
+
+- A Sofia joga em 3D: casa em Lisboa e hospital de Santa Maria (piso 6, noite). Detalhes em `docs/COOP.md`.
+- Capítulos 0–14 do lado dela; a coisa chega-lhe pelo telemóvel (R16); morte do convidado = acorda no sítio.
+- Testes: `--only=world` carrega também `sofia_casa` e `hospital`; `--only=presence` confirma que a Sofia
+  nunca vai para Salgueira e tem a tabela própria da coisa.
+- **Próximo:** sessão de jogo humana a dois (Daniel + Sofia), afinação da ameaça com jogadores reais,
+  builds de teste Windows.

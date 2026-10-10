@@ -291,7 +291,7 @@ func _build_outside() -> void:
 # =================================================================== story
 func _build_story_hooks() -> void:
 	spawns = {
-		"sofa": [Vector3(1.3, 0.02, 2.3), -90.0],
+		"sofa": [Vector3(2.4, 0.02, 3.6), 120.0],
 		"entrada": [Vector3(8.3, 0.02, 5.1), 90.0],
 		"cama": [Vector3(2.2, 0.02, 6.6), 180.0, -10.0],
 		"cozinha": [Vector3(6.6, 0.02, 3.2), 0.0],

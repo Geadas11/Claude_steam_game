@@ -69,3 +69,18 @@ Exemplos (os do lado do Daniel já existem; os da Sofia são a escrever):
   telemóvel dela como enviadas por ela (para a conversa nunca ficar incoerente).
 - Por fazer: retomar uma sessão gravada (hoje só se começa do início), pausa partilhada pelo
   convidado, caps. 2–11 do lado da Sofia, "o telemóvel que não mente", partilha de pistas, Steam.
+
+## Estado (sessão 3) — a Sofia em 3D
+
+- **Os sítios dela** (cada um no seu sítio, R15): `scripts/world/sofia_home.gd` (casa em Arroios: a gaveta
+  com o telemóvel antigo do Daniel) e `scripts/world/hospital.gd` (Santa Maria, Medicina Interna, piso 6, à
+  noite). Textos em `data/world/sofia_casa.json` e `hospital.json`.
+- **A coisa chega-lhe pelo telemóvel** (R16): tabela própria em `data/world/presence.json` → `sofia`. Em casa
+  só mudanças; no hospital, de noite, atender o número do irmão às 03:17 chama-a.
+- **História dela, caps. 0–14** em `data/sofia/chapters/`: o telefone do serviço às 03:17 há um ano; a gaveta
+  que se abre; a chamada com a voz dele junto ao mar («Sofia, eu fiz uma coisa»); o «Daniel» falso que lhe
+  pede para apagar as luzes; ligar o telemóvel antigo; contar as 03:52; ficar em linha às 03:17
+  (`co_sofia_on_line` → epílogo nos finais A e C). Escolhas em pessoa no fio `aqui`.
+- **Mortes em cooperativo:** a Sofia (convidada) acorda no seu sítio com as marcas; se o Daniel (anfitrião)
+  morre, o capítulo recomeça para os dois.
+- Por fazer: retomar sessões gravadas em cooperativo, Steam P2P real, mais conversas cruzadas «o telemóvel que não mente».

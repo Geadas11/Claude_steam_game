@@ -975,7 +975,7 @@ func _test_world() -> void:
 	ok(not w.peeping, "back from the peephole")
 	# every place builds, every spawn stands, every hiding place works, and
 	# the floor bakes into a navigation mesh (what the presence walks on)
-	for id in ["livraria", "clinica", "caminho", "rui", "casa"]:
+	for id in ["livraria", "clinica", "caminho", "rui", "sofia_casa", "hospital", "casa"]:
 		ok(w.go_to(id), "go_to " + id)
 		await _physics(3)
 		var loc: Location = w.location
@@ -1181,6 +1181,23 @@ func _test_presence() -> void:
 	ok(main.world.active and not main.world.dying, "he can move again")
 	main.queue_free()
 	await _frames(2)
+	# Sofia (co-op guest role): her own places, never Salgueira (R15)
+	var main2: Node = load("res://scenes/main.tscn").instantiate()
+	add_child(main2)
+	await _frames(3)
+	main2.start_new_game(false)
+	await _frames(5)
+	Content.set_role("sofia")
+	GameState.data.location = "casa"
+	ok(main2._story_place() == "sofia_casa", "a place of Daniel's on her side is her flat")
+	main2.world.go_to(main2._story_place())
+	await _frames(5)
+	ok(main2.world.location.loc_id == "sofia_casa", "Sofia is in Lisbon (%s)" % main2.world.location.loc_id)
+	main2.world.presence.configure("ch05")
+	ok(main2.world.presence.form == "vozes", "the thing has her own table (ch05: %s)" % main2.world.presence.form)
+	main2.queue_free()
+	await _frames(2)
+	Content.set_role("daniel")
 	GameState.in_game = false
 
 
