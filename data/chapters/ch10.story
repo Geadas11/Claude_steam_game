@@ -79,7 +79,12 @@ unknown> Eu não sabia que tinha gravado até ao fim.
 wait 4
 ambient night
 set heard_recording=true
-wait 25
+world think Água a correr. Na casa de banho? Na cozinha? Em todo o lado e em nenhum.
+world sound water 6.7 7.4 -10 0.9
+wait 8
+world prints 6.5 5.15 -90 10
+world think Pegadas molhadas no corredor. Descalças. Do tamanho das minhas.
+wait 17
 camera behind
 unknown> Daniel.
 unknown> Abre a câmara da frente. Quero ver-te a cara.
@@ -187,6 +192,14 @@ endif
 # ---------------------------------------------------------------- 03:17
 @beat photo_two
 @when at("03:17")
+stopsounds
+world lights off
+world flicker all 3
+sound sea
+world think A água sobe pelo corredor. Ouço-a a bater nas portas. Sinto-a nos tornozelos, gelada.
+world presence hunt 40
+wait 10
+world think Acendi a luz e o chão estava seco. Os pés não.
 variant IMG_0317 two
 note note_eco_1
 sound knock_one
@@ -239,6 +252,18 @@ if flag("confessed_sofia")
   wait 3
   sofia> E agora vais fazer o quê com isso?
   set sofia_knows_told=true
+  wait 40
+  typing sofia sofia 8
+  wait 6
+  sofia> Há uma coisa que eu nunca te disse. Já que estamos nisto
+  wait 4
+  sofia> Nessa noite ligaste-me. Às 03:52. Eu estava de turno
+  sofia> Disseste "Sofia. Eu fiz uma coisa." E depois só se ouvia o mar. Muito tempo
+  wait 5
+  sofia> Disse à polícia que não tinha falado contigo. Guardei o teu telemóvel numa gaveta, molhado, e nunca mais lhe toquei
+  sofia> Desculpa. Tive medo do que ias dizer a seguir
+  clue call_0352
+  set sofia_told_0352=true
 else
   sofia> Ok. Estou aqui
 endif

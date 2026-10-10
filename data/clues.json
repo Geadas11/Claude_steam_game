@@ -2046,5 +2046,32 @@
   "related": [
    "chair_turned"
   ]
+ },
+ "call_0352": {
+  "title": "03:52",
+  "desc": "Às 03:52 dessa noite ligaste à Sofia, de turno: «Sofia. Eu fiz uma coisa.» Depois só o mar. Ela disse à polícia que não tinha falado contigo e guardou o teu telemóvel molhado numa gaveta.",
+  "source": "Mensagem · Sofia",
+  "importance": 3,
+  "related": [
+   "went_back"
+  ]
+ },
+ "vasco_version": {
+  "title": "A versão do Vasco",
+  "desc": "«Quando eu cheguei ao cais, o senhor já lá estava. Encharcado. Eu só o protegi.» Diz que te levou a casa e que ninguém perguntou por ti porque ele tratou disso.",
+  "source": "Mensagem · Vasco",
+  "importance": 3,
+  "related": [
+   "vasco_tried_to_grab"
+  ]
+ },
+ "wrist_scratch": {
+  "title": "A cicatriz no pulso",
+  "desc": "Uma cicatriz fina no pulso esquerdo. Em novembro ainda estava a sarar. Não te lembras de como a fizeste.",
+  "source": "O teu pulso",
+  "importance": 3,
+  "related": [
+   "wall_note_0317"
+  ]
  }
 }

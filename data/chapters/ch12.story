@@ -264,6 +264,32 @@ if flag("sent_rui")
 endif
 @end
 
+# ---------------------------------------------------------------- a versão do Vasco
+@beat vasco_version
+@when at("20:45") and (flag("accused_vasco") or flag("refused_vasco_card"))
+vasco> Vou dizer-lhe uma coisa que nunca disse a ninguém.
+wait 4
+vasco> Quando eu cheguei ao cais, o senhor já lá estava. Encharcado. Na água até aos joelhos.
+wait 3
+vasco> Eu só o protegi. Tirei-o de lá, meti-o no carro, deixei-o à porta de casa. Ninguém perguntou por si porque eu tratei disso.
+wait 3
+vasco> Pense nisso antes de mandar o que quer que seja a quem quer que seja.
+clue vasco_version
+@end
+
+# ---------------------------------------------------------------- o arranhão (P-G)
+@beat scratch
+@when at("21:20")
+unknown> Olha para o teu pulso esquerdo.
+wait 5
+world think Uma cicatriz fina, branca, de um lado ao outro do pulso. Sempre achei que tinha sido do gato da vizinha. A vizinha não tem gato.
+wait 3
+unknown> Na selfie de novembro ainda estava a sarar.
+wait 2
+unknown> Lembras-te de como o fizeste?
+clue wrist_scratch
+@end
+
 # ---------------------------------------------------------------- noite
 @beat sim_notice10
 @when at("21:30")
