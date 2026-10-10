@@ -948,6 +948,24 @@ func _test_world() -> void:
 	Audio.play("knock")
 	ok(w.get_child_count() == before + 1, "knock plays in the room")
 	Audio.muted_for_tests = true
+	# a door that shuts only when he isn't looking (R10), with a thought when he finds it
+	var dq: Door = h.doors.quarto
+	dq.set_open(true, true)
+	p.global_position = Vector3(4.0, 0.02, 5.15)
+	p.set_view(-90.0)   # looking down the corridor at the bedroom door
+	await _physics(2)
+	await Director._do_cmd({"name": "world", "args": ["door", "quarto", "shut_unseen", "Deixei-a", "aberta."]}, Director._gen)
+	await _frames(10)
+	ok(dq.is_open, "watched, the bedroom door stays open")
+	p.set_view(90.0)
+	await _frames(10)
+	ok(not dq.is_open, "back turned, it shuts")
+	said[0] = ""
+	dq.interact(p)
+	ok(said[0] == "Deixei-a aberta.", "finding it shut, he thinks it ('%s')" % said[0])
+	var decals0 := h.find_children("*", "Decal", true, false).size()
+	await Director._do_cmd({"name": "world", "args": ["printnear", "0.9"]}, Director._gen)
+	ok(h.find_children("*", "Decal", true, false).size() >= decals0 + 2, "wet footprints behind him")
 	# the peephole
 	w.peek(true)
 	ok(w.peeping and not p.move_enabled, "looking through the peephole")

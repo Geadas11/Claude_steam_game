@@ -44,6 +44,7 @@ var presence: Presence
 var dying := false
 var _zone_t := 0.0
 var hold_t := 0.0       # story: he stands still (can't move) for a while
+var _shut_unseen: Array = []   # doors that close as soon as he isn't looking (R10)
 var _figures: Array = []
 
 
@@ -325,6 +326,12 @@ func _on_cue(cmd: String, args: Array) -> void:
 					"slam": d.set_open(false, false, 3.0)
 					"lock": d.locked = true
 					"unlock": d.locked = false
+					"shut_unseen":
+						# door quarto shut_unseen <what he thinks when he finds it shut>
+						if d.is_open and not _shut_unseen.has(d):
+							_shut_unseen.append(d)
+							if args.size() > 2:
+								d.set_meta("think_on_use", " ".join(PackedStringArray(args.slice(2))))
 		"landing":
 			if house.has_method("landing_on"):
 				house.landing_on(float(args[0]) if args.size() > 0 else 30.0)
@@ -364,6 +371,13 @@ func _on_cue(cmd: String, args: Array) -> void:
 			hud.show_screen(all2.substr(0, cut2).strip_edges() if cut2 > 0 else "", all2.substr(cut2 + 1).trim_suffix("»") if cut2 >= 0 else all2)
 		"hold":
 			hold_t = float(args[0]) if args.size() > 0 else 4.0
+		"printnear":
+			# printnear [dist] — wet footprints just behind him, a drop where they are
+			var back := player.global_transform.basis.z
+			back.y = 0.0
+			var at := player.global_position + back.normalized() * (float(args[0]) if args.size() > 0 else 0.9)
+			presence.trail(at, player.rotation.y + PI, 2)
+			play_at("drop", at + Vector3(0, 0.2, 0), -14.0, 1.5)
 		"sound":
 			# sound <name> x z [volume] [pitch] — heard where it happens
 			play_at(args[0], Vector3(float(args[1]), location.spawns.values()[0][0].y + 0.3, float(args[2])), float(args[3]) if args.size() > 3 else 0.0, float(args[4]) if args.size() > 4 else 1.0)
@@ -384,6 +398,12 @@ func _process(delta: float) -> void:
 			if (location.zones[id] as AABB).has_point(pp) and not GameState.flag("w_zone_" + id):
 				GameState.set_var("w_zone_" + id, true)
 				Director.notify_player_action()
+	for d in _shut_unseen.duplicate():
+		var c: Vector3 = d.global_transform * Vector3(d.width / 2.0, 1.2, 0.0)
+		if not presence._in_view(c):
+			_shut_unseen.erase(d)
+			d.set_open(false, false, 1.4)
+			GameState.inc_var("w_changes")
 	for f in _figures.duplicate():
 		if not is_instance_valid(f):
 			_figures.erase(f)

@@ -98,6 +98,9 @@ func interact_prompt() -> String:
 
 
 func interact(_player: Node) -> void:
+	if has_meta("think_on_use") and not is_open and _player and _player.has_method("think"):
+		_player.think(str(get_meta("think_on_use")))
+		remove_meta("think_on_use")
 	if locked and not is_open:
 		_play("door_locked")
 		if _player and _player.has_method("think"):

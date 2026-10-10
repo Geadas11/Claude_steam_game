@@ -3,8 +3,15 @@
  "window_sala": {
   "prompt": "Espreitar pela janela",
   "when": [
-   {"if": "flag(\"got_window_photo\") and not flag(\"w_window_after_photo\")", "text": "A rua está vazia. O candeeiro, o carro tapado, o contentor. Daqui não se vê ninguém. Mas de lá vê-se tudo.", "set": "w_window_after_photo"},
-   {"if": "flag(\"got_window_photo\")", "text": "Ninguém. Nunca está ninguém."}
+   {
+    "if": "flag(\"got_window_photo\") and not flag(\"w_window_after_photo\")",
+    "text": "A rua está vazia. O candeeiro, o carro tapado, o contentor. Daqui não se vê ninguém. Mas de lá vê-se tudo.",
+    "set": "w_window_after_photo"
+   },
+   {
+    "if": "flag(\"got_window_photo\")",
+    "text": "Ninguém. Nunca está ninguém."
+   }
   ],
   "text": [
    "A Rua das Gaivotas. O candeeiro da frente pisca há semanas e ninguém da junta liga.",
@@ -14,7 +21,9 @@
  },
  "window_quarto": {
   "prompt": "Espreitar pela janela",
-  "text": ["A mesma rua, outro ângulo. Do quarto ouve-se o mar quando o vento vira."]
+  "text": [
+   "A mesma rua, outro ângulo. Do quarto ouve-se o mar quando o vento vira."
+  ]
  },
  "bookshelf": {
   "prompt": "Ver os livros",
@@ -27,7 +36,10 @@
  "laptop": {
   "prompt": "Usar o portátil",
   "when": [
-   {"if": "beat(\"vasco_eco\")", "text": "O ECO 2 está aberto num separador. O Vasco tem razão, devia voltar. Amanhã."}
+   {
+    "if": "beat(\"vasco_eco\")",
+    "text": "O ECO 2 está aberto num separador. O Vasco tem razão, devia voltar. Amanhã."
+   }
   ],
   "text": [
    "O portátil da Lumen. Dezassete separadores, um email por responder do Vasco. Não hoje.",
@@ -36,7 +48,9 @@
  },
  "photo_frame": {
   "prompt": "Ver a fotografia",
-  "text": ["Eu e a Sofia no Natal em Lisboa. Ela cortou-me metade da cabeça e recusa-se a admitir."]
+  "text": [
+   "Eu e a Sofia no Natal em Lisboa. Ela cortou-me metade da cabeça e recusa-se a admitir."
+  ]
  },
  "tv": {
   "prompt": "Desligar a televisão",
@@ -45,11 +59,22 @@
  "fridge": {
   "prompt": "Abrir o frigorífico",
   "when": [
-   {"if": "vs(\"dinner\") == \"massa\"", "text": "Restos de massa com atum. Afinal não menti à Sofia. Desta vez."},
-   {"if": "vs(\"dinner\") == \"bolachas\"", "text": "Um iogurte fora do prazo, mostarda e meio limão. As bolachas estão no armário, que é onde devem estar."},
-   {"if": "vs(\"dinner\") == \"nao\"", "text": "Ovos. Podia fazer ovos. Podia."}
+   {
+    "if": "vs(\"dinner\") == \"massa\"",
+    "text": "Restos de massa com atum. Afinal não menti à Sofia. Desta vez."
+   },
+   {
+    "if": "vs(\"dinner\") == \"bolachas\"",
+    "text": "Um iogurte fora do prazo, mostarda e meio limão. As bolachas estão no armário, que é onde devem estar."
+   },
+   {
+    "if": "vs(\"dinner\") == \"nao\"",
+    "text": "Ovos. Podia fazer ovos. Podia."
+   }
   ],
-  "text": ["Um iogurte, mostarda, três ovos e meio limão. Vida de adulto."]
+  "text": [
+   "Um iogurte, mostarda, três ovos e meio limão. Vida de adulto."
+  ]
  },
  "calendar": {
   "prompt": "Ver o calendário",
@@ -60,7 +85,9 @@
  },
  "stove": {
   "prompt": "Ver o fogão",
-  "text": ["Desligado. Verifiquei duas vezes. Três."]
+  "text": [
+   "Desligado. Verifiquei duas vezes. Três."
+  ]
  },
  "pills": {
   "prompt": "Abrir o armário",
@@ -71,7 +98,10 @@
  },
  "mirror": {
   "prompt": "Olhar para o espelho",
-  "text": ["Olheiras. A barba de quatro dias. O Vasco diria que tenho ar de crunch.", "Às vezes demoro um bocadinho a reconhecer-me."]
+  "text": [
+   "Olheiras. A barba de quatro dias. O Vasco diria que tenho ar de crunch.",
+   "Às vezes demoro um bocadinho a reconhecer-me."
+  ]
  },
  "alarm_clock": {
   "prompt": "Ver o despertador",
@@ -82,23 +112,44 @@
  },
  "bed": {
   "prompt": "Deitar",
-  "text": ["Ainda não. Se me deito agora, fico a olhar para o teto até às três.", "Não tenho sono. Nunca tenho sono antes das duas."]
+  "text": [
+   "Ainda não. Se me deito agora, fico a olhar para o teto até às três.",
+   "Não tenho sono. Nunca tenho sono antes das duas."
+  ],
+  "when": [
+   {
+    "if": "flag(\"c1_sleep_ready\") and at(\"00:20\") and v(\"chapter_n\") == 1",
+    "text": "Pronto. Tenta.",
+    "set": "w_bed_late"
+   }
+  ]
  },
  "wardrobe": {
   "prompt": "Abrir o roupeiro",
-  "text": ["Camisolas escuras, camisolas escuras, a camisola de Natal que a mãe insiste em dar-me. Um casaco que não é meu.", "O casaco é de mulher. Vermelho. Não me lembro de quem o deixou cá."]
+  "text": [
+   "Camisolas escuras, camisolas escuras, a camisola de Natal que a mãe insiste em dar-me. Um casaco que não é meu.",
+   "O casaco é de mulher. Vermelho. Não me lembro de quem o deixou cá."
+  ]
  },
  "boxes": {
   "prompt": "Ver as caixas",
-  "text": ["Caixas da mudança. Dois anos aqui e ainda há caixas da mudança.", "«Lumen — secretária». Nunca a abri."]
+  "text": [
+   "Caixas da mudança. Dois anos aqui e ainda há caixas da mudança.",
+   "«Lumen — secretária». Nunca a abri."
+  ]
  },
  "front_door": {
   "prompt": "Abrir a porta",
-  "text": ["Trancada. Duas voltas. Sempre duas voltas, desde o ano passado."]
+  "text": [
+   "Trancada. Duas voltas. Sempre duas voltas, desde o ano passado."
+  ]
  },
  "peephole": {
   "prompt": "Espreitar pelo óculo",
-  "text": ["O patamar. A luz da escada está apagada.", "Ninguém."]
+  "text": [
+   "O patamar. A luz da escada está apagada.",
+   "Ninguém."
+  ]
  },
  "fusebox": {
   "prompt": "Quadro elétrico",
@@ -106,10 +157,14 @@
  },
  "corridor_picture": {
   "prompt": "Ver o quadro",
-  "text": ["Um farol num postal grande, emoldurado. Já estava cá quando aluguei a casa. Nunca o tirei."]
+  "text": [
+   "Um farol num postal grande, emoldurado. Já estava cá quando aluguei a casa. Nunca o tirei."
+  ]
  },
  "kettle": {
   "prompt": "Ver a chaleira",
-  "text": ["Ainda morna. Não me lembro de ter feito chá."]
+  "text": [
+   "Ainda morna. Não me lembro de ter feito chá."
+  ]
  }
 }

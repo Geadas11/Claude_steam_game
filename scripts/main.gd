@@ -839,7 +839,10 @@ static func chapter_label(ch: String) -> String:
 func _on_main_cue(cmd: String, args: Array) -> void:
 	match cmd:
 		"phone":
-			# phone off|on — the game's phone is not in this memory
+			# phone off|on — the game's phone is not in this memory; down — into the pocket
+			if args.size() > 0 and args[0] == "down":
+				set_phone_raised(false)
+				return
 			_phone_off = args.size() > 0 and args[0] == "off"
 			GameState.set_var("w_phone_off", _phone_off)
 			if _phone_off:

@@ -85,6 +85,22 @@ elif vs("sleep_answer") == "lie"
 else
   sofia> Mais ou menos já é melhor que no ano passado
 endif
+wait 3
+typing sofia sofia 3
+wait 4
+typing sofia sofia 2
+wait 3
+sofia> Mano, posso perguntar-te uma coisa daquela noite?
+choice sofia c1_which_night
+  > Que noite? | set c1_which_night=true
+  > Prefiro que não, Sofia. | set c1_sofia_blocked=true
+end
+wait 4
+if flag("c1_which_night")
+  sofia> Nada. Esquece. Não é nada
+else
+  sofia> Ok. Desculpa
+endif
 wait 2
 sofia> Tenho de ir, entro às 23h. Turno da noite, viva a saúde pública
 sofia> Come. Dorme. Responde à mãe que ela já me ligou duas vezes a perguntar se estás vivo
@@ -306,6 +322,10 @@ if flag("reply_who")
   wait 2
   typing unknown unknown 2
   unknown> Sou eu.
+  if vs("p_admit") == "silent"
+    wait 3
+    unknown> Continuas sem dizer nada.
+  endif
   choice unknown c1_me
     > Eu quem? | set asked_eu_quem=true
     > Não tenho este número guardado | set said_not_saved=true
@@ -333,21 +353,45 @@ choice unknown c1_photo
   > [Ir à janela] | set went_window=true
 end
 if flag("went_window")
-  screenoff 4
-  sound door
-  wait 3
-  unknown> Não está ninguém, pois não?
-  wait 3
-  unknown> Nunca está.
+  world phone down
+  world think A janela da sala. Três metros. Parecem mais.
 elif flag("asked_photographer")
   wait 3
   unknown> Ainda não sabes.
   wait 2
   unknown> Mas já soubeste.
+  set c1_sleep_ready=true
 else
   wait 4
   unknown> Não é para ter.
+  set c1_sleep_ready=true
 endif
+@end
+
+# ---------------------------------------------------------------- a janela (a pé)
+@beat window_seen
+@when flag("went_window") and flag("w_window_sala")
+wait 3
+world printnear 0.9
+wait 2
+vibrate
+unknown> Não está ninguém, pois não?
+wait 3
+unknown> Nunca está.
+set c1_sleep_ready=true
+@end
+
+@beat window_late
+@when flag("went_window") and since("after_photo", 90) and not flag("w_window_sala")
+vibrate
+unknown> Não precisas de ir à janela.
+wait 2
+unknown> Daqui também te vejo.
+set c1_sleep_ready=true
+@end
+
+@beat good_night
+@when flag("c1_sleep_ready")
 wait 6
 unknown> Dorme, Daniel.
 set unknown_knows_name=true
@@ -356,12 +400,18 @@ unknown> Amanhã falamos.
 checkpoint
 wait 8
 notify gallery "Fotografias" "IMG_6612.jpg guardada automaticamente"
-wait 10
+wait 6
+world door quarto shut_unseen Deixei-a aberta. Tenho a certeza que a deixei aberta.
+@end
+
+@beat late_print
+@when beat("good_night") and since("good_night", 25) and not flag("went_window")
+world printnear 1.2
 @end
 
 @beat end_ch1
-@when beat("after_photo")
-wait 6
+@when beat("good_night") and (flag("w_bed_late") or at("00:40"))
+wait 3
 ambient room
 wait 3
 lock
@@ -399,7 +449,7 @@ marta> Obrigada querido. Amanhã no quiz pago-te um gin
 @beat pedro_pitch
 @when at("22:55")
 pedro> Daniel, pergunta séria
-pedro> Tu percebes disto. Achas que devo comprar ações da Lumen? Com o ECO 2 vão disparar
+pedro> Tu percebes disto. Achas que devo comprar ações da Lumen? Diz que aquilo novo deles adivinha o que as pessoas vão fazer
 @end
 
 @beat pedro_reply
