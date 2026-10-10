@@ -241,6 +241,7 @@ static func pendant(loc: Location, room: String, ceiling: Vector3, drop: float, 
 	sh_mat.roughness = 0.7
 	sh_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	shade.material_override = sh_mat
+	shade.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	shade.position = ceiling - Vector3(0, drop + 0.09, 0)
 	loc.add_child(shade)
 	var glow := emissive(Color(1.0, 0.78, 0.5), 0.0)
@@ -256,3 +257,35 @@ static func pendant(loc: Location, room: String, ceiling: Vector3, drop: float, 
 	var l := omni(loc, ceiling - Vector3(0, drop + 0.22, 0), Color(1.0, 0.8, 0.58), energy, rng, true)
 	loc._room(room, [l], [glow])
 	return l
+
+
+## A tiled material drawn in code: square tiles of `tile` metres with joint
+## lines (suspended ceilings, hospital floors).
+static func grid(color: Color, line: Color, tile := 0.6, rough := 0.8, line_px := 3) -> StandardMaterial3D:
+	var key := "grid|%s|%s|%s" % [color, line, tile]
+	if _mats.has(key):
+		return _mats[key]
+	var img := Image.create(128, 128, false, Image.FORMAT_RGB8)
+	img.fill(color)
+	img.fill_rect(Rect2i(0, 0, 128, line_px), line)
+	img.fill_rect(Rect2i(0, 0, line_px, 128), line)
+	img.generate_mipmaps()
+	var m := StandardMaterial3D.new()
+	m.albedo_texture = ImageTexture.create_from_image(img)
+	m.roughness = rough
+	m.uv1_triplanar = true
+	m.uv1_world_triplanar = true
+	m.uv1_scale = Vector3.ONE / tile
+	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+	_mats[key] = m
+	return m
+
+
+## A glowing sign (exit signs, room numbers lit from behind).
+static func sign(parent: Node3D, t: String, pos: Vector3, yaw: float, bg: Color, fg: Color, w := 0.36, h := 0.14) -> void:
+	var holder := Node3D.new()
+	holder.position = pos
+	holder.rotation_degrees.y = yaw
+	parent.add_child(holder)
+	box(holder, Vector3(-w / 2, -h / 2, -0.02), Vector3(w / 2, h / 2, 0.0), emissive(bg, 1.6), false)
+	text(holder, t, Vector3(0, 0, 0.003), 0.0, h * 0.55, fg)

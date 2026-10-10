@@ -17,7 +17,9 @@ var _tw: Tween
 
 ## A door in a wall opening that starts at `hinge` and runs `width` metres
 ## along +X (axis "x") or +Z (axis "z"). swing_in flips which side it opens to.
-static func make(parent: Node3D, hinge: Vector3, axis: String, w: float, h: float, material: Material, swing := 1.0) -> Door:
+## With `vision` (x0, y0, x1, y1 in metres on the leaf) the door gets a small
+## glass window — hospital doors — and no raised panels.
+static func make(parent: Node3D, hinge: Vector3, axis: String, w: float, h: float, material: Material, swing := 1.0, vision := Rect2()) -> Door:
 	var d := Door.new()
 	d.width = w
 	d.position = hinge
@@ -28,15 +30,31 @@ static func make(parent: Node3D, hinge: Vector3, axis: String, w: float, h: floa
 	d.leaf.sync_to_physics = false
 	d.add_child(d.leaf)
 	var thick := 0.04
-	var mi := MeshInstance3D.new()
-	var bm := BoxMesh.new()
-	bm.size = Vector3(w - 0.02, h - 0.01, thick)
-	mi.mesh = bm
-	mi.material_override = material
-	mi.position = Vector3(w / 2.0, h / 2.0, 0)
-	d.leaf.add_child(mi)
+	if vision.size != Vector2.ZERO:
+		# the leaf around the window, the glass, a thin frame
+		var x0 := vision.position.x
+		var y0 := vision.position.y
+		var x1 := vision.end.x
+		var y1 := vision.end.y
+		var lw := w - 0.02
+		var lh := h - 0.01
+		for r in [[0.01, 0.0, lw + 0.01, y0], [0.01, y1, lw + 0.01, lh], [0.01, y0, x0, y1], [x1, y0, lw + 0.01, y1]]:
+			WB.box(d.leaf, Vector3(r[0], r[1], -thick / 2), Vector3(r[2], r[3], thick / 2), material, false)
+		WB.box(d.leaf, Vector3(x0, y0, -0.004), Vector3(x1, y1, 0.004), WB.glass(), false)
+		var frame := WB.flat(Color(0.6, 0.62, 0.6), 0.3, 0.8)
+		for side in [-1.0, 1.0]:
+			for r2 in [[x0 - 0.02, y0 - 0.02, x1 + 0.02, y0], [x0 - 0.02, y1, x1 + 0.02, y1 + 0.02], [x0 - 0.02, y0, x0, y1], [x1, y0, x1 + 0.02, y1]]:
+				WB.box(d.leaf, Vector3(r2[0], r2[1], side * thick / 2), Vector3(r2[2], r2[3], side * (thick / 2 + 0.006)), frame, false)
+	else:
+		var mi := MeshInstance3D.new()
+		var bm := BoxMesh.new()
+		bm.size = Vector3(w - 0.02, h - 0.01, thick)
+		mi.mesh = bm
+		mi.material_override = material
+		mi.position = Vector3(w / 2.0, h / 2.0, 0)
+		d.leaf.add_child(mi)
 	# raised panels so it reads as a real door, not a slab
-	for py in [h * 0.27, h * 0.68]:
+	for py in ([] if vision.size != Vector2.ZERO else [h * 0.27, h * 0.68]):
 		for side in [-1.0, 1.0]:
 			var p := MeshInstance3D.new()
 			var pm := BoxMesh.new()

@@ -38,6 +38,11 @@ MODELS = {
     "vintage_suitcase": "1k", "binder_notebook": "1k", "magnifying_glass_01": "1k",
     "vintage_telephone_wall_clock": "1k", "painted_wooden_cabinet": "1k",
     "steel_frame_shelves_03": "1k", "Chandelier_01": "1k",
+    # clinic (Clínica Atlântico)
+    "mounted_fluorescent_lights": "1k", "wheelchair_01": "1k", "WetFloorSign_01": "1k",
+    "korean_fire_extinguisher_01": "1k", "fire_alarm": "1k", "medical_box": "1k", "clipboard": "1k",
+    "stationery_supplies": "1k", "modern_arm_chair_01": "1k", "drawer_cabinet": "1k",
+    "steel_frame_shelves_01": "1k", "potted_plant_04": "1k", "office_notepads": "1k",
     # hall / outside
     "fancy_picture_frame_01": "1k", "street_lamp_01": "1k", "covered_car": "1k",
     "metal_trash_can": "1k", "trashbag": "1k",
@@ -48,6 +53,7 @@ TEXTURES = {
     "long_white_tiles": "1k", "marble_01": "1k", "painted_plaster_wall": "1k",
     "stone_pavers": "1k", "asphalt_06": "1k", "kitchen_wood": "1k",
     "dark_wooden_planks": "1k", "dark_wood": "1k", "roof_planks": "1k",
+    "old_linoleum_flooring_01": "1k", "painted_concrete": "1k", "grey_tiles": "1k",
 }
 
 
