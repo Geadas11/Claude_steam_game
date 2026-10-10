@@ -18,6 +18,7 @@ run_one --only=save > "$DIR/save.log" &
 run_one --only=companion > "$DIR/companion.log" &
 run_one --only=coop > "$DIR/coop.log" &
 run_one --only=world > "$DIR/world.log" &
+run_one --only=presence > "$DIR/presence.log" &
 for p in A B C D E; do
   extra=""; [ "$p" = "A" ] || [ "$p" = "E" ] && extra="--ui"
   run_one --only=play --policy=$p $extra > "$DIR/play_$p.log" &

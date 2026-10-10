@@ -52,6 +52,7 @@ func new_game() -> void:
 			GameState.set_var("prev_end_" + e, true)
 			prev += 1
 	GameState.set_var("prev_endings", prev)
+	GameState.set_var("run_id", "%d-%d" % [Time.get_unix_time_from_system(), randi() % 100000])
 	start_chapter(Content.chapter_order[0])
 
 

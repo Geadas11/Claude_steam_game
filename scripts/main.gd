@@ -30,6 +30,7 @@ var _pos_save_t := 0.0
 var _last_hour := -1.0
 var _shown_loc := ""
 var _away: Control            # story location with no 3D place: phone only
+var _dying := false
 
 
 func _ready() -> void:
@@ -92,6 +93,8 @@ func _ready() -> void:
 			_pocket_ping("Mensagem · %s" % GameState.contact_name(str(m.get("from", th))) if str(m.get("from", "")) not in ["", "system"] else "Nova mensagem"))
 	Events.call_incoming.connect(func(c: Dictionary): _pocket_ping("A tocar · %s" % GameState.contact_name(str(c.get("who", ""))), true))
 	Events.phone_state_changed.connect(_sync_location)
+	# where a death sends him back to (R7): the start of this chapter
+	Events.chapter_started.connect(func(_ch): Saves.save_to("chapter"))
 	Events.open_app_requested.connect(func(_a, params: Dictionary):
 		if params.get("forced", false) and mode == Mode.GAME and _world_on():
 			set_phone_raised(true))
@@ -355,6 +358,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 				await get_tree().process_frame
 			"hudsize": print("HUD ", world.hud.size, " ui=", world_ui.size, " main=", size, " anchors=", world.hud.anchor_right, " ", world.hud.offset_right)
 			"hour": world.set_hour(float(kv[1]))
+			"ent":
+				# ent:x:z:fade[:prints] the thing standing there (visual QA)
+				world.presence.show_at(Vector3(float(kv[1]), 0.0, float(kv[2])), float(kv[3]), kv.size() > 4)
 			"where":
 				var wp := world.player.global_position
 				print("WHERE %.2f %.2f %.2f yaw=%.1f target=%s raised=%s" % [wp.x, wp.y, wp.z, world.player.yaw_deg(), world.player.target_prompt, phone_raised])
@@ -394,6 +400,7 @@ func _ensure_world() -> void:
 	move_child(world, 0)
 	world.attach_hud(world_ui)
 	world_ui.add_child(fade)
+	world.presence.caught.connect(_on_caught)
 
 
 ## Into the house: hide the desk, the phone goes into Daniel's hand.
@@ -591,8 +598,10 @@ func _process(delta: float) -> void:
 	var want := Input.MOUSE_MODE_CAPTURED if capture else Input.MOUSE_MODE_VISIBLE
 	if Input.mouse_mode != want and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = want
-	world.player.look_enabled = capture
-	world.player.move_enabled = playing and not world.peeping and not (phone_raised and _typing())
+	world.player.look_enabled = capture and not world.dying
+	world.player.move_enabled = playing and not world.peeping and not world.dying and not (phone_raised and _typing())
+	# the lit screen in his hand is what it notices most (R4)
+	world.presence.screen_on = playing and (phone_raised if phone_mode == "game" else GameState.current_app != "")
 	world.hud.update_from(world.player)
 	_pos_save_t -= delta
 	if _pos_save_t <= 0.0 and mode == Mode.GAME:
@@ -792,6 +801,44 @@ func toggle_pause() -> void:
 		pause_menu.close()
 	else:
 		pause_menu.open()
+
+
+# ---------------------------------------------------------------- caught (R7–R9)
+## It reached him. A glimpse, black, silence — and the chapter starts again,
+## with something not quite as it was. Nobody ever says he died.
+func _on_caught(at: Vector3) -> void:
+	if _dying or mode != Mode.GAME:
+		return
+	_dying = true
+	var ch := str(GameState.data.chapter)
+	var deaths := int(GameState.get_var("deaths_" + ch, 0)) + 1
+	var total := int(GameState.get_var("deaths_total", 0)) + 1
+	var run := str(GameState.get_var("run_id", ""))
+	await world.death_glimpse(at)
+	fade.modulate.a = 1.0
+	Audio.cut_all()
+	await get_tree().create_timer(2.6).timeout
+	var snap := Saves.read_slot("chapter")
+	var same: bool = not snap.is_empty() and str(snap.meta.get("chapter", "")) == ch \
+		and str(snap.state.get("flags", {}).get("run_id", "")) == run
+	if not (same and Saves.load_from("chapter")):
+		Director.start_chapter(ch)
+	GameState.set_var("deaths_" + ch, deaths)
+	GameState.set_var("deaths_total", total)
+	GameState.set_var("ja_falamos", true)
+	world.revive()
+	# the place as it was when the chapter began (then one thing moved, below)
+	var loc := str(GameState.data.get("location", "casa"))
+	if GameWorld.LOCATIONS.has(loc):
+		world.go_to(loc, "", true)
+	_shown_loc = ""
+	enter_world("")
+	Audio.set_ambient(_chapter_ambient(ch))
+	world.presence.leave_marks(deaths)
+	_dying = false
+	var tw := create_tween()
+	tw.tween_interval(0.6)
+	tw.tween_property(fade, "modulate:a", 0.0, 2.2)
 
 
 # ---------------------------------------------------------------- chapters

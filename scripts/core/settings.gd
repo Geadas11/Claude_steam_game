@@ -30,6 +30,7 @@ var values := {
 	"invert_y": false,
 	"fov": 75.0,                # 60 .. 95
 	"graphics": "alta",         # baixa / media / alta (the 3D house)
+	"threat": "normal",         # normal / reduzida / historia (it never catches him)
 	"seen_3d_hint": false,
 }
 

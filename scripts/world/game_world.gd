@@ -40,6 +40,8 @@ var _saved_cam: Camera3D
 var sun: DirectionalLight3D
 var sky_mat: ProceduralSkyMaterial
 var daylight := 0.0
+var presence: Presence
+var dying := false
 
 
 func _ready() -> void:
@@ -60,6 +62,9 @@ func _ready() -> void:
 	player.thought.connect(func(t): hud.show_thought(t))
 	_build_peephole()
 	_build_hiding()
+	presence = Presence.new()
+	add_child(presence)
+	presence.setup(self)
 	go_to("casa", "sofa")
 	Events.world_cue.connect(_on_cue)
 	Events.settings_changed.connect(_apply_quality)
@@ -166,12 +171,12 @@ func _apply_quality() -> void:
 
 ## Build (or keep) a place and put Daniel in it. Returns false when the
 ## place has no 3D version.
-func go_to(id: String, where := "") -> bool:
+func go_to(id: String, where := "", fresh := false) -> bool:
 	if not LOCATIONS.has(id):
 		return false
 	if where == "" and id != "" and location and location.spawns.has(id):
 		where = id
-	if location and (location.loc_id == id or location.aliases.has(id)):
+	if location and not fresh and (location.loc_id == id or location.aliases.has(id)):
 		if where == "" and location.spawns.has(id):
 			where = id
 		if where != "":
@@ -202,6 +207,7 @@ func go_to(id: String, where := "") -> bool:
 	spawn(where)
 	if location.has_method("set_rain"):
 		location.set_rain(daylight < 0.35, player)
+	presence.bind(location)
 	location_changed.emit(id)
 	return true
 
@@ -325,6 +331,39 @@ func _on_cue(cmd: String, args: Array) -> void:
 			player.think(" ".join(PackedStringArray(args)))
 		"shake":
 			player.shake(float(args[0]) if args.size() > 0 else 0.5)
+		"presence":
+			presence.story_cmd(args)
+
+
+# ------------------------------------------------------------ caught
+## It reached him: he turns, it is there (still not clear), then nothing.
+## Main fades to black and starts the chapter again.
+func death_glimpse(at: Vector3) -> void:
+	dying = true
+	if not hiding.is_empty():
+		unhide()
+	if peeping:
+		peek(false)
+	player.move_enabled = false
+	player.look_enabled = false
+	var to := at - player.global_position
+	var yaw := rad_to_deg(atan2(-to.x, -to.z))
+	var tw := create_tween()
+	tw.tween_method(func(t: float): player.set_view(lerp_angle(deg_to_rad(player.yaw_deg()), deg_to_rad(yaw), t) * 180.0 / PI, lerpf(player.head.rotation_degrees.x, 4.0, t)), 0.0, 1.0, 0.22)
+	await tw.finished
+	presence.glimpse(player.global_position, -player.global_transform.basis.z)
+	Audio.play("sub", 0.0, 0.6)
+	Audio.play("glitch", -4.0)
+	player.shake(1.2)
+	await get_tree().create_timer(0.5).timeout
+
+
+func revive() -> void:
+	dying = false
+	presence.held = false
+	presence.attention = 0.0
+	player.look_enabled = true
+	player.move_enabled = true
 
 
 # ------------------------------------------------------------ the peephole

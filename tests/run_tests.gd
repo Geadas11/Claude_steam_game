@@ -49,6 +49,8 @@ func _ready() -> void:
 		await _test_coop_net()
 	if _only == "" or _only == "world":
 		await _test_world()
+	if _only == "" or _only == "presence":
+		await _test_presence()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -978,6 +980,158 @@ func _test_world() -> void:
 	ok(not Audio.spatial.is_valid(), "inactive house releases the sound hook")
 	w.queue_free()
 	hud_parent.queue_free()
+	GameState.in_game = false
+
+
+## The thing (rules R2–R11): what draws it, what keeps it off, that it opens
+## doors, leaves wet prints, changes things out of sight with a sound, never
+## kills by day, searches a hiding place and gives up, and that being caught
+## starts the chapter again with a mark (Main).
+func _test_presence() -> void:
+	print("-- presence")
+	Saves.use_test_dir("_presence_%d" % OS.get_process_id())
+	Director.new_game()
+	GameState.in_game = true
+	var w := GameWorld.new()
+	add_child(w)
+	var hud_parent := Control.new()
+	add_child(hud_parent)
+	w.attach_hud(hud_parent)
+	w.set_active(true)
+	w.set_hour(2.0)
+	await _physics(3)
+	var pr := w.presence
+	var h := w.location
+	ok(h.nav != null and h.nav.navigation_mesh.get_polygon_count() > 20, "the house has a floor for it")
+	for id in h.rooms:
+		h.set_room_light(id, false)
+	pr.configure("ch05")
+	ok(pr.form == "substituido" and pr.can_kill() and pr.walks(), "ch05 at night: walks, can kill")
+	var p := w.player
+	var caught := [false]
+	pr.caught.connect(func(_a): caught[0] = true)
+	# what draws it: the lit phone in the dark
+	w.spawn("sofa")
+	pr.screen_on = true
+	await _physics(90)
+	var a1 := pr.attention
+	ok(a1 > 2.0, "the phone in the dark draws it (%.1f)" % a1)
+	# what keeps it off: light, the phone away
+	pr.screen_on = false
+	h.set_room_light("sala", true)
+	await _physics(60)
+	ok(pr.attention < a1, "light and the phone away calm it (%.1f -> %.1f)" % [a1, pr.attention])
+	# no deaths by day (R6), not even when it is close
+	w.set_hour(13.0)
+	ok(not pr.can_kill() and not pr.walks(), "by day it does not walk or kill")
+	pr.attention = 95.0
+	await _physics(30)
+	ok(not pr.body.visible and not caught[0], "by day: nothing to see")
+	w.set_hour(2.0)
+	for id in h.rooms:
+		h.set_room_light(id, false)
+	# hunting in the dark: it comes through the flat and reaches him
+	Engine.time_scale = 3.0
+	p.global_position = Vector3(1.2, 0.02, 1.2)
+	p.set_view(0.0)
+	pr.attention = 0.0
+	pr._set_state(Presence.State.AWAY)
+	pr.story_cmd(["hunt", "60"])
+	await _physics(4)
+	ok(pr.state == Presence.State.HUNT, "story can send it (state %s)" % pr.state_name())
+	ok(pr.pos.y > -40.0 and pr.pos.distance_to(p.global_position) > 4.0, "it starts out of sight (%.1f m)" % pr.pos.distance_to(p.global_position))
+	var t := 0
+	while not caught[0] and t < 900:
+		await _physics(1)
+		t += 1
+	ok(caught[0], "in the dark it reaches him (%d frames)" % t)
+	ok(int(GameState.get_var("w_caught", 0)) == 1, "w_caught counted")
+	# light keeps it off (R5): under the lamp, with it hunting, nothing happens
+	pr.held = false
+	caught[0] = false
+	h.set_room_light("sala", true)
+	p.global_position = Vector3(2.7, 0.02, 2.2)
+	pr._park()
+	pr.story_cmd(["hunt", "60"])
+	t = 0
+	while not caught[0] and t < 500:
+		await _physics(1)
+		t += 1
+	ok(not caught[0], "under the light it never reaches him (dist %.1f, state %s)" % [pr.pos.distance_to(p.global_position), pr.state_name()])
+	# a chapter where it doesn't kill: it is there, then gone
+	h.set_room_light("sala", false)
+	pr.configure("ch01")
+	ok(not pr.can_kill() and pr.walks(), "ch01: walks, does not kill")
+	pr.story_cmd(["hunt", "60"])
+	t = 0
+	var w0 := int(GameState.get_var("w_glimpses", 0))
+	while int(GameState.get_var("w_glimpses", 0)) == w0 and t < 900:
+		await _physics(1)
+		t += 1
+	ok(not caught[0] and int(GameState.get_var("w_glimpses", 0)) > w0, "ch01: it comes and vanishes (%d frames, %s at %s, %.1f m)" % [t, pr.state_name(), pr.pos, pr.pos.distance_to(p.global_position)])
+	ok(GameState.flag("w_footprints"), "ch01 (pegada): wet footprints on the floor")
+	ok(h.find_children("*", "Decal", true, false).size() > 0, "footprint decals in the flat")
+	# closed doors on its way open, and are heard
+	pr.configure("ch05")
+	for d in h.doors.values():
+		if not d.locked:
+			d.set_open(false, true)
+	p.global_position = Vector3(7.7, 0.02, 2.0)   # in the bedroom, door closed
+	pr.pos = pr._on_nav(Vector3(1.5, 0.0, 6.5))  # in the kitchen
+	pr.story_cmd(["stalk", "40"])
+	t = 0
+	var opened0 := int(GameState.get_var("w_doors_opened", 0))
+	while int(GameState.get_var("w_doors_opened", 0)) == opened0 and t < 900:
+		await _physics(1)
+		t += 1
+	ok(int(GameState.get_var("w_doors_opened", 0)) > opened0, "it opens the doors in its way (%d frames)" % t)
+	# hiding: it searches, then gives up
+	var spot: Dictionary = h.hides[0]
+	pr.story_cmd(["calm"])
+	pr.attention = 70.0
+	pr._set_state(Presence.State.STALK)
+	w.hide_in(spot)
+	await _physics(3)
+	ok(pr.state == Presence.State.SEARCH, "he hides: it searches (%s)" % pr.state_name())
+	t = 0
+	while pr.state == Presence.State.SEARCH and t < 1500:
+		await _physics(1)
+		t += 1
+	ok(pr.state != Presence.State.SEARCH and not caught[0], "silent in the wardrobe, it gives up (%s, %d frames)" % [pr.state_name(), t])
+	w.unhide()
+	Engine.time_scale = 1.0
+	# the place changes out of sight, with a sound where it happens (R10/R11)
+	p.global_position = Vector3(1.5, 0.02, 2.0)
+	p.set_view(0.0)
+	var before := w.get_child_count()
+	var n0 := int(GameState.get_var("w_changes", 0))
+	Audio.muted_for_tests = false
+	var changed := pr.change_one()
+	Audio.muted_for_tests = true
+	ok(changed and int(GameState.get_var("w_changes", 0)) == n0 + 1, "one thing changes out of sight")
+	ok(w.get_child_count() > before, "the change is heard where it happens")
+	w.set_active(false)
+	w.queue_free()
+	hud_parent.queue_free()
+	await _frames(2)
+	# caught: black, the chapter again, a mark, nobody says it (R7–R9)
+	var main: Node = load("res://scenes/main.tscn").instantiate()
+	add_child(main)
+	await _frames(3)
+	main.start_new_game(false)
+	await _frames(10)
+	var ch := str(GameState.data.chapter)
+	var t_start: float = GameState.data.chapter_start
+	ok(not Saves.read_slot("chapter").is_empty(), "the chapter's start is kept")
+	Clock.set_time(t_start + 3600.0)
+	GameState.set_var("probe_after_start", true)
+	await main._on_caught(main.world.player.global_position + Vector3(0, 0, -1))
+	ok(str(GameState.data.chapter) == ch and absf(Clock.now() - t_start) < 120.0, "back at the start of %s" % ch)
+	ok(not GameState.flag("probe_after_start"), "what happened after the start is gone")
+	ok(int(GameState.get_var("deaths_" + ch, 0)) == 1 and GameState.flag("ja_falamos"), "the restart is remembered (deaths_%s, ja_falamos)" % ch)
+	ok(main.world.active and not main.world.dying, "he can move again")
+	main.queue_free()
+	await _frames(2)
 	GameState.in_game = false
 
 

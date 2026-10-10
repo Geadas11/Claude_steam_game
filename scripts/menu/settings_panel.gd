@@ -33,6 +33,8 @@ func _ready() -> void:
 	_slider("Campo de visão", "fov", 60.0, 95.0, 1.0)
 	_toggle("Inverter o eixo vertical", "invert_y")
 	_choice("Qualidade gráfica", "graphics", ["baixa", "media", "alta"], ["Baixa", "Média", "Alta"])
+	_choice("Ameaça", "threat", ["normal", "reduzida", "historia"], ["Normal", "Reduzida", "Só história"])
+	body.add_child(UI.label("Reduzida: repara em ti mais devagar e é mais lenta. Só história: continua lá, mas nunca te apanha.", 12, "faint", true))
 	_section("Controlos")
 	for action in Settings.REMAPPABLE:
 		_keybind(action)

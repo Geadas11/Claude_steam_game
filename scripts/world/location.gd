@@ -24,7 +24,7 @@ var texts := {}
 var peep: Array = []         # [cam position, yaw] when the place has a peephole
 var outdoor := false
 var aliases: Array = []      # other story ids that are this same place ("cais" → the road)
-var nav_cell := 0.08         # navigation mesh resolution (outdoors can be coarser)         # the street/cais: no rooms, the sky is the light
+var nav_cell := 0.08         # navigation mesh resolution (outdoors can be coarser)
 var nav: NavigationRegion3D
 var _uses := {}
 var _probes: Array[ReflectionProbe] = []
@@ -48,16 +48,28 @@ func bake_navigation() -> void:
 	nav = NavigationRegion3D.new()
 	add_child(nav)
 	var nm := NavigationMesh.new()
-	nm.agent_radius = 0.28
+	nm.agent_radius = 0.16   # it is thin: 0.7 m doors with frames must stay open
 	nm.agent_height = 1.7
 	nm.agent_max_climb = 0.2
 	nm.cell_size = nav_cell
 	nm.cell_height = 0.05
 	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
 	nm.geometry_collision_mask = 1
+	# doors are not walls: what walks here opens them (with a sound).
+	# Locked ones are (the front door at night).
+	var leaves := {}
+	for d in doors.values():
+		if d is Door and not d.locked:
+			leaves[d.leaf] = d.leaf.collision_layer
+			d.leaf.collision_layer = 1 << (Hotspot.LAYER - 1)
 	var src := NavigationMeshSourceGeometryData3D.new()
 	NavigationServer3D.parse_source_geometry_data(nm, src, self)
+	for leaf in leaves:
+		leaf.collision_layer = leaves[leaf]
 	NavigationServer3D.bake_from_source_geometry_data(nm, src)
+	var map := get_world_3d().navigation_map
+	NavigationServer3D.map_set_cell_size(map, nm.cell_size)
+	NavigationServer3D.map_set_cell_height(map, nm.cell_height)
 	nav.navigation_mesh = nm
 
 
