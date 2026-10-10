@@ -3,24 +3,45 @@
  "guiche": {
   "prompt": "Bater no guiché",
   "when": [
-   {"if": "loc(\"caminho\") and (at(\"23:00\") or at(\"02:00\"))", "text": "Uma voz pelo altifalante: «Outra vez por aqui, a esta hora?» Nunca cá estive a esta hora. «O ano passado também ia a pé para o cais. Ia com pressa. Não ia sozinho, pois não?»"}
+   {
+    "if": "flag(\"left_home\") and not flag(\"pc_live\")",
+    "text": "Uma voz pelo altifalante: «Outra vez por aqui, a esta hora?» Nunca cá estive a esta hora. «O ano passado passou aqui a pé. Três e dez, mais coisa menos coisa. Para os lados da vila, a andar, não a correr.» Uma pausa. «Depois, às três e meia, outra vez para lá. Aí já ia a correr.»",
+    "set": "pc_live"
+   },
+   {
+    "if": "flag(\"pc_live\")",
+    "text": "A luz amarela do guiché. O homem já não está à janela. A gaveta do dinheiro ficou aberta."
+   }
   ],
-  "text": ["Uma luz amarela, um vidro grosso, uma gaveta de metal para o dinheiro. Ninguém à vista."]
+  "text": [
+   "Uma luz amarela, um vidro grosso, uma gaveta de metal para o dinheiro. Ninguém à vista."
+  ]
  },
  "camara": {
   "prompt": "Olhar para a câmara",
-  "text": ["Uma câmara pequena por cima da porta do café, virada para a estrada do cais. A luz vermelha acende e apaga.", "Às 03:04 de há um ano, esta câmara viu um carro de luzes apagadas. A mim não me viu. Ou viu e ninguém perguntou."]
+  "text": [
+   "Uma câmara pequena por cima da porta do café, virada para a estrada do cais. A luz vermelha acende e apaga.",
+   "Às 03:04 de há um ano, esta câmara viu um carro de luzes apagadas. A mim não me viu. Ou viu e ninguém perguntou."
+  ]
  },
  "farol": {
   "prompt": "Ver a porta do Farol",
-  "text": ["O Farol fechado. O néon fica aceso a noite toda; o João diz que é para os pescadores saberem onde é a terra.", "A mesa do canto, a da festa de anos dela. Daqui não se vê, mas sei onde é."]
+  "text": [
+   "O Farol fechado. O néon fica aceso a noite toda; o João diz que é para os pescadores saberem onde é a terra.",
+   "A mesa do canto, a da festa de anos dela. Daqui não se vê, mas sei onde é."
+  ]
  },
  "escadas": {
   "prompt": "Olhar para os degraus",
-  "text": ["Os degraus descem até à água. Os últimos estão verdes de limo. O corrimão deste lado está partido há um ano.", "Daqui até lá abaixo são nove degraus. Não sei como sei isso."]
+  "text": [
+   "Os degraus descem até à água. Os últimos estão verdes de limo. O corrimão deste lado está partido há um ano.",
+   "Daqui até lá abaixo são nove degraus. Não sei como sei isso."
+  ]
  },
  "flores": {
   "prompt": "Ver as flores",
-  "text": ["Flores atadas ao poste com um fio de pesca. Secas, quase brancas. Fui eu que as pus em janeiro. A Marta viu-me e nunca disse nada."]
+  "text": [
+   "Flores atadas ao poste com um fio de pesca. Secas, quase brancas. Fui eu que as pus em janeiro. A Marta viu-me e nunca disse nada."
+  ]
  }
 }

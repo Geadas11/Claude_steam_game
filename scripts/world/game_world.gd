@@ -42,6 +42,8 @@ var sky_mat: ProceduralSkyMaterial
 var daylight := 0.0
 var presence: Presence
 var dying := false
+var _zone_t := 0.0
+var _figures: Array = []
 
 
 func _ready() -> void:
@@ -67,6 +69,11 @@ func _ready() -> void:
 	presence.setup(self)
 	go_to("casa", "sofa")
 	Events.world_cue.connect(_on_cue)
+	# where he walked is remembered per chapter (the quay of the prologue is not tonight's)
+	Events.chapter_started.connect(func(_ch):
+		for k in GameState.data.flags.keys():
+			if str(k).begins_with("w_zone_"):
+				GameState.data.flags.erase(k))
 	Events.settings_changed.connect(_apply_quality)
 	_apply_quality()
 	set_active(false)
@@ -339,6 +346,30 @@ func _on_cue(cmd: String, args: Array) -> void:
 			player.shake(float(args[0]) if args.size() > 0 else 0.5)
 		"presence":
 			presence.story_cmd(args)
+		"figure":
+			# figure x z [red|dark] — someone standing far off, gone when he gets close
+			_figures.append(presence.figure(Vector3(float(args[0]), 0.0, float(args[1])), args[2] if args.size() > 2 else "dark"))
+		"prints":
+			# prints x z yaw n — wet footprints walking off towards yaw
+			presence.trail(Vector3(float(args[0]), 0.0, float(args[1])), deg_to_rad(float(args[2])), int(args[3]) if args.size() > 3 else 6)
+
+
+func _process(delta: float) -> void:
+	if not active or location == null:
+		return
+	_zone_t -= delta
+	if _zone_t <= 0.0 and not location.zones.is_empty():
+		_zone_t = 0.4
+		var pp := player.global_position
+		for id in location.zones:
+			if (location.zones[id] as AABB).has_point(pp) and not GameState.flag("w_zone_" + id):
+				GameState.set_var("w_zone_" + id, true)
+				Director.notify_player_action()
+	for f in _figures.duplicate():
+		if not is_instance_valid(f):
+			_figures.erase(f)
+		elif presence.figure_check(f, delta):
+			_figures.erase(f)
 
 
 # ------------------------------------------------------------ caught

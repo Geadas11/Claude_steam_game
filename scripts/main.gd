@@ -358,6 +358,9 @@ func _debug_script(steps: PackedStringArray) -> void:
 				await get_tree().process_frame
 			"hudsize": print("HUD ", world.hud.size, " ui=", world_ui.size, " main=", size, " anchors=", world.hud.anchor_right, " ", world.hud.offset_right)
 			"hour": world.set_hour(float(kv[1]))
+			"figs":
+				for f in world._figures:
+					print("FIG ", f.global_position, " vis=", f.visible, " fade=", f.get_meta("mat").get_shader_parameter("fade"), " parent=", f.get_parent().name)
 			"ps":
 				var pz: Presence = world.presence
 				print("PRESENCE t=%s form=%s state=%s att=%.1f screen=%s light=%.2f dist=%.1f" % [Clock.fmt_time(Clock.now()), pz.form, pz.state_name(), pz.attention, pz.screen_on, pz._player_light(), pz.pos.distance_to(world.player.global_position)])
@@ -817,6 +820,8 @@ func _on_caught(at: Vector3) -> void:
 	var deaths := int(GameState.get_var("deaths_" + ch, 0)) + 1
 	var total := int(GameState.get_var("deaths_total", 0)) + 1
 	var run := str(GameState.get_var("run_id", ""))
+	var death_at := world.player.global_position
+	var death_loc := world.location.loc_id
 	await world.death_glimpse(at)
 	fade.modulate.a = 1.0
 	Audio.cut_all()
@@ -829,6 +834,8 @@ func _on_caught(at: Vector3) -> void:
 	GameState.set_var("deaths_" + ch, deaths)
 	GameState.set_var("deaths_total", total)
 	GameState.set_var("ja_falamos", true)
+	GameState.set_var("last_death_pos", [death_at.x, death_at.y, death_at.z])
+	GameState.set_var("last_death_loc", death_loc)
 	world.revive()
 	# the place as it was when the chapter began (then one thing moved, below)
 	var loc := str(GameState.data.get("location", "casa"))

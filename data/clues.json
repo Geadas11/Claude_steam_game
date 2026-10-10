@@ -2003,5 +2003,14 @@
   "related": [
    "helena_admission"
   ]
+ },
+ "pc_live": {
+  "title": "O empregado da noite",
+  "desc": "No guiché das bombas, o mesmo homem de há um ano: viu-te passar a pé às 03:10, para os lados da vila, a andar. E às 03:30 outra vez, para o cais, a correr. Disse-o à polícia. Escreveram «testemunha pouco fiável».",
+  "source": "Bombas da EN125",
+  "importance": 3,
+  "related": [
+   "went_back"
+  ]
  }
 }

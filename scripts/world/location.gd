@@ -27,6 +27,7 @@ var aliases: Array = []      # other story ids that are this same place ("cais" 
 var nav_cell := 0.08         # navigation mesh resolution (outdoors can be coarser)
 var nav: NavigationRegion3D
 var lamps: Array = []        # lights outside any room (street lamps) that count as light
+var zones := {}              # id -> AABB: walking into one sets w_zone_<id> for the story
 var _uses := {}
 var _probes: Array[ReflectionProbe] = []
 

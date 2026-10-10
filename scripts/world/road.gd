@@ -454,6 +454,13 @@ func _build_bounds() -> void:
 
 # =================================================================== story
 func _build_story_hooks() -> void:
+	zones = {
+		"en125": AABB(Vector3(60, -2, -30), Vector3(48, 10, 60)),
+		"bombas": AABB(Vector3(108, -2, -30), Vector3(37, 10, 60)),
+		"largo": AABB(Vector3(195, -2, -30), Vector3(53, 10, 50)),
+		"cais": AABB(Vector3(213, -3, 20), Vector3(18, 10, 70)),
+		"fim": AABB(Vector3(213, -3, 90), Vector3(20, 10, 22)),
+	}
 	spawns = {
 		"casa": [Vector3(7.0, 0.12, -4.6), -90.0],
 		"en125": [Vector3(62.0, 0.02, 1.5), -90.0],

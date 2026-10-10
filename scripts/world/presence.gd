@@ -655,6 +655,7 @@ func change_one(silent := false) -> bool:
 
 ## After a restart (R8): something is not where it was. Heard faintly in the dark.
 func leave_marks(n: int) -> void:
+	mark_death_spot()
 	for i in clampi(n, 1, 3):
 		var pp := world.player.global_position
 		var options := world.location.changeables.filter(func(c): return not c.get("done", false) and (c.pos as Vector3).distance_to(pp) > 1.5)
@@ -718,6 +719,7 @@ func _build_body() -> void:
 	sh.code = """shader_type spatial;
 render_mode unshaded, cull_back, shadows_disabled;
 uniform float fade = 0.0;
+uniform vec3 tint : source_color = vec3(0.002, 0.002, 0.003);
 uniform sampler2D smoke : repeat_enable;
 varying vec3 wp;
 varying float hgt;
@@ -736,7 +738,7 @@ void fragment() {
 	float facing = abs(dot(NORMAL, VIEW));
 	float edge = smoothstep(0.0, 0.4, facing);
 	float feet = smoothstep(0.0, 0.5, hgt);
-	ALBEDO = vec3(0.002, 0.002, 0.003);
+	ALBEDO = tint;
 	ALPHA = clamp(fade * 1.3 * edge * feet * smoothstep(0.05, 0.45, n + 0.25), 0.0, 1.0);
 	ALPHA_HASH_SCALE = 1.0;
 }"""
@@ -833,6 +835,69 @@ func glimpse(at_player: Vector3, facing: Vector3) -> void:
 	body.visible = true
 	body.global_position = pos
 	_mat.set_shader_parameter("fade", _fade)
+
+
+# ------------------------------------------------------------------ someone far off (story)
+## A still figure at `p` (on the floor), facing him: "red" is a red coat in
+## the rain, "dark" is him, soaked, coming the other way. It is never there
+## when he gets close or stares at it (R2).
+func figure(p: Vector3, kind := "dark") -> Node3D:
+	var f := body.duplicate() as Node3D
+	var m := _mat.duplicate() as ShaderMaterial
+	m.set_shader_parameter("tint", Color(0.5, 0.03, 0.04) if kind == "red" else Color(0.004, 0.004, 0.005))
+	m.set_shader_parameter("fade", 0.0)
+	for c in f.get_children():
+		(c as MeshInstance3D).material_override = m
+	f.set_meta("mat", m)
+	f.set_meta("seen", 0.0)
+	f.scale = Vector3.ONE * (0.82 if kind == "red" else 0.86)
+	add_child(f)
+	f.global_position = _on_nav(p)
+	var pp := world.player.global_position
+	f.rotation.y = atan2(pp.x - f.global_position.x, pp.z - f.global_position.z)
+	f.visible = true
+	return f
+
+
+## Fades a figure in, and out for good when he is close or looks too long.
+## Returns true when it is gone.
+func figure_check(f: Node3D, delta: float) -> bool:
+	var m: ShaderMaterial = f.get_meta("mat")
+	var a: float = m.get_shader_parameter("fade")
+	var d := f.global_position.distance_to(world.player.global_position)
+	var cam := world.player.cam
+	var chest := f.global_position + Vector3(0, 1.4, 0)
+	var dir := (chest - cam.global_position).normalized()
+	var straight := cam.is_position_in_frustum(chest) and dir.dot(-cam.global_transform.basis.z) > 0.985
+	var seen: float = f.get_meta("seen") + (delta if straight else 0.0)
+	f.set_meta("seen", seen)
+	if d < 14.0 or seen > 3.5 or f.get_meta("going", false):
+		f.set_meta("going", true)
+		a = move_toward(a, 0.0, delta * 1.5)
+		m.set_shader_parameter("fade", a)
+		if a <= 0.0:
+			world.play_at("sub", chest, -20.0, 0.7)
+			f.queue_free()
+			return true
+		return false
+	m.set_shader_parameter("fade", move_toward(a, 0.85, delta * 0.8))
+	return false
+
+
+## Wet footprints from `p` towards `yaw`, n steps.
+func trail(p: Vector3, yaw: float, n: int) -> void:
+	var dir := Vector3(sin(yaw), 0, cos(yaw))
+	for i in n:
+		_footprint(_on_nav(p + dir * (i * 0.36)), yaw)
+
+
+## After a restart (R8): his own wet footprint where it reached him.
+func mark_death_spot() -> void:
+	var dp = GameState.get_var("last_death_pos", [])
+	if dp is Array and dp.size() == 3 and str(GameState.get_var("last_death_loc", "")) == world.location.loc_id:
+		var at := Vector3(float(dp[0]), float(dp[1]), float(dp[2]))
+		_footprint(at, _rng.randf() * TAU)
+		_footprint(at + Vector3(0.25, 0, 0.1), _rng.randf() * TAU)
 
 
 # ------------------------------------------------------------------ wet footprints

@@ -12,7 +12,8 @@
   "ch10",
   "ch11",
   "ch12",
-  "ch13"
+  "ch13",
+  "ch14"
  ],
  "titles": {
   "ch01": "Vida Normal",
@@ -27,7 +28,8 @@
   "ch10": "A Verdade",
   "ch11": "A Clínica",
   "ch12": "Consequências",
-  "ch13": "Final"
+  "ch13": "O Cais Velho",
+  "ch14": "Final"
  },
  "recaps": {
   "ch01": "Quinta-feira. Um dia normal: a Sofia, o quiz do Farol, a Carla e os Saramagos, o Vasco a lembrar-te do ECO 2. Quase um ano depois do dia 14. Às 23:47, um número desconhecido: \"Ainda estás acordado?\" — e uma fotografia da tua janela, tirada da rua três minutos antes.",
@@ -41,7 +43,8 @@
   "ch09": "O registo do sistema previu o que ia acontecer — e aconteceu. Uma captura de ecrã mostrou a mensagem que mandaste ao Vasco na noite de 13: onde ela estava, e \"não lhe digas que fui eu\". Por baixo de tudo, o ECO. E a Sofia ainda guardava o teu telemóvel antigo numa gaveta.",
   "ch10": "A Sofia mandou-te a cópia do telemóvel antigo, protegida pelo aniversário dela. A conta da Inês sincronizou uma gravação feita no cais às 03:09. A voz pediu-te que montasses a noite peça a peça. O Vasco quer-te internado amanhã às 14h.",
   "ch11": "A consulta das 14h. A Helena disse que já tinham falado disto na terça, e que em novembro, sedado, disseste «eu empurrei-a» — escrito, nunca gravado. No arquivo, a tua ficha, faturada à Lumen. No quarto 4, um cartão com o teu nome. A clínica fechou às sete contigo lá dentro.",
-  "ch12": "Terça-feira, 13 de outubro. As escolhas pagaram-se: quem ficou do teu lado, quem desapareceu. O cartão da Inês esteve sempre dentro do livro. Esta noite, faz um ano."
+  "ch12": "Terça-feira, 13 de outubro. As escolhas pagaram-se: quem ficou do teu lado, quem desapareceu. O cartão da Inês esteve sempre dentro do livro. Esta noite, faz um ano.",
+  "ch13": "A última noite. As vozes de quem ficou — ou de quem deixou de responder. Às 00:30 saíste de casa e fizeste a pé o caminho daquela noite: a estrada nacional, as bombas, o Largo do Cais. Um casaco vermelho ao longe. Tu próprio, encharcado, a vir ao contrário. Pegadas que iam até à ponta do cais e não voltavam."
  },
  "epigraphs": {
   "ch02": [
@@ -89,6 +92,10 @@
    "Fernando Pessoa, Mensagem"
   ],
   "ch13": [
+   "Valeu a pena? Tudo vale a pena\nSe a alma não é pequena.",
+   "Fernando Pessoa, Mensagem"
+  ],
+  "ch14": [
    "Ó mar salgado, quanto do teu sal\nSão lágrimas de Portugal!",
    "Fernando Pessoa, Mensagem"
   ]

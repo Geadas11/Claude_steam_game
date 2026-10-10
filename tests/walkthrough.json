@@ -398,13 +398,41 @@
    ]
   },
   "ch13": {
-   "all": [],
+   "all": [
+    [
+     "flag",
+     "w_zone_en125"
+    ],
+    [
+     "flag",
+     "w_zone_bombas"
+    ],
+    [
+     "flag",
+     "pc_live"
+    ],
+    [
+     "flag",
+     "w_zone_largo"
+    ],
+    [
+     "flag",
+     "w_zone_cais"
+    ],
+    [
+     "flag",
+     "w_zone_fim"
+    ]
+   ],
    "D": [
     [
      "camera",
      "close"
     ]
    ]
+  },
+  "ch14": {
+   "all": []
   }
  }
 }

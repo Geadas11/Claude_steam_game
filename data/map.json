@@ -1,61 +1,553 @@
 {
-  "km_per_unit": 4.0,
-  "land": [[0,0],[1,0],[1,0.62],[0.9,0.66],[0.82,0.72],[0.74,0.74],[0.66,0.72],[0.58,0.76],[0.48,0.8],[0.38,0.78],[0.26,0.72],[0.14,0.7],[0,0.68]],
-  "areas": [
-    {"c": "#26301f", "pts": [[0.22,0.52],[0.32,0.5],[0.36,0.6],[0.26,0.64]]},
-    {"c": "#3a3528", "pts": [[0.42,0.74],[0.6,0.7],[0.62,0.74],[0.48,0.79]]}
+ "km_per_unit": 4.0,
+ "land": [
+  [
+   0,
+   0
   ],
-  "roads": [
-    {"major": true, "w": 7, "pts": [[0,0.2],[0.3,0.24],[0.6,0.3],[0.85,0.4],[1,0.45]]},
-    {"major": true, "w": 6, "pts": [[0.85,0.4],[0.86,0.55],[0.8,0.68],[0.73,0.74]]},
-    {"w": 4, "pts": [[0.38,0.3],[0.44,0.42],[0.52,0.5],[0.6,0.58],[0.66,0.66]]},
-    {"w": 4, "pts": [[0.3,0.24],[0.36,0.3],[0.38,0.3]]},
-    {"w": 3, "pts": [[0.44,0.42],[0.52,0.4],[0.62,0.44]]},
-    {"w": 3, "pts": [[0.52,0.5],[0.46,0.6],[0.5,0.74]]},
-    {"w": 3, "pts": [[0.6,0.58],[0.7,0.62],[0.78,0.68]]},
-    {"w": 5, "pts": [[0.73,0.74],[0.72,0.8]]}
+  [
+   1,
+   0
   ],
-  "labels": [
-    {"t": "SALGUEIRA", "x": 0.4, "y": 0.18, "a": 0.25},
-    {"t": "Oceano Atlântico", "x": 0.36, "y": 0.92, "a": 0.25},
-    {"t": "EN125", "x": 0.62, "y": 0.28, "a": 0.3},
-    {"t": "Rua Direita", "x": 0.47, "y": 0.47, "a": 0.25},
-    {"t": "← Faro 20 km", "x": 0.02, "y": 0.18, "a": 0.3}
+  [
+   1,
+   0.62
   ],
-  "locations": {
-    "casa": {"name": "Casa", "address": "Rua das Gaivotas 12, Salgueira", "x": 0.38, "y": 0.3, "color": "#8fb8de",
-      "desc": "Casa. Rés-do-chão com janela para a rua. A renda sobe em janeiro.",
-      "alt": [{"when": "beat(\"first_message\")", "desc": "Casa. Rés-do-chão com janela para a rua. Quem está na rua vê a sala inteira quando a luz está acesa."}]},
-    "livraria": {"name": "Livraria Maré", "address": "Rua Direita 31, Salgueira", "x": 0.6, "y": 0.58, "keywords": ["livraria", "mare", "trabalho"],
-      "desc": "Livros novos e usados desde 1998. Aberto 10h–19h. Tu tens a chave."},
-    "farol": {"name": "Bar O Farol", "address": "Largo do Cais 4, Salgueira", "x": 0.66, "y": 0.66, "keywords": ["farol", "bar", "joao"],
-      "desc": "Bar do João. Quiz às sextas. Fecha às 2h (oficialmente)."},
-    "cais": {"name": "Cais Velho", "address": "Ponta do Cais, Salgueira", "x": 0.72, "y": 0.8, "color": "#c96a6a", "keywords": ["cais", "cais velho", "pier"],
-      "desc": "Antigo cais de descarga. Iluminação: um candeeiro. Acesso noturno desaconselhado.",
-      "alt": [{"when": "clue(\"news_death\")", "desc": "Antigo cais de descarga. Iluminação: um candeeiro. Foi aqui que encontraram a Inês Matos, a 14 de outubro de 2025."}],
-      "clues": []},
-    "praia": {"name": "Praia da Salgueira", "address": "Salgueira", "x": 0.5, "y": 0.75, "desc": "Areal comprido, bandeira verde até setembro."},
-    "igreja": {"name": "Igreja Matriz", "address": "Largo da Igreja, Salgueira", "x": 0.47, "y": 0.45, "desc": "Missa às 19h. A tua mãe acende velas aqui quando vem."},
-    "miradouro": {"name": "Miradouro do Pinhal", "address": "Estrada do Pinhal", "x": 0.28, "y": 0.58, "desc": "Vista para o cais inteiro. Os casais sobem cá à noite."},
-    "doca": {"name": "Doca dos Pescadores", "address": "Doca, Salgueira", "x": 0.8, "y": 0.7, "keywords": ["doca", "barco", "rui", "pescadores"],
-      "desc": "Barcos de pesca artesanal. Saem às 5h.", "requires": "clue(\"rui_fisherman\")"},
-    "casa_ines": {"name": "Casa da Inês (antiga)", "address": "Rua do Mar 7, Salgueira", "x": 0.68, "y": 0.7, "keywords": ["ines", "rua do mar"],
-      "desc": "Ela vivia aqui. A janela do primeiro andar tem as persianas fechadas desde o ano passado.", "requires": "clue(\"ines_address\")"},
-    "bombas": {"name": "Bombas Galp EN125", "address": "EN125, saída Cais Velho", "x": 0.86, "y": 0.55, "keywords": ["bombas", "galp", "gasolina", "posto"],
-      "desc": "Posto de abastecimento 24h. Tem câmaras viradas para a estrada.", "requires": "clue(\"gas_station_camera\")"},
-    "lumen": {"name": "Lumen Systems", "address": "Parque Tecnológico de Faro, Ed. 3", "x": 0.04, "y": 0.12, "keywords": ["lumen", "faro"],
-      "desc": "Onde trabalhaste quatro anos. 20 km para oeste."},
-    "clinica": {"name": "Clínica Atlântico", "address": "Av. 5 de Outubro 112, Faro", "x": 0.05, "y": 0.26, "keywords": ["clinica", "helena", "atlantico"],
-      "desc": "Consultas às quartas. Sala 4. Cheira sempre a lavanda."}
+  [
+   0.9,
+   0.66
+  ],
+  [
+   0.82,
+   0.72
+  ],
+  [
+   0.74,
+   0.74
+  ],
+  [
+   0.66,
+   0.72
+  ],
+  [
+   0.58,
+   0.76
+  ],
+  [
+   0.48,
+   0.8
+  ],
+  [
+   0.38,
+   0.78
+  ],
+  [
+   0.26,
+   0.72
+  ],
+  [
+   0.14,
+   0.7
+  ],
+  [
+   0,
+   0.68
+  ]
+ ],
+ "areas": [
+  {
+   "c": "#26301f",
+   "pts": [
+    [
+     0.22,
+     0.52
+    ],
+    [
+     0.32,
+     0.5
+    ],
+    [
+     0.36,
+     0.6
+    ],
+    [
+     0.26,
+     0.64
+    ]
+   ]
   },
-  "timeline": {
-    "2026-01-14": {"stops": [{"t": "07:41", "loc": "casa"}, {"t": "08:09", "loc": "cais", "note": "12 min"}, {"t": "08:40", "loc": "livraria"}]},
-    "2025-12-20": {"stops": [{"t": "00:52", "loc": "casa"}, {"t": "01:14", "loc": "livraria", "note": "24 min · à porta"}, {"t": "01:40", "loc": "cais", "note": "3 min"}, {"t": "02:21", "loc": "casa"}]},
-    "2025-10-14": {"requires": "flag(\"old_backup\")", "empty_text": "Sem dados de localização para este dia.\nOs registos podem ter sido eliminados ou o dispositivo estava desligado.",
-      "stops": [{"t": "00:12", "loc": "casa"}, {"t": "02:38", "loc": "cais", "note": "28 min · dispositivo: Pixel 7"}, {"t": "03:06", "loc": "bombas", "note": "a pé · 4,8 km/h"}, {"t": "03:41", "loc": "farol", "note": "a pé"}, {"t": "04:12", "loc": "livraria", "note": "9 min"}, {"t": "04:58", "loc": "casa"}],
-      "clues": ["old_location"]},
-    "2025-10-13": {"requires": "flag(\"old_backup\")", "empty_text": "Sem dados de localização para este dia.",
-      "stops": [{"t": "08:55", "loc": "lumen"}, {"t": "19:20", "loc": "casa"}, {"t": "21:40", "loc": "casa", "note": "chamada: Inês Matos, 38 min"}]},
-    "2025-09-14": {"requires": "flag(\"old_backup\")", "empty_text": "Sem dados de localização para este dia.", "stops": [{"t": "21:50", "loc": "farol", "note": "3 h 40 min"}]}
+  {
+   "c": "#3a3528",
+   "pts": [
+    [
+     0.42,
+     0.74
+    ],
+    [
+     0.6,
+     0.7
+    ],
+    [
+     0.62,
+     0.74
+    ],
+    [
+     0.48,
+     0.79
+    ]
+   ]
   }
+ ],
+ "roads": [
+  {
+   "major": true,
+   "w": 7,
+   "pts": [
+    [
+     0,
+     0.2
+    ],
+    [
+     0.3,
+     0.24
+    ],
+    [
+     0.6,
+     0.3
+    ],
+    [
+     0.85,
+     0.4
+    ],
+    [
+     1,
+     0.45
+    ]
+   ]
+  },
+  {
+   "major": true,
+   "w": 6,
+   "pts": [
+    [
+     0.85,
+     0.4
+    ],
+    [
+     0.86,
+     0.55
+    ],
+    [
+     0.8,
+     0.68
+    ],
+    [
+     0.73,
+     0.74
+    ]
+   ]
+  },
+  {
+   "w": 4,
+   "pts": [
+    [
+     0.38,
+     0.3
+    ],
+    [
+     0.44,
+     0.42
+    ],
+    [
+     0.52,
+     0.5
+    ],
+    [
+     0.6,
+     0.58
+    ],
+    [
+     0.66,
+     0.66
+    ]
+   ]
+  },
+  {
+   "w": 4,
+   "pts": [
+    [
+     0.3,
+     0.24
+    ],
+    [
+     0.36,
+     0.3
+    ],
+    [
+     0.38,
+     0.3
+    ]
+   ]
+  },
+  {
+   "w": 3,
+   "pts": [
+    [
+     0.44,
+     0.42
+    ],
+    [
+     0.52,
+     0.4
+    ],
+    [
+     0.62,
+     0.44
+    ]
+   ]
+  },
+  {
+   "w": 3,
+   "pts": [
+    [
+     0.52,
+     0.5
+    ],
+    [
+     0.46,
+     0.6
+    ],
+    [
+     0.5,
+     0.74
+    ]
+   ]
+  },
+  {
+   "w": 3,
+   "pts": [
+    [
+     0.6,
+     0.58
+    ],
+    [
+     0.7,
+     0.62
+    ],
+    [
+     0.78,
+     0.68
+    ]
+   ]
+  },
+  {
+   "w": 5,
+   "pts": [
+    [
+     0.73,
+     0.74
+    ],
+    [
+     0.72,
+     0.8
+    ]
+   ]
+  }
+ ],
+ "labels": [
+  {
+   "t": "SALGUEIRA",
+   "x": 0.4,
+   "y": 0.18,
+   "a": 0.25
+  },
+  {
+   "t": "Oceano Atlântico",
+   "x": 0.36,
+   "y": 0.92,
+   "a": 0.25
+  },
+  {
+   "t": "EN125",
+   "x": 0.62,
+   "y": 0.28,
+   "a": 0.3
+  },
+  {
+   "t": "Rua Direita",
+   "x": 0.47,
+   "y": 0.47,
+   "a": 0.25
+  },
+  {
+   "t": "← Faro 20 km",
+   "x": 0.02,
+   "y": 0.18,
+   "a": 0.3
+  }
+ ],
+ "locations": {
+  "casa": {
+   "name": "Casa",
+   "address": "Rua das Gaivotas 12, Salgueira",
+   "x": 0.38,
+   "y": 0.3,
+   "color": "#8fb8de",
+   "desc": "Casa. Rés-do-chão com janela para a rua. A renda sobe em janeiro.",
+   "alt": [
+    {
+     "when": "beat(\"first_message\")",
+     "desc": "Casa. Rés-do-chão com janela para a rua. Quem está na rua vê a sala inteira quando a luz está acesa."
+    }
+   ]
+  },
+  "livraria": {
+   "name": "Livraria Maré",
+   "address": "Rua Direita 31, Salgueira",
+   "x": 0.6,
+   "y": 0.58,
+   "keywords": [
+    "livraria",
+    "mare",
+    "trabalho"
+   ],
+   "desc": "Livros novos e usados desde 1998. Aberto 10h–19h. Tu tens a chave."
+  },
+  "farol": {
+   "name": "Bar O Farol",
+   "address": "Largo do Cais 4, Salgueira",
+   "x": 0.66,
+   "y": 0.66,
+   "keywords": [
+    "farol",
+    "bar",
+    "joao"
+   ],
+   "desc": "Bar do João. Quiz às sextas. Fecha às 2h (oficialmente)."
+  },
+  "cais": {
+   "name": "Cais Velho",
+   "address": "Ponta do Cais, Salgueira",
+   "x": 0.72,
+   "y": 0.8,
+   "color": "#c96a6a",
+   "keywords": [
+    "cais",
+    "cais velho",
+    "pier"
+   ],
+   "desc": "Antigo cais de descarga. Iluminação: um candeeiro. Acesso noturno desaconselhado.",
+   "alt": [
+    {
+     "when": "clue(\"news_death\")",
+     "desc": "Antigo cais de descarga. Iluminação: um candeeiro. Foi aqui que encontraram a Inês Matos, a 14 de outubro de 2025."
+    }
+   ],
+   "clues": []
+  },
+  "praia": {
+   "name": "Praia da Salgueira",
+   "address": "Salgueira",
+   "x": 0.5,
+   "y": 0.75,
+   "desc": "Areal comprido, bandeira verde até setembro."
+  },
+  "igreja": {
+   "name": "Igreja Matriz",
+   "address": "Largo da Igreja, Salgueira",
+   "x": 0.47,
+   "y": 0.45,
+   "desc": "Missa às 19h. A tua mãe acende velas aqui quando vem."
+  },
+  "miradouro": {
+   "name": "Miradouro do Pinhal",
+   "address": "Estrada do Pinhal",
+   "x": 0.28,
+   "y": 0.58,
+   "desc": "Vista para o cais inteiro. Os casais sobem cá à noite."
+  },
+  "doca": {
+   "name": "Doca dos Pescadores",
+   "address": "Doca, Salgueira",
+   "x": 0.8,
+   "y": 0.7,
+   "keywords": [
+    "doca",
+    "barco",
+    "rui",
+    "pescadores"
+   ],
+   "desc": "Barcos de pesca artesanal. Saem às 5h.",
+   "requires": "clue(\"rui_fisherman\")"
+  },
+  "casa_ines": {
+   "name": "Casa da Inês (antiga)",
+   "address": "Rua do Mar 7, Salgueira",
+   "x": 0.68,
+   "y": 0.7,
+   "keywords": [
+    "ines",
+    "rua do mar"
+   ],
+   "desc": "Ela vivia aqui. A janela do primeiro andar tem as persianas fechadas desde o ano passado.",
+   "requires": "clue(\"ines_address\")"
+  },
+  "bombas": {
+   "name": "Bombas Galp EN125",
+   "address": "EN125, saída Cais Velho",
+   "x": 0.86,
+   "y": 0.55,
+   "keywords": [
+    "bombas",
+    "galp",
+    "gasolina",
+    "posto"
+   ],
+   "desc": "Posto de abastecimento 24h. Tem câmaras viradas para a estrada.",
+   "requires": "clue(\"gas_station_camera\")"
+  },
+  "lumen": {
+   "name": "Lumen Systems",
+   "address": "Parque Tecnológico de Faro, Ed. 3",
+   "x": 0.04,
+   "y": 0.12,
+   "keywords": [
+    "lumen",
+    "faro"
+   ],
+   "desc": "Onde trabalhaste quatro anos. 20 km para oeste."
+  },
+  "clinica": {
+   "name": "Clínica Atlântico",
+   "address": "Av. 5 de Outubro 112, Faro",
+   "x": 0.05,
+   "y": 0.26,
+   "keywords": [
+    "clinica",
+    "helena",
+    "atlantico"
+   ],
+   "desc": "Consultas às quartas. Sala 4. Cheira sempre a lavanda."
+  },
+  "caminho": {
+   "name": "A caminho do cais",
+   "address": "EN125 · Salgueira",
+   "x": 0.55,
+   "y": 0.55,
+   "keywords": [
+    "caminho",
+    "en125",
+    "estrada"
+   ],
+   "desc": "Dois quilómetros e meio sem passeio. As bombas, o Largo do Cais, o mar."
+  }
+ },
+ "timeline": {
+  "2026-01-14": {
+   "stops": [
+    {
+     "t": "07:41",
+     "loc": "casa"
+    },
+    {
+     "t": "08:09",
+     "loc": "cais",
+     "note": "12 min"
+    },
+    {
+     "t": "08:40",
+     "loc": "livraria"
+    }
+   ]
+  },
+  "2025-12-20": {
+   "stops": [
+    {
+     "t": "00:52",
+     "loc": "casa"
+    },
+    {
+     "t": "01:14",
+     "loc": "livraria",
+     "note": "24 min · à porta"
+    },
+    {
+     "t": "01:40",
+     "loc": "cais",
+     "note": "3 min"
+    },
+    {
+     "t": "02:21",
+     "loc": "casa"
+    }
+   ]
+  },
+  "2025-10-14": {
+   "requires": "flag(\"old_backup\")",
+   "empty_text": "Sem dados de localização para este dia.\nOs registos podem ter sido eliminados ou o dispositivo estava desligado.",
+   "stops": [
+    {
+     "t": "00:12",
+     "loc": "casa"
+    },
+    {
+     "t": "02:38",
+     "loc": "cais",
+     "note": "28 min · dispositivo: Pixel 7"
+    },
+    {
+     "t": "03:06",
+     "loc": "bombas",
+     "note": "a pé · 4,8 km/h"
+    },
+    {
+     "t": "03:41",
+     "loc": "farol",
+     "note": "a pé"
+    },
+    {
+     "t": "04:12",
+     "loc": "livraria",
+     "note": "9 min"
+    },
+    {
+     "t": "04:58",
+     "loc": "casa"
+    }
+   ],
+   "clues": [
+    "old_location"
+   ]
+  },
+  "2025-10-13": {
+   "requires": "flag(\"old_backup\")",
+   "empty_text": "Sem dados de localização para este dia.",
+   "stops": [
+    {
+     "t": "08:55",
+     "loc": "lumen"
+    },
+    {
+     "t": "19:20",
+     "loc": "casa"
+    },
+    {
+     "t": "21:40",
+     "loc": "casa",
+     "note": "chamada: Inês Matos, 38 min"
+    }
+   ]
+  },
+  "2025-09-14": {
+   "requires": "flag(\"old_backup\")",
+   "empty_text": "Sem dados de localização para este dia.",
+   "stops": [
+    {
+     "t": "21:50",
+     "loc": "farol",
+     "note": "3 h 40 min"
+    }
+   ]
+  }
+ }
 }
