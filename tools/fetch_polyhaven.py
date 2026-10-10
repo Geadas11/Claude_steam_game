@@ -31,6 +31,13 @@ MODELS = {
     # bedroom
     "old_bed_frame": "1k", "painted_wooden_nightstand": "1k", "alarm_clock_01": "1k",
     "vintage_cabinet_01": "1k", "cardboard_box_01": "1k",
+    # bookshop (Livraria Maré)
+    "CashRegister_01": "1k", "standing_chalkboard_01": "1k", "wooden_ladder": "1k",
+    "Rockingchair_01": "1k", "side_table_01": "1k", "WoodenTable_02": "1k",
+    "wooden_stool_01": "1k", "potted_plant_02": "1k", "postcard_set_01": "1k",
+    "vintage_suitcase": "1k", "binder_notebook": "1k", "magnifying_glass_01": "1k",
+    "vintage_telephone_wall_clock": "1k", "painted_wooden_cabinet": "1k",
+    "steel_frame_shelves_03": "1k", "Chandelier_01": "1k",
     # hall / outside
     "fancy_picture_frame_01": "1k", "street_lamp_01": "1k", "covered_car": "1k",
     "metal_trash_can": "1k", "trashbag": "1k",
@@ -40,6 +47,7 @@ TEXTURES = {
     "terrazzo_tiles": "1k", "square_tiled_wall": "1k", "marble_mosaic_tiles": "1k",
     "long_white_tiles": "1k", "marble_01": "1k", "painted_plaster_wall": "1k",
     "stone_pavers": "1k", "asphalt_06": "1k", "kitchen_wood": "1k",
+    "dark_wooden_planks": "1k", "dark_wood": "1k", "roof_planks": "1k",
 }
 
 
@@ -57,11 +65,16 @@ def save(path: str, data: bytes) -> None:
 
 def fetch_model(aid: str, res: str) -> None:
     files = json.loads(get(f"https://api.polyhaven.com/files/{aid}"))
+    out = os.path.join(ROOT, "models", aid)
     if "gltf" not in files:
-        print("skip (no glTF)", aid)
+        # some sets only ship as FBX (Godot 4.3 imports it natively)
+        g = files["fbx"][res]["fbx"]
+        save(os.path.join(out, f"{aid}.fbx"), get(g["url"]))
+        for rel, inc in g.get("include", {}).items():
+            save(os.path.join(out, rel), get(inc["url"]))
+        print("model (fbx)", aid)
         return
     g = files["gltf"][res]["gltf"]
-    out = os.path.join(ROOT, "models", aid)
     save(os.path.join(out, f"{aid}.gltf"), get(g["url"]))
     for rel, inc in g["include"].items():
         save(os.path.join(out, rel), get(inc["url"]))

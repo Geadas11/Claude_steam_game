@@ -1,0 +1,52 @@
+{
+ "_comment": "Livraria Maré, Rua do Cais 31. Pensamentos do Daniel. 'when' tem prioridade (sintaxe dos @when).",
+ "caixa": {
+  "prompt": "Ver a caixa registadora",
+  "text": ["A caixa da Carla. Do tempo do avô dela. Faz um barulho de sino de igreja quando abre.", "Dentro, um talão dobrado em quatro. Não é meu nem é da Carla."]
+ },
+ "balcao": {
+  "prompt": "Ver o balcão",
+  "when": [
+   {"if": "loc(\"livraria\") and at(\"02:00\")", "text": "O balcão às escuras parece mais comprido. Como se alguém estivesse sentado do outro lado."}
+  ],
+  "text": ["Encomendas por levantar. Um post-it da Carla: «Daniel, o senhor do Pessoa vem buscar sábado.»", "O meu caderno de encomendas. A minha letra está pior do que no ano passado."]
+ },
+ "mesa": {
+  "prompt": "Ver as novidades",
+  "text": ["As novidades da semana. Ninguém compra novidades em Salgueira. Compram Saramago e livros de receitas.", "Um livro de fotografias do Algarve. A página do Cais Velho está dobrada no canto."]
+ },
+ "poltrona": {
+  "prompt": "Sentar na cadeira",
+  "text": ["A cadeira de baloiço onde a Carla lê ao fim da tarde. Ainda está a abanar um bocadinho.", "Não me sento aqui. Não sei porquê."]
+ },
+ "quadro": {
+  "prompt": "Ler o quadro",
+  "text": ["«Saramago −20% esta semana.» A letra da Carla. Todos os outubros põe Saramago em promoção. Diz que é por causa do Nobel. Eu acho que é por outra coisa."]
+ },
+ "montra": {
+  "prompt": "Olhar pela montra",
+  "when": [
+   {"if": "loc(\"livraria\") and (at(\"23:00\") or at(\"02:00\"))", "text": "A rua cor de laranja. O candeeiro. Do outro lado do vidro, eu, refletido, a olhar para dentro."}
+  ],
+  "text": ["A Rua do Cais. Às vezes o Sr. Armando passa e bate no vidro com a ponta do chapéu.", "Daqui vê-se a esquina que dá para o cais."]
+ },
+ "saramago": {
+  "prompt": "Ver a estante do Saramago",
+  "text": ["Saramago, prateleira inteira. O Ensaio sobre a Cegueira esgota sempre. Há três O Ano da Morte de Ricardo Reis — ou havia.", "Um homem que volta para Lisboa e passa um ano a falar com um morto. A Carla diz que é o livro mais bonito dele."]
+ },
+ "poesia": {
+  "prompt": "Ver a poesia",
+  "text": ["Pessoa, Sophia, Herberto. «O poeta é um fingidor.» A Inês sabia isto de cor. Como é que eu sei que ela sabia isto de cor?"]
+ },
+ "ricardo_reis": {
+  "prompt": "Tirar o livro de cima",
+  "when": [
+   {"if": "flag(\"card_found\")", "text": "A capa já está descolada. O sítio onde estava o cartão tem a forma de um quadrado pequeno."}
+  ],
+  "text": ["O Ano da Morte de Ricardo Reis. A capa está mais grossa do que devia."]
+ },
+ "secretaria": {
+  "prompt": "Ver a secretária da Carla",
+  "text": ["Faturas, um termo de café frio, os óculos de reserva da Carla. Uma lista de quem deve livros à loja. A Inês ainda está na lista.", "«Inês M. — Ricardo Reis (2.º ex.) — pago.» Datado de 13 de outubro do ano passado."]
+ }
+}

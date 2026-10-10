@@ -6,7 +6,28 @@ extends Node3D
 
 signal peep_changed(peeping: bool)
 
-var house: House
+## Places that exist in 3D. A story location without one here is played on
+## the phone only (the house waits in the dark).
+const LOCATIONS := {
+	"casa": "res://scripts/world/house.gd",
+	"livraria": "res://scripts/world/bookshop.gd",
+	"rui": "res://scripts/world/rui_house.gd",
+	"clinica": "res://scripts/world/clinic.gd",
+	"caminho": "res://scripts/world/road.gd",
+	"cais": "res://scripts/world/pier.gd",
+}
+
+signal location_changed(id: String)
+signal hidden_changed(spot: Dictionary)
+
+var location: Location
+var house: Location:
+	get:
+		return location
+var hiding: Dictionary = {}
+var _hide_cam: Camera3D
+var _hide_mask: ColorRect
+var _hour := 21.5
 var player: Player
 var hud: WorldHud
 var env: WorldEnvironment
@@ -24,8 +45,6 @@ func _ready() -> void:
 	env = WorldEnvironment.new()
 	env.environment = _night_environment()
 	add_child(env)
-	house = House.new()
-	add_child(house)
 	sun = DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-32, -150, 0)   # from the south-east, over the roofs
 	sun.light_color = Color(1.0, 0.95, 0.86)
@@ -34,14 +53,13 @@ func _ready() -> void:
 	sun.light_volumetric_fog_energy = 0.4
 	sun.visible = false
 	add_child(sun)
-	house.peephole_requested.connect(func(): peek(true))
 	player = Player.new()
 	add_child(player)
-	player.floor_kind = house.floor_kind
-	spawn("sofa")
 	hud = WorldHud.new()
 	player.thought.connect(func(t): hud.show_thought(t))
 	_build_peephole()
+	_build_hiding()
+	go_to("casa", "sofa")
 	Events.world_cue.connect(_on_cue)
 	Events.settings_changed.connect(_apply_quality)
 	_apply_quality()
@@ -117,7 +135,9 @@ func set_hour(h: float) -> void:
 	# low warm sun near the edges of the day
 	sun.light_color = Color(1.0, 0.95, 0.86).lerp(Color(1.0, 0.62, 0.38), 1.0 - d)
 	sun.rotation_degrees.x = lerpf(-6.0, -34.0, d)
-	house.set_daylight(d)
+	_hour = h
+	if location:
+		location.set_daylight(d)
 
 
 ## Graphics quality (Definições → Qualidade gráfica).
@@ -143,19 +163,45 @@ func _apply_quality() -> void:
 			(l as Light3D).shadow_enabled = l.get_meta("shadow") and (q != "baixa" or l is SpotLight3D)
 
 
-## Where Daniel stands at the start of a scene.
+## Build (or keep) a place and put Daniel in it. Returns false when the
+## place has no 3D version.
+func go_to(id: String, where := "") -> bool:
+	if not LOCATIONS.has(id):
+		return false
+	if location and location.loc_id == id:
+		if where != "":
+			spawn(where)
+		return true
+	if not hiding.is_empty():
+		unhide()
+	if peeping:
+		peek(false)
+	if location:
+		remove_child(location)
+		location.free()
+	location = load(LOCATIONS[id]).new()
+	add_child(location)
+	if location.loc_id == "":
+		location.loc_id = id
+	location.peephole_requested.connect(func(): peek(true))
+	location.hide_requested.connect(hide_in)
+	player.floor_kind = location.floor_kind
+	_apply_quality()
+	set_hour(_hour)
+	spawn(where)
+	location_changed.emit(id)
+	return true
+
+
+## Where Daniel stands at the start of a scene (a spawn of the place).
 func spawn(where: String) -> void:
-	match where:
-		"sofa":
-			# beside the coffee table, the sofa and the street windows ahead
-			player.global_position = Vector3(3.9, 0.02, 2.6)
-			player.set_view(20.0, -8.0)
-		"corridor":
-			player.global_position = Vector3(8.5, 0.02, 5.15)
-			player.set_view(90.0)
-		"bed":
-			player.global_position = Vector3(8.0, 0.02, 1.8)
-			player.set_view(0.0)
+	var sp: Array = location.spawns.get(where, [])
+	if sp.is_empty() and not location.spawns.is_empty():
+		sp = location.spawns.values()[0]
+	if sp.is_empty():
+		return
+	player.global_position = sp[0]
+	player.set_view(sp[1], sp[2] if sp.size() > 2 else -6.0)
 	player.velocity = Vector3.ZERO
 
 
@@ -175,6 +221,8 @@ func set_active(on: bool) -> void:
 func attach_hud(parent: Control) -> void:
 	parent.add_child(hud)
 	parent.add_child(_peep_mask)
+	_hide_mask.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	parent.add_child(_hide_mask)
 	hud.visible = active
 
 
@@ -193,15 +241,15 @@ func _spatial_sound(sound_name: String, volume_db: float, pitch: float) -> bool:
 	if sound_name in ["breath", "whisper"]:
 		# right behind him
 		pos = player.global_position + player.global_transform.basis.z * 0.7 + Vector3(0, 1.6, 0)
-	elif _AT.has(sound_name):
-		pos = house.spots[_AT[sound_name]]
+	elif _AT.has(sound_name) and location.spots.has(_AT[sound_name]):
+		pos = location.spots[_AT[sound_name]]
 	else:
 		return false
 	play_at(sound_name, pos, volume_db, pitch)
 	if sound_name in ["knock", "knock_one"]:
 		player.shake(0.4)
-	if sound_name == "footsteps":
-		house.landing_on(25.0)
+	if sound_name == "footsteps" and location.has_method("landing_on"):
+		location.landing_on(25.0)
 	return true
 
 
@@ -238,7 +286,8 @@ func _on_cue(cmd: String, args: Array) -> void:
 		"power":
 			house.set_power(args.size() > 0 and args[0] == "on")
 		"tv":
-			house.set_tv(args.size() > 0 and args[0] == "on")
+			if house.has_method("set_tv"):
+				house.set_tv(args.size() > 0 and args[0] == "on")
 		"door":
 			# door <id> open|close|lock|unlock
 			var d: Door = house.doors.get(args[0])
@@ -250,9 +299,12 @@ func _on_cue(cmd: String, args: Array) -> void:
 					"lock": d.locked = true
 					"unlock": d.locked = false
 		"landing":
-			house.landing_on(float(args[0]) if args.size() > 0 else 30.0)
+			if house.has_method("landing_on"):
+				house.landing_on(float(args[0]) if args.size() > 0 else 30.0)
 		"spawn":
 			spawn(args[0])
+		"goto":
+			go_to(args[0], args[1] if args.size() > 1 else "")
 		"think":
 			player.think(" ".join(PackedStringArray(args)))
 		"shake":
@@ -264,8 +316,6 @@ func _build_peephole() -> void:
 	_peep_cam = Camera3D.new()
 	_peep_cam.fov = 130.0
 	_peep_cam.near = 0.02
-	_peep_cam.position = Vector3(10.2, 1.55, 5.15)
-	_peep_cam.rotation_degrees.y = -90.0
 	add_child(_peep_cam)
 	var mask := ColorRect.new()
 	var sh := Shader.new()
@@ -293,6 +343,8 @@ func peek(on: bool) -> void:
 		return
 	peeping = on
 	if on:
+		_peep_cam.global_position = location.peep[0]
+		_peep_cam.rotation_degrees = Vector3(0, location.peep[1], 0)
 		_peep_cam.current = true
 		player.look_enabled = false
 		player.move_enabled = false
@@ -309,7 +361,78 @@ func peek(on: bool) -> void:
 	peep_changed.emit(on)
 
 
+# ------------------------------------------------------------ hiding
+func _build_hiding() -> void:
+	_hide_cam = Camera3D.new()
+	_hide_cam.fov = 62.0
+	_hide_cam.near = 0.02
+	add_child(_hide_cam)
+	_hide_mask = ColorRect.new()
+	var sh := Shader.new()
+	sh.code = """shader_type canvas_item;
+uniform float slats = 1.0;
+void fragment() {
+	vec2 uv = UV;
+	float v = smoothstep(0.25, 0.85, length((uv - 0.5) * vec2(1.6, 1.0)));
+	float s = slats * step(0.42, fract(uv.y * 14.0)) * (1.0 - smoothstep(0.2, 0.5, abs(uv.x - 0.5)) * 0.15);
+	COLOR = vec4(0.0, 0.0, 0.0, clamp(max(v * 0.95, s * 0.92), 0.0, 1.0));
+}"""
+	var sm := ShaderMaterial.new()
+	sm.shader = sh
+	_hide_mask.material = sm
+	_hide_mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hide_mask.visible = false
+
+
+## Get into a hiding place: the view from inside, only the eyes move.
+func hide_in(spot: Dictionary) -> void:
+	if not hiding.is_empty():
+		return
+	hiding = spot
+	_hide_cam.global_position = spot.cam_pos
+	_hide_cam.rotation_degrees = Vector3(spot.cam_pitch, spot.cam_yaw, 0)
+	_hide_cam.current = true
+	(_hide_mask.material as ShaderMaterial).set_shader_parameter("slats", 1.0 if spot.id == "roupeiro" else 0.0)
+	_hide_mask.visible = true
+	player.look_enabled = false
+	player.move_enabled = false
+	player.visible = false
+	player.process_mode = Node.PROCESS_MODE_DISABLED
+	player.global_position = spot.cam_pos - Vector3(0, 1.5, 0)
+	hud.dot.visible = false
+	Audio.play("door_close", -16.0, 1.4)
+	hud.show_thought("%s  sair" % Settings.key_label("interact", true))
+	hidden_changed.emit(spot)
+
+
+func unhide() -> void:
+	if hiding.is_empty():
+		return
+	var spot := hiding
+	hiding = {}
+	player.process_mode = Node.PROCESS_MODE_INHERIT
+	player.visible = true
+	player.global_position = spot.exit_pos
+	player.set_view(spot.exit_yaw, 0.0)
+	player.cam.current = active
+	_hide_mask.visible = false
+	hud.dot.visible = true
+	Audio.play("door_open", -16.0, 1.4)
+	hidden_changed.emit({})
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	if not hiding.is_empty() and (event.is_action_pressed("interact") or event.is_action_pressed("move_back")):
+		unhide()
+		get_viewport().set_input_as_handled()
+		return
+	if not hiding.is_empty() and event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		# a little head room while hidden
+		var r := _hide_cam.rotation_degrees
+		r.y = clampf(r.y - event.relative.x * 0.08, hiding.cam_yaw - 25.0, hiding.cam_yaw + 25.0)
+		r.x = clampf(r.x - event.relative.y * 0.08, hiding.cam_pitch - 15.0, hiding.cam_pitch + 15.0)
+		_hide_cam.rotation_degrees = r
+		return
 	if peeping and (event.is_action_pressed("interact") or event.is_action_pressed("move_back") or event.is_action_pressed("phone_back")):
 		peek(false)
 		get_viewport().set_input_as_handled()

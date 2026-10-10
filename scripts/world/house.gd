@@ -1,5 +1,5 @@
 class_name House
-extends Node3D
+extends Location
 ## Daniel's flat: Rua das Gaivotas 12, rés-do-chão, Salgueira. Built in code
 ## from Poly Haven (CC0) textures and models, so every wall and lamp can be
 ## changed by the story.
@@ -12,17 +12,9 @@ extends Node3D
 const H := 2.9            # ceiling
 const EXT := 0.3          # outer wall
 const INT := 0.12         # inner wall
-const WARM := Color(1.0, 0.78, 0.55)
 const STREET_SODIUM := Color(1.0, 0.6, 0.28)
 
 ## room id -> {lights: [Light3D], glow: [StandardMaterial3D], on: bool, energy: [float]}
-var rooms := {}
-var power := true
-var doors := {}
-var hotspots := {}
-var spots := {}           # named places for sounds in the room
-var texts := {}
-var _uses := {}
 var tv_on := true
 var tv_light: OmniLight3D
 var tv_mat: ShaderMaterial
@@ -35,20 +27,12 @@ var moon: DirectionalLight3D
 var sky_fills: Array[OmniLight3D] = []
 var landing_light: OmniLight3D
 var mirror: MeshInstance3D
-var _probes: Array[ReflectionProbe] = []
 var _t := 0.0
 var _street_flicker := 0.0
 
-var m_wall: Material
-var m_ceiling: Material
-var m_paint: Material
-var m_skirt: Material
-
 
 func _ready() -> void:
-	var f := FileAccess.get_file_as_string("res://data/world/casa.json")
-	var parsed = JSON.parse_string(f)
-	texts = parsed if parsed is Dictionary else {}
+	load_texts("casa")
 	m_wall = WB.mat("plastered_wall_04", 2.5, Color(0.93, 0.91, 0.87))
 	m_ceiling = WB.mat("white_plaster_02", 2.0, Color(0.9, 0.9, 0.88))
 	m_paint = WB.flat(Color(0.86, 0.85, 0.82), 0.45)
@@ -64,6 +48,44 @@ func _ready() -> void:
 	_build_landing()
 	set_room_light("sala", true)
 	set_room_light("candeeiro", false)
+	_build_story_hooks()
+
+
+## Where Daniel starts, which room is where, where to hide, what can change.
+func _build_story_hooks() -> void:
+	peep = [Vector3(10.2, 1.55, 5.15), -90.0]
+	spawns = {
+		"sofa": [Vector3(3.9, 0.02, 2.6), 20.0],
+		"corridor": [Vector3(8.5, 0.02, 5.15), 90.0],
+		"bed": [Vector3(8.0, 0.02, 1.8), 0.0],
+	}
+	room_bounds = {
+		"sala": AABB(Vector3(0, 0, 0), Vector3(5.5, H, 4.5)),
+		"quarto": AABB(Vector3(5.5, 0, 0), Vector3(4.5, H, 4.5)),
+		"corredor": AABB(Vector3(0, 0, 4.5), Vector3(10, H, 1.3)),
+		"cozinha": AABB(Vector3(0, 0, 5.8), Vector3(5.5, H, 3.2)),
+		"wc": AABB(Vector3(5.5, 0, 5.8), Vector3(2.5, H, 3.2)),
+		"arrumos": AABB(Vector3(8, 0, 5.8), Vector3(2, H, 3.2)),
+	}
+	# hiding places: the wardrobe, under the bed, the storage room
+	add_hide("roupeiro", Vector3(8.45, 1.1, 3.8), Vector3(1.9, 2.1, 0.3), "Esconder no roupeiro",
+		[Vector3(8.45, 1.55, 4.15), 180.0, -4.0], [Vector3(8.45, 0.02, 3.2), 180.0])
+	add_hide("cama", Vector3(8.95, 0.3, 2.25), Vector3(1.9, 0.5, 0.25), "Esconder debaixo da cama",
+		[Vector3(8.95, 0.18, 2.7), 0.0, 4.0], [Vector3(8.95, 0.02, 1.7), 180.0])
+	add_hide("arrumos", Vector3(9.75, 1.0, 8.3), Vector3(0.4, 1.8, 1.0), "Esconder atrás das prateleiras",
+		[Vector3(9.55, 1.5, 8.6), 15.0, -6.0], [Vector3(9.0, 0.02, 7.6), 0.0])
+	# things that change when nobody is looking
+	for id in ["sala", "quarto", "cozinha", "wc", "arrumos"]:
+		var d: Door = doors[id]
+		add_change("porta_" + id, d.global_position + Vector3(0.4, 1.0, 0), func():
+			d.set_open(not d.is_open, true), "door", -22.0)
+	for c in find_children("dining_chair_02", "Node3D", false, false):
+		var chair: Node3D = c
+		add_change("cadeira", chair.position + Vector3(0, 0.5, 0), func():
+			chair.rotation_degrees.y += 90.0 * (1 if randf() < 0.5 else -1), "click_far", -14.0)
+	add_change("tv", Vector3(2.7, 1.1, 4.2), func(): set_tv(not tv_on), "click_far", -12.0)
+	for id in ["cozinha", "quarto", "wc"]:
+		add_change("luz_" + id, room_bounds[id].get_center(), func(): set_room_light(id, not rooms[id].on), "switch", -16.0)
 
 
 # =================================================================== shell
@@ -358,7 +380,6 @@ func _build_corredor() -> void:
 	add_child(eye)
 
 
-signal peephole_requested
 
 
 func _build_cozinha() -> void:
@@ -651,145 +672,6 @@ func landing_on(secs := 30.0) -> void:
 	WB.omni(self, Vector3(10.8, 0.6, 3.6), Color(0.6, 0.62, 0.75), 0.12, 4.0, false)
 
 
-# =================================================================== lights
-func _room(id: String, lights: Array, glow: Array) -> void:
-	if not rooms.has(id):
-		rooms[id] = {"lights": [], "glow": [], "on": false, "energy": []}
-	for l in lights:
-		rooms[id].lights.append(l)
-		rooms[id].energy.append(l.light_energy)
-		l.visible = false
-	for g in glow:
-		rooms[id].glow.append(g)
-		g.emission_energy_multiplier = 0.0
-
-
-func _bulb(id: String, ceiling: Vector3, drop: float, energy: float, rng: float) -> void:
-	var cord := MeshInstance3D.new()
-	var cm := CylinderMesh.new()
-	cm.top_radius = 0.004
-	cm.bottom_radius = 0.004
-	cm.height = drop
-	cord.mesh = cm
-	cord.material_override = WB.flat(Color(0.05, 0.05, 0.05), 0.6)
-	cord.position = ceiling - Vector3(0, drop / 2, 0)
-	cord.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(cord)
-	var socket := MeshInstance3D.new()
-	var sc := CylinderMesh.new()
-	sc.top_radius = 0.016
-	sc.bottom_radius = 0.016
-	sc.height = 0.05
-	socket.mesh = sc
-	socket.material_override = WB.flat(Color(0.08, 0.08, 0.08), 0.5)
-	socket.position = ceiling - Vector3(0, drop + 0.02, 0)
-	socket.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(socket)
-	var glow := WB.emissive(WARM, 0.0)
-	glow.albedo_color = Color(0.9, 0.85, 0.75)
-	var g := MeshInstance3D.new()
-	var sm := SphereMesh.new()
-	sm.radius = 0.032
-	sm.height = 0.075
-	g.mesh = sm
-	g.material_override = glow
-	g.position = ceiling - Vector3(0, drop + 0.075, 0)
-	g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(g)
-	var l := WB.omni(self, ceiling - Vector3(0, drop + 0.12, 0), WARM, energy, rng, true)
-	_room(id, [l], [glow])
-
-
-func _plafond(id: String, ceiling: Vector3, energy := 1.2) -> OmniLight3D:
-	var glow := WB.emissive(Color(1.0, 0.92, 0.8), 0.0)
-	glow.albedo_color = Color(0.85, 0.85, 0.82)
-	var g := MeshInstance3D.new()
-	var sm := SphereMesh.new()
-	sm.radius = 0.16
-	sm.height = 0.1
-	g.mesh = sm
-	g.material_override = glow
-	g.position = ceiling - Vector3(0, 0.03, 0)
-	g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(g)
-	var l := WB.omni(self, ceiling - Vector3(0, 0.25, 0), Color(1.0, 0.86, 0.68), energy, 6.0, true)
-	_room(id, [l], [glow])
-	return l
-
-
-func _switch(id: String, at: Vector3, rot: float, targets: Array, prompt := "") -> void:
-	var plate := Node3D.new()
-	plate.position = at
-	plate.rotation_degrees.y = rot
-	add_child(plate)
-	WB.box(plate, Vector3(-0.04, -0.06, -0.008), Vector3(0.04, 0.06, 0.004), WB.flat(Color(0.92, 0.91, 0.88), 0.4), false)
-	WB.box(plate, Vector3(-0.015, -0.025, 0.004), Vector3(0.015, 0.025, 0.012), WB.flat(Color(0.95, 0.95, 0.93), 0.35), false)
-	var h := Hotspot.add(self, at, Vector3(0.12, 0.16, 0.12), "Interruptor", func(_p):
-		Audio.play("switch", -6.0)
-		var on: bool = not rooms.get(targets[0], {}).get("on", false)
-		for t in targets:
-			set_room_light(t, on))
-	h.dynamic_prompt = func():
-		if prompt != "":
-			return ("Desligar o candeeiro" if rooms.get(targets[0], {}).get("on", false) else prompt)
-		return "Apagar a luz" if rooms.get(targets[0], {}).get("on", false) else "Acender a luz"
-
-
-func set_room_light(id: String, on: bool) -> void:
-	if not rooms.has(id):
-		return
-	var r: Dictionary = rooms[id]
-	r.on = on
-	_apply_room(id)
-
-
-func _apply_room(id: String) -> void:
-	_refresh_probes.call_deferred()
-	var r: Dictionary = rooms[id]
-	var lit: bool = r.on and power
-	for i in r.lights.size():
-		r.lights[i].visible = lit
-		r.lights[i].light_energy = r.energy[i]
-	for g in r.glow:
-		g.emission_energy_multiplier = 6.0 if lit else 0.0
-
-
-## Mirrors are baked once; light changes re-bake them.
-func _refresh_probes() -> void:
-	for p in _probes:
-		p.max_distance = 0.0 if p.max_distance != 0.0 else 0.001
-
-
-func set_power(on: bool) -> void:
-	power = on
-	Audio.play("switch", -2.0, 0.7)
-	if not on:
-		Audio.play("sub", -16.0)
-	for id in rooms:
-		_apply_room(id)
-	if not on:
-		set_tv(false)
-	laptop_mat.emission_energy_multiplier = 0.5 if on else 0.0
-
-
-## A room's lights stutter for `secs` (and may come back dimmer).
-func flicker(id: String, secs := 1.5) -> void:
-	if not rooms.has(id):
-		return
-	var r: Dictionary = rooms[id]
-	var t := 0.0
-	while t < secs:
-		var dt := randf_range(0.04, 0.16)
-		var on := randf() < 0.45
-		for l in r.lights:
-			l.visible = on and r.on and power
-		for g in r.glow:
-			g.emission_energy_multiplier = 3.0 if (on and r.on and power) else 0.0
-		await get_tree().create_timer(dt).timeout
-		t += dt
-	_apply_room(id)
-
-
 func _process(delta: float) -> void:
 	_t += delta
 	if tv_on and tv_light:
@@ -799,6 +681,12 @@ func _process(delta: float) -> void:
 	if _street_flicker <= 0.0:
 		_street_flicker = randf_range(6.0, 22.0)
 		_blink_street()
+
+
+func _on_power(on: bool) -> void:
+	if not on:
+		set_tv(false)
+	laptop_mat.emission_energy_multiplier = 0.5 if on else 0.0
 
 
 ## 0 = full night, 1 = full day: street lamps, the moon, the windows across.
@@ -844,33 +732,3 @@ func floor_kind(p: Vector3) -> String:
 	return "wood"
 
 
-# =================================================================== texts
-func _prompt(id: String) -> String:
-	return str(texts.get(id, {}).get("prompt", "Examinar"))
-
-
-func _first_text(id: String) -> String:
-	var l: Array = texts.get(id, {}).get("text", [])
-	return str(l[0]) if not l.is_empty() else ""
-
-
-## Daniel says what he thinks of it; marks "w_<id>" for the story.
-func _say(id: String, player: Node) -> void:
-	var d: Dictionary = texts.get(id, {})
-	var line := ""
-	for w in d.get("when", []):
-		if Director.check(str(w.get("if", "false"))):
-			line = str(w.get("text", ""))
-			if w.has("set"):
-				GameState.set_var(str(w.set), true)
-			break
-	if line == "":
-		var l: Array = d.get("text", [])
-		if not l.is_empty():
-			var n: int = _uses.get(id, 0)
-			line = str(l[mini(n, l.size() - 1)])
-			_uses[id] = n + 1
-	GameState.set_var("w_" + id, true)
-	Director.notify_player_action()
-	if line != "" and player and player.has_method("think"):
-		player.think(line)

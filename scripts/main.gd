@@ -28,6 +28,8 @@ var phone_raised := true      # phone of the game: in Daniel's hand (Tab)
 var _phone_tw: Tween
 var _pos_save_t := 0.0
 var _last_hour := -1.0
+var _shown_loc := ""
+var _away: Control            # story location with no 3D place: phone only
 
 
 func _ready() -> void:
@@ -89,6 +91,7 @@ func _ready() -> void:
 		if str(m.get("from", "")) != "me" and not m.get("silent", false):
 			_pocket_ping("Mensagem · %s" % GameState.contact_name(str(m.get("from", th))) if str(m.get("from", "")) not in ["", "system"] else "Nova mensagem"))
 	Events.call_incoming.connect(func(c: Dictionary): _pocket_ping("A tocar · %s" % GameState.contact_name(str(c.get("who", ""))), true))
+	Events.phone_state_changed.connect(_sync_location)
 	Events.open_app_requested.connect(func(_a, params: Dictionary):
 		if params.get("forced", false) and mode == Mode.GAME and _world_on():
 			set_phone_raised(true))
@@ -313,6 +316,10 @@ func _debug_script(steps: PackedStringArray) -> void:
 				# at:x:z:yaw[:pitch] puts Daniel somewhere, looking somewhere
 				world.player.global_position = Vector3(float(kv[1]), 0.02, float(kv[2]))
 				world.player.set_view(float(kv[3]), float(kv[4]) if kv.size() > 4 else 0.0)
+			"at3":
+				# at3:x:y:z:yaw[:pitch]
+				world.player.global_position = Vector3(float(kv[1]), float(kv[2]), float(kv[3]))
+				world.player.set_view(float(kv[4]), float(kv[5]) if kv.size() > 5 else 0.0)
 			"look": world.player.set_view(float(kv[1]), float(kv[2]) if kv.size() > 2 else 0.0)
 			"use":
 				await get_tree().physics_frame
@@ -410,6 +417,8 @@ func enter_world(where := "") -> void:
 	phone_holder.visible = phone_mode == "game"
 	phone.input_active = true
 	_layout()
+	_shown_loc = ""
+	_sync_location()
 	if not Settings.get_value("seen_3d_hint", false):
 		_controls_hint()
 
@@ -441,9 +450,62 @@ func _controls_hint() -> void:
 	tw.tween_callback(p.queue_free)
 
 
+const PLACE_NAMES := {"farol": "Bar O Farol", "livraria": "Livraria Maré", "cais": "Cais Velho",
+	"clinica": "Clínica Atlântico", "rui": "Casa do Rui", "caminho": "A caminho do cais", "casa": "Casa"}
+
+
+## The story moved Daniel somewhere ("location ..."): go there in 3D, or —
+## for a place with no 3D version — play it on the phone over a dark card.
+func _sync_location() -> void:
+	if world == null or mode == Mode.TITLE or Content.role != "daniel":
+		return
+	var loc := str(GameState.data.get("location", "casa"))
+	if loc == _shown_loc:
+		return
+	var first := _shown_loc == ""
+	_shown_loc = loc
+	if GameWorld.LOCATIONS.has(loc):
+		if not first:
+			var tw := create_tween()
+			tw.tween_property(fade, "modulate:a", 1.0, 0.5)
+			await tw.finished
+		if is_instance_valid(_away):
+			_away.queue_free()
+		world.set_active(true)
+		world.go_to(loc)
+		_apply_chapter_lights()
+		_layout()
+		if not first:
+			create_tween().tween_property(fade, "modulate:a", 0.0, 0.8)
+	else:
+		_show_away(PLACE_NAMES.get(loc, loc.capitalize()))
+
+
+func _show_away(place: String) -> void:
+	if is_instance_valid(_away):
+		_away.queue_free()
+	world.set_active(false)
+	_away = ColorRect.new()
+	(_away as ColorRect).color = Color(0.02, 0.02, 0.025)
+	_away.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_away.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var l := UI.label(place, 28, "dim")
+	l.position = Vector2(120, 120)
+	_away.add_child(l)
+	world_ui.add_child(_away)
+	phone_holder.visible = true
+	phone_raised = true
+	phone.input_active = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_layout()
+
+
 func leave_world() -> void:
 	if world:
 		world.set_active(false)
+	_shown_loc = ""
+	if is_instance_valid(_away):
+		_away.queue_free()
 	room.visible = true
 	phone_raised = true
 	phone.input_active = true
@@ -473,7 +535,8 @@ func _apply_chapter_lights() -> void:
 		world.house.set_room_light(id, false)
 	world.house.set_power(true)
 	world.house.set_room_light("sala", evening)
-	world.house.set_tv(evening)
+	if world.house.has_method("set_tv"):
+		world.house.set_tv(evening)
 
 
 ## Tab: the phone of the game comes out of the pocket / goes back in.

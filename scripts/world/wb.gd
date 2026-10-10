@@ -100,20 +100,32 @@ static func box(parent: Node3D, a: Vector3, b: Vector3, material: Material, coll
 ## `at`, `thick` metres thick, with rectangular holes:
 ## holes = [[start, end, bottom, top], ...] measured along the wall.
 static func wall(parent: Node3D, axis: String, at: float, from: float, to: float, height: float, thick: float, material: Material, holes: Array = []) -> void:
-	var cuts := holes.duplicate()
-	cuts.sort_custom(func(p, q): return p[0] < q[0])
+	# cut the wall into vertical strips at every hole edge, then, in each strip,
+	# keep what is not covered by any hole (holes may overlap along the wall)
+	var edges := [from, to]
+	for h in holes:
+		edges.append(clampf(h[0], from, to))
+		edges.append(clampf(h[1], from, to))
+	edges.sort()
 	var pieces: Array = []   # [s, e, y0, y1]
-	var cur := from
-	for h in cuts:
-		if h[0] > cur:
-			pieces.append([cur, h[0], 0.0, height])
-		if h[2] > 0.0:
-			pieces.append([h[0], h[1], 0.0, minf(h[2], height)])
-		if h[3] < height:
-			pieces.append([h[0], h[1], h[3], height])
-		cur = h[1]
-	if cur < to:
-		pieces.append([cur, to, 0.0, height])
+	for k in edges.size() - 1:
+		var s0: float = edges[k]
+		var s1: float = edges[k + 1]
+		if s1 - s0 < 0.0005:
+			continue
+		var mid := (s0 + s1) / 2.0
+		var gaps: Array = []
+		for h in holes:
+			if h[0] < mid and mid < h[1]:
+				gaps.append([maxf(0.0, h[2]), minf(height, h[3])])
+		gaps.sort_custom(func(a, b): return a[0] < b[0])
+		var y := 0.0
+		for g in gaps:
+			if g[0] > y:
+				pieces.append([s0, s1, y, g[0]])
+			y = maxf(y, g[1])
+		if y < height:
+			pieces.append([s0, s1, y, height])
 	for p in pieces:
 		if axis == "x":
 			box(parent, Vector3(p[0], p[2], at - thick / 2), Vector3(p[1], p[3], at + thick / 2), material)
@@ -185,4 +197,62 @@ static func omni(parent: Node3D, pos: Vector3, color: Color, energy: float, rng:
 	l.shadow_enabled = shadow
 	l.light_volumetric_fog_energy = 0.6
 	parent.add_child(l)
+	return l
+
+
+## Painted or printed text in the world (shop signs, notices, chalkboards).
+static func text(parent: Node3D, t: String, pos: Vector3, yaw: float, size := 0.1, color := Color(0.9, 0.88, 0.8), outline := 0) -> Label3D:
+	var l := Label3D.new()
+	l.text = t
+	l.position = pos
+	l.rotation_degrees.y = yaw
+	l.pixel_size = size / 64.0
+	l.font_size = 64
+	l.modulate = color
+	l.outline_size = outline
+	l.shaded = true
+	l.double_sided = false
+	l.alpha_cut = Label3D.ALPHA_CUT_OPAQUE_PREPASS
+	parent.add_child(l)
+	return l
+
+
+## A ceiling pendant with a cloth/glass shade and a warm bulb, as a room light.
+static func pendant(loc: Location, room: String, ceiling: Vector3, drop: float, energy: float, rng: float, shade_color := Color(0.85, 0.8, 0.65)) -> OmniLight3D:
+	var cord := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.005
+	cm.bottom_radius = 0.005
+	cm.height = drop
+	cord.mesh = cm
+	cord.material_override = flat(Color(0.05, 0.05, 0.05), 0.6)
+	cord.position = ceiling - Vector3(0, drop / 2, 0)
+	cord.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	loc.add_child(cord)
+	var shade := MeshInstance3D.new()
+	var sm := CylinderMesh.new()
+	sm.top_radius = 0.07
+	sm.bottom_radius = 0.2
+	sm.height = 0.18
+	sm.cap_bottom = false
+	shade.mesh = sm
+	var sh_mat := StandardMaterial3D.new()
+	sh_mat.albedo_color = shade_color
+	sh_mat.roughness = 0.7
+	sh_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	shade.material_override = sh_mat
+	shade.position = ceiling - Vector3(0, drop + 0.09, 0)
+	loc.add_child(shade)
+	var glow := emissive(Color(1.0, 0.78, 0.5), 0.0)
+	var g := MeshInstance3D.new()
+	var gm := SphereMesh.new()
+	gm.radius = 0.04
+	gm.height = 0.08
+	g.mesh = gm
+	g.material_override = glow
+	g.position = ceiling - Vector3(0, drop + 0.14, 0)
+	g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	loc.add_child(g)
+	var l := omni(loc, ceiling - Vector3(0, drop + 0.22, 0), Color(1.0, 0.8, 0.58), energy, rng, true)
+	loc._room(room, [l], [glow])
 	return l
