@@ -951,6 +951,29 @@ func _test_world() -> void:
 	ok(w.peeping and not p.move_enabled, "looking through the peephole")
 	w.peek(false)
 	ok(not w.peeping, "back from the peephole")
+	# every place builds, every spawn stands, every hiding place works, and
+	# the floor bakes into a navigation mesh (what the presence walks on)
+	for id in ["livraria", "clinica", "caminho", "rui", "casa"]:
+		ok(w.go_to(id), "go_to " + id)
+		await _physics(3)
+		var loc: Location = w.location
+		ok(loc.loc_id == id and not loc.spawns.is_empty(), "%s: built with spawns (%d)" % [id, loc.spawns.size()])
+		for sp in loc.spawns:
+			w.spawn(sp)
+			var y0: float = loc.spawns[sp][0].y
+			await _physics(20)
+			ok(absf(p.global_position.y - y0) < 0.3, "%s: stands at spawn %s (y %.2f -> %.2f)" % [id, sp, y0, p.global_position.y])
+		var unread := loc.hotspots.keys().filter(func(k): return not loc.texts.has(k) and not (loc.hotspots[k] is Door) and not (loc.hotspots[k] is Hotspot and loc.hotspots[k].dynamic_prompt.is_valid()))
+		ok(id == "casa" or unread.is_empty(), "%s: every hotspot has words %s" % [id, unread])
+		for spot in loc.hides:
+			w.hide_in(spot)
+			var hid: bool = w.hiding == spot
+			w.unhide()
+			ok(hid and w.hiding.is_empty() and p.visible, "%s: hides in %s and gets out" % [id, spot.id])
+		loc.bake_navigation()
+		ok(loc.nav.navigation_mesh.get_polygon_count() > 20, "%s: navigation mesh (%d polygons)" % [id, loc.nav.navigation_mesh.get_polygon_count()])
+	ok(w.go_to("cais") and w.location.loc_id == "caminho", "cais is the road's quay")
+	w.go_to("casa", "sofa")
 	w.set_active(false)
 	ok(not Audio.spatial.is_valid(), "inactive house releases the sound hook")
 	w.queue_free()

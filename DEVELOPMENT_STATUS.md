@@ -212,7 +212,7 @@
 - Testes: `--only=world` (35 verificações: andar, paredes, fôlego, agachar, portas, porta
   trancada, examinar, interruptores, quadro elétrico, comandos `world`, som na porta, óculo).
 - Builds de teste divididos (`tools/split_pack.gd` + autoload `Packs`): base + `_3d_N.pck`.
-- **Ainda não:** perigo/entidade (fase 3), outros locais — livraria, cais, farol (fase 4; por
+- **Ainda não (na altura da fase 2):** perigo/entidade (fase 3), outros locais — livraria, cais, farol (fase 4; por
   agora esses capítulos passam-se em casa), cooperativo 3D da Sofia (fase 5).
 
 ## História — Lore Forge (sessão 3)
@@ -228,6 +228,33 @@
   ao cais (EN125, bombas, Largo do Cais), Cais Velho e, no cooperativo, casa e hospital da Sofia em Lisboa.
   Exigência do autor: cenários «bem bons» (realismo igual ou superior à casa).
 - Próximo passo da história: cenas e diálogos capítulo a capítulo; depois exportar para `data/chapters/*.story`.
+
+## Cenários 3D (fase 4, sessão 3)
+
+Ordem pedida pelo autor: cenários → a coisa que persegue → história nos cenários → cooperativo da Sofia.
+
+- **Arquitetura:** `Location` (`scripts/world/location.gd`) é a base de todos os sítios (luzes por divisão,
+  interruptores, quadro, textos `data/world/<id>.json`, spawns, limites das divisões, esconderijos,
+  coisas que mudam quando não se olha (R10/R11), malha de navegação). `GameWorld.go_to(id, onde)` troca de
+  sítio; o `main.gd` segue o comando `location` da história (um sítio sem versão 3D — o farol — mostra só
+  o telemóvel sobre fundo escuro). Novos comandos `world goto` e `world rain`.
+- **Esconderijos:** E num esconderijo → vista de dentro (frestas do roupeiro / escuro), só os olhos mexem; E sai.
+- **Livraria Maré** (`bookshop.gd`): salão de 5 m de pé-direito, galeria a toda a volta, escada central,
+  milhares de livros (MultiMesh + shader de lombadas), balcão com caixa registadora, canto de leitura,
+  escritório, arrecadação, lustre. Pista: o Ricardo Reis na prateleira de cima da galeria.
+- **Clínica Atlântico** (`clinic.gd`): receção, corredor com fluorescentes por zonas, gabinete da
+  Dr.ª Helena, arquivo (a ficha), posto de enfermagem (chaves), seis quartos com portas de visor
+  (quarto 4: «Daniel R.»), rouparia, WC, escada com portão fechado.
+- **Caminho e Cais Velho** (`road.gd`, também `cais`): Rua das Gaivotas, EN125 com campos e postes,
+  bombas de gasolina, Largo do Cais (Café do Largo, câmara, néon «O FAROL»), cais de pedra e de madeira
+  com a grade partida, escadas para a água, flores no poste; mar com ondulação (shader), chuva,
+  barcos que balançam, farolim a piscar, candeeiro avariado.
+- **Casa do Rui** (`rui_house.gd`): azulejos, chão de tijoleira, vigas; mesa, aparador com a
+  fotografia, redes, calendário de outubro de 2025; quarto da Inês (caixa «INÊS», casaco vermelho).
+- Texturas/modelos CC0 do Poly Haven (lista em `tools/fetch_polyhaven.py`; importação com `tools/set_imports.py`).
+- Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
+  cada coisa examinável tem texto, a navegação gera malha.
+- **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).
 
 ## Próximas prioridades
 1. **Sessão de jogo humana** (caps. 1–3 primeiro): ritmo, clareza, silêncios, sustos — guia em `docs/PLAYTEST.md`.

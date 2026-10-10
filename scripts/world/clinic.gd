@@ -374,7 +374,7 @@ func _build_rooms() -> void:
 	WB.box(self, Vector3(x4 + 1.75, 0.52, 13.4), Vector3(x4 + 2.5, 0.58, 13.85), WB.flat(Color(0.82, 0.84, 0.86), 0.9), false)
 	WB.box(self, Vector3(x4 + 0.85, 1.5, 9.13), Vector3(x4 + 1.25, 1.62, 9.14), WB.flat(Color(0.95, 0.95, 0.9), 0.6), false)
 	WB.text(self, "Daniel R.", Vector3(x4 + 1.05, 1.56, 9.125), 180.0, 0.035, Color(0.1, 0.1, 0.1))
-	hotspots.quarto_4 = Hotspot.add(self, Vector3(x4 + 1.05, 1.56, 9.12), Vector3(0.45, 0.2, 0.08), _prompt("cartao_quarto"), func(p): _say("cartao_quarto", p))
+	hotspots.cartao_quarto = Hotspot.add(self, Vector3(x4 + 1.05, 1.56, 9.12), Vector3(0.45, 0.2, 0.08), _prompt("cartao_quarto"), func(p): _say("cartao_quarto", p))
 	hotspots.cama_4 = Hotspot.add(self, Vector3(x4 + 2.2, 0.6, 14.6), Vector3(1.0, 0.4, 2.0), _prompt("cama_4"), func(p): _say("cama_4", p))
 	# linen room: shelves of folded sheets
 	for lvl in 5:
