@@ -1,0 +1,13 @@
+{
+ "_comment": "Casa da Sofia, Arroios, Lisboa. Pensamentos da Sofia. 'when' tem prioridade.",
+ "porta_entrada": {"prompt": "Abrir a porta", "text": ["Trancada. O trinco, a corrente e a fechadura de cima. Desde outubro do ano passado faço as três."]},
+ "fotografia": {"prompt": "Ver a fotografia", "text": ["Eu e o Daniel na praia da Salgueira. Ele com nove anos, embrulhado numa toalha, a fingir que não chorou. Foi o dia em que se perdeu.", "Ele está a olhar para o mar, não para a câmara. Sempre achei que estava a olhar para a mãe. Não está."]},
+ "relogio": {"prompt": "Ver o relógio", "when": [{"if": "hour() == 3", "text": "Parado nas três e dezassete. Ontem funcionava."}], "text": ["O relógio da avó. Atrasa quatro minutos por semana. Acerto-o aos domingos."]},
+ "janela": {"prompt": "Olhar pela janela", "text": ["A rua a dormir. O carro do vizinho tapado com a capa. Do outro lado, a senhora do terceiro esquerdo também não dorme.", "Os fios do elétrico. Às vezes, de noite, cantam com o vento. Parece alguém a chamar de longe."]},
+ "frigorifico": {"prompt": "Ver a escala", "text": ["A escala de outubro. Noites às terças e quintas. O dia 14 está riscado com caneta vermelha: pedi troca. Não ma deram."]},
+ "gaveta": {"prompt": "Abrir a gaveta", "when": [{"if": "flag(\"sofia_phone_on\")", "text": "O saco vazio. O telemóvel está ligado, em cima da mesa de cabeceira, virado para baixo. Não o virei para baixo."}, {"if": "flag(\"w_drawer_open\")", "text": "A gaveta está aberta. Eu fecho sempre a gaveta. O telemóvel continua no saco, mas está virado ao contrário."}], "text": ["O telemóvel antigo do Daniel. Num saco de congelação, ainda com areia nos cantos. Nunca o liguei. Disse à polícia que não sabia dele.", "Se o ligar, ele sabe. Não sei quem é \"ele\". Fecho a gaveta."]},
+ "cama": {"prompt": "Deitar", "text": ["Ainda não. Se me deito agora acordo às três e tal. Como ele.", "Durmo de dia. A cama de noite parece de outra pessoa."]},
+ "farda": {"prompt": "Ver a farda", "text": ["A farda azul. Cheira a desinfetante mesmo lavada. No bolso, a caneta que o Daniel me deu quando acabei o curso."]},
+ "cordao": {"prompt": "Ver o cordão", "text": ["O cartão do Santa Maria. «Sofia Reis — Enfermeira — Medicina Interna, Piso 6.» Na fotografia tenho cara de quem não dorme. Tirada num dia bom."]},
+ "espelho": {"prompt": "Olhar para o espelho", "when": [{"if": "hour() == 3", "text": "Atrás de mim, a porta da casa de banho. Aberta. Fechei-a quando entrei."}], "text": ["Olheiras de turno. A mãe diz que eu e o Daniel ficamos iguais quando estamos cansados.", "Não olho muito tempo. No ano passado, nesta semana, deixei de conseguir olhar muito tempo."]}
+}

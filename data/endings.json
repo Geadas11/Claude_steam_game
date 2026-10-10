@@ -69,6 +69,10 @@
    {
     "when": "flag(\"armando_declined\")",
     "line": "O Sr. Armando nunca foi chamado a testemunhar. Todos os dias 14, às seis e quarenta, deixa uma flor no cais."
+   },
+   {
+    "when": "flag(\"co_sofia_on_line\")",
+    "line": "A Sofia ficou em linha até às três e dezassete. Não disse nada. Ouviu o mar contigo, a duzentos e oitenta quilómetros."
    }
   ],
   "coda": [
@@ -181,6 +185,10 @@
    {
     "when": "flag(\"heard_sofia11\")",
     "line": "Durante um mês, a Sofia ligou-te todas as noites às onze e vinte. Não dizias quase nada. Ela falava pelos dois."
+   },
+   {
+    "when": "flag(\"co_sofia_on_line\")",
+    "line": "A Sofia ficou em linha até às três e dezassete. Não disse nada. Ouviu o mar contigo, a duzentos e oitenta quilómetros."
    }
   ],
   "coda": [

@@ -116,6 +116,7 @@ static func rain(follow: Node3D, amount := 3500) -> GPUParticles3D:
 	q.material = m
 	p.draw_pass_1 = q
 	p.position = Vector3(0, 10, 0)
+	p.set_meta("rain", true)
 	follow.add_child(p)
 	p.top_level = false
 	return p

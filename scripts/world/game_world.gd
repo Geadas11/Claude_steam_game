@@ -13,6 +13,8 @@ const LOCATIONS := {
 	"livraria": "res://scripts/world/bookshop.gd",
 	"rui": "res://scripts/world/rui_house.gd",
 	"casa_ines": "res://scripts/world/rui_house.gd",
+	"sofia_casa": "res://scripts/world/sofia_home.gd",
+	"hospital": "res://scripts/world/hospital.gd",
 	"clinica": "res://scripts/world/clinic.gd",
 	"caminho": "res://scripts/world/road.gd",
 	"cais": "res://scripts/world/road.gd",
@@ -199,6 +201,10 @@ func go_to(id: String, where := "", fresh := false) -> bool:
 	if location:
 		remove_child(location)
 		location.free()
+	# rain follows him, but not indoors into the next place
+	for c in player.get_children():
+		if c.has_meta("rain"):
+			c.free()
 	location = load(LOCATIONS[id]).new()
 	add_child(location)
 	if location.loc_id == "":

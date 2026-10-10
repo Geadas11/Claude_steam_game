@@ -1,7 +1,7 @@
 """Lists variables read by story conditions that are never written anywhere.
 Dynamic prefixes written by code (meta_<photo>, cam_<event>_seen, ...) are allowed."""
 import re, glob, json
-story = {f: open(f).read() for f in glob.glob('data/chapters/*.story')}
+story = {f: open(f).read() for f in glob.glob('data/chapters/*.story') + glob.glob('data/sofia/chapters/*.story')}
 code = "".join(open(f).read() for f in glob.glob('scripts/**/*.gd', recursive=True))
 data = "".join(open(f).read() for f in glob.glob('data/*.json'))
 read = set()
@@ -14,6 +14,8 @@ for txt in story.values():
         for tok in m.group(1).split():
             written.add(tok.split('=')[0])
     for m in re.finditer(r'^\s*inc (\w+)', txt, re.M):
+        written.add(m.group(1))
+    for m in re.finditer(r'^\s*coopset (\w+)', txt, re.M):
         written.add(m.group(1))
     for m in re.finditer(r'\|\s*(.+)$', txt, re.M):
         toks = m.group(1).split()

@@ -470,15 +470,16 @@ func _controls_hint() -> void:
 
 
 const PLACE_NAMES := {"farol": "Bar O Farol", "livraria": "Livraria Maré", "cais": "Cais Velho",
-	"clinica": "Clínica Atlântico", "rui": "Casa do Rui", "casa_ines": "Casa do Rui", "caminho": "A caminho do cais", "casa": "Casa"}
+	"clinica": "Clínica Atlântico", "rui": "Casa do Rui", "casa_ines": "Casa do Rui", "caminho": "A caminho do cais", "casa": "Casa",
+	"sofia_casa": "Casa da Sofia", "hospital": "Hospital de Santa Maria"}
 
 
 ## The story moved Daniel somewhere ("location ..."): go there in 3D, or —
 ## for a place with no 3D version — play it on the phone over a dark card.
 func _sync_location() -> void:
-	if world == null or mode == Mode.TITLE or Content.role != "daniel":
+	if world == null or mode == Mode.TITLE:
 		return
-	var loc := str(GameState.data.get("location", "casa"))
+	var loc := _story_place()
 	if loc == _shown_loc:
 		return
 	var first := _shown_loc == ""
@@ -538,7 +539,23 @@ func leave_world() -> void:
 ## Late-night chapters start in bed with the lights off; evenings on the sofa.
 func _spawn_for_chapter() -> String:
 	var h := int(Clock.fmt_time(Clock.now()).split(":")[0])
+	if Content.role == "sofia":
+		if world and world.location and world.location.loc_id == "hospital":
+			return "posto"
+		return "cama" if h >= 1 and h < 7 else "sofa"
 	return "bed" if h >= 1 and h < 7 else "sofa"
+
+
+## Where the story says this player is. Sofia is never in Salgueira (R15):
+## a place of Daniel's on her side means her flat.
+const SOFIA_PLACES := ["sofia_casa", "hospital"]
+
+
+func _story_place() -> String:
+	var loc := str(GameState.data.get("location", "casa"))
+	if Content.role == "sofia" and not SOFIA_PLACES.has(loc):
+		return "sofia_casa"
+	return loc
 
 
 func _hour_now() -> float:
@@ -702,8 +719,7 @@ func start_new_game(show_warning := true) -> void:
 	phone.show_locked_immediately()
 	room.set_mood("night")
 	Audio.set_ambient("room")
-	if Content.role == "daniel":
-		enter_world()
+	enter_world()
 
 
 func continue_game(slot: String) -> bool:
@@ -715,8 +731,7 @@ func continue_game(slot: String) -> bool:
 	get_tree().paused = false
 	Audio.set_music("")
 	mode = Mode.GAME
-	if Content.role == "daniel":
-		enter_world("saved")
+	enter_world("saved")
 	_show_previously()
 	return true
 
@@ -916,11 +931,18 @@ func _on_caught(at: Vector3) -> void:
 	fade.modulate.a = 1.0
 	Audio.cut_all()
 	await get_tree().create_timer(2.6).timeout
-	var snap := Saves.read_slot("chapter")
-	var same: bool = not snap.is_empty() and str(snap.meta.get("chapter", "")) == ch \
-		and str(snap.state.get("flags", {}).get("run_id", "")) == run
-	if not (same and Saves.load_from("chapter")):
+	if Coop.active and not Coop.is_host:
+		# the guest can't take the shared night back: she wakes where she started
+		pass
+	elif Coop.active:
+		# the host takes both players back to the start of the chapter
 		Director.start_chapter(ch)
+	else:
+		var snap := Saves.read_slot("chapter")
+		var same: bool = not snap.is_empty() and str(snap.meta.get("chapter", "")) == ch \
+			and str(snap.state.get("flags", {}).get("run_id", "")) == run
+		if not (same and Saves.load_from("chapter")):
+			Director.start_chapter(ch)
 	GameState.set_var("deaths_" + ch, deaths)
 	GameState.set_var("deaths_total", total)
 	GameState.set_var("ja_falamos", true)

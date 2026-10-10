@@ -11,8 +11,21 @@
 
 @beat setup
 ambient room
+location sofia_casa
 battery 81
 set chapter_n=1
+world phone on
+wait 2
+world spawn cozinha
+@end
+
+@beat to_shift
+@when at("22:50")
+location hospital
+wait 2
+world spawn pausa
+world lights on
+world think O cacifo, a farda, o cordão. Turno da noite. Quinta-feira.
 @end
 
 # ---------------------------------------------------------------- o Daniel (outro jogador)

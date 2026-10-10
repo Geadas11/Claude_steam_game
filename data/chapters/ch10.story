@@ -252,6 +252,7 @@ if flag("confessed_sofia")
   wait 3
   sofia> E agora vais fazer o quê com isso?
   set sofia_knows_told=true
+  coopset co_daniel_confessed true
   wait 40
   typing sofia sofia 8
   wait 6

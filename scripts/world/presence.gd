@@ -88,7 +88,13 @@ func setup(w: GameWorld) -> void:
 ## This chapter's form, whether it can kill, how quickly it notices.
 func configure(ch: String) -> void:
 	cfg = _cfg_all.get("default", {}).duplicate()
-	cfg.merge(_cfg_all.get(ch, {}), true)
+	if Content.role == "sofia":
+		# for Sofia it comes through the phone (R16): its own table
+		var sof: Dictionary = _cfg_all.get("sofia", {})
+		cfg.merge(sof.get("default", {}), true)
+		cfg.merge(sof.get(ch, {}), true)
+	else:
+		cfg.merge(_cfg_all.get(ch, {}), true)
 	form = str(cfg.get("form", "todas"))
 	attention = 0.0
 	held = false

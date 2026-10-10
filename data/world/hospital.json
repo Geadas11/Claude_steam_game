@@ -1,0 +1,11 @@
+{
+ "_comment": "Hospital de Santa Maria, Medicina Interna, piso 6. Pensamentos da Sofia.",
+ "farmacia": {"prompt": "Abrir a porta", "text": ["Fechada. A chave está com a enfermeira-chefe. A chefe está a dormir na sala de pausa desde as duas."]},
+ "quadro": {"prompt": "Ver o quadro", "when": [{"if": "hour() == 3", "text": "604 · Sr. Rui M. · 34. Não temos nenhum Rui M. Escrevi este quadro às onze. Não é a minha letra."}], "text": ["Seis doentes, onze camas. Ninguém morre às terças, diz a chefe. Ninguém acredita.", "603, cama 3, sem nome. Entrou às duas, pela urgência. Ainda ninguém lhe pôs nome."]},
+ "relogio": {"prompt": "Ver o relógio", "text": ["O relógio do posto. Adianta sempre. Às três da manhã toda a gente olha para ele como se fosse acabar alguma coisa."]},
+ "telefone": {"prompt": "Ver o telefone", "when": [{"if": "flag(\"s_ward_phone\")", "text": "Levanto o auscultador. Do outro lado, vento. E o mar. No sexto piso de Santa Maria não se ouve o mar."}], "text": ["O telefone do serviço. Toca quando a urgência quer mandar alguém para cima. Esta noite ainda não tocou."]},
+ "cacifo": {"prompt": "Abrir o cacifo", "text": ["O meu cacifo. O carregador, um casaco, as sapatilhas de reserva. Uma fotografia do Daniel com sete anos, colada por dentro da porta.", "Um bilhete dobrado que não me lembro de ter guardado: «Sofia, eu fiz uma coisa.» A minha letra. Escrevi isto há um ano, às quatro da manhã, depois da chamada."]},
+ "cama_603": {"prompt": "Ver a cama", "text": ["A cama 3 da 603. Os lençóis estão molhados. Ninguém se deitou aqui esta noite.", "Molhados de água salgada. Provo nos dedos sem querer. Sal."]},
+ "janela": {"prompt": "Olhar pela janela", "text": ["Lisboa às luzes. A Segunda Circular, um avião a descer. Daqui não se vê o mar. Está do outro lado, a duzentos e oitenta quilómetros."]},
+ "elevador": {"prompt": "Chamar o elevador", "when": [{"if": "hour() == 3", "text": "O elevador chega sozinho. As portas abrem. Lá dentro, o chão está molhado. Ninguém sai. Fecham-se."}], "text": ["O elevador demora sempre. Dizem que de noite pára no sétimo, que está fechado desde 2019."]}
+}

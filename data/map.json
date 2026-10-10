@@ -440,6 +440,32 @@
     "estrada"
    ],
    "desc": "Dois quilómetros e meio sem passeio. As bombas, o Largo do Cais, o mar."
+  },
+  "sofia_casa": {
+   "name": "Casa (Lisboa)",
+   "address": "Rua Pascoal de Melo 54, 2.º Esq., Lisboa",
+   "x": 0.5,
+   "y": 0.1,
+   "keywords": [
+    "casa",
+    "lisboa",
+    "arroios"
+   ],
+   "desc": "O segundo andar com o soalho que range. A gaveta da mesa de cabeceira.",
+   "requires": "role() == \"sofia\""
+  },
+  "hospital": {
+   "name": "Hospital de Santa Maria",
+   "address": "Av. Prof. Egas Moniz, Lisboa · Piso 6",
+   "x": 0.45,
+   "y": 0.08,
+   "keywords": [
+    "hospital",
+    "santa maria",
+    "turno"
+   ],
+   "desc": "Medicina Interna, piso 6. Noites às terças e quintas.",
+   "requires": "role() == \"sofia\""
   }
  },
  "timeline": {
