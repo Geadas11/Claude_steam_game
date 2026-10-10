@@ -219,7 +219,11 @@ func _switch(id: String, at: Vector3, rot: float, targets: Array, prompt := "") 
 		Audio.play("switch", -6.0)
 		var on: bool = not rooms.get(targets[0], {}).get("on", false)
 		for t in targets:
-			set_room_light(t, on))
+			set_room_light(t, on)
+		if on:
+			# the story knows he put a light on here (from the street, it shows)
+			GameState.set_var("w_lit_" + loc_id, true)
+			Director.notify_player_action())
 	h.dynamic_prompt = func():
 		if prompt != "":
 			return ("Desligar o candeeiro" if rooms.get(targets[0], {}).get("on", false) else prompt)

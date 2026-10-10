@@ -351,7 +351,9 @@ func _floor_lamp(at: Vector3) -> void:
 	_room("leitura", [l], [])
 	hotspots.candeeiro = Hotspot.add(self, at + Vector3(0, 1.5, 0), Vector3(0.45, 0.35, 0.45), "Acender o candeeiro", func(_p):
 		Audio.play("switch", -8.0)
-		set_room_light("leitura", not rooms.leitura.on))
+		set_room_light("leitura", not rooms.leitura.on)
+		if rooms.leitura.on:
+			GameState.set_var("w_lit_livraria", true))
 	hotspots.candeeiro.dynamic_prompt = func(): return "Apagar o candeeiro" if rooms.leitura.on else "Acender o candeeiro"
 
 
@@ -482,6 +484,10 @@ func _windows_across(z: float) -> void:
 
 # =================================================================== story
 func _build_story_hooks() -> void:
+	doors.rua.toggled.connect(func(open: bool):
+		if open and GameState.flag("found_card"):
+			GameState.set_var("w_saiu_livraria", true)
+			Director.notify_player_action())
 	spawns = {
 		"entrada": [Vector3(1.5, 0.02, 1.0), 180.0],
 		"balcao": [Vector3(5.6, 0.02, 4.9), 200.0],

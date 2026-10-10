@@ -7,6 +7,7 @@
   "ch05",
   "ch06",
   "ch07",
+  "ch08",
   "ch09",
   "ch10",
   "ch12",
@@ -20,6 +21,7 @@
   "ch05": "O Telefone Começa a Mudar",
   "ch06": "A Investigação Torna-se Pessoal",
   "ch07": "Confiança",
+  "ch08": "A Livraria",
   "ch09": "O Sistema",
   "ch10": "A Verdade",
   "ch12": "Consequências",
@@ -33,6 +35,7 @@
   "ch05": "O telemóvel começou a mudar. Mensagens antigas reescritas, pesquisas que não fizeste, uma fotografia tirada por trás de ti. Reiniciou sozinho e o PIN passou a ser a data da morte dela. Três pancadas na porta.",
   "ch06": "Alguém restaurou a cópia do teu telemóvel antigo. Afinal conhecias bem a Inês. As últimas mensagens dela, às 03:12 e 03:15: \"Daniel volta\". \"Ele está aqui\". O João mentiu-te. A Dra. Helena também.",
   "ch07": "Toda a gente te pede confiança: a Helena, o Vasco, a voz, a Clara, que precisa de uma prova. Recebeste uma mensagem do João que o João não escreveu. O Vasco quer o teu telemóvel de volta.",
+  "ch08": "Três da manhã. A chave com a fita vermelha abriu a Livraria Maré às escuras. Na galeria, dentro da capa do Ricardo Reis, o cartão que escondeste há um ano — e um papel com a tua letra: «Não confies em ti.» Alguém andava à procura do mesmo livro, com os teus passos.",
   "ch09": "O registo do sistema previu o que ia acontecer — e aconteceu. Uma captura de ecrã mostrou a mensagem que mandaste ao Vasco na noite de 13: onde ela estava, e \"não lhe digas que fui eu\". Por baixo de tudo, o ECO. E a Sofia ainda guardava o teu telemóvel antigo numa gaveta.",
   "ch10": "A Sofia mandou-te a cópia do telemóvel antigo, protegida pelo aniversário dela. A conta da Inês sincronizou uma gravação feita no cais às 03:09. A voz pediu-te que montasses a noite peça a peça. O Vasco quer-te internado amanhã às 14h.",
   "ch12": "Terça-feira, 13 de outubro. As escolhas pagaram-se: quem ficou do teu lado, quem desapareceu. O cartão da Inês esteve sempre dentro do livro. Esta noite, faz um ano."
@@ -60,6 +63,10 @@
   ],
   "ch07": [
    "Cada um cumpre o destino que lhe cumpre,\nE deseja o destino que deseja.",
+   "Ricardo Reis"
+  ],
+  "ch08": [
+   "Para ser grande, sê inteiro: nada\nTeu exagera ou exclui.",
    "Ricardo Reis"
   ],
   "ch09": [

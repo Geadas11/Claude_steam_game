@@ -1241,7 +1241,9 @@
   "related": [
    "mare_project",
    "ines_letter",
-   "helena_signed"
+   "helena_signed",
+   "note_dont_trust",
+   "ines_dedication"
   ]
  },
  "helena_called_sofia": {
@@ -1942,6 +1944,25 @@
   "related": [
    "postit_p317",
    "saramago_spine"
+  ]
+ },
+ "note_dont_trust": {
+  "title": "«Não confies em ti.»",
+  "desc": "Um papel dobrado dentro da capa do Ricardo Reis, com a tua letra, inclinada para a esquerda como quando escreves depressa. A voz diz que o escreveste às 04:12, já seco.",
+  "source": "Livraria Maré",
+  "importance": 3,
+  "related": [
+   "card_found"
+  ]
+ },
+ "ines_dedication": {
+  "title": "«Para o D., quando precisar disto.»",
+  "desc": "O segundo exemplar do Ricardo Reis, o da estante de baixo. Na folha de rosto, a lápis, com a letra da Inês: «Para o D., quando precisar disto. — I.»",
+  "source": "Livraria Maré",
+  "importance": 2,
+  "related": [
+   "card_found",
+   "note_dont_trust"
   ]
  }
 }

@@ -41,7 +41,7 @@
  "ricardo_reis": {
   "prompt": "Tirar o livro de cima",
   "when": [
-   {"if": "flag(\"card_found\")", "text": "A capa já está descolada. O sítio onde estava o cartão tem a forma de um quadrado pequeno."}
+   {"if": "flag(\"found_card\")", "text": "A capa já está descolada. O sítio onde estava o cartão tem a forma de um quadrado pequeno."}
   ],
   "text": ["O Ano da Morte de Ricardo Reis. A capa está mais grossa do que devia."]
  },
