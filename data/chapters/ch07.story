@@ -300,6 +300,45 @@ clue window_face
 @end
 
 # ---------------------------------------------------------------- Helena sabe demais
+# ---------------------------------------------------------------- a Sofia que não é a Sofia
+@beat fake_sofia
+@when at("01:30")
+if v("deaths_ch07") >= 1
+  rename sofia "Sofai"
+endif
+call sofia id=c7_fake_sofia ring=20
+  [sfx static]
+  wait 1.5
+  sofia: Daniel? | 1.6
+  wait 1
+  sofia: Sou eu. Estás sozinho? | 2.2
+  wait 1.5
+  sofia: Apaga as luzes, Daniel. Quero ouvir-te melhor. | 3
+  [sfx breath]
+  wait 2
+  sofia: Porque é que não dizes nada? | 2.4
+  - (do outro lado, o mar)
+end
+if v("deaths_ch07") >= 1
+  rename sofia "Sofia"
+endif
+if answered("c7_fake_sofia")
+  clue fake_sofia_call
+  world presence hunt 40
+  wait 6
+  unknown> Ela está de turno até às oito. Nunca te ligou a esta hora.
+  wait 3
+  unknown> E nunca te chamou Daniel.
+else
+  wait 4
+  unknown> Fizeste bem.
+endif
+wait 40
+sofia> Mano tudo bem? Tenho uma chamada tua perdida às 01:30. Eu estava a meio de uma algaliação
+sofia> Ou fui eu que te liguei?? O telemóvel diz que fui eu. Eu não te liguei
+set real_sofia_after_fake=true
+@end
+
 @beat helena_knows
 @when at("01:40")
 helena> Daniel, está acordado?

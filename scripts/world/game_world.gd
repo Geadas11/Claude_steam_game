@@ -381,6 +381,9 @@ func _on_cue(cmd: String, args: Array) -> void:
 					play_at(str(c.sound), c.pos, float(c.volume))
 					GameState.inc_var("w_changes")
 					break
+		"change_all":
+			# change_all — the whole place is rearranged out of his sight, one sound at a time
+			_change_all()
 		"printnear":
 			# printnear [dist] — wet footprints just behind him, a drop where they are
 			var back := player.global_transform.basis.z
@@ -405,11 +408,17 @@ func _process(delta: float) -> void:
 		_zone_t = 0.4
 		var pp := player.global_position
 		# outdoor zones and the rooms of a place both tell the story where he went
+		var here := ""
 		for zs in [location.zones, location.room_bounds]:
 			for id in zs:
-				if (zs[id] as AABB).has_point(pp) and not GameState.flag("w_zone_" + id):
-					GameState.set_var("w_zone_" + id, true)
-					Director.notify_player_action()
+				if (zs[id] as AABB).has_point(pp):
+					here = id
+					if not GameState.flag("w_zone_" + id):
+						GameState.set_var("w_zone_" + id, true)
+						Director.notify_player_action()
+		if str(GameState.get_var("w_room", "")) != here:
+			GameState.set_var("w_room", here)   # where he is right now
+			Director.notify_player_action()
 	for d in _shut_unseen.duplicate():
 		var c: Vector3 = d.global_transform * Vector3(d.width / 2.0, 1.2, 0.0)
 		if not presence._in_view(c):
@@ -421,6 +430,19 @@ func _process(delta: float) -> void:
 			_figures.erase(f)
 		elif presence.figure_check(f, delta):
 			_figures.erase(f)
+
+
+func _change_all() -> void:
+	for c in location.changeables.duplicate():
+		if c.get("done", false):
+			continue
+		c.done = true
+		c.apply.call()
+		play_at(str(c.sound), c.pos, float(c.volume) - 4.0)
+		GameState.inc_var("w_changes")
+		await get_tree().create_timer(randf_range(0.6, 1.6)).timeout
+		if location == null:
+			return
 
 
 # ------------------------------------------------------------ caught

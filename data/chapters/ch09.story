@@ -25,9 +25,38 @@ file eco_fragment_2 silent
 photo IMG_6720 silent Câmara
 @end
 
+# ---------------------------------------------------------------- a livraria às 3 (se acendeu a luz)
+@beat vasco_bookshop
+@when at("09:50") and flag("bookshop_seen")
+vasco> Bom dia, Daniel.
+vasco> O que fazia na livraria às três da manhã?
+wait 3
+vasco> Não precisa de responder. Só queria que soubesse que alguém reparou.
+clue vasco_knew_bookshop
+@end
+
+# ---------------------------------------------------------------- a casa rearrumada (R10, R11)
+@beat rearranged
+@when vs("w_room") == "wc" and at("11:30") and not started("rearranged")
+world think A água fria na cara. Do outro lado da porta, cliques, um arrastar de cadeira, uma porta. Pequenos sons, um de cada vez.
+world change_all
+wait 25
+world think Tudo mudou de sítio. As cadeiras, as portas, as luzes. A porta da rua continua trancada. Duas voltas.
+clue house_rearranged
+@end
+
+@beat wash_face
+@when at("12:30") and not started("rearranged")
+unknown> Vai lavar a cara. Estás com péssimo aspeto.
+@end
+
 @beat sleeping_comment
 @when at("10:20")
-unknown> Dormiste às 04:02. De lado, como sempre.
+if flag("card_night")
+  unknown> Dormiste às 05:24. Com os sapatos calçados. De lado, como sempre.
+else
+  unknown> Dormiste às 04:02. De lado, como sempre.
+endif
 unknown> Vê a galeria. Não fui eu que tirei essa.
 @end
 

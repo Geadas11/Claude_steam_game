@@ -2019,5 +2019,32 @@
   "source": "Casa",
   "importance": 1,
   "related": []
+ },
+ "fake_sofia_call": {
+  "title": "A Sofia que não era a Sofia",
+  "desc": "À 01:30, uma chamada da Sofia. Chamou-te «Daniel», pediu-te para apagar as luzes. A Sofia estava de turno, nunca te chama Daniel, e diz que não ligou.",
+  "source": "Chamada · 01:30",
+  "importance": 2,
+  "related": [
+   "call_from_dead"
+  ]
+ },
+ "vasco_knew_bookshop": {
+  "title": "Alguém reparou",
+  "desc": "O Vasco sabia que estiveste na livraria às três da manhã. Só tinhas acendido a luz uma vez.",
+  "source": "Mensagem · Vasco",
+  "importance": 2,
+  "related": [
+   "card_found"
+  ]
+ },
+ "house_rearranged": {
+  "title": "A casa rearrumada",
+  "desc": "Enquanto estavas na casa de banho, ouviste pequenos sons do outro lado da porta, um de cada vez. Quando saíste, as cadeiras, as portas e as luzes estavam diferentes. A porta da rua continuava trancada.",
+  "source": "Casa",
+  "importance": 2,
+  "related": [
+   "chair_turned"
+  ]
  }
 }
