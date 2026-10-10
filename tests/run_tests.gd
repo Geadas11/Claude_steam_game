@@ -254,7 +254,7 @@ func _check_op(op: Dictionary, where: String, clue_refs: Dictionary) -> void:
 		"jmp":
 			ok(op.to >= 0, where + " unresolved jump")
 		"choice":
-			ok(Content.has_item("characters", op.thread), "%s: choice thread %s" % [where, op.thread])
+			ok(op.thread == "aqui" or Content.has_item("characters", op.thread), "%s: choice thread %s" % [where, op.thread])
 			for o in op.options:
 				if o.cond != "":
 					_check_expr(o.cond, where + " choice cond")
@@ -323,7 +323,7 @@ func _test_save_load() -> void:
 	GameState.reset()
 	ok(Saves.load_from("test"), "load_from test")
 	var after := JSON.stringify(GameState.to_save())
-	ok(GameState.data.chapter == "ch01", "chapter restored")
+	ok(GameState.data.chapter == Content.chapter_order[0], "chapter restored")
 	ok(GameState.data.threads.sofia.messages.size() == JSON.parse_string(before).threads.sofia.messages.size(), "messages restored")
 	ok(GameState.data.running.keys().size() == running_before.keys().size(), "running beats restored")
 	# corrupt the main file: loader must fall back to .bak

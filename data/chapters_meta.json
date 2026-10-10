@@ -1,5 +1,6 @@
 {
  "order": [
+  "ch00",
   "ch01",
   "ch02",
   "ch03",
@@ -16,6 +17,7 @@
   "ch14"
  ],
  "titles": {
+  "ch00": "A Noite",
   "ch01": "Vida Normal",
   "ch02": "O Contacto",
   "ch03": "A Pessoa Que Morreu",
@@ -32,6 +34,7 @@
   "ch14": "Final"
  },
  "recaps": {
+  "ch00": "Há um ano, à chuva, no fim do Cais Velho. A Inês, de casaco vermelho. A mensagem do Vasco acendeu-te o ecrã na mão e ela percebeu que tinhas sido tu. Deu-te um cartão e uma chave e mandou-te para casa. Atrás de ti, passos mais pesados do que os dela. «Vou já» ficou por enviar. Às 03:17, um grito. É isto que tu lembras.",
   "ch01": "Quinta-feira. Um dia normal: a Sofia, o quiz do Farol, a Carla e os Saramagos, o Vasco a lembrar-te do ECO 2. Quase um ano depois do dia 14. Às 23:47, um número desconhecido: \"Ainda estás acordado?\" — e uma fotografia da tua janela, tirada da rua três minutos antes.",
   "ch02": "O número sabe coisas que só tu sabes. Cada amigo tem uma explicação diferente: um golpe com IA, alguém de capuz na rua, \"envie-me capturas de ecrã\". Às 03:02, uma fotografia da porta do teu quarto, tirada de dentro. A primeira chamada: só mar.",
   "ch03": "Descobriste a quem pertencia o número: Inês Matos, tua colega na Lumen, que morreu no Cais Velho a 14 de outubro de 2025. A voz diz que tu estavas lá. Às 03:17, ligou-te.",
@@ -47,6 +50,10 @@
   "ch13": "A última noite. As vozes de quem ficou — ou de quem deixou de responder. Às 00:30 saíste de casa e fizeste a pé o caminho daquela noite: a estrada nacional, as bombas, o Largo do Cais. Um casaco vermelho ao longe. Tu próprio, encharcado, a vir ao contrário. Pegadas que iam até à ponta do cais e não voltavam."
  },
  "epigraphs": {
+  "ch01": [
+   "O meu olhar é nítido como um girassol.",
+   "Alberto Caeiro"
+  ],
   "ch02": [
    "O poeta é um fingidor.\nFinge tão completamente\nQue chega a fingir que é dor\nA dor que deveras sente.",
    "Fernando Pessoa"

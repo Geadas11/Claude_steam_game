@@ -31,6 +31,8 @@ var _last_hour := -1.0
 var _shown_loc := ""
 var _away: Control            # story location with no 3D place: phone only
 var _dying := false
+var _phone_off := false       # story: the game's phone isn't in this scene (the prologue)
+var _say_box: Control         # in-person choices ("aqui")
 
 
 func _ready() -> void:
@@ -95,6 +97,10 @@ func _ready() -> void:
 	Events.phone_state_changed.connect(_sync_location)
 	# where a death sends him back to (R7): the start of this chapter
 	Events.chapter_started.connect(func(_ch): Saves.save_to("chapter"))
+	# things said in person: the options sit on the screen, not on the phone
+	Events.choice_offered.connect(func(th: String): if th == "aqui": _show_say_choices())
+	Events.choice_cleared.connect(func(th: String): if th == "aqui": _hide_say_choices())
+	Events.world_cue.connect(_on_main_cue)
 	Events.open_app_requested.connect(func(_a, params: Dictionary):
 		if params.get("forced", false) and mode == Mode.GAME and _world_on():
 			set_phone_raised(true))
@@ -423,11 +429,11 @@ func enter_world(where := "") -> void:
 	else:
 		world.spawn("sofa" if where == "saved" else where)
 	_apply_chapter_lights()
-	world.hud.show_phone_hint = phone_mode == "game"
+	world.hud.show_phone_hint = phone_mode == "game" and not _phone_off
 	world.hud.set_phone_idle()
 	own_hud.visible = false
-	phone_raised = phone_mode == "game"
-	phone_holder.visible = phone_mode == "game"
+	phone_raised = phone_mode == "game" and not _phone_off
+	phone_holder.visible = phone_mode == "game" and not _phone_off
 	phone.input_active = true
 	_layout()
 	_shown_loc = ""
@@ -556,6 +562,8 @@ func _apply_chapter_lights() -> void:
 func set_phone_raised(on: bool) -> void:
 	if phone_mode != "game" or not _world_on():
 		return
+	if on and _phone_off:
+		return
 	if on == phone_raised:
 		return
 	phone_raised = on
@@ -600,12 +608,12 @@ func _process(delta: float) -> void:
 	if not _world_on():
 		return
 	var playing := mode == Mode.GAME and not get_tree().paused and not _menu_open()
-	var capture: bool = playing and (phone_mode == "own" or not phone_raised) and not world.peeping
+	var capture: bool = playing and (phone_mode == "own" or not phone_raised) and not world.peeping and not is_instance_valid(_say_box)
 	var want := Input.MOUSE_MODE_CAPTURED if capture else Input.MOUSE_MODE_VISIBLE
 	if Input.mouse_mode != want and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = want
 	world.player.look_enabled = capture and not world.dying
-	world.player.move_enabled = playing and not world.peeping and not world.dying and not (phone_raised and _typing())
+	world.player.move_enabled = playing and not world.peeping and not world.dying and world.hold_t <= 0.0 and not (phone_raised and _typing())
 	# the lit screen in his hand is what it notices most (R4)
 	world.presence.screen_on = playing and (phone_raised if phone_mode == "game" else GameState.current_app != "")
 	world.hud.update_from(world.player)
@@ -681,6 +689,7 @@ func _title_phone_state() -> void:
 
 
 func start_new_game(show_warning := true) -> void:
+	_phone_off = false
 	if not Coop.active:
 		Content.set_role("daniel")
 	title_menu.visible = false
@@ -700,6 +709,7 @@ func start_new_game(show_warning := true) -> void:
 func continue_game(slot: String) -> bool:
 	if not Saves.load_from(slot):
 		return false
+	_phone_off = GameState.flag("w_phone_off")
 	title_menu.visible = false
 	pause_menu.visible = false
 	get_tree().paused = false
@@ -787,6 +797,13 @@ func _chapter_ambient(ch: String) -> String:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_instance_valid(_say_box) and event is InputEventKey and event.pressed and not event.echo:
+		var n: int = event.physical_keycode - KEY_1
+		var pending: Dictionary = GameState.data.choices.get("aqui", {})
+		if n >= 0 and not pending.is_empty() and n < pending.options.size():
+			Director.pick_choice("aqui", int(pending.options[n].index))
+			get_viewport().set_input_as_handled()
+			return
 	if event.is_action_pressed("toggle_fullscreen"):
 		Settings.set_value("fullscreen", not Settings.get_value("fullscreen"))
 	if mode != Mode.GAME:
@@ -807,6 +824,75 @@ func toggle_pause() -> void:
 		pause_menu.close()
 	else:
 		pause_menu.open()
+
+
+## "Prólogo", or "IV · Investigação".
+static func chapter_label(ch: String) -> String:
+	var roman := ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"]
+	var n := int(ch.substr(2)) if ch.begins_with("ch") else -1
+	if n == 0:
+		return "Prólogo · %s" % Content.chapter_title(ch)
+	return "%s · %s" % [roman[n - 1] if n >= 1 and n <= roman.size() else "", Content.chapter_title(ch)]
+
+
+# ---------------------------------------------------------------- the story, in person
+func _on_main_cue(cmd: String, args: Array) -> void:
+	match cmd:
+		"phone":
+			# phone off|on — the game's phone is not in this memory
+			_phone_off = args.size() > 0 and args[0] == "off"
+			GameState.set_var("w_phone_off", _phone_off)
+			if _phone_off:
+				set_phone_raised(false)
+				phone_holder.visible = false
+			if _world_on():
+				world.hud.show_phone_hint = phone_mode == "game" and not _phone_off
+		"fade":
+			var t := create_tween()
+			t.tween_property(fade, "modulate:a", 1.0 if args.size() == 0 or args[0] == "out" else 0.0, float(args[1]) if args.size() > 1 else 1.5)
+		"title":
+			# title É isto que tu lembras. — white on black, then gone
+			var l := UI.label(" ".join(PackedStringArray(args)), 26, "text", true)
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+			l.custom_minimum_size = Vector2(800, 0)
+			l.position = Vector2(size.x / 2.0 - 400, size.y / 2.0 - 20)
+			l.modulate.a = 0.0
+			overlay.add_child(l)
+			var t2 := l.create_tween()
+			t2.tween_property(l, "modulate:a", 1.0, 1.4)
+			t2.tween_interval(3.2)
+			t2.tween_property(l, "modulate:a", 0.0, 1.4)
+			t2.tween_callback(l.queue_free)
+
+
+func _show_say_choices() -> void:
+	_hide_say_choices()
+	var pending: Dictionary = GameState.data.choices.get("aqui", {})
+	if pending.is_empty():
+		return
+	var box := UI.panel(Color(0.03, 0.035, 0.045, 0.82), 12, 18, 12, 18, 12)
+	var v := UI.vbox(8)
+	box.add_child(v)
+	var k := 0
+	for o in pending.options:
+		k += 1
+		var idx: int = o.index
+		var b := UI.pill_button("%d   %s" % [k, str(o.text)], func(): Director.pick_choice("aqui", idx), "surf2", "text", 17)
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		v.add_child(b)
+	overlay.add_child(box)
+	_say_box = box
+	await get_tree().process_frame
+	if is_instance_valid(box):
+		box.position = Vector2((size.x - box.size.x) / 2.0, size.y - 250 - box.size.y)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
+func _hide_say_choices() -> void:
+	if is_instance_valid(_say_box):
+		_say_box.queue_free()
+	_say_box = null
 
 
 # ---------------------------------------------------------------- caught (R7–R9)
@@ -867,9 +953,7 @@ func _on_chapter_ended(ch: String) -> void:
 		tw.parallel().tween_property(fade, "modulate:a", 1.0, 1.6)
 	await tw.finished
 	Audio.set_ambient("", 2.5)
-	var roman := ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
-	var idx := Content.chapter_order.find(nxt)
-	caption.text = "%s\n%s\n\n[ %s · %s ]" % [Clock.fmt_date_long(start_unix), Clock.fmt_time(start_unix), roman[idx] if idx >= 0 and idx < roman.size() else "", Content.chapter_title(nxt)]
+	caption.text = "%s\n%s\n\n[ %s ]" % [Clock.fmt_date_long(start_unix), Clock.fmt_time(start_unix), chapter_label(nxt)]
 	# an epigraph on the other side of the phone (public-domain Pessoa)
 	var ep: Array = Content.db.get("chapters_meta", {}).get("epigraphs", {}).get(nxt, [])
 	var epl: Label = null

@@ -64,6 +64,7 @@ func make(sound_name: String) -> AudioStreamWAV:
 		"whisper": buf = _whisper(1.8)
 		"voice": buf = _voice(2.2, 140.0)
 		"voice_low": buf = _voice(2.4, 95.0)
+		"scream": buf = _scream()
 		"door": buf = _creak()
 		"drop": buf = _drop()
 		"water": buf = _water()
@@ -318,6 +319,29 @@ func _voice(secs: float, f0: float) -> PackedFloat32Array:
 		var syl := maxf(0.0, sin(TAU * 3.3 * t)) * (0.5 + 0.5 * sin(TAU * 0.7 * t))
 		var env := minf(1.0, t * 10.0) * minf(1.0, (secs - t) * 10.0)
 		b[i] = (f1 * 0.7 + (f2 - f1) * 0.5) * syl * env * 0.5 + _rng.randf_range(-0.02, 0.02)
+	return b
+
+
+func _scream() -> PackedFloat32Array:
+	## Someone crying out far away, the wind taking most of it.
+	var secs := 1.6
+	var b := _alloc(secs)
+	var ph := 0.0
+	var f1 := 0.0
+	var f2 := 0.0
+	var wind := 0.0
+	for i in b.size():
+		var t := float(i) / RATE
+		var f := 520.0 + 260.0 * sin(PI * minf(t / 0.9, 1.0)) - 180.0 * maxf(0.0, t - 0.7)
+		f *= 1.0 + 0.03 * sin(TAU * 6.5 * t)
+		ph += f / RATE
+		var pulse := 1.0 if fmod(ph, 1.0) < 0.2 else -0.25
+		f1 += (pulse - f1) * 0.18
+		f2 += (pulse - f2) * 0.45
+		var gust := 0.55 + 0.45 * sin(TAU * 2.1 * t + 0.6) * sin(TAU * 0.9 * t)
+		var env := minf(1.0, t * 14.0) * clampf((1.1 - t) * 2.5, 0.0, 1.0) * gust
+		wind += (_rng.randf_range(-1.0, 1.0) - wind) * 0.03
+		b[i] = (f1 * 0.5 + (f2 - f1) * 0.6) * env * 0.42 + wind * 0.25 * (1.0 - t / secs)
 	return b
 
 

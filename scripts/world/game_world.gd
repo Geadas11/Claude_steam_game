@@ -43,6 +43,7 @@ var daylight := 0.0
 var presence: Presence
 var dying := false
 var _zone_t := 0.0
+var hold_t := 0.0       # story: he stands still (can't move) for a while
 var _figures: Array = []
 
 
@@ -347,8 +348,25 @@ func _on_cue(cmd: String, args: Array) -> void:
 		"presence":
 			presence.story_cmd(args)
 		"figure":
-			# figure x z [red|dark] — someone standing far off, gone when he gets close
-			_figures.append(presence.figure(Vector3(float(args[0]), 0.0, float(args[1])), args[2] if args.size() > 2 else "dark"))
+			# figure x z [red|dark|ines] — someone standing far off, gone when he
+			# gets close ("ines" stays until "figure off")
+			if args.size() > 0 and args[0] == "off":
+				for f in _figures:
+					if is_instance_valid(f):
+						f.set_meta("going", true)
+						f.set_meta("kind", "")
+			else:
+				_figures.append(presence.figure(Vector3(float(args[0]), 0.0, float(args[1])), args[2] if args.size() > 2 else "dark"))
+		"screen":
+			# screen Inês «estás a chegar» — the old phone lights up in his hand
+			var all2 := " ".join(PackedStringArray(args))
+			var cut2 := all2.find("«")
+			hud.show_screen(all2.substr(0, cut2).strip_edges() if cut2 > 0 else "", all2.substr(cut2 + 1).trim_suffix("»") if cut2 >= 0 else all2)
+		"hold":
+			hold_t = float(args[0]) if args.size() > 0 else 4.0
+		"sound":
+			# sound <name> x z [volume] [pitch] — heard where it happens
+			play_at(args[0], Vector3(float(args[1]), location.spawns.values()[0][0].y + 0.3, float(args[2])), float(args[3]) if args.size() > 3 else 0.0, float(args[4]) if args.size() > 4 else 1.0)
 		"prints":
 			# prints x z yaw n — wet footprints walking off towards yaw
 			presence.trail(Vector3(float(args[0]), 0.0, float(args[1])), deg_to_rad(float(args[2])), int(args[3]) if args.size() > 3 else 6)
@@ -357,6 +375,7 @@ func _on_cue(cmd: String, args: Array) -> void:
 func _process(delta: float) -> void:
 	if not active or location == null:
 		return
+	hold_t = maxf(0.0, hold_t - delta)
 	_zone_t -= delta
 	if _zone_t <= 0.0 and not location.zones.is_empty():
 		_zone_t = 0.4

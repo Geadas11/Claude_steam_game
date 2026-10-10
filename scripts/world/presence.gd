@@ -844,13 +844,14 @@ func glimpse(at_player: Vector3, facing: Vector3) -> void:
 func figure(p: Vector3, kind := "dark") -> Node3D:
 	var f := body.duplicate() as Node3D
 	var m := _mat.duplicate() as ShaderMaterial
-	m.set_shader_parameter("tint", Color(0.5, 0.03, 0.04) if kind == "red" else Color(0.004, 0.004, 0.005))
+	m.set_shader_parameter("tint", (Color(0.5, 0.03, 0.04) if kind == "red" else Color(0.2, 0.012, 0.018)) if kind in ["red", "ines"] else Color(0.004, 0.004, 0.005))
 	m.set_shader_parameter("fade", 0.0)
 	for c in f.get_children():
 		(c as MeshInstance3D).material_override = m
 	f.set_meta("mat", m)
 	f.set_meta("seen", 0.0)
-	f.scale = Vector3.ONE * (0.82 if kind == "red" else 0.86)
+	f.set_meta("kind", kind)
+	f.scale = Vector3.ONE * (0.82 if kind in ["red", "ines"] else 0.86)
 	add_child(f)
 	f.global_position = _on_nav(p)
 	var pp := world.player.global_position
@@ -871,6 +872,10 @@ func figure_check(f: Node3D, delta: float) -> bool:
 	var straight := cam.is_position_in_frustum(chest) and dir.dot(-cam.global_transform.basis.z) > 0.985
 	var seen: float = f.get_meta("seen") + (delta if straight else 0.0)
 	f.set_meta("seen", seen)
+	if f.get_meta("kind", "") == "ines" and not f.get_meta("going", false):
+		# a memory of her: she stays, back to the sea, never clear
+		m.set_shader_parameter("fade", move_toward(a, 0.95, delta * 0.8))
+		return false
 	if d < 14.0 or seen > 3.5 or f.get_meta("going", false):
 		f.set_meta("going", true)
 		a = move_toward(a, 0.0, delta * 1.5)

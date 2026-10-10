@@ -10,6 +10,7 @@
 @start 2026-10-08 21:30
 
 @beat setup
+world phone on
 ambient room
 location casa
 battery 64

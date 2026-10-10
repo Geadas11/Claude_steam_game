@@ -6,7 +6,7 @@ const CAPTIONS := {
 	"breath": "respiração", "knock": "três pancadas", "knock_one": "uma pancada",
 	"footsteps": "passos", "static": "estática", "sea": "mar", "whisper": "sussurro",
 	"voice": "voz distorcida", "voice_low": "voz grave, distorcida", "door": "porta a ranger",
-	"sub": "ruído grave", "heartbeat": "batimento", "glitch": "interferência",
+	"sub": "ruído grave", "scream": "um grito, longe", "heartbeat": "batimento", "glitch": "interferência",
 	"glitch_short": "interferência", "water": "água", "drop": "algo a cair", "beep": "sinal",
 	"click_far": "clique", "rain": "chuva", "hum": "zumbido", "vibrate": "vibração",
 	"call_connect": "ligação estabelecida", "call_end": "chamada terminada", "shutter": "obturador",

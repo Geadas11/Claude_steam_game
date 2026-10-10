@@ -65,6 +65,18 @@
   }
  },
  "chapters": {
+  "ch00": {
+   "all": [
+    [
+     "flag",
+     "w_zone_cais"
+    ],
+    [
+     "flag",
+     "w_zone_fim"
+    ]
+   ]
+  },
   "ch01": {
    "all": [
     [

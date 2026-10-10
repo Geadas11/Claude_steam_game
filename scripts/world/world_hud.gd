@@ -15,6 +15,9 @@ var _thought_tw: Tween
 var _hint_tw: Tween
 var _dot_on := false
 var _laid_out := Vector2.ZERO
+var screen_box: PanelContainer   # an old phone's lit screen in his hand (memories)
+var _screen_v: VBoxContainer
+var _screen_tw: Tween
 
 
 func _ready() -> void:
@@ -76,6 +79,46 @@ func _ready() -> void:
 	resized.connect(_layout)
 	_layout()
 	set_phone_idle()
+
+
+## A notification lighting a phone screen in his hand (not the game's phone:
+## the old one, in a memory). Stays for `secs`, newest at the bottom.
+func show_screen(who: String, text: String, secs := 6.0) -> void:
+	if screen_box == null:
+		screen_box = PanelContainer.new()
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color(0.05, 0.06, 0.08, 0.92)
+		sb.set_corner_radius_all(14)
+		sb.border_color = Color(0.3, 0.32, 0.36, 0.8)
+		sb.set_border_width_all(1)
+		sb.content_margin_left = 16
+		sb.content_margin_right = 16
+		sb.content_margin_top = 12
+		sb.content_margin_bottom = 12
+		screen_box.add_theme_stylebox_override("panel", sb)
+		screen_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_screen_v = VBoxContainer.new()
+		_screen_v.add_theme_constant_override("separation", 6)
+		screen_box.add_child(_screen_v)
+		add_child(screen_box)
+	var row := VBoxContainer.new()
+	var w := UI.label(who, 13, "accent")
+	var t := UI.label(text, 17, "text", true)
+	t.custom_minimum_size = Vector2(300, 0)
+	row.add_child(w)
+	row.add_child(t)
+	_screen_v.add_child(row)
+	while _screen_v.get_child_count() > 3:
+		_screen_v.get_child(0).free()
+	screen_box.reset_size()
+	screen_box.position = Vector2(size.x - 380, size.y - 140 - screen_box.size.y)
+	screen_box.modulate.a = 1.0
+	Audio.play("vibrate", -10.0)
+	if _screen_tw:
+		_screen_tw.kill()
+	_screen_tw = create_tween()
+	_screen_tw.tween_interval(secs)
+	_screen_tw.tween_property(screen_box, "modulate:a", 0.0, 1.0)
 
 
 func _layout() -> void:

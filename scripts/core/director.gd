@@ -514,7 +514,11 @@ func _do_choice(op: Dictionary, beat_id: String, pc: int, g: int) -> bool:
 		GameState.set_var("last_reply", opt.text)
 	GameState.data.choice_log.append({"id": op.id, "option": opt.index, "text": opt.text, "chapter": GameState.data.chapter})
 	var text: String = opt.text
-	if not (text.begins_with("[") and text.ends_with("]")):
+	if op.thread == "aqui":
+		# in person: Daniel says it, nothing is sent
+		if not (text.begins_with("[") and text.ends_with("]")):
+			Events.world_cue.emit("say", ["Daniel", "«%s»" % text])
+	elif not (text.begins_with("[") and text.ends_with("]")):
 		Events.autotype_requested.emit(op.thread, text)
 		if not await _sleep(minf(0.4 + text.length() * 0.03, 2.2), g):
 			return false
