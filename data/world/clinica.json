@@ -1,29 +1,98 @@
 {
  "_comment": "Clínica Atlântico, Faro. Pensamentos do Daniel.",
- "porta_entrada": {"prompt": "Abrir a porta", "text": ["A porta automática não abre. Está desligada. A clínica fecha às sete."]},
- "porta_saida": {"prompt": "Abrir a porta", "text": ["«Saída de emergência — a abertura aciona o alarme.» Trancada na mesma."]},
+ "porta_entrada": {
+  "prompt": "Abrir a porta",
+  "text": [
+   "A porta automática não abre. Está desligada. A clínica fecha às sete."
+  ]
+ },
+ "porta_saida": {
+  "prompt": "Abrir a porta",
+  "text": [
+   "«Saída de emergência — a abertura aciona o alarme.» Trancada na mesma."
+  ]
+ },
  "rececao": {
   "prompt": "Ver a receção",
-  "text": ["Um caderno de marcações aberto. «14:00 — D. Reis — Dra. Sousa — internamento?» O ponto de interrogação foi riscado.", "Um copo de café com batom. Ainda está morno."]
+  "text": [
+   "Um caderno de marcações aberto. «14:00 — D. Reis — Dra. Sousa — internamento?» O ponto de interrogação foi riscado.",
+   "Um copo de café com batom. Ainda está morno."
+  ]
  },
  "computador": {
   "prompt": "Usar o computador",
   "when": [
-   {"if": "flag(\"eco_frag_3\")", "text": "O ecrã voltou à palavra-passe. A pasta já não está lá."}
+   {
+    "if": "flag(\"eco_frag_3\")",
+    "text": "O ecrã voltou à palavra-passe. A pasta já não está lá."
+   }
   ],
-  "text": ["Uma sessão aberta. Pastas com nomes de doentes. Uma delas não tem nome, só um número: 047."]
+  "text": [
+   "Uma sessão aberta. Pastas com nomes de doentes. Uma delas não tem nome, só um número: 047."
+  ]
  },
  "secretaria_helena": {
   "prompt": "Ver a secretária",
-  "text": ["Faturas. Lumen Systems — consultoria clínica. Todos os meses, desde novembro do ano passado.", "Um bloco com a letra dela: «D. — não forçar a memória. Deixar o telemóvel trabalhar.»"]
+  "text": [
+   "Faturas. Lumen Systems — consultoria clínica. Todos os meses, desde novembro do ano passado.",
+   "Um bloco com a letra dela: «D. — não forçar a memória. Deixar o telemóvel trabalhar.»"
+  ]
  },
- "diplomas": {"prompt": "Ver os diplomas", "text": ["Universidade de Coimbra. Ordem dos Médicos. Um certificado da Lumen: «Parceira de Investigação 2024».", "Num dos diplomas, o vidro tem uma impressão digital. Do lado de dentro."]},
+ "diplomas": {
+  "prompt": "Ver os diplomas",
+  "text": [
+   "Universidade de Coimbra. Ordem dos Médicos. Um certificado da Lumen: «Parceira de Investigação 2024».",
+   "Num dos diplomas, o vidro tem uma impressão digital. Do lado de dentro."
+  ]
+ },
  "ficha": {
   "prompt": "Procurar a minha ficha",
-  "text": ["REIS, Daniel. Primeira consulta 20/10/2025. «Amnésia dissociativa (02:00–07:00 de 14/10).» Nas notas de novembro: uma frase sublinhada duas vezes. «Eu empurrei-a.» Não há gravação anexada."]
+  "text": [
+   "REIS, Daniel. Primeira consulta 20/10/2025. «Amnésia dissociativa (02:00–07:00 de 14/10).» Nas notas de novembro: uma frase sublinhada duas vezes. «Eu empurrei-a.» Não há gravação anexada."
+  ]
  },
- "chaves": {"prompt": "Ver a caixa das chaves", "text": ["Chaves com etiquetas: quartos, arquivo, farmácia. A da escada de serviço não está no gancho."]},
- "portao": {"prompt": "Abrir o portão", "text": ["O portão da escada está fechado a cadeado. Lá em baixo, uma luz verde de saída que pisca."]},
- "cartao_quarto": {"prompt": "Ler o cartão", "text": ["«Daniel R. — admissão 13/10 — 14:00.» A letra é da Helena. O cartão já estava escrito antes de eu chegar."]},
- "cama_4": {"prompt": "Ver a cama", "text": ["Lençóis lavados, dobrados com cantos de hospital. Em cima, um pijama do meu tamanho."]}
+ "chaves": {
+  "prompt": "Ver a caixa das chaves",
+  "text": [
+   "Chaves com etiquetas: quartos, arquivo, farmácia. A da escada de serviço não está no gancho."
+  ],
+  "when": [
+   {
+    "if": "flag(\"has_archive_key\")",
+    "text": "Falta a do arquivo — tenho-a no bolso — e a da escada de serviço."
+   }
+  ]
+ },
+ "portao": {
+  "prompt": "Abrir o portão",
+  "text": [
+   "O portão da escada está fechado a cadeado. Lá em baixo, uma luz verde de saída que pisca."
+  ],
+  "when": [
+   {
+    "if": "flag(\"has_stairs_key\")",
+    "text": "A chave entra no cadeado. Roda.",
+    "set": "clinic_escaped"
+   }
+  ]
+ },
+ "cartao_quarto": {
+  "prompt": "Ler o cartão",
+  "text": [
+   "«Daniel R. — admissão 13/10 — 14:00.» A letra é da Helena. O cartão já estava escrito antes de eu chegar."
+  ]
+ },
+ "cama_4": {
+  "prompt": "Ver a cama",
+  "text": [
+   "Lençóis lavados, dobrados com cantos de hospital. Em cima, um pijama do meu tamanho."
+  ],
+  "when": [
+   {
+    "if": "flag(\"clinic_closed\") and not flag(\"has_stairs_key\")",
+    "text": "No bolso do pijama, uma chave pequena com uma etiqueta de papel: «Escada». Alguém a pôs aqui para mim. Ou para quem fosse dormir aqui.",
+    "set": "has_stairs_key"
+   }
+  ]
+ }
 }

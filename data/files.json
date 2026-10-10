@@ -302,5 +302,17 @@
   "clues": [
    "ines_last_photo"
   ]
+ },
+ "ficha_daniel": {
+  "name": "ficha_DReis.jpg",
+  "folder": "Fotografias",
+  "type": "doc",
+  "size": "1,8 MB",
+  "date": "2026-10-13 15:12",
+  "content": "CLÍNICA ATLÂNTICO — PROCESSO 2208\nREIS, Daniel · 29 anos\nEncaminhado por: V. Cardoso (Lumen Systems) · Faturação: Lumen Systems, consultoria clínica\n\n20/10/2025 — 1.ª consulta. Amnésia dissociativa (aprox. 02:00–07:00 de 14/10). Insónia. Culpa.\n03/11/2025 — Entregue telemóvel Lumen One (programa de acompanhamento). Consentimento: assinado.\n17/11/2025 — Muito agitado. Midazolam 7,5 mg. Antes de adormecer: «eu empurrei-a». ← (sublinhado duas vezes)\n   Não há gravação anexada.\n02/2026 — «Não forçar a memória. Deixar o telemóvel trabalhar.»\n13/10/2026 — Internamento programado. Quarto 4. 14:00.\n\nNota à margem, outra caneta: «Partilhar com V.C. antes de 14/10.»",
+  "clues": [
+   "ficha_found",
+   "helena_says_confessed"
+  ]
  }
 }

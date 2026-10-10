@@ -55,7 +55,7 @@ func _ready() -> void:
 		await _playthrough("A")
 		await _ui_smoke("A")
 	if _only == "" or _only == "play":
-		var policies := ["A", "B", "C", "D", "E"] if _only == "" else [_policy]
+		var policies := ["A", "B", "C", "D", "E", "F"] if _only == "" else [_policy]
 		for p in policies:
 			await _playthrough(p)
 			if _only == "" and (p == "A" or p == "E") or _with_ui:

@@ -108,7 +108,14 @@ func update_from(player: Player) -> void:
 	stamina_bar.modulate.a = move_toward(stamina_bar.modulate.a, 0.0 if player.stamina >= 0.999 else 1.0, 0.05)
 
 
+## Someone in the room speaks: their name, then the line, in a warmer colour.
+func show_speech(who: String, text: String) -> void:
+	show_thought(("%s   %s" % [who.to_upper(), text]) if who != "" else text)
+	thought.add_theme_color_override("font_color", Color(0.98, 0.9, 0.78))
+
+
 func show_thought(text: String) -> void:
+	thought.remove_theme_color_override("font_color")
 	thought.text = text
 	thought.size.y = 0
 	if _thought_tw:

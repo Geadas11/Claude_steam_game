@@ -1,29 +1,34 @@
 # =====================================================================
 # CAPÍTULO 12 — CONSEQUÊNCIAS
-# terça-feira, 13 de outubro de 2026, 10:00 → 22:30
-# As escolhas pagam-se. Quem confiou em quem. A Helena liga à Sofia.
-# O João saiu do grupo — ou ficou. O cartão está dentro do livro.
-# O que fazer com ele.
+# terça-feira, 13 de outubro de 2026, 19:00 → 22:30
+# Depois da clínica. As escolhas pagam-se: quem confiou em quem, quem
+# deixou de responder. A Helena liga à Sofia. O que fazer com o cartão.
+# (Se o cartão não foi encontrado na livraria, a Carla repara no livro.)
 # =====================================================================
 @chapter ch12
 @title Consequências
-@start 2026-10-13 10:00
+@start 2026-10-13 19:00
 
 @beat setup
 set chapter_n=12
-rate 2
+rate 1
 ambient room
-location livraria
-battery 80
-carla> {instant} Bom dia querido! Hoje estou cá a tarde toda, se quiseres sair mais cedo
+location casa
+battery 34
+if flag("helena_confronted_clinic") or flag("hid_from_helena")
+  carla> Daniel, a tua médica ligou para a loja à tua procura. Disse que saíste da clínica sem alta
+  carla> Eu disse que não sabia de nada. E não sei. Estás bem querido?
+else
+  carla> Querido, passaste o dia fora. Está tudo bem?
+endif
 @end
 
 # ---------------------------------------------------------------- João: ficou ou foi
 @beat joao_status
 @when since("setup", 20)
 if v("trust_joao") >= 2 or flag("joao_ally")
-  joao> bom dia. dormiste?
-  joao> se precisares q va contigo a algum lado hoje, eu vou. o bar abre so as 6
+  joao> ei. como correu a consulta?
+  joao> se precisares q va contigo a algum lado logo, eu vou. pedi a noite no bar
   set joao_available=true
 elif flag("joao_drifting") or flag("promised_helena") or v("trust_joao") < 0
   grupo:marta> joão? saíste do grupo?
@@ -55,7 +60,7 @@ endif
 
 # ---------------------------------------------------------------- o livro
 @beat book_prompt
-@when at("11:00") and not flag("found_card") and (clue("saramago_spine") or clue("night_bookshop") or clue("daniel_hides_in_books") or clue("ines_card_hint") or clue("secret_note_book") or clue("carla_photo_in_book") or v("deduction_score") >= 4)
+@when at("19:20") and not flag("found_card") and (clue("saramago_spine") or clue("night_bookshop") or clue("daniel_hides_in_books") or clue("ines_card_hint") or clue("secret_note_book") or clue("carla_photo_in_book") or v("deduction_score") >= 4)
 unknown> Estás à frente da estante.
 wait 3
 unknown> Já sabes qual é.
@@ -63,9 +68,9 @@ set book_prompted=true
 @end
 
 @beat book_carla
-@when at("13:00") and not flag("found_card")
+@when at("19:55") and not flag("found_card")
 carla> Daniel, o meu Ricardo Reis está esquisito. A capa de trás está inchada, parece que tem alguma coisa lá dentro
-carla> Vê lá isso, que eu não tenho jeito para estas coisas e tenho medo de o estragar
+carla> Estou cá até às nove e meia. Vem ver isso, que eu não tenho jeito para estas coisas e tenho medo de o estragar
 set book_prompted=true book_via_carla=true
 @end
 
@@ -74,12 +79,12 @@ set book_prompted=true book_via_carla=true
 wait 2
 if flag("book_via_carla")
   choice carla c10_book_carla
-    > [Abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
+    > [Ir à livraria abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
     > [Deixar o livro onde está] | set open_book=false
   end
 else
   choice unknown c10_book
-    > [Abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
+    > [Ir à livraria abrir "O Ano da Morte de Ricardo Reis"] | set open_book=true
     > [Deixar o livro onde está] | set open_book=false
   end
 endif
@@ -110,12 +115,12 @@ endif
 @end
 
 @beat book_second_chance
-@when flag("book_left") and at("17:30") and not flag("found_card")
-unknown> Vais fechar a loja.
+@when flag("book_left") and at("21:10") and not flag("found_card")
+unknown> A Carla fecha a loja às nove e meia.
 unknown> Última vez que te peço.
 choice unknown c10_book2
-  > [Abrir o livro] | set found_card=true
-  > [Fechar a loja e ir para casa] | set card_abandoned=true
+  > [Ir à livraria e abrir o livro] | set found_card=true
+  > [Ficar em casa] | set card_abandoned=true
 end
 if flag("found_card")
   toast "Dentro da capa: um cartão microSD, colado com fita-cola."
@@ -138,14 +143,9 @@ unknown> Eu sei que vais ler outra vez.
 @end
 
 # ---------------------------------------------------------------- Helena e Sofia
-@beat helena_bed
-@when at("10:40")
-helena> A sua cama está pronta às 14h, Daniel. Venha, por favor. É para seu bem.
-@end
-
 @beat helena_calls_sofia
-@when at("14:30")
-helena> Não apareceu. Vou ter de falar com a sua família. Lamento.
+@when at("19:12")
+helena> Saiu da clínica sem alta, Daniel. Vou ter de falar com a sua família. Lamento.
 wait 60
 sofia> Daniel
 sofia> A tua médica acabou de me ligar. Disse que estás "em risco" e que eu devia convencer-te a seres internado HOJE
@@ -179,8 +179,8 @@ endif
 
 # ---------------------------------------------------------------- o que fazer com o cartão
 @beat vasco_offer
-@when at("15:30")
-vasco> Daniel, sei que encontrou uma coisa hoje.
+@when at("20:15")
+vasco> Daniel, sei que encontrou uma coisa na livraria.
 vasco> Não lhe vou perguntar como sei. Vou-lhe só fazer uma proposta honesta.
 vasco> Entregue-ma. Em troca: a sua vida de volta. O emprego na Lumen, se quiser. A Dra. Helena deixa de o incomodar. A Sofia deixa de se preocupar. Tudo como antes.
 @end
@@ -266,13 +266,12 @@ endif
 
 # ---------------------------------------------------------------- noite
 @beat sim_notice10
-@when at("18:30")
+@when at("21:30")
 notify settings "Lumen OS" "eco.sim 047 · 1 dia restante"
-location casa
 @end
 
 @beat card_nudge
-@when at("19:30") and flag("found_card") and not flag("sent_clara") and not flag("sent_rui") and not flag("plan_give_vasco")
+@when at("21:00") and flag("found_card") and not flag("sent_clara") and not flag("sent_rui") and not flag("plan_give_vasco")
 unknown> Tens o cartão. Tens a gravação. Tens a noite.
 unknown> A Clara. O Rui. Ou ninguém. Mas decide.
 @end
@@ -325,7 +324,7 @@ helena: Venha. Não tem de fazer isto sozinho. | 3
 
 # ---------------------------------------------------------------- o grupo repara
 @beat grupo_worried
-@when at("12:15")
+@when at("19:45")
 if flag("joao_gone")
   grupo:marta> o João saiu do grupo e não atende ninguém. Daniel aconteceu alguma coisa entre vocês?
   grupo:pedro> ele nunca sai do grupo. nem quando eu mandei aquele vídeo de 40 minutos
@@ -353,13 +352,13 @@ endif
 @end
 
 @beat meridiano_exclusao_mail
-@when at("16:20")
+@when at("19:25")
 email meridiano_exclusao
 @end
 
 # ---------------------------------------------------------------- Rita
 @beat rita_count
-@when flag("rita_keep") and (flag("sent_clara") or flag("sent_rui")) and at("19:10")
+@when flag("rita_keep") and (flag("sent_clara") or flag("sent_rui")) and at("20:50")
 rita> a jornalista falou comigo. a clara
 rita> somos quarenta e um. quarenta e um telemóveis oferecidos pela clínica
 rita> quarenta e um mortos a escrever às 3:17
@@ -368,8 +367,12 @@ clue forty_one
 
 # ---------------------------------------------------------------- a porta destrancada
 @beat carla_door
-@when flag("found_card") and at("13:40")
-carla> Encontraste alguma coisa no meu Ricardo Reis? Passei aí e estavas pálido
+@when flag("found_card") and at("20:05")
+if flag("took_both")
+  carla> Daniel, o meu Ricardo Reis da estante de baixo desapareceu. E o de cima tem a capa descolada. Andaste por lá?
+else
+  carla> Daniel, o Ricardo Reis da galeria tem a capa descolada. Andaste por lá?
+endif
 @end
 
 @beat carla_door_reply
@@ -410,7 +413,7 @@ clue vasco_sent_window
 
 # ---------------------------------------------------------------- uma mensagem de voz
 @beat voice_note
-@when at("10:25") and not flag("found_card")
+@when at("19:08") and not flag("found_card")
 unknown> [audio:vm_audio_ines]
 @end
 
@@ -428,7 +431,7 @@ unknown> O portal da clínica reconhece o teu telefone. Só te vai pedir quem é
 
 # ---------------------------------------------------------------- Marta e as flores
 @beat marta_flowers
-@when at("11:40")
+@when at("19:35")
 marta> Daniel. Amanhã é dia 14
 marta> Vou passar pelo cais antes das aulas, como todos os meses. Só para dizer que alguém passou
 if vs("marta_book") == "ondjaki"
@@ -519,8 +522,8 @@ unknown> Essa gravação tem um ano. Estava à espera de alguém que a ouvisse.
 
 # ---------------------------------------------------------------- o Sr. Armando
 @beat armando_eve
-@when at("18:05") and flag("armando_saw")
-armando> Boa tarde. É o Armando, da associação. A minha neta ensinou-me a escrever mensagens.
+@when at("20:30") and flag("armando_saw")
+armando> Boa noite. É o Armando, da associação. A minha neta ensinou-me a escrever mensagens.
 armando> Amanhã faz um ano. Vou estar no cais às seis e quarenta, como no ano passado. Levo uma flor.
 armando> Pensei muito no que lhe disse ao telefone. Se precisar que eu diga a alguém o que vi, eu digo.
 @end

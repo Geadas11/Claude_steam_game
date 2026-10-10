@@ -27,6 +27,14 @@ for txt in story.values():
             i += 1
 for m in re.finditer(r'(?:set_var|inc_var)\("([\w]+)"', code):
     written.add(m.group(1))
+# things examined in 3D can set a flag ("set" in data/world/*.json)
+for f in glob.glob('data/world/*.json'):
+    for m in re.finditer(r'"set":\s*"([\w]+)"', open(f).read()):
+        written.add(m.group(1))
+# and their conditions are read like the story's
+for f in glob.glob('data/world/*.json'):
+    for m in re.finditer(r'\b(?:flag|v|vs)\(\\"([\w]+)\\"\)', open(f).read()):
+        read.add(m.group(1))
 prefixes = ["call_", "meta_", "unlocked_page_", "unlocked_note_", "extracted_", "heard_", "cam_", "viewed_loc_",
             "opened_hidden_", "compared_", "read_note_", "photographed_", "pw_fail_", "dialed_", "settings_",
             "viewed_contact_", "clicked_injected_", "choice_", "hungup_", "prev_end_", "_called_",

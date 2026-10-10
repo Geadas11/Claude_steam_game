@@ -4,7 +4,8 @@
   "B": "B",
   "C": "C",
   "D": "D",
-  "E": "E"
+  "E": "E",
+  "F": "B"
  },
  "choices": {
   "default": {
@@ -12,7 +13,8 @@
    "c11_leave": 0,
    "c10_book": 0,
    "c10_book_carla": 0,
-   "c10_book2": 0
+   "c10_book2": 0,
+   "c11c_stay": 1
   },
   "A": {
    "c4_clara": 0,
@@ -57,6 +59,9 @@
    "c8_eco1": 2,
    "c8_eco2": 0,
    "c11_eco": 1
+  },
+  "F": {
+   "c11c_stay": 0
   }
  },
  "chapters": {
@@ -345,6 +350,26 @@
     [
      "deduce",
      "why=suicide,told=joao,daniel_at=home,who=nobody,where=sea"
+    ]
+   ]
+  },
+  "ch11": {
+   "all": [
+    [
+     "flag",
+     "w_chaves"
+    ],
+    [
+     "flag",
+     "w_ficha"
+    ],
+    [
+     "flag",
+     "w_computador"
+    ],
+    [
+     "flag",
+     "w_cartao_quarto"
     ]
    ]
   },

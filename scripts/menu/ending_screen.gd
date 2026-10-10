@@ -31,6 +31,11 @@ func play(id: String) -> void:
 	_v.custom_minimum_size = Vector2(760, 0)
 	center.add_child(_v)
 	var lines: Array = e.get("lines", []).duplicate()
+	# another way to the same ending (e.g. B by staying at the clinic)
+	for a in e.get("alt", []):
+		if Director.check(str(a.get("when", "false"))):
+			lines = a.get("lines", []).duplicate()
+			break
 	# conditional epilogue lines (consequences of side choices)
 	for x in e.get("extra", []):
 		if Director.check(str(x.get("when", "false"))):

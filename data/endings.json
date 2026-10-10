@@ -128,7 +128,22 @@
    "\"Ele também te disse que foi um acidente?\"",
    "Desapareceu antes de a conseguires abrir."
   ],
-  "how": "Confia em quem diz que cuida de ti. Dá-lhe o que ele pede."
+  "how": "Confia em quem diz que cuida de ti. Dá-lhe o que ele pede.",
+  "alt": [
+   {
+    "when": "flag(\"stayed_clinic\")",
+    "lines": [
+     "Ficaste. A enfermeira trouxe-te um copo de água e dois comprimidos brancos. «Para dormir.»",
+     "O Vasco veio às sete da tarde. Trazia uvas, como se visita um doente.",
+     "«Fez a coisa certa, Daniel.» Pediu-te o cartão com a voz com que se pede o sal.",
+     "Disseste-lhe onde estava. Ele foi buscá-lo nessa noite.",
+     "Às 03:17 estavas a dormir. Não ouviste o telemóvel, porque o telemóvel já não estava contigo.",
+     "A Lumen lançou o ECO 2 em novembro. Foi um sucesso.",
+     "O número 912 403 317 deixou de te escrever.",
+     "Em dezembro, recebeste um email de \"pessoas@lumen.pt\": uma oferta de emprego. Aceitaste."
+    ]
+   }
+  ]
  },
  "C": {
   "name": "Silêncio",

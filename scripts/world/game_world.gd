@@ -329,6 +329,12 @@ func _on_cue(cmd: String, args: Array) -> void:
 				location.set_rain(args.size() == 0 or args[0] == "on", player)
 		"think":
 			player.think(" ".join(PackedStringArray(args)))
+		"say":
+			# say Dra. Helena «Sente-se.» — someone in the room speaks (subtitle)
+			var all := " ".join(PackedStringArray(args))
+			var cut := all.find("«")
+			var who := all.substr(0, cut).strip_edges() if cut > 0 else ""
+			hud.show_speech(who, all.substr(cut) if cut >= 0 else all)
 		"shake":
 			player.shake(float(args[0]) if args.size() > 0 else 0.5)
 		"presence":

@@ -1964,5 +1964,44 @@
    "card_found",
    "note_dont_trust"
   ]
+ },
+ "helena_says_confessed": {
+  "title": "«Eu empurrei-a» (sem gravação)",
+  "desc": "A Dra. Helena diz que, sedado, em novembro, disseste «eu empurrei-a». Escreveu-o. Não gravou. Só há a palavra dela.",
+  "source": "Clínica Atlântico",
+  "importance": 3,
+  "related": [
+   "ficha_found",
+   "lumen_pays_helena"
+  ]
+ },
+ "ficha_found": {
+  "title": "A tua ficha",
+  "desc": "Processo 2208. Encaminhado pelo Vasco, faturado à Lumen. O telemóvel Lumen One entregue «para acompanhamento». À margem: «Partilhar com V.C. antes de 14/10.»",
+  "source": "Arquivo · Clínica Atlântico",
+  "importance": 3,
+  "related": [
+   "helena_says_confessed",
+   "lumen_pays_helena",
+   "daniel_in_list"
+  ]
+ },
+ "folder_047": {
+  "title": "Pasta 047",
+  "desc": "No computador da Helena, entre pastas com nomes de doentes, uma só com um número: 047. As anteriores, de 001 a 046, foram apagadas.",
+  "source": "Computador · Dra. Helena",
+  "importance": 2,
+  "related": [
+   "eco_fragment_3"
+  ]
+ },
+ "room_ready": {
+  "title": "O quarto 4",
+  "desc": "«Daniel R. — admissão 13/10 — 14:00.» O cartão na porta estava escrito antes de chegares. Lençóis com cantos de hospital. Um pijama do teu tamanho.",
+  "source": "Clínica Atlântico",
+  "importance": 1,
+  "related": [
+   "helena_admission"
+  ]
  }
 }
