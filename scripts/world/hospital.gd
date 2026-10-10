@@ -26,7 +26,7 @@ var phone_light: StandardMaterial3D
 func _ready() -> void:
 	load_texts("hospital")
 	rng.seed = 606
-	m_wall = WB.mat("plastered_wall_04", 2.5, Color(1.0, 1.0, 1.0))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(1.0, 1.0, 1.0))
 	m_ceiling = WB.grid(Color(0.86, 0.86, 0.84), Color(0.62, 0.63, 0.62), 0.6, 0.85)
 	m_paint = WB.flat(Color(0.6, 0.7, 0.78), 0.5)
 	m_skirt = WB.flat(Color(0.35, 0.42, 0.48), 0.5)
@@ -157,7 +157,7 @@ func _build_station() -> void:
 	var white := WB.flat(Color(0.92, 0.92, 0.9), 0.35)
 	var wood := WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72))
 	# the counter open on the corridor
-	WB.box(self, Vector3(6.4, 0, 3.4), Vector3(13.6, 1.05, 3.95), wood)
+	WB.cabinet(self, Vector3(6.4, 0, 3.4), Vector3(13.6, 1.02, 3.95), Vector3(0, 0, 1), wood, wood, 8, 0.0, null, true, false)
 	WB.box(self, Vector3(6.35, 1.05, 3.35), Vector3(13.65, 1.1, 4.0), white, false)
 	WB.box(self, Vector3(6.6, 0.72, 2.7), Vector3(13.4, 0.76, 3.4), white, false)
 	for x in [7.6, 9.6, 11.8]:
@@ -205,15 +205,18 @@ func _build_staff_room() -> void:
 	# lockers along the west wall
 	for k in 6:
 		var z0 := 0.3 + k * 0.5
-		WB.box(self, Vector3(0.05, 0, z0), Vector3(0.55, 1.9, z0 + 0.48), steel)
-		WB.box(self, Vector3(0.551, 1.5, z0 + 0.2), Vector3(0.56, 1.6, z0 + 0.28), WB.flat(Color(0.2, 0.2, 0.2), 0.4), false)
+		WB.cabinet(self, Vector3(0.05, 0, z0), Vector3(0.55, 1.9, z0 + 0.48), Vector3(1, 0, 0), steel, WB.flat(Color(0.5, 0.58, 0.66), 0.4, 0.6), 1, 0.0, WB.flat(Color(0.2, 0.2, 0.2), 0.4, 0.6))
+		for v in 4:
+			# vent slots
+			WB.box(self, Vector3(0.574, 1.62 + v * 0.04, z0 + 0.12), Vector3(0.577, 1.635 + v * 0.04, z0 + 0.36), WB.flat(Color(0.08, 0.08, 0.08), 0.6), false, "", 0.0)
 	WB.text(self, "S. REIS", Vector3(0.565, 1.75, 1.04), 90.0, 0.035, Color(0.1, 0.1, 0.1))
 	hotspots.cacifo = Hotspot.add(self, Vector3(0.3, 1.0, 1.04), Vector3(0.6, 1.9, 0.5), _prompt("cacifo"), func(p): _say("cacifo", p))
 	WB.model(self, "sofa_03", 3.0, 0.5, 0.0, 0.9)
 	WB.model(self, "round_wooden_table_01", 3.4, 2.4, 0.0, 0.6)
 	WB.model(self, "dining_chair_02", 2.7, 2.6, 80.0)
 	WB.model(self, "vintage_microwave", 5.6, 3.2, -90.0, 1.0, 0.9, false)
-	WB.box(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.9, 3.9), WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72)))
+	WB.cabinet(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.88, 3.9), Vector3(-1, 0, 0), WB.flat(Color(0.85, 0.85, 0.83), 0.6), WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72)), 2, 0.16)
+	WB.worktop(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.88, 3.9), Vector3(-1, 0, 0), WB.mat("marble_01", 1.0, Color(0.7, 0.7, 0.68)))
 	WB.model(self, "jug_01", 5.6, 2.8, 0.0, 1.0, 0.9, false)
 	var l := WB.omni(self, Vector3(3.0, 2.5, 2.0), COOL, 0.7, 5.0, true)
 	_room("pausa", [l], [])

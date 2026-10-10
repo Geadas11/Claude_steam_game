@@ -27,7 +27,7 @@ var m_door: Material
 func _ready() -> void:
 	load_texts("clinica")
 	rng.seed = 1105
-	m_wall = WB.mat("white_plaster_02", 2.5, Color(0.97, 0.98, 0.96))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(0.97, 0.98, 0.96))
 	m_ceiling = WB.grid(Color(0.86, 0.86, 0.84), Color(0.62, 0.63, 0.62), 0.6, 0.85)
 	m_paint = WB.flat(Color(0.62, 0.72, 0.66), 0.5)
 	m_skirt = WB.flat(Color(0.35, 0.4, 0.38), 0.5)
@@ -153,8 +153,8 @@ func _build_reception() -> void:
 	var white := WB.flat(Color(0.9, 0.9, 0.88), 0.35)
 	var wood := WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72))
 	# the desk, facing the entrance
-	WB.box(self, Vector3(6.2, 0, 2.8), Vector3(9.6, 1.05, 3.4), wood)
-	WB.box(self, Vector3(9.0, 0, 3.4), Vector3(9.6, 1.05, 5.0), wood)
+	WB.cabinet(self, Vector3(6.2, 0, 2.8), Vector3(9.6, 1.02, 3.4), Vector3(0, 0, -1), wood, wood, 5, 0.0, null, true, false)
+	WB.cabinet(self, Vector3(9.0, 0, 3.4), Vector3(9.6, 1.02, 5.0), Vector3(-1, 0, 0), wood, wood, 2, 0.0, null, true, false)
 	WB.box(self, Vector3(6.15, 1.05, 2.75), Vector3(9.65, 1.1, 3.45), white, false)
 	WB.box(self, Vector3(6.4, 0.72, 3.4), Vector3(9.0, 0.76, 3.9), white, false)
 	_monitor(Vector3(7.4, 0.76, 3.55), 0.0, "rececao_pc")

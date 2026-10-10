@@ -25,7 +25,7 @@ var drawer: Node3D
 func _ready() -> void:
 	load_texts("sofia_casa")
 	rng.seed = 202
-	m_wall = WB.mat("white_plaster_02", 2.5, Color(0.96, 0.95, 0.92))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(0.96, 0.95, 0.92))
 	m_ceiling = WB.flat(Color(0.93, 0.92, 0.89), 0.9)
 	m_paint = WB.flat(Color(0.93, 0.92, 0.88), 0.4)
 	m_skirt = WB.flat(Color(0.9, 0.89, 0.85), 0.5)
@@ -152,14 +152,19 @@ func _build_sala() -> void:
 func _build_kitchen() -> void:
 	var wood := WB.mat("kitchen_wood", 1.0, Color(0.88, 0.85, 0.8))
 	var counter := WB.mat("marble_01", 1.0, Color(0.75, 0.73, 0.7))
-	WB.box(self, Vector3(8.35, 0, 0.3), Vector3(8.95, 0.88, 4.0), wood)
-	WB.box(self, Vector3(8.32, 0.88, 0.28), Vector3(8.98, 0.92, 4.02), counter, false)
-	WB.box(self, Vector3(8.6, 1.5, 0.3), Vector3(8.95, 2.2, 4.0), wood)
+	var body := WB.flat(Color(0.82, 0.8, 0.76), 0.6)
+	var steel := WB.flat(Color(0.75, 0.75, 0.74), 0.3, 0.9)
+	for seg in [[0.3, 2.3], [2.9, 4.0]]:
+		var n := maxi(1, int(roundf((seg[1] - seg[0]) / 0.55)))
+		WB.cabinet(self, Vector3(8.35, 0, seg[0]), Vector3(8.95, 0.88, seg[1]), Vector3(-1, 0, 0), body, wood, n, 0.16, steel)
+		WB.worktop(self, Vector3(8.35, 0, seg[0]), Vector3(8.95, 0.88, seg[1]), Vector3(-1, 0, 0), counter)
+	WB.cabinet(self, Vector3(8.6, 1.5, 0.3), Vector3(8.95, 2.2, 4.0), Vector3(-1, 0, 0), body, wood, 6, 0.0, steel)
 	WB.model(self, "electric_stove", 8.62, 2.6, -90.0)
 	WB.model(self, "vintage_microwave", 8.6, 0.8, -90.0, 1.0, 0.92, false)
 	WB.model(self, "jug_01", 8.6, 3.5, 0.0, 1.0, 0.92, false)
 	# the fridge with the rota
 	WB.box(self, Vector3(5.15, 0, 3.75), Vector3(5.85, 1.85, 4.4), WB.flat(Color(0.92, 0.92, 0.9), 0.3, 0.1))
+	WB.box(self, Vector3(5.2, 1.0, 3.71), Vector3(5.23, 1.45, 3.74), WB.flat(Color(0.75, 0.75, 0.74), 0.3, 0.9), false, "", 0.0)
 	var rota := WB.flat(Color(0.98, 0.98, 0.95), 0.9)
 	WB.box(self, Vector3(5.3, 1.2, 3.74), Vector3(5.6, 1.6, 3.745), rota, false)
 	WB.text(self, "TURNOS OUT.", Vector3(5.45, 1.55, 3.735), 180.0, 0.025, Color(0.1, 0.2, 0.5))

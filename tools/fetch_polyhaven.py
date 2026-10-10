@@ -56,14 +56,19 @@ MODELS = {
     "metal_trash_can": "1k", "trashbag": "1k",
 }
 TEXTURES = {
-    "herringbone_parquet": "1k", "plastered_wall_04": "1k", "white_plaster_02": "1k",
-    "terrazzo_tiles": "1k", "square_tiled_wall": "1k", "marble_mosaic_tiles": "1k",
-    "long_white_tiles": "1k", "marble_01": "1k", "painted_plaster_wall": "1k",
-    "stone_pavers": "1k", "asphalt_06": "1k", "kitchen_wood": "1k",
-    "dark_wooden_planks": "1k", "dark_wood": "1k", "roof_planks": "1k",
-    "old_linoleum_flooring_01": "1k", "painted_concrete": "1k", "grey_tiles": "1k",
-    "coast_sand_02": "1k", "damp_sand": "1k", "stone_wall": "1k", "weathered_planks": "1k",
-    "cobblestone_floor_04": "1k", "rough_block_wall": "1k", "concrete_wall_003": "1k", "forest_ground_05": "1k",
+    # tiling surfaces, 2K (seen up close in first person)
+    "herringbone_parquet": "2k", "plastered_wall_04": "2k", "white_plaster_02": "2k",
+    "terrazzo_tiles": "2k", "square_tiled_wall": "2k", "marble_mosaic_tiles": "2k",
+    "long_white_tiles": "2k", "marble_01": "2k", "painted_plaster_wall": "2k",
+    "stone_pavers": "2k", "asphalt_06": "2k", "kitchen_wood": "2k",
+    "dark_wooden_planks": "2k", "dark_wood": "2k", "roof_planks": "2k",
+    "old_linoleum_flooring_01": "2k", "painted_concrete": "2k", "grey_tiles": "2k",
+    "coast_sand_02": "2k", "damp_sand": "2k", "stone_wall": "2k", "weathered_planks": "2k",
+    "cobblestone_floor_04": "2k", "rough_block_wall": "2k", "concrete_wall_003": "2k", "forest_ground_05": "2k",
+    # surface detail for painted, metal and fabric things (WB.flat uses their relief)
+    "rough_linen": "2k", "metal_plate": "2k", "wood_cabinet_worn_long": "2k",
+    "white_plaster_rough_01": "2k", "plywood": "2k", "smooth_concrete_floor": "2k",
+    "painted_metal_shutter": "2k", "velour_velvet": "2k", "worn_plaster_wall": "2k",
 }
 
 
@@ -116,12 +121,13 @@ def credits() -> None:
 
 
 def main() -> None:
-    only = set(sys.argv[1:])
+    force = "--force" in sys.argv
+    only = set(a for a in sys.argv[1:] if not a.startswith("--"))
     for aid, res in MODELS.items():
         if (not only or aid in only) and not os.path.isdir(os.path.join(ROOT, "models", aid)):
             fetch_model(aid, res)
     for aid, res in TEXTURES.items():
-        if (not only or aid in only) and not os.path.isdir(os.path.join(ROOT, "textures", aid)):
+        if (not only or aid in only) and (force or not os.path.isdir(os.path.join(ROOT, "textures", aid))):
             fetch_texture(aid, res)
     credits()
 

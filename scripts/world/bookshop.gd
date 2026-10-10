@@ -27,7 +27,7 @@ var fallen_books: Array[Node3D] = []
 func _ready() -> void:
 	load_texts("livraria")
 	rng.seed = 31
-	m_wall = WB.mat("plastered_wall_04", 2.5, Color(0.42, 0.5, 0.44))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(0.42, 0.5, 0.44))
 	m_ceiling = WB.mat("roof_planks", 1.8, Color(0.55, 0.45, 0.36))
 	m_paint = WB.flat(Color(0.2, 0.26, 0.22), 0.5)
 	m_skirt = WB.flat(Color(0.16, 0.12, 0.09), 0.5)
@@ -272,8 +272,10 @@ func _build_counter() -> void:
 	var wood := WB.mat("dark_wood", 1.0, Color(0.42, 0.3, 0.22))
 	var top := WB.mat("dark_wooden_planks", 1.0, Color(0.6, 0.48, 0.38))
 	# L-shaped counter facing the door
-	WB.box(self, Vector3(4.6, 0, 3.6), Vector3(6.6, 0.95, 4.2), wood)
-	WB.box(self, Vector3(6.0, 0, 4.2), Vector3(6.6, 0.95, 5.4), wood)
+	WB.cabinet(self, Vector3(4.6, 0, 3.6), Vector3(6.6, 0.92, 4.2), Vector3(0, 0, -1), wood, wood, 4, 0.0, null, true, false)
+	WB.cabinet(self, Vector3(6.0, 0, 4.2), Vector3(6.6, 0.92, 5.4), Vector3(-1, 0, 0), wood, wood, 2, 0.0, null, true, false)
+	WB.worktop(self, Vector3(4.6, 0, 3.6), Vector3(6.6, 0.92, 4.2), Vector3(0, 0, -1), wood)
+	WB.worktop(self, Vector3(6.0, 0, 4.2), Vector3(6.6, 0.92, 5.4), Vector3(-1, 0, 0), wood)
 	WB.box(self, Vector3(4.55, 0.95, 3.55), Vector3(6.65, 1.0, 4.25), top, false)
 	WB.box(self, Vector3(5.95, 0.95, 4.2), Vector3(6.65, 1.0, 5.45), top, false)
 	# panels on the front face

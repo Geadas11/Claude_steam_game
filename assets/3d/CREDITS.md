@@ -16,7 +16,6 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `cardboard_box_01` — https://polyhaven.com/a/cardboard_box_01
 - Modelo `clipboard` — https://polyhaven.com/a/clipboard
 - Modelo `coast_rocks_01` — https://polyhaven.com/a/coast_rocks_01
-- Modelo `coast_rocks_02` — https://polyhaven.com/a/coast_rocks_02
 - Modelo `concrete_road_barrier` — https://polyhaven.com/a/concrete_road_barrier
 - Modelo `covered_car` — https://polyhaven.com/a/covered_car
 - Modelo `desk_lamp_arm_01` — https://polyhaven.com/a/desk_lamp_arm_01
@@ -28,7 +27,6 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `fire_alarm` — https://polyhaven.com/a/fire_alarm
 - Modelo `fire_hydrant` — https://polyhaven.com/a/fire_hydrant
 - Modelo `fishermans_hat` — https://polyhaven.com/a/fishermans_hat
-- Modelo `island_tree_02` — https://polyhaven.com/a/island_tree_02
 - Modelo `jug_01` — https://polyhaven.com/a/jug_01
 - Modelo `korean_fire_extinguisher_01` — https://polyhaven.com/a/korean_fire_extinguisher_01
 - Modelo `lateral_sea_marker` — https://polyhaven.com/a/lateral_sea_marker
@@ -58,7 +56,6 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `rollershutter_door` — https://polyhaven.com/a/rollershutter_door
 - Modelo `round_wooden_table_01` — https://polyhaven.com/a/round_wooden_table_01
 - Modelo `rubber_boots` — https://polyhaven.com/a/rubber_boots
-- Modelo `sand_rocks_small_01` — https://polyhaven.com/a/sand_rocks_small_01
 - Modelo `security_light` — https://polyhaven.com/a/security_light
 - Modelo `shrub_02` — https://polyhaven.com/a/shrub_02
 - Modelo `side_table_01` — https://polyhaven.com/a/side_table_01
@@ -101,15 +98,33 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Textura `long_white_tiles` — https://polyhaven.com/a/long_white_tiles
 - Textura `marble_01` — https://polyhaven.com/a/marble_01
 - Textura `marble_mosaic_tiles` — https://polyhaven.com/a/marble_mosaic_tiles
+- Textura `metal_plate` — https://polyhaven.com/a/metal_plate
 - Textura `old_linoleum_flooring_01` — https://polyhaven.com/a/old_linoleum_flooring_01
 - Textura `painted_concrete` — https://polyhaven.com/a/painted_concrete
+- Textura `painted_metal_shutter` — https://polyhaven.com/a/painted_metal_shutter
 - Textura `painted_plaster_wall` — https://polyhaven.com/a/painted_plaster_wall
 - Textura `plastered_wall_04` — https://polyhaven.com/a/plastered_wall_04
+- Textura `plywood` — https://polyhaven.com/a/plywood
 - Textura `roof_planks` — https://polyhaven.com/a/roof_planks
 - Textura `rough_block_wall` — https://polyhaven.com/a/rough_block_wall
+- Textura `rough_linen` — https://polyhaven.com/a/rough_linen
+- Textura `smooth_concrete_floor` — https://polyhaven.com/a/smooth_concrete_floor
 - Textura `square_tiled_wall` — https://polyhaven.com/a/square_tiled_wall
 - Textura `stone_pavers` — https://polyhaven.com/a/stone_pavers
 - Textura `stone_wall` — https://polyhaven.com/a/stone_wall
 - Textura `terrazzo_tiles` — https://polyhaven.com/a/terrazzo_tiles
+- Textura `velour_velvet` — https://polyhaven.com/a/velour_velvet
 - Textura `weathered_planks` — https://polyhaven.com/a/weathered_planks
 - Textura `white_plaster_02` — https://polyhaven.com/a/white_plaster_02
+- Textura `white_plaster_rough_01` — https://polyhaven.com/a/white_plaster_rough_01
+- Textura `wood_cabinet_worn_long` — https://polyhaven.com/a/wood_cabinet_worn_long
+- Textura `worn_plaster_wall` — https://polyhaven.com/a/worn_plaster_wall
+
+## ambientCG
+
+Licença CC0 (domínio público), https://ambientcg.com
+
+- Material `acg_brushed_steel` — Metal009, https://ambientcg.com/view?id=Metal009
+- Material `acg_linen` — Fabric045, https://ambientcg.com/view?id=Fabric045
+- Material `acg_paint` — Paint004, https://ambientcg.com/view?id=Paint004
+- Material `acg_plaster` — Plaster001, https://ambientcg.com/view?id=Plaster001

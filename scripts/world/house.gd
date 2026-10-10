@@ -33,8 +33,8 @@ var _street_flicker := 0.0
 
 func _ready() -> void:
 	load_texts("casa")
-	m_wall = WB.mat("plastered_wall_04", 2.5, Color(0.93, 0.91, 0.87))
-	m_ceiling = WB.mat("white_plaster_02", 2.0, Color(0.9, 0.9, 0.88))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(0.93, 0.91, 0.87))
+	m_ceiling = WB.mat("acg_plaster", 2.0, Color(0.9, 0.9, 0.88))
 	m_paint = WB.flat(Color(0.86, 0.85, 0.82), 0.45)
 	m_skirt = WB.flat(Color(0.8, 0.79, 0.76), 0.4)
 	_build_shell()
@@ -130,7 +130,7 @@ func _build_shell() -> void:
 	WB.wall(self, "z", 10.0, 0, 5.8, 0.09, 0.03, m_skirt, [front])
 	WB.wall(self, "z", 5.5, 0, 4.5, 0.09, INT + 0.03, m_skirt, [])
 	# tiles: kitchen to 1.5 m, bathroom to 2.0 m
-	var ktile := WB.mat("square_tiled_wall", 0.9, Color(0.95, 0.95, 0.93))
+	var ktile := WB.grid(Color(0.93, 0.93, 0.9), Color(0.66, 0.66, 0.63), 0.15, 0.12, 2)
 	WB.wall(self, "x", 9 - 0.006, 0, 5.5, 1.5, 0.012, ktile, [win_coz])
 	WB.wall(self, "x", 5.8 + INT / 2 + 0.006, 0, 5.5, 1.5, 0.012, ktile, [d_coz])
 	WB.wall(self, "z", 0.006, 5.8, 9, 1.5, 0.012, ktile)
@@ -389,15 +389,9 @@ func _build_cozinha() -> void:
 	var metal := WB.flat(Color(0.7, 0.7, 0.7), 0.25, 0.9)
 	# base units along the back wall, stove at 1.2..1.7
 	for seg in [[0.06, 1.2], [1.7, 4.45]]:
-		WB.box(self, Vector3(seg[0], 0.08, 8.4), Vector3(seg[1], 0.86, 8.94), body)
 		var n := int(roundf((seg[1] - seg[0]) / 0.6))
-		var w: float = (seg[1] - seg[0]) / n
-		for i in n:
-			var x0: float = seg[0] + i * w
-			WB.box(self, Vector3(x0 + 0.004, 0.1, 8.385), Vector3(x0 + w - 0.004, 0.85, 8.4), front, false)
-			WB.box(self, Vector3(x0 + w / 2 - 0.08, 0.76, 8.37), Vector3(x0 + w / 2 + 0.08, 0.775, 8.385), metal, false)
-		WB.box(self, Vector3(seg[0], 0.86, 8.36), Vector3(seg[1], 0.9, 8.94), counter, false)
-		WB.box(self, Vector3(seg[0], 0.0, 8.45), Vector3(seg[1], 0.08, 8.94), WB.flat(Color(0.1, 0.1, 0.1), 0.8), false)
+		WB.cabinet(self, Vector3(seg[0], 0.0, 8.38), Vector3(seg[1], 0.86, 8.94), Vector3(0, 0, -1), body, front, n, 0.16, metal)
+		WB.worktop(self, Vector3(seg[0], 0.0, 8.38), Vector3(seg[1], 0.86, 8.94), Vector3(0, 0, -1), counter)
 	WB.model(self, "electric_stove", 1.45, 8.66, 180.0)
 	hotspots.stove = Hotspot.add(self, Vector3(1.45, 0.45, 8.66), Vector3(0.52, 0.9, 0.66), _prompt("stove"), func(p): _say("stove", p))
 	# sink under the window
@@ -410,13 +404,12 @@ func _build_cozinha() -> void:
 	WB.model(self, "jug_01", 0.5, 8.7, 160.0, 1.0, 0.9, false)
 	WB.model(self, "wine_bottles_01", 4.2, 8.85, 180.0, 1.0, 0.9, false)
 	# wall units on the left
-	for i in 4:
-		var x0 := 0.06 + i * 0.58
-		WB.box(self, Vector3(x0, 1.5, 8.6), Vector3(x0 + 0.58, 2.2, 8.94), body, false)
-		WB.box(self, Vector3(x0 + 0.004, 1.51, 8.585), Vector3(x0 + 0.576, 2.19, 8.6), front, false)
+	WB.cabinet(self, Vector3(0.06, 1.5, 8.58), Vector3(2.38, 2.2, 8.94), Vector3(0, 0, -1), body, front, 4, 0.0, metal)
 	# fridge
 	var white := WB.flat(Color(0.88, 0.88, 0.86), 0.3, 0.1)
 	WB.box(self, Vector3(4.6, 0, 8.28), Vector3(5.3, 1.85, 8.94), white)
+	WB.box(self, Vector3(5.18, 1.3, 8.24), Vector3(5.21, 1.75, 8.27), metal, false, "", 0.0)
+	WB.box(self, Vector3(5.18, 0.75, 8.24), Vector3(5.21, 1.12, 8.27), metal, false, "", 0.0)
 	WB.box(self, Vector3(4.61, 1.22, 8.27), Vector3(5.29, 1.235, 8.28), WB.flat(Color(0.3, 0.3, 0.3), 0.5), false)
 	WB.box(self, Vector3(4.66, 1.3, 8.24), Vector3(4.68, 1.7, 8.27), metal, false)
 	WB.box(self, Vector3(4.66, 0.75, 8.24), Vector3(4.68, 1.15, 8.27), metal, false)

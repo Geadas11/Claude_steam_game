@@ -20,7 +20,7 @@ func _ready() -> void:
 	load_texts("rui")
 	aliases = ["casa_ines"]
 	rng.seed = 317
-	m_wall = WB.mat("white_plaster_02", 2.5, Color(0.95, 0.94, 0.9))
+	m_wall = WB.mat("acg_plaster", 2.0, Color(0.95, 0.94, 0.9))
 	m_ceiling = WB.mat("roof_planks", 1.6, Color(0.55, 0.46, 0.38))
 	m_paint = WB.flat(Color(0.2, 0.32, 0.45), 0.45)
 	m_skirt = WB.flat(Color(0.2, 0.32, 0.45), 0.5)
@@ -132,8 +132,8 @@ func _build_kitchen() -> void:
 	var wood := WB.mat("kitchen_wood", 1.0, Color(0.7, 0.6, 0.48))
 	var counter := WB.mat("marble_01", 1.0, Color(0.6, 0.58, 0.55))
 	# kitchen along the west wall
-	WB.box(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), wood)
-	WB.box(self, Vector3(0.03, 0.88, 2.98), Vector3(0.68, 0.92, 6.22), counter, false)
+	WB.cabinet(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), Vector3(1, 0, 0), WB.flat(Color(0.6, 0.52, 0.42), 0.7), wood, 5, 0.0, WB.flat(Color(0.3, 0.3, 0.3), 0.4, 0.8))
+	WB.worktop(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), Vector3(1, 0, 0), counter)
 	WB.model(self, "electric_stove", 0.36, 6.6, 90.0)
 	WB.box(self, Vector3(0.1, 0.92, 4.2), Vector3(0.6, 0.94, 4.9), WB.flat(Color(0.7, 0.7, 0.7), 0.2, 0.9), false)
 	WB.model(self, "jug_01", 0.35, 3.5, 90.0, 1.0, 0.92, false)
