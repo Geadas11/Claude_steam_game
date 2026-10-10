@@ -739,7 +739,7 @@ func hangup() -> void:
 
 # --- commands -----------------------------------------------------------------
 func _do_cmd(op: Dictionary, g: int) -> bool:
-	var a: Array = op.args
+	var a: Array = op.args.map(func(x): return interp(str(x)) if str(x).contains("${") else x)
 	match op.name:
 		"notify":
 			var n := GameState.post_notification(a[0], a[1], a[2])

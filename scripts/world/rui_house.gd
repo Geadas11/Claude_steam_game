@@ -18,6 +18,7 @@ var moon: DirectionalLight3D
 
 func _ready() -> void:
 	load_texts("rui")
+	aliases = ["casa_ines"]
 	rng.seed = 317
 	m_wall = WB.mat("white_plaster_02", 2.5, Color(0.95, 0.94, 0.9))
 	m_ceiling = WB.mat("roof_planks", 1.6, Color(0.55, 0.46, 0.38))
@@ -87,6 +88,10 @@ func _build_shell() -> void:
 	doors.rua = Door.make(self, Vector3(3.2, 0, 0.0), "x", 1.0, 2.2, m_paint, 1.0)
 	doors.rua.locked = true
 	doors.rua.locked_text = _first_text("porta_rua")
+	doors.rua.toggled.connect(func(open: bool):
+		if open:
+			GameState.set_var("left_rui", true)
+			Director.notify_player_action())
 	doors.quintal = Door.make(self, Vector3(1.2, 0, 8.0), "x", 1.0, 2.1, m_paint, 1.0)
 	doors.quintal.locked = true
 	doors.quintal.locked_text = _first_text("porta_quintal")

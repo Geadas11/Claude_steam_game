@@ -320,6 +320,7 @@ world think Pegadas molhadas nas tábuas. Descalças. Vão até à ponta do cais
 
 @beat arrive
 @when beat("prints_sea") and since("prints_sea", 20)
+set ch13_ending=true
 wait 2
 if not at("02:50")
   time 02:50
@@ -329,7 +330,8 @@ endchapter
 @end
 
 @beat late
-@when at("02:50") and not beat("arrive")
+@when at("02:50") and not flag("ch13_ending")
+set ch13_ending=true
 world think Não me lembro do resto do caminho. Os pés molhados. O mar à frente.
 wait 3
 endchapter

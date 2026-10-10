@@ -228,6 +228,13 @@ if vs("rui6") == "honest"
   wait 2
   rui> [photo:IMG_RUI_CAL]
   achieve her_handwriting
+  wait 20
+  rui> Se quiseres ver a caixa com os teus olhos, estou em casa até às sete. Rua do Mar 7.
+  rui> Não te prometo ser simpático.
+  choice rui c6_visit
+    > Vou já. | set rui_visit=true inc trust_rui 1
+    > Hoje não consigo, Rui. | set rui_visit=false
+  end
 elif vs("rui6") == "forgot"
   rui> Tu não te lembras de nada. Que conveniente.
 else
@@ -240,6 +247,51 @@ endif
 unknown> ex_lumen_qa.
 wait 3
 unknown> Nunca te perguntaste quem avisava toda a gente?
+@end
+
+# ---------------------------------------------------------------- casa do Rui (de dia, tensa)
+@beat rui_house
+@when flag("rui_visit") and not loc("casa_ines") and not flag("left_rui")
+wait 30
+location casa_ines
+wait 2
+world spawn entrada
+world lights on
+wait 2
+world say Rui «Entra. Não tires os sapatos, ela também nunca tirava.»
+wait 6
+world say Rui «A caixa está no quarto dela. Ao fundo. Não mexas em mais nada.»
+wait 5
+world think A casa cheira a peixe frito e a lixívia. Há uma cadeira afastada da mesa com uma camisola dobrada em cima.
+@end
+
+@beat rui_box
+@when loc("casa_ines") and flag("w_caixa_ines")
+wait 3
+if not clue("postit_p317")
+  clue postit_p317
+endif
+world door rua unlock
+world say Rui «Leste o post-it?»
+wait 4
+world say Rui «"D." És tu. Ela não conhecia mais nenhum D.»
+wait 5
+world say Rui «Página 317 de quê, Daniel?»
+set rui_saw_postit=true
+@end
+
+@beat rui_leave
+@when loc("casa_ines") and flag("left_rui")
+world say Rui «Fecha a porta quando saíres.»
+wait 4
+location casa
+@end
+
+@beat rui_late
+@when loc("casa_ines") and at("18:50") and not flag("left_rui")
+world say Rui «São quase sete. Tenho de ir ao cais.»
+wait 4
+set left_rui=true
 @end
 
 # ---------------------------------------------------------------- final

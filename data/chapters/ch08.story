@@ -164,7 +164,8 @@ endif
 
 # ---------------------------------------------------------------- sair
 @beat leave
-@when flag("found_card") and flag("w_saiu_livraria")
+@when flag("found_card") and flag("w_saiu_livraria") and not flag("ch08_ending")
+set ch08_ending=true
 world presence calm
 wait 2
 world think A rua cheira a mar. A porta fecha-se atrás de mim com o sino da Carla.
@@ -184,7 +185,8 @@ world think Está a clarear por trás da montra. Tenho de sair antes que alguém
 @end
 
 @beat dawn_end
-@when at("05:00") and not beat("leave")
+@when at("05:00") and not flag("ch08_ending")
+set ch08_ending=true
 if not flag("found_card")
   unknown> Amanhece às 07:41.
   wait 2

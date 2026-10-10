@@ -1,15 +1,59 @@
 {
  "_comment": "Casa do Rui Matos. Pensamentos do Daniel.",
- "porta_rua": {"prompt": "Sair", "text": ["Ainda não. O Rui está à espera que eu diga alguma coisa."]},
- "porta_quintal": {"prompt": "Abrir a porta", "text": ["O quintal. Redes a secar, um barco de fibra virado ao contrário. A porta tem um ferrolho por fora."]},
- "mesa": {"prompt": "Ver a mesa", "text": ["Um prato, um copo, um garfo. Uma cadeira afastada da mesa, a dela, com uma camisola dobrada em cima."]},
- "fotografia": {"prompt": "Ver a fotografia", "text": ["O Rui e a Inês em miúdos, num barco a remos. Ela de chapéu de palha, a rir para quem tirou a fotografia.", "Quem tirou esta fotografia? O pai deles morreu no mar quando ela tinha nove anos. Foi o Rui que me contou. Ou foi ela."]},
- "redes": {"prompt": "Ver as redes", "text": ["Redes por remendar. O Rui já não vai ao mar todos os dias. Desde o ano passado vai ao cais de manhã cedo e fica a olhar."]},
- "calendario": {"prompt": "Ver o calendário", "text": ["Outubro de 2025. Ninguém o mudou. No dia 13, com a letra dela: «cais 2h30 (D.)». No dia 14: «Clara 10h!»"]},
+ "porta_rua": {
+  "prompt": "Sair",
+  "text": [
+   "Ainda não. O Rui está à espera que eu diga alguma coisa."
+  ]
+ },
+ "porta_quintal": {
+  "prompt": "Abrir a porta",
+  "text": [
+   "O quintal. Redes a secar, um barco de fibra virado ao contrário. A porta tem um ferrolho por fora."
+  ]
+ },
+ "mesa": {
+  "prompt": "Ver a mesa",
+  "text": [
+   "Um prato, um copo, um garfo. Uma cadeira afastada da mesa, a dela, com uma camisola dobrada em cima."
+  ]
+ },
+ "fotografia": {
+  "prompt": "Ver a fotografia",
+  "text": [
+   "O Rui e a Inês em miúdos, num barco a remos. Ela de chapéu de palha, a rir para quem tirou a fotografia.",
+   "Quem tirou esta fotografia? O pai deles morreu no mar quando ela tinha nove anos. Foi o Rui que me contou. Ou foi ela."
+  ]
+ },
+ "redes": {
+  "prompt": "Ver as redes",
+  "text": [
+   "Redes por remendar. O Rui já não vai ao mar todos os dias. Desde o ano passado vai ao cais de manhã cedo e fica a olhar."
+  ]
+ },
+ "calendario": {
+  "prompt": "Ver o calendário",
+  "text": [
+   "Outubro de 2025. Ninguém o mudou. No dia 13, com a letra dela: «cais 2h30 (D.)». No dia 14: «Clara 10h!»"
+  ]
+ },
  "caixa_ines": {
   "prompt": "Abrir a caixa",
-  "when": [{"if": "flag(\"w_caixa_ines\")", "text": "Já vi o que está aqui. O post-it continua colado à capa do caderno: «D. — p. 317 (a de cima)»."}],
-  "text": ["A caixa das coisas dela que o Rui não conseguiu deitar fora. Um recibo da Livraria Maré: O Ano da Morte de Ricardo Reis, 2.º exemplar, 13/10/2025, 19:40. Um caderno. Um post-it amarelo: «D. — p. 317 (a de cima)»."]
+  "when": [
+   {
+    "if": "flag(\"w_caixa_ines\")",
+    "text": "Já vi o que está aqui. O post-it continua colado à capa do caderno: «D. — p. 317 (a de cima)»."
+   }
+  ],
+  "text": [
+   "A caixa das coisas dela que o Rui não conseguiu deitar fora. Um recibo da Livraria Maré: O Ano da Morte de Ricardo Reis, 2.º exemplar, 13/10/2025, 19:40. Um caderno. Um post-it amarelo: «D. — p. 317 (a de cima)»."
+  ]
  },
- "casaco": {"prompt": "Ver o casaco", "text": ["Um casaco vermelho pendurado na porta do roupeiro. Igual ao que eu tenho em casa. Igual ao da fotografia do cais.", "Não é o mesmo. O dela ficou no mar. Pois não?"]}
+ "casaco": {
+  "prompt": "Ver o casaco",
+  "text": [
+   "Um casaco vermelho pendurado na porta do roupeiro. Igual ao que eu tenho em casa. Igual ao da fotografia do cais.",
+   "Não é o mesmo. O dela ficou no mar. Pois não?"
+  ]
+ }
 }

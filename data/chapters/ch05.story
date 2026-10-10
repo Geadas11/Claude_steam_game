@@ -17,6 +17,27 @@ ambient room
 location casa
 battery 64
 file thumb_0317 silent
+if v("deaths_ch05") >= 1
+  history "como saber se estou a dormir" ${last_death_hm}
+endif
+@end
+
+# ---------------------------------------------------------------- a regra, dita
+@beat the_rule
+@when at("23:20")
+unknown> Hoje vais reparar numa coisa.
+wait 3
+unknown> Quanto mais tempo olhas para mim, mais a casa muda nas tuas costas.
+wait 2
+unknown> E mais perto ela fica.
+set rule_screen_told=true
+@end
+
+@beat substitute
+@when at("01:40")
+world presence near 90
+wait 20
+world think Ouvi os meus passos no corredor. Eu estava sentado.
 @end
 
 # ---------------------------------------------------------------- 1. a mensagem que mudou

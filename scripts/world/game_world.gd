@@ -12,6 +12,7 @@ const LOCATIONS := {
 	"casa": "res://scripts/world/house.gd",
 	"livraria": "res://scripts/world/bookshop.gd",
 	"rui": "res://scripts/world/rui_house.gd",
+	"casa_ines": "res://scripts/world/rui_house.gd",
 	"clinica": "res://scripts/world/clinic.gd",
 	"caminho": "res://scripts/world/road.gd",
 	"cais": "res://scripts/world/road.gd",

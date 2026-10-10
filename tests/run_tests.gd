@@ -381,6 +381,8 @@ func _playthrough(policy: String) -> void:
 	Events.chapter_ended.disconnect(cb_end)
 	Events.ending_reached.disconnect(cb_ending)
 	print("   chapters ended: %s" % str(ended_chapters))
+	var dup := ended_chapters.filter(func(c): return ended_chapters.count(c) > 1)
+	ok(dup.is_empty(), "policy %s: no chapter ends twice %s" % [policy, dup])
 	var ending_hit: String = ending_box.id
 	print("   ending: %s   clues: %d   playtime frames: %d" % [ending_hit, GameState.clue_count(), safety])
 	var expect: String = _walk.get("expected_endings", {}).get(policy, "")

@@ -470,7 +470,7 @@ func _controls_hint() -> void:
 
 
 const PLACE_NAMES := {"farol": "Bar O Farol", "livraria": "Livraria Maré", "cais": "Cais Velho",
-	"clinica": "Clínica Atlântico", "rui": "Casa do Rui", "caminho": "A caminho do cais", "casa": "Casa"}
+	"clinica": "Clínica Atlântico", "rui": "Casa do Rui", "casa_ines": "Casa do Rui", "caminho": "A caminho do cais", "casa": "Casa"}
 
 
 ## The story moved Daniel somewhere ("location ..."): go there in 3D, or —
@@ -910,6 +910,7 @@ func _on_caught(at: Vector3) -> void:
 	var total := int(GameState.get_var("deaths_total", 0)) + 1
 	var run := str(GameState.get_var("run_id", ""))
 	var death_at := world.player.global_position
+	var death_hm := Clock.fmt_time(Clock.now())
 	var death_loc := world.location.loc_id
 	await world.death_glimpse(at)
 	fade.modulate.a = 1.0
@@ -925,6 +926,7 @@ func _on_caught(at: Vector3) -> void:
 	GameState.set_var("ja_falamos", true)
 	GameState.set_var("last_death_pos", [death_at.x, death_at.y, death_at.z])
 	GameState.set_var("last_death_loc", death_loc)
+	GameState.set_var("last_death_hm", death_hm)
 	world.revive()
 	# the place as it was when the chapter began (then one thing moved, below)
 	var loc := str(GameState.data.get("location", "casa"))
