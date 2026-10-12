@@ -357,7 +357,10 @@ func _build_rooms() -> void:
 		if i != 3:
 			WB.box(self, Vector3(bb.position.x + 0.06, d + 0.16, bb.position.z + 0.12), Vector3(bb.end.x - 0.06, d + 0.22, bb.end.z - 0.6), blanket, false)
 		WB.box(self, Vector3(bb.position.x + 0.2, d + 0.16, bb.end.z - 0.52), Vector3(bb.end.x - 0.2, d + 0.28, bb.end.z - 0.18), linen, false)
-		WB.model(self, "painted_wooden_nightstand", x0 + 3.0, 15.6, 180.0, 0.9)
+		var ns := WB.footprint(WB.model(self, "painted_wooden_nightstand", x0 + 3.0, 15.6, 180.0, 0.9))
+		if i != 3:
+			WB.model(self, ["ceramic_vase_04", "plastic_thermos", "antique_ceramic_vase_01"][i % 3], ns.get_center().x, ns.get_center().z, 0.0, 1.0, ns.end.y, false)
+			Books.pile(self, Vector3(ns.get_center().x + 0.12, ns.end.y, ns.get_center().z), 2, rng, 0.0)
 		WB.model(self, "dining_chair_02", x0 + 0.7, 13.0, 60.0)
 		var l := WB.omni(self, Vector3(x0 + 1.7, H - 0.3, 12.6), Color(0.95, 0.95, 0.92), 0.8, 4.5, true)
 		var glow := WB.emissive(Color(0.95, 0.97, 1.0), 0.0)

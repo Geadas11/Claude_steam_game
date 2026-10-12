@@ -288,6 +288,15 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   triângulos. `MeshBatch` funde caixas por material (fachadas, estantes). Fachadas algarvias: barras
   coloridas, caixilhos, peitoris, portadas, cornija, chaminés. Resultado medido: o hospital passou de
   2–2,6 M para 0,15–0,4 M triângulos por imagem, a livraria de 1750 para 780 chamadas de desenho.
+- **Recheio e acabamentos:** guarnição (aro e moldura) em todas as portas (`Door.make`); sanca em dois
+  degraus nas casas do Daniel e da Sofia (`WB.cornices`); `WB.scatter` espalha objetos sem se
+  sobreporem; cada casa tem um `_dress()` com o que lá se deixa (comando e tigela na mesa da sala,
+  cassete e vaso no móvel da TV, consola com a taça das chaves, panela no fogão, peras e leite na mesa,
+  latas e bananas na bancada, relógio na mesinha, cesto da roupa, caixa de ferramentas na máquina);
+  a Sofia ganhou televisão e uma estante cheia; o quarto da Inês tem a máquina fotográfica dela; o Rui
+  tem cómoda, candeeiro a óleo, tapete e banco; no hospital cada doente tem uma coisa na mesinha, a copa
+  tem cadeira, rádio e fruta; na clínica há livros e jarras nas mesinhas; o largo tem um chafariz,
+  mais bancos e outro carro. Mais 55 modelos pequenos do Poly Haven.
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).

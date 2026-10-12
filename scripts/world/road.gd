@@ -157,6 +157,46 @@ func _building(x0: float, x1: float, z_front: float, depth: float, floors: int, 
 	mb.commit(self)
 
 
+## A round stone fountain in the middle of the square, dry or still at night:
+## a basin, dark water, a column with a small bowl on top.
+func _fountain(at: Vector3) -> void:
+	var stone := WB.mat("concrete_wall_003", 1.0, Color(0.88, 0.86, 0.8))
+	var water := WB.flat(Color(0.03, 0.05, 0.06), 0.04, 0.2)
+	var parts := [[2.2, 2.3, 0.55, 0.0, stone], [0.28, 0.34, 1.3, 0.0, stone],
+		[0.75, 0.45, 0.16, 1.2, stone], [0.1, 0.1, 0.35, 1.36, stone]]
+	for p in parts:
+		var mi := MeshInstance3D.new()
+		var cm := CylinderMesh.new()
+		cm.top_radius = p[0]
+		cm.bottom_radius = p[1]
+		cm.height = p[2]
+		cm.radial_segments = 48
+		mi.mesh = cm
+		mi.material_override = p[4]
+		mi.position = at + Vector3(0, p[3] + p[2] / 2.0, 0)
+		add_child(mi)
+	# the inside of the basin, a step lower than its rim
+	var inner := MeshInstance3D.new()
+	var ic := CylinderMesh.new()
+	ic.top_radius = 2.02
+	ic.bottom_radius = 2.02
+	ic.height = 0.02
+	ic.radial_segments = 48
+	inner.mesh = ic
+	inner.material_override = water
+	inner.position = at + Vector3(0, 0.561, 0)
+	add_child(inner)
+	var sb := StaticBody3D.new()
+	var cs := CollisionShape3D.new()
+	var sh := CylinderShape3D.new()
+	sh.radius = 2.3
+	sh.height = 0.6
+	cs.shape = sh
+	cs.position = at + Vector3(0, 0.3, 0)
+	sb.add_child(cs)
+	add_child(sb)
+
+
 func _lamp(x: float, z: float, yaw: float, shadow := true, y := 0.0) -> SpotLight3D:
 	WB.model(self, "street_lamp_01", x, z, yaw, 1.0, y)
 	var l := SpotLight3D.new()
@@ -343,6 +383,10 @@ func _build_largo() -> void:
 	var ll := WB.omni(self, Vector3(230.0, 4.2, 2.0), Color(1.0, 0.78, 0.45), 0.9, 9.0, false)
 	street_lights.append(ll)
 	WB.model(self, "bk_2cv", 243.0, 9.0, 0.0, 1.0, 0.08)
+	_fountain(Vector3(226.0, 0.08, -3.5))
+	WB.model(self, "covered_car", 217.5, -20.8, 90.0, 1.0, 0.08)
+	WB.model(self, "bk_park_bench", 222.0, -1.0, 0.0, 1.0, 0.08)
+	WB.model(self, "bk_park_bench", 230.0, -6.0, 180.0, 1.0, 0.08)
 	# palms round the square; only the trunk blocks
 	for p in [Vector2(199.0, 10.0), Vector2(218.0, -7.0), Vector2(234.0, -7.0), Vector2(226.0, 15.0)]:
 		WB.model(self, "bk_palm", p.x, p.y, rng.randf_range(0, 360), 0.6, 0.08, false)

@@ -27,6 +27,7 @@ func _ready() -> void:
 	_build_shell()
 	_build_kitchen()
 	_build_rooms()
+	_dress()
 	_build_outside()
 	_build_story_hooks()
 	set_room_light("cozinha", true)
@@ -247,6 +248,31 @@ func _build_rooms() -> void:
 	var l2 := WB.omni(self, Vector3(7.5, 2.4, 6.2), Color(1.0, 0.85, 0.65), 0.7, 4.0, true)
 	_room("rui", [l2], [])
 	_switch("rui", Vector3(6.07, 1.2, 6.6), 90.0, ["rui"])
+
+
+## A fisherman who stopped expecting visitors; a daughter's room kept as it was.
+func _dress() -> void:
+	# kitchen: tins and a bowl on the counter, the lighter on the table, a stool
+	WB.model(self, "russian_food_cans_01", 0.35, 3.18, 0.0, 1.0, 0.92, false)
+	WB.model(self, "metal_jug", 0.35, 5.95, 0.0, 1.0, 0.92, false)
+	WB.model(self, "wooden_bowl_01", 0.38, 3.85, 0.0, 1.0, 0.92, false)
+	WB.model(self, "food_pears_asian_01", 0.38, 3.85, 0.0, 0.9, 0.95, false)
+	var tb := WB.footprint(get_node("round_wooden_table_01"))
+	WB.model(self, "vintage_lighter", 3.05, 4.15, 40.0, 1.0, tb.end.y, false)
+	WB.model(self, "wooden_stool_02", 1.6, 7.3, 15.0)
+	WB.model(self, "fancy_picture_frame_01", 1.8, 7.98, 180.0, 0.9, 1.75, false)
+	var cab := WB.footprint(get_node("painted_wooden_cabinet"))
+	WB.model(self, "vintage_oil_lamp", cab.get_center().x, cab.position.z + 0.18, 0.0, 0.9, cab.end.y, false)
+	WB.fit(self, "bk_rug", AABB(Vector3(3.9, 0.003, 0.5), Vector3(1.6, 0.01, 1.4)))
+	# Inês: her camera and a photo on the nightstand, books
+	var ns := WB.footprint(get_node("painted_wooden_nightstand"))
+	WB.model(self, "Camera_01", ns.get_center().x - 0.08, ns.get_center().z, 200.0, 1.0, ns.end.y, false)
+	WB.model(self, "standing_picture_frame_02", ns.get_center().x + 0.12, ns.get_center().z, 160.0, 0.9, ns.end.y, false)
+	# Rui: a chest of drawers with his watch and lighter
+	var dr := WB.model(self, "painted_wooden_cabinet_02", 8.65, 4.95, -90.0, 0.8)
+	var db := WB.footprint(dr)
+	WB.model(self, "pocket_watch", db.get_center().x, db.get_center().z - 0.15, 0.0, 1.0, db.end.y, false)
+	WB.model(self, "cigarette_case", db.get_center().x, db.get_center().z + 0.15, 30.0, 1.0, db.end.y, false)
 
 
 # =================================================================== outside

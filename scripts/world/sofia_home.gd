@@ -34,6 +34,7 @@ func _ready() -> void:
 	_build_kitchen()
 	_build_bedroom()
 	_build_small_rooms()
+	_dress()
 	_build_outside()
 	_build_story_hooks()
 
@@ -45,12 +46,6 @@ func _build_shell() -> void:
 	WB.box(self, Vector3(5.0, -0.09, 5.7), Vector3(7.2, 0.005, 9), WB.mat("grey_tiles", 1.0, Color(0.9, 0.9, 0.9)), false)
 	WB.box(self, Vector3(5.0, -0.09, 0), Vector3(9, 0.005, 4.5), WB.mat("terrazzo_tiles", 1.0, Color(0.9, 0.88, 0.85)), false)
 	WB.box(self, Vector3(-EXT, H, -EXT), Vector3(9 + EXT, H + 0.15, 9 + EXT), m_ceiling)
-	# the cornice: a stepped plaster band under the ceiling, all round
-	for r in [[0.0, 5.0, 0.0, 4.5], [5.0, 9.0, 0.0, 4.5], [0.0, 5.0, 5.7, 9.0]]:
-		WB.box(self, Vector3(r[0], H - 0.12, r[2]), Vector3(r[1], H, r[2] + 0.1), m_paint, false)
-		WB.box(self, Vector3(r[0], H - 0.12, r[3] - 0.1), Vector3(r[1], H, r[3]), m_paint, false)
-		WB.box(self, Vector3(r[0], H - 0.12, r[2]), Vector3(r[0] + 0.1, H, r[3]), m_paint, false)
-		WB.box(self, Vector3(r[1] - 0.1, H - 0.12, r[2]), Vector3(r[1], H, r[3]), m_paint, false)
 	# a ceiling rose in the sala
 	var rose := MeshInstance3D.new()
 	var cyl := CylinderMesh.new()
@@ -97,6 +92,7 @@ func _build_shell() -> void:
 		"wc": AABB(Vector3(5, 0, 5.7), Vector3(2.2, H, 3.3)),
 		"arrumos": AABB(Vector3(7.2, 0, 5.7), Vector3(1.8, H, 3.3)),
 	}
+	WB.cornices(self, room_bounds.values(), H, INT)
 
 
 func _window(w: Array, at: float, out: float) -> void:
@@ -133,8 +129,8 @@ func _build_sala() -> void:
 	WB.model(self, "bk_dracaena", 4.5, 3.9, 0.0)
 	WB.model(self, "hanging_picture_frame_01", 0.02, 2.3, 90.0, 1.0, 1.35, false)
 	Books.pile(self, Vector3(1.8, 0.42, 2.0), 3, rng, 0.0)
-	WB.model(self, "wooden_bookshelf_worn", 3.4, 4.25, 180.0)
-	Books.unit(self, Vector3(1.4, 0, 4.38), 180.0, 1.5, 2.0, 0.3, [0.45, 0.9, 1.35, 1.8], WB.mat("dark_wood", 1.0, Color(0.7, 0.6, 0.5)), rng)
+	Books.unit(self, Vector3(2.92, 0, 4.13), 180.0, 0.95, 1.9, 0.3, [0.42, 0.84, 1.26], WB.mat("dark_wood", 1.0, Color(0.75, 0.65, 0.55)), rng, 0.8)
+	Books.unit(self, Vector3(1.4, 0, 4.13), 180.0, 1.5, 2.0, 0.3, [0.45, 0.9, 1.35, 1.8], WB.mat("dark_wood", 1.0, Color(0.7, 0.6, 0.5)), rng)
 	WB.model(self, "potted_plant_02", 4.5, 0.5, 30.0)
 	WB.model(self, "potted_plant_04", 0.45, 0.45, 0.0)
 	var st := WB.model(self, "side_table_01", 0.5, 3.6, 0.0)
@@ -182,6 +178,34 @@ func _build_kitchen() -> void:
 	WB.model(self, "wine_bottles_01", 6.7, 1.9, 0.0, 0.8, 0.72, false)
 	_plafond("cozinha", Vector3(7.0, H, 2.2), 1.3)
 	_switch("cozinha", Vector3(6.5, 1.2, 4.43), 0.0, ["cozinha"])
+
+
+## Her things: tidier than her brother's, but a nurse on nights.
+func _dress() -> void:
+	var r := RandomNumberGenerator.new()
+	r.seed = 2207
+	# the TV she never watches, on a console opposite the sofa
+	var con := WB.model(self, "ClassicConsole_01", 4.72, 2.3, -90.0)
+	var cb := WB.footprint(con)
+	WB.model(self, "bk_tv", 4.78, 2.3, -90.0, 0.9, cb.end.y, false)
+	WB.model(self, "ceramic_vase_01", 4.72, 1.75, 0.0, 1.0, cb.end.y, false)
+	WB.model(self, "wicker_basket_02", 2.9, 0.4, 0.0, 0.9)
+	# kitchen: fruit, a big bottle of water, the thermos she takes to work
+	WB.model(self, "bananas", 8.62, 1.3, 10.0, 1.0, 0.92, false)
+	WB.model(self, "plastic_thermos", 8.6, 2.05, 0.0, 1.0, 0.92, false)
+	WB.model(self, "plastic_bottle_gallon", 5.05, 3.55, 0.0)
+	WB.model(self, "wooden_bowl_01", 6.45, 2.15, 0.0, 1.0, 0.72, false)
+	WB.model(self, "food_kiwi_01", 6.45, 2.15, 0.0, 1.0, 0.75, false)
+	# bedroom: laundry, her watch and tape on the cabinet, books by the bed
+	WB.model(self, "wicker_basket_01", 3.2, 8.65, 20.0)
+	var cab := WB.footprint(get_node("vintage_cabinet_01"))
+	WB.model(self, "digital_wrist_watch", cab.get_center().x, cab.get_center().z - 0.2, 40.0, 1.0, cab.end.y, false)
+	WB.model(self, "medical_tape", cab.get_center().x, cab.get_center().z + 0.15, 0.0, 1.0, cab.end.y, false)
+	# bathroom and storage
+	WB.model(self, "multi_cleaner_bottle", 6.95, 7.15, 30.0, 1.0, 0.0, false)
+	var wash := WB.footprint(get_node("bk_washer"))
+	WB.model(self, "metal_toolbox", wash.get_center().x, wash.get_center().z, 80.0, 0.9, wash.end.y, false)
+	WB.model(self, "plastic_crate_02", 7.55, 7.4, 5.0)
 
 
 # =================================================================== bedroom

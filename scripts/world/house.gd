@@ -44,6 +44,7 @@ func _ready() -> void:
 	_build_cozinha()
 	_build_wc()
 	_build_arrumos()
+	_dress()
 	_build_outside()
 	_build_landing()
 	set_room_light("sala", true)
@@ -67,6 +68,7 @@ func _build_story_hooks() -> void:
 		"wc": AABB(Vector3(5.5, 0, 5.8), Vector3(2.5, H, 3.2)),
 		"arrumos": AABB(Vector3(8, 0, 5.8), Vector3(2, H, 3.2)),
 	}
+	WB.cornices(self, room_bounds.values(), H, INT)
 	# hiding places: the wardrobe, under the bed, the storage room
 	add_hide("roupeiro", Vector3(8.45, 1.1, 3.8), Vector3(1.9, 2.1, 0.3), "Esconder no roupeiro",
 		[Vector3(8.45, 1.55, 4.15), 180.0, -4.0], [Vector3(8.45, 0.02, 3.2), 180.0])
@@ -483,6 +485,45 @@ func _build_wc() -> void:
 	_probes.append(probe)
 	_plafond("wc", Vector3(6.75, H, 7.4), 0.9)
 	_switch("wc", Vector3(7.05, 1.2, 5.8 - INT / 2 - 0.01), 180.0, ["wc"])
+
+
+## The things a man living alone leaves lying about: on the tables, the
+## counters, the floor. Fixed seed, so the flat is the same every night.
+func _dress() -> void:
+	var r := RandomNumberGenerator.new()
+	r.seed = 1203
+	# living room: the coffee table, the TV cabinet, a side table by the sofa
+	var ct := WB.footprint(get_node("modern_coffee_table_01"))
+	WB.scatter(self, ["gamepad", "wooden_bowl_01", "long_life_food", "cigarette_case", "carved_wooden_plate"], Rect2(ct.position.x + 0.08, ct.position.z + 0.08, ct.size.x - 0.16, ct.size.z - 0.16), ct.end.y, 4, r)
+	var tv := WB.footprint(get_node("modern_wooden_cabinet"))
+	WB.model(self, "portable_cassette_player", tv.position.x + 0.25, tv.get_center().z, 180.0, 1.0, tv.end.y, false)
+	WB.model(self, "ceramic_vase_02", tv.end.x - 0.2, tv.get_center().z, 0.0, 1.0, tv.end.y, false)
+	var st := WB.model(self, "small_wooden_table_01", 4.35, 0.42, 0.0)
+	WB.model(self, "vintage_oil_lamp", 4.35, 0.42, 30.0, 0.8, WB.footprint(st).end.y, false)
+	WB.model(self, "wicker_basket_02", 1.35, 0.4, 20.0, 0.9)
+	# bedroom: a chair with nothing on it, the watch on the nightstand, a rug
+	WB.model(self, "painted_wooden_chair_01", 6.2, 2.4, 100.0)
+	var nt := WB.footprint(get_node("painted_wooden_nightstand"))
+	WB.model(self, "digital_wrist_watch", nt.get_center().x, nt.position.z + 0.12, 70.0, 1.0, nt.end.y, false)
+	WB.fit(self, "bk_rug", AABB(Vector3(6.9, 0.003, 1.9), Vector3(0.8, 0.01, 1.6)), 90.0)
+	WB.model(self, "football", 7.1, 0.5, 0.0, 1.0, 0.0, false)
+	# corridor: a console by the kitchen door with the keys' bowl
+	var con := WB.model(self, "ClassicConsole_01", 1.6, 5.55, 180.0, 0.85)
+	var cb := WB.footprint(con)
+	WB.model(self, "wooden_bowl_01", 1.4, cb.get_center().z, 0.0, 0.8, cb.end.y, false)
+	WB.model(self, "ceramic_vase_04", 1.9, cb.get_center().z, 0.0, 1.0, cb.end.y, false)
+	# kitchen: a pot on the stove, a bowl of pears and the milk on the table, tins
+	var stove := WB.footprint(get_node("electric_stove"))
+	WB.model(self, "brass_pot_01", 1.35, 8.6, 0.0, 1.0, stove.end.y, false)
+	var tb := WB.footprint(get_node("round_wooden_table_01"))
+	WB.model(self, "carved_wooden_plate", 1.5, 6.95, 0.0, 1.0, tb.end.y, false)
+	WB.model(self, "food_pears_asian_01", 1.5, 6.95, 0.0, 1.0, tb.end.y + 0.02, false)
+	WB.model(self, "long_life_food", 1.75, 7.15, 30.0, 1.0, tb.end.y, false)
+	WB.model(self, "russian_food_cans_01", 1.02, 8.68, 0.0, 1.0, 0.9, false)
+	WB.model(self, "bananas", 2.45, 8.62, 80.0, 1.0, 0.9, false)
+	WB.model(self, "plastic_crate_02", 5.0, 6.3, 15.0)
+	# bathroom: a bottle of cleaner by the toilet
+	WB.model(self, "multi_cleaner_bottle", 7.8, 6.5, 40.0, 1.0, 0.0, false)
 
 
 func _build_arrumos() -> void:

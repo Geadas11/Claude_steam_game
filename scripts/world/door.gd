@@ -53,6 +53,22 @@ static func make(parent: Node3D, hinge: Vector3, axis: String, w: float, h: floa
 		mi.material_override = material
 		mi.position = Vector3(w / 2.0, h / 2.0, 0)
 		d.leaf.add_child(mi)
+	# the casing round the opening on both faces of the wall, and the lining
+	# inside it, so the doorway is a framed opening and not a hole cut in a box
+	var trim := WB.flat(Color(0.9, 0.89, 0.86), 0.45)
+	var mb := MeshBatch.new()
+	var face := 0.06   # half an inner wall
+	var cw := 0.075
+	for side in [-1.0, 1.0]:
+		var z0: float = side * face
+		var z1: float = side * (face + 0.018)
+		mb.add(Vector3(-cw, 0, z0), Vector3(0.0, h + cw, z1), trim)
+		mb.add(Vector3(w, 0, z0), Vector3(w + cw, h + cw, z1), trim)
+		mb.add(Vector3(-cw, h, z0), Vector3(w + cw, h + cw, z1), trim)
+	mb.add(Vector3(-0.012, 0, -face), Vector3(0.0, h, face), trim)
+	mb.add(Vector3(w, 0, -face), Vector3(w + 0.012, h, face), trim)
+	mb.add(Vector3(0.0, h, -face), Vector3(w, h + 0.012, face), trim)
+	mb.commit(d, false)
 	# raised panels so it reads as a real door, not a slab
 	for py in ([] if vision.size != Vector2.ZERO else [h * 0.27, h * 0.68]):
 		for side in [-1.0, 1.0]:

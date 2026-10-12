@@ -139,6 +139,7 @@ func _build_corridor() -> void:
 		WB.model(self, "security_camera_02", x, 4.25, 90.0 if x < 1.0 else -90.0, 1.0, 2.4, false)
 	WB.model(self, "hanging_picture_frame_01", 4.0, 6.33, 180.0, 1.0, 1.45, false)
 	WB.model(self, "hanging_picture_frame_03", 25.6, 6.33, 180.0, 1.0, 1.45, false)
+	WB.model(self, "bk_waiting_bench", 16.9, 4.38, 0.0)
 	# the emergency trolley, parked against the wall
 	WB.model(self, "bk_trolley", 13.0, 4.35, 90.0)
 	# a bed left in the corridor, empty, sheets folded
@@ -222,6 +223,10 @@ func _build_staff_room() -> void:
 	WB.worktop(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.88, 3.9), Vector3(-1, 0, 0), WB.mat("marble_01", 1.0, Color(0.7, 0.7, 0.68)))
 	WB.model(self, "jug_01", 5.6, 2.8, 0.0, 1.0, 0.9, false)
 	WB.model(self, "bk_kettle", 5.6, 3.6, -90.0, 1.0, 0.9, false)
+	WB.model(self, "plastic_thermos", 3.3, 2.3, 0.0, 1.0, WB.footprint(get_node("round_wooden_table_01")).end.y, false)
+	WB.model(self, "bananas", 3.5, 2.5, 40.0, 1.0, WB.footprint(get_node("round_wooden_table_01")).end.y, false)
+	WB.model(self, "GreenChair_01", 1.6, 2.9, 60.0)
+	WB.model(self, "boombox", 5.6, 3.1, -90.0, 0.7, 0.9, false)
 	var l := WB.omni(self, Vector3(3.0, 2.5, 2.0), COOL, 0.7, 5.0, true)
 	_room("pausa", [l], [])
 	_sw(Vector3(4.4, 1.2, 3.88), 0.0, ["pausa"])
@@ -326,7 +331,11 @@ func _bed(at: Vector3, yaw: float, sleeper: bool, curtain: bool) -> void:
 		var scr := WB.emissive(Color(0.1, 0.8, 0.4), 0.6 if sleeper else 0.0)
 		WB.box(holder, Vector3(0.52, 1.35, -0.95), Vector3(0.76, 1.55, -0.94), scr, false)
 		# the bedside cabinet, drawers towards the bed
-		WB.model(holder, "bk_bedside", 0.86, -0.3, 90.0)
+		var bs := WB.footprint(WB.model(holder, "bk_bedside", 0.86, -0.3, 90.0))
+		if sleeper:
+			# what a patient keeps within reach
+			var things := ["plastic_thermos", "ceramic_vase_04", "long_life_food", "pocket_watch", "medical_tape"]
+			WB.model(holder, things[rng.randi() % things.size()], bs.get_center().x, bs.get_center().z, rng.randf_range(0, 360), 1.0, bs.end.y, false)
 
 
 # =================================================================== lift lobby

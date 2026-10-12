@@ -459,6 +459,63 @@ static func fit(parent: Node3D, id: String, box: AABB, rot_deg := 0.0) -> Node3D
 	return n
 
 
+## Plaster crown moulding (sanca) round the top of every room in `rooms`
+## (AABBs whose sides run along the wall centre lines). Sides on the outer
+## shell of the flat sit on the wall face; inner sides are pulled in by half
+## an inner wall. Two steps, so the ceiling doesn't meet the wall in a crease.
+static func cornices(parent: Node3D, rooms: Array, ceiling: float, inner := 0.12, material: Material = null) -> void:
+	if rooms.is_empty():
+		return
+	var m: Material = material if material else flat(Color(0.93, 0.92, 0.89), 0.6)
+	var shell: AABB = rooms[0]
+	for r in rooms:
+		shell = shell.merge(r)
+	var mb := MeshBatch.new()
+	for r in rooms:
+		var b: AABB = r
+		var lo := Vector3(b.position.x, 0, b.position.z)
+		var hi := Vector3(b.end.x, 0, b.end.z)
+		lo.x += 0.0 if is_equal_approx(lo.x, shell.position.x) else inner / 2.0
+		lo.z += 0.0 if is_equal_approx(lo.z, shell.position.z) else inner / 2.0
+		hi.x -= 0.0 if is_equal_approx(hi.x, shell.end.x) else inner / 2.0
+		hi.z -= 0.0 if is_equal_approx(hi.z, shell.end.z) else inner / 2.0
+		for step in [[0.1, 0.07], [0.055, 0.13]]:
+			var dd: float = step[0]
+			var y0: float = ceiling - step[1]
+			mb.add(Vector3(lo.x, y0, lo.z), Vector3(hi.x, ceiling, lo.z + dd), m)
+			mb.add(Vector3(lo.x, y0, hi.z - dd), Vector3(hi.x, ceiling, hi.z), m)
+			mb.add(Vector3(lo.x, y0, lo.z), Vector3(lo.x + dd, ceiling, hi.z), m)
+			mb.add(Vector3(hi.x - dd, y0, lo.z), Vector3(hi.x, ceiling, hi.z), m)
+	mb.commit(parent, false)
+
+
+## Small things left on a surface: up to `n` models picked from `ids`, each
+## dropped at a random spot of the rectangle `area` (x, z, width, depth) at
+## height `y`, turned at random, never overlapping what is already there.
+## The clutter that makes a room look lived in.
+static func scatter(parent: Node3D, ids: Array, area: Rect2, y: float, n: int, rng: RandomNumberGenerator, scale := 1.0) -> Array:
+	var placed: Array = []
+	var taken: Array = []
+	for k in n:
+		var id: String = ids[rng.randi() % ids.size()]
+		for attempt in 8:
+			var x := rng.randf_range(area.position.x, area.end.x)
+			var z := rng.randf_range(area.position.y, area.end.y)
+			var m := model(parent, id, x, z, rng.randf_range(0, 360), scale, y, false)
+			var fb := footprint(m)
+			var r := Rect2(fb.position.x, fb.position.z, fb.size.x, fb.size.z)
+			var ok := area.grow(0.02).encloses(r)
+			for t in taken:
+				if ok and (t as Rect2).intersects(r):
+					ok = false
+			if ok:
+				taken.append(r)
+				placed.append(m)
+				break
+			m.free()
+	return placed
+
+
 ## Footprint of a placed model in its parent's space.
 static func footprint(n: Node3D) -> AABB:
 	return n.transform * local_bounds(n)
