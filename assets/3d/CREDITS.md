@@ -128,3 +128,20 @@ Licença CC0 (domínio público), https://ambientcg.com
 - Material `acg_linen` — Fabric045, https://ambientcg.com/view?id=Fabric045
 - Material `acg_paint` — Paint004, https://ambientcg.com/view?id=Paint004
 - Material `acg_plaster` — Plaster001, https://ambientcg.com/view?id=Plaster001
+
+## BlenderKit
+
+Modelos gratuitos de https://www.blenderkit.com — licença Royalty Free (uso comercial permitido, sem revenda do modelo) ou CC0.
+
+- Modelo `bk_basin` — «Modern basin + mirror» de Yuriy Madar, Royalty Free, https://www.blenderkit.com/get-blenderkit/9a666364-c062-4bc7-a0ff-a6b88d5f6641/
+- Modelo `bk_bathtub` — «Generic Bathtub» de /Unwrapped, Royalty Free, https://www.blenderkit.com/get-blenderkit/ce49d6f4-1d28-4c7d-b420-dfaf554e3ec4/
+- Modelo `bk_bedside` — «BedSide Cabinet Two» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/e41fc12a-ac16-4200-bb61-8d12cc0ef6f6/
+- Modelo `bk_crt_monitor` — «IBM 8513 dirty» de moomoobeef, Royalty Free, https://www.blenderkit.com/get-blenderkit/05b7cd81-0cd9-4c5a-9075-698afa7a31a5/
+- Modelo `bk_hospital_bed` — «Old Hospital Bed» de Vavrinec Foltan, CC0, https://www.blenderkit.com/get-blenderkit/79c8a2bf-a3f2-44fc-af25-f6bd1b7685df/
+- Modelo `bk_mayo_table` — «Mayo Table» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/93ecf386-b1d4-4b35-a838-ac169980a7a9/
+- Modelo `bk_med_stool` — «Askona Medical Stool» de Vixymiles, Royalty Free, https://www.blenderkit.com/get-blenderkit/86fa1a72-9e82-423b-8735-e344aebcf32f/
+- Modelo `bk_monitor` — «27 Inch Monitor» de zack aoki, Royalty Free, https://www.blenderkit.com/get-blenderkit/53f931c9-4931-440b-9f14-96d5029a0f4c/
+- Modelo `bk_toilet` — «Toilet (Wall Hung Toilet)» de Mohammad Saeed, Royalty Free, https://www.blenderkit.com/get-blenderkit/bd13bd28-5b63-46c1-b972-3ea46cc3f45c/
+- Modelo `bk_trolley` — «Medi Trolly» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/24fd1a8c-f29b-45b7-9491-94de42581b87/
+- Modelo `bk_waiting_bench` — «Waiting Bench Chair» de Klo Works, Royalty Free, https://www.blenderkit.com/get-blenderkit/6a8e2480-7c01-48aa-aa0e-e63581c86c54/
+- Modelo `bk_washer` — «Modern Flat Washing Machine» de Nobody, Royalty Free, https://www.blenderkit.com/get-blenderkit/9b972156-19bc-4cd6-a55c-cc73a9fd2734/

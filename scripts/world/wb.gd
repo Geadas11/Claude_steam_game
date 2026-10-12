@@ -8,6 +8,16 @@ const MODEL := "res://assets/3d/models/%s/%s.gltf"
 static var _mats := {}
 static var _models := {}
 
+## BlenderKit models whose Blender shaders didn't survive the GLB export
+## (their baked textures are black): painted over with a plain material.
+## [colour, roughness, metallic]
+const MODEL_SKIN := {
+	"bk_toilet": [Color(0.95, 0.95, 0.93), 0.12, 0.0],
+	"bk_washer": [Color(0.93, 0.93, 0.92), 0.35, 0.0],
+}
+## Models authored lying down: degrees about X to stand them up.
+const MODEL_TILT := {"bk_basin": 90.0, "bk_toilet": 90.0}
+
 
 ## A tiling PBR material in world space (triplanar), `tile` metres per repeat.
 static func mat(tex_id: String, tile := 1.0, tint := Color.WHITE, rough_mul := 1.0) -> Material:
@@ -366,12 +376,25 @@ static func wall(parent: Node3D, axis: String, at: float, from: float, to: float
 static func model(parent: Node3D, id: String, x: float, z: float, rot_deg := 0.0, scale := 1.0, y := 0.0, collide := true) -> Node3D:
 	var ps: PackedScene = _models.get(id)
 	if ps == null:
-		ps = load(MODEL % [id, id])
+		var path := MODEL % [id, id]
+		if not ResourceLoader.exists(path):
+			path = path.get_basename() + ".glb"
+		ps = load(path)
 		_models[id] = ps
 	var n: Node3D = ps.instantiate()
 	n.name = id
 	n.rotation_degrees.y = rot_deg
 	n.scale = Vector3.ONE * scale
+	if MODEL_TILT.has(id):
+		for c in n.get_children():
+			if c is Node3D:
+				var t: Node3D = c
+				t.transform = Transform3D(Basis(Vector3.RIGHT, deg_to_rad(MODEL_TILT[id])), Vector3.ZERO) * t.transform
+	if MODEL_SKIN.has(id):
+		var sk: Array = MODEL_SKIN[id]
+		var m := flat(sk[0], sk[1], sk[2])
+		for mi in n.find_children("*", "MeshInstance3D", true, false):
+			(mi as MeshInstance3D).material_override = m
 	parent.add_child(n)
 	var lb := local_bounds(n)
 	var fb: AABB = Transform3D(n.transform.basis, Vector3.ZERO) * lb

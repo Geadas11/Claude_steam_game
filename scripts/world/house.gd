@@ -462,52 +462,20 @@ func _calendar_texture() -> Texture2D:
 
 
 func _build_wc() -> void:
-	var ceramic := WB.flat(Color(0.93, 0.93, 0.92), 0.12)
 	# bathtub along the back wall
-	WB.box(self, Vector3(5.57, 0, 8.22), Vector3(7.3, 0.55, 8.94), ceramic, true)
-	WB.box(self, Vector3(5.65, 0.2, 8.3), Vector3(7.22, 0.555, 8.86), WB.flat(Color(0.86, 0.87, 0.87), 0.08), false)
-	# toilet against the east wall
-	var t := Node3D.new()
-	t.position = Vector3(7.62, 0, 7.0)
-	add_child(t)
-	var c1 := MeshInstance3D.new()
-	var cy := CylinderMesh.new()
-	cy.top_radius = 0.2
-	cy.bottom_radius = 0.14
-	cy.height = 0.4
-	c1.mesh = cy
-	c1.material_override = ceramic
-	c1.position = Vector3(-0.08, 0.2, 0)
-	c1.scale = Vector3(1.25, 1, 0.95)
-	t.add_child(c1)
-	WB.box(t, Vector3(-0.38, 0.4, -0.18), Vector3(0.12, 0.43, 0.18), ceramic, false)
-	WB.box(t, Vector3(0.12, 0.4, -0.2), Vector3(0.32, 0.82, 0.2), ceramic, false)
-	WB.box(t, Vector3(-0.3, 0, -0.18), Vector3(0.3, 0.42, 0.18), ceramic, true).visible = false
-	# washbasin and mirror on the west wall
-	var sink := Node3D.new()
-	sink.position = Vector3(5.56, 0, 6.65)
-	add_child(sink)
-	WB.box(sink, Vector3(0, 0.78, -0.27), Vector3(0.45, 0.9, 0.27), ceramic, true)
-	WB.box(sink, Vector3(0.06, 0.86, -0.2), Vector3(0.38, 0.905, 0.2), WB.flat(Color(0.82, 0.83, 0.84), 0.06), false)
-	var ped := MeshInstance3D.new()
-	var pc := CylinderMesh.new()
-	pc.top_radius = 0.09
-	pc.bottom_radius = 0.12
-	pc.height = 0.78
-	ped.mesh = pc
-	ped.material_override = ceramic
-	ped.position = Vector3(0.2, 0.39, 0)
-	sink.add_child(ped)
-	var metal := WB.flat(Color(0.75, 0.75, 0.75), 0.15, 1.0)
-	WB.box(sink, Vector3(0.03, 0.9, -0.02), Vector3(0.12, 1.05, 0.02), metal, false)
-	WB.box(sink, Vector3(0.03, 1.02, -0.02), Vector3(0.2, 1.05, 0.02), metal, false)
-	mirror = WB.box(sink, Vector3(0.0, 1.2, -0.3), Vector3(0.03, 1.9, 0.3), WB.flat(Color(0.9, 0.92, 0.94), 0.02, 1.0), false)
-	hotspots.mirror = Hotspot.add(self, Vector3(5.6, 1.55, 6.65), Vector3(0.06, 0.7, 0.6), _prompt("mirror"), func(p): _say("mirror", p))
-	# a small shelf with the pills
-	WB.box(sink, Vector3(0.0, 1.12, -0.25), Vector3(0.12, 1.14, 0.25), WB.flat(Color(0.85, 0.85, 0.85), 0.3), false)
-	WB.box(sink, Vector3(0.03, 1.14, 0.08), Vector3(0.08, 1.2, 0.17), WB.flat(Color(0.9, 0.9, 0.95), 0.5), false)
-	WB.box(sink, Vector3(0.03, 1.14, -0.15), Vector3(0.09, 1.17, -0.05), WB.flat(Color(0.25, 0.4, 0.7), 0.5), false)
-	hotspots.pills = Hotspot.add(self, Vector3(5.62, 1.16, 6.65), Vector3(0.12, 0.08, 0.5), _prompt("pills"), func(p): _say("pills", p))
+	WB.model(self, "bk_bathtub", 6.44, 8.5, 0.0)
+	# wall-hung toilet against the east wall
+	WB.model(self, "bk_toilet", 7.58, 7.0, -90.0, 1.0, 0.06)
+	# vanity with its mirror on the west wall, hung at counter height
+	WB.model(self, "bk_basin", 5.82, 6.65, 90.0, 1.0, 0.42)
+	hotspots.mirror = Hotspot.add(self, Vector3(5.6, 1.6, 6.65), Vector3(0.06, 0.6, 1.0), _prompt("mirror"), func(p): _say("mirror", p))
+	# the pills, at the end of the counter
+	var shelf := Node3D.new()
+	shelf.position = Vector3(5.62, 0.87, 7.12)
+	add_child(shelf)
+	WB.box(shelf, Vector3(0.0, 0.0, 0.0), Vector3(0.06, 0.06, 0.09), WB.flat(Color(0.9, 0.9, 0.95), 0.5), false)
+	WB.box(shelf, Vector3(0.0, 0.0, -0.13), Vector3(0.06, 0.03, -0.03), WB.flat(Color(0.25, 0.4, 0.7), 0.5), false)
+	hotspots.pills = Hotspot.add(self, Vector3(5.65, 0.9, 7.08), Vector3(0.14, 0.1, 0.25), _prompt("pills"), func(p): _say("pills", p))
 	var probe := ReflectionProbe.new()
 	probe.position = Vector3(6.75, 1.45, 7.4)
 	probe.size = Vector3(2.5, 2.9, 3.2)

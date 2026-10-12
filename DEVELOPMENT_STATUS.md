@@ -260,6 +260,14 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
 - **Casa do Rui** (`rui_house.gd`): azulejos, chão de tijoleira, vigas; mesa, aparador com a
   fotografia, redes, calendário de outubro de 2025; quarto da Inês (caixa «INÊS», casaco vermelho).
 - Texturas/modelos CC0 do Poly Haven (lista em `tools/fetch_polyhaven.py`; importação com `tools/set_imports.py`).
+- Materiais CC0 do ambientCG (`tools/fetch_ambientcg.py`) e 12 modelos gratuitos do BlenderKit
+  (`tools/fetch_blenderkit.py`, licença Royalty Free/CC0, autores em `assets/3d/CREDITS.md`): sanita
+  suspensa, móvel de lavatório com espelho e banheira nos WC (Daniel, Sofia, clínica, hospital);
+  camas de ferro na clínica; monitores CRT na clínica e planos no posto de enfermagem; mesinhas de
+  cabeceira, mesa de cama, banco e carro de emergência no hospital; bancos de espera; máquina de
+  lavar no arrumo da Sofia. Os `.blend` convertem-se com o Blender (`apt install blender python3-numpy`);
+  texturas acima de 1024 px são reduzidas. Modelos com materiais Blender que não passam para glTF
+  levam uma cor própria (`WB.MODEL_SKIN`); os que vêm deitados levantam-se com `WB.MODEL_TILT`.
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).

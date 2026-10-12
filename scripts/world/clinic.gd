@@ -149,6 +149,9 @@ func _tube(zone: String, at: Vector3, energy := 1.0, rng_m := 5.0) -> void:
 
 
 # =================================================================== reception
+## The CRT's glass, in the monitor's own space (front faces +Z).
+const CRT_GLASS := AABB(Vector3(-0.14, 0.08, 0.196), Vector3(0.22, 0.18, 0.002))
+
 func _build_reception() -> void:
 	var white := WB.flat(Color(0.9, 0.9, 0.88), 0.35)
 	var wood := WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72))
@@ -166,8 +169,8 @@ func _build_reception() -> void:
 	WB.text(self, "CLÍNICA ATLÂNTICO", Vector3(9.92, 2.05, 2.2), -90.0, 0.16, Color(0.2, 0.32, 0.35))
 	WB.text(self, "Psiquiatria e Saúde Mental", Vector3(9.92, 1.82, 2.2), -90.0, 0.07, Color(0.3, 0.38, 0.4))
 	# waiting area along the west wall
-	for i in 6:
-		_waiting_chair(Vector3(0.45, 0, 1.2 + i * 0.62), 90.0)
+	for z in [1.95, 3.95]:
+		WB.model(self, "bk_waiting_bench", 0.42, z, 90.0)
 	WB.box(self, Vector3(1.2, 0.0, 2.6), Vector3(1.8, 0.42, 3.4), white)
 	Books.pile(self, Vector3(1.5, 0.42, 3.0), 3, rng, 0.08)
 	WB.model(self, "potted_plant_01", 0.5, 5.6, 0.0)
@@ -183,31 +186,15 @@ func _build_reception() -> void:
 	_sw(Vector3(3.8, 1.2, 0.07), 180.0, ["rececao"])
 
 
-func _waiting_chair(at: Vector3, yaw: float) -> void:
-	var holder := Node3D.new()
-	holder.position = at
-	holder.rotation_degrees.y = yaw
-	add_child(holder)
-	var chrome := WB.flat(Color(0.7, 0.7, 0.72), 0.25, 0.9)
-	var fabric := WB.flat(Color(0.2, 0.32, 0.36), 0.9)
-	for x in [-0.24, 0.24]:
-		WB.box(holder, Vector3(x - 0.015, 0, -0.2), Vector3(x + 0.015, 0.44, -0.17), chrome, false)
-		WB.box(holder, Vector3(x - 0.015, 0, 0.22), Vector3(x + 0.015, 0.44, 0.25), chrome, false)
-	WB.box(holder, Vector3(-0.26, 0.44, -0.22), Vector3(0.26, 0.5, 0.24), fabric, true)
-	WB.box(holder, Vector3(-0.26, 0.5, -0.24), Vector3(0.26, 0.92, -0.18), fabric, false)
-
-
 func _monitor(at: Vector3, yaw: float, id: String) -> void:
 	var holder := Node3D.new()
 	holder.position = at
 	holder.rotation_degrees.y = yaw
 	add_child(holder)
-	var black := WB.flat(Color(0.03, 0.03, 0.03), 0.4)
-	WB.box(holder, Vector3(-0.12, 0, -0.08), Vector3(0.12, 0.015, 0.08), black, false)
-	WB.box(holder, Vector3(-0.02, 0.015, -0.02), Vector3(0.02, 0.2, 0.02), black, false)
-	WB.box(holder, Vector3(-0.27, 0.15, -0.025), Vector3(0.27, 0.48, 0.0), black, false)
+	# an old beige CRT; the glass gets its own glowing pane
+	WB.model(holder, "bk_crt_monitor", 0.0, 0.0, 0.0, 1.0, 0.0, false)
 	var scr := WB.emissive(Color(0.25, 0.4, 0.55), 0.35)
-	WB.box(holder, Vector3(-0.25, 0.165, 0.0), Vector3(0.25, 0.465, 0.002), scr, false)
+	WB.box(holder, CRT_GLASS.position, CRT_GLASS.end, scr, false)
 	holder.set_meta("screen", scr)
 	set_meta(id, holder)
 
@@ -238,8 +225,7 @@ func _build_corridor() -> void:
 	WB.model(self, "WetFloorSign_01", 12.3, 8.0, 10.0)
 	WB.model(self, "korean_fire_extinguisher_01", 19.65, 7.25, 180.0)
 	WB.model(self, "fire_alarm", 18.9, 7.07, 180.0, 1.0, 1.45, false)
-	for i in 3:
-		_waiting_chair(Vector3(4.3 + i * 0.6, 0, 7.45), 180.0)
+	WB.model(self, "bk_waiting_bench", 4.9, 7.4, 0.0)
 	# exit signs, always lit
 	WB.sign(self, "SAÍDA", Vector3(24.5, 2.4, 7.07), 180.0, Color(0.1, 0.55, 0.25), Color(0.95, 1.0, 0.95))
 	WB.sign(self, "SAÍDA", Vector3(5.0, 2.55, 0.07), 180.0, Color(0.1, 0.55, 0.25), Color(0.95, 1.0, 0.95))
@@ -349,18 +335,23 @@ func _build_stairs() -> void:
 
 
 # =================================================================== inpatient rooms
+## Height of the iron bed's spring deck.
+const BED_DECK := 0.5
+
 func _build_rooms() -> void:
 	var linen := WB.flat(Color(0.88, 0.89, 0.88), 0.9)
 	var blanket := WB.flat(Color(0.55, 0.65, 0.7), 0.95)
 	for i in ROOM_X.size():
 		var x0: float = ROOM_X[i]
 		var id := "quarto_%d" % (i + 1)
-		var bed := WB.model(self, "old_bed_frame", x0 + 2.2, 14.6, 0.0)
+		# an old iron hospital bed; the mattress sits on its spring deck
+		var bed := WB.model(self, "bk_hospital_bed", x0 + 2.2, 14.6, 0.0)
 		var bb := WB.footprint(bed)
-		WB.box(self, Vector3(bb.position.x + 0.06, 0.36, bb.position.z + 0.06), Vector3(bb.end.x - 0.06, 0.52, bb.end.z - 0.06), linen, false)
+		var d := BED_DECK
+		WB.box(self, Vector3(bb.position.x + 0.08, d, bb.position.z + 0.12), Vector3(bb.end.x - 0.08, d + 0.16, bb.end.z - 0.12), linen, false)
 		if i != 3:
-			WB.box(self, Vector3(bb.position.x + 0.04, 0.52, bb.position.z + 0.5), Vector3(bb.end.x - 0.04, 0.58, bb.end.z - 0.03), blanket, false)
-		WB.box(self, Vector3(bb.position.x + 0.15, 0.52, bb.end.z - 0.42), Vector3(bb.end.x - 0.15, 0.64, bb.end.z - 0.1), linen, false)
+			WB.box(self, Vector3(bb.position.x + 0.06, d + 0.16, bb.position.z + 0.12), Vector3(bb.end.x - 0.06, d + 0.22, bb.end.z - 0.6), blanket, false)
+		WB.box(self, Vector3(bb.position.x + 0.2, d + 0.16, bb.end.z - 0.52), Vector3(bb.end.x - 0.2, d + 0.28, bb.end.z - 0.18), linen, false)
 		WB.model(self, "painted_wooden_nightstand", x0 + 3.0, 15.6, 180.0, 0.9)
 		WB.model(self, "dining_chair_02", x0 + 0.7, 13.0, 60.0)
 		var l := WB.omni(self, Vector3(x0 + 1.7, H - 0.3, 12.6), Color(0.95, 0.95, 0.92), 0.8, 4.5, true)
@@ -370,12 +361,12 @@ func _build_rooms() -> void:
 		_sw(Vector3(x0 + 1.45, 1.2, 9.27), 0.0, [id])
 	# room 4 is waiting for someone: a bag on the bed, a card on the door
 	var x4: float = ROOM_X[3]
-	WB.model(self, "vintage_suitcase", x4 + 2.2, 14.3, 80.0, 0.45, 0.52, false)
-	WB.box(self, Vector3(x4 + 1.75, 0.52, 13.4), Vector3(x4 + 2.5, 0.58, 13.85), WB.flat(Color(0.82, 0.84, 0.86), 0.9), false)
+	WB.model(self, "vintage_suitcase", x4 + 2.2, 14.3, 80.0, 0.45, BED_DECK + 0.16, false)
+	WB.box(self, Vector3(x4 + 1.75, BED_DECK + 0.16, 13.4), Vector3(x4 + 2.5, BED_DECK + 0.22, 13.85), WB.flat(Color(0.82, 0.84, 0.86), 0.9), false)
 	WB.box(self, Vector3(x4 + 0.85, 1.5, 9.13), Vector3(x4 + 1.25, 1.62, 9.14), WB.flat(Color(0.95, 0.95, 0.9), 0.6), false)
 	WB.text(self, "Daniel R.", Vector3(x4 + 1.05, 1.56, 9.125), 180.0, 0.035, Color(0.1, 0.1, 0.1))
 	hotspots.cartao_quarto = Hotspot.add(self, Vector3(x4 + 1.05, 1.56, 9.12), Vector3(0.45, 0.2, 0.08), _prompt("cartao_quarto"), func(p): _say("cartao_quarto", p))
-	hotspots.cama_4 = Hotspot.add(self, Vector3(x4 + 2.2, 0.6, 14.6), Vector3(1.0, 0.4, 2.0), _prompt("cama_4"), func(p): _say("cama_4", p))
+	hotspots.cama_4 = Hotspot.add(self, Vector3(x4 + 2.2, 0.75, 14.6), Vector3(1.0, 0.4, 2.0), _prompt("cama_4"), func(p): _say("cama_4", p))
 	# linen room: shelves of folded sheets
 	for lvl in 5:
 		WB.box(self, Vector3(0.1, 0.3 + lvl * 0.42, 11.0), Vector3(0.6, 0.32 + lvl * 0.42, 15.8), WB.flat(Color(0.7, 0.7, 0.68), 0.5, 0.5), false)
@@ -388,8 +379,8 @@ func _build_rooms() -> void:
 	# toilets: a sink and a mirror
 	var wl := WB.omni(self, Vector3(24.2, 2.5, 12.6), COOL, 0.6, 4.0, true)
 	_room("wc", [wl], [])
-	WB.box(self, Vector3(25.5, 0.78, 11.0), Vector3(26.0, 0.9, 11.6), WB.flat(Color(0.93, 0.93, 0.92), 0.12), true)
-	WB.box(self, Vector3(25.97, 1.2, 10.9), Vector3(26.0, 1.9, 11.7), WB.flat(Color(0.9, 0.92, 0.94), 0.02, 1.0), false)
+	WB.model(self, "bk_basin", 25.68, 11.3, -90.0, 1.0, 0.42)
+	WB.model(self, "bk_toilet", 25.58, 13.6, -90.0, 1.0, 0.06)
 
 
 # =================================================================== street

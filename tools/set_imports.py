@@ -13,7 +13,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", 
 
 n = 0
 for f in glob.glob(os.path.join(ROOT, "**", "*.import"), recursive=True):
-    if not re.search(r"\.(jpg|png)\.import$", f):
+    if not re.search(r"\.(jpg|jpeg|png|webp)\.import$", f):
         continue
     s0 = open(f).read()
     s = s0.replace("compress/mode=0", "compress/mode=2").replace("mipmaps/generate=false", "mipmaps/generate=true")

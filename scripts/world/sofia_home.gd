@@ -216,20 +216,17 @@ func _build_small_rooms() -> void:
 	WB.wall(self, "z", 5.07, 5.7, 9, 1.6, 0.012, tiles)
 	WB.wall(self, "z", 7.13, 5.7, 9, 1.6, 0.012, tiles)
 	WB.wall(self, "x", 8.93, 5.0, 7.2, 1.6, 0.012, tiles)
-	var porcelain := WB.flat(Color(0.95, 0.95, 0.94), 0.2)
-	WB.box(self, Vector3(5.6, 0.8, 8.5), Vector3(6.3, 0.9, 8.95), porcelain)
-	WB.box(self, Vector3(5.85, 0, 8.65), Vector3(6.05, 0.8, 8.9), porcelain, false)
-	var mirror := StandardMaterial3D.new()
-	mirror.albedo_color = Color(0.7, 0.72, 0.75)
-	mirror.metallic = 1.0
-	mirror.roughness = 0.02
-	WB.box(self, Vector3(5.6, 1.15, 8.97), Vector3(6.3, 1.85, 8.99), mirror, false)
-	hotspots.espelho = Hotspot.add(self, Vector3(5.95, 1.5, 8.95), Vector3(0.7, 0.7, 0.1), _prompt("espelho"), func(p): _say("espelho", p))
-	WB.box(self, Vector3(6.3, 0, 7.6), Vector3(7.1, 0.42, 8.95), porcelain)
+	# a vanity with its mirror on the west wall, the bath along the back,
+	# a wall-hung toilet on the east wall
+	WB.model(self, "bk_basin", 5.33, 7.3, 90.0, 1.0, 0.42)
+	hotspots.espelho = Hotspot.add(self, Vector3(5.12, 1.6, 7.3), Vector3(0.1, 0.6, 1.0), _prompt("espelho"), func(p): _say("espelho", p))
+	WB.model(self, "bk_bathtub", 6.1, 8.5, 0.0)
+	WB.model(self, "bk_toilet", 6.75, 6.6, -90.0, 1.0, 0.06)
 	_plafond("wc", Vector3(6.1, H, 7.3), 0.9)
 	_switch("wc", Vector3(5.5, 1.2, 5.77), 0.0, ["wc"])
 	# storage: boxes, the suitcase she never unpacked from Salgueira
 	WB.model(self, "drawer_cabinet", 8.6, 8.4, -90.0)
+	WB.model(self, "bk_washer", 8.66, 6.45, -90.0)
 	WB.model(self, "cardboard_box_01", 7.7, 8.5, 10.0)
 	WB.model(self, "cardboard_box_01", 7.72, 8.48, -15.0, 0.9, 0.36, false)
 	WB.model(self, "vintage_suitcase", 7.8, 6.3, 80.0)

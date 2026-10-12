@@ -135,6 +135,8 @@ func _build_corridor() -> void:
 	WB.model(self, "korean_fire_extinguisher_01", 23.7, 4.25, 180.0)
 	WB.model(self, "fire_alarm", 24.4, 4.07, 180.0, 1.0, 1.45, false)
 	WB.model(self, "medical_box", 26.5, 4.3, 0.0, 1.0, 1.1, false)
+	# the emergency trolley, parked against the wall
+	WB.model(self, "bk_trolley", 13.0, 4.35, 90.0)
 	# a bed left in the corridor, empty, sheets folded
 	_bed(Vector3(16.0, 0, 5.9), 90.0, false, false)
 	WB.sign(self, "SAÍDA", Vector3(27.5, 2.4, 4.07), 180.0, Color(0.1, 0.55, 0.25), Color(0.95, 1.0, 0.95))
@@ -161,7 +163,7 @@ func _build_station() -> void:
 	WB.box(self, Vector3(6.35, 1.05, 3.35), Vector3(13.65, 1.1, 4.0), white, false)
 	WB.box(self, Vector3(6.6, 0.72, 2.7), Vector3(13.4, 0.76, 3.4), white, false)
 	for x in [7.6, 9.6, 11.8]:
-		_monitor(Vector3(x, 0.76, 3.0), 0.0)
+		_monitor(Vector3(x, 0.76, 3.0), 180.0)
 	WB.model(self, "modern_arm_chair_01", 8.6, 2.2, 10.0)
 	WB.model(self, "modern_arm_chair_01", 11.0, 2.3, -15.0)
 	WB.model(self, "clipboard", 12.6, 3.6, 20.0, 1.0, 1.1, false)
@@ -191,12 +193,9 @@ func _monitor(at: Vector3, yaw: float) -> void:
 	holder.position = at
 	holder.rotation_degrees.y = yaw
 	add_child(holder)
-	var black := WB.flat(Color(0.03, 0.03, 0.03), 0.4)
-	WB.box(holder, Vector3(-0.12, 0, -0.08), Vector3(0.12, 0.015, 0.08), black, false)
-	WB.box(holder, Vector3(-0.02, 0.015, -0.02), Vector3(0.02, 0.2, 0.02), black, false)
-	WB.box(holder, Vector3(-0.27, 0.15, -0.025), Vector3(0.27, 0.48, 0.0), black, false)
+	WB.model(holder, "bk_monitor", 0.0, 0.0, 0.0, 1.0, 0.0, false)
 	var scr := WB.emissive(Color(0.2, 0.55, 0.45), 0.5)
-	WB.box(holder, Vector3(-0.25, 0.165, 0.0), Vector3(0.25, 0.465, 0.002), scr, false)
+	WB.box(holder, Vector3(-0.3, 0.11, 0.031), Vector3(0.3, 0.47, 0.033), scr, false)
 
 
 # =================================================================== staff room
@@ -239,6 +238,8 @@ func _build_service_rooms() -> void:
 	var lw := WB.omni(self, Vector3(22.2, 2.5, 2.0), COOL, 0.5, 3.0, true)
 	_room("wc", [lw], [])
 	_sw(Vector3(21.45, 1.2, 3.88), 0.0, ["wc"])
+	WB.model(self, "bk_toilet", 22.9, 0.42, 0.0, 1.0, 0.06)
+	WB.model(self, "bk_basin", 21.32, 1.8, 90.0, 1.0, 0.42)
 
 
 # =================================================================== wards
@@ -251,6 +252,9 @@ func _build_wards() -> void:
 		var l := WB.omni(self, Vector3(wx + 3.5, 2.5, 9.2), Color(0.7, 0.78, 1.0), 0.25, 6.0, true)
 		_room("enf_60%d" % (i + 1), [l], [])
 		_switch("enf_60%d" % (i + 1), Vector3(wx + 2.6, 1.2, 6.47), 0.0, ["enf_60%d" % (i + 1)])
+	# ward 601: an over-bed table and a visitor's stool
+	WB.model(self, "bk_mayo_table", WARD_X[0] + 1.5, 9.1, 90.0)
+	WB.model(self, "bk_med_stool", WARD_X[0] + 2.6, 9.0, 160.0)
 	hotspots.cama_603 = Hotspot.add(self, Vector3(WARD_X[2] + 1.2 + 2 * 2.2, 0.7, 10.6), Vector3(1.0, 0.5, 2.0), _prompt("cama_603"), func(p): _say("cama_603", p))
 	hotspots.janela = Hotspot.add(self, Vector3(WARD_X[3] + 4.9, 1.5, 11.9), Vector3(1.8, 1.3, 0.2), _prompt("janela"), func(p): _say("janela", p))
 
@@ -316,6 +320,8 @@ func _bed(at: Vector3, yaw: float, sleeper: bool, curtain: bool) -> void:
 		WB.box(holder, Vector3(0.62, 0.0, -0.92), Vector3(0.65, 1.6, -0.89), steel, false)
 		var scr := WB.emissive(Color(0.1, 0.8, 0.4), 0.6 if sleeper else 0.0)
 		WB.box(holder, Vector3(0.52, 1.35, -0.95), Vector3(0.76, 1.55, -0.94), scr, false)
+		# the bedside cabinet, drawers towards the bed
+		WB.model(holder, "bk_bedside", 0.86, -0.3, 90.0)
 
 
 # =================================================================== lift lobby
@@ -325,7 +331,7 @@ func _build_lobby() -> void:
 		WB.box(self, Vector3(28.05, 0, z - 0.6), Vector3(28.1, 2.2, z + 0.6), steel, false)
 		WB.box(self, Vector3(28.1, 1.2, z + 0.75), Vector3(28.12, 1.3, z + 0.85), WB.emissive(Color(1.0, 0.8, 0.4), 0.8), false)
 	hotspots.elevador = Hotspot.add(self, Vector3(28.15, 1.1, 5.0), Vector3(0.2, 2.2, 5.0), _prompt("elevador"), func(p): _say("elevador", p))
-	WB.model(self, "modular_street_seating", 30.2, 9.5, 0.0)
+	WB.model(self, "bk_waiting_bench", 31.6, 5.0, -90.0)
 	WB.model(self, "potted_plant_01", 31.5, 11.3, 0.0)
 	for x in [30.0]:
 		_tube("elevadores", Vector3(x, 0, 3.0), 0.8)
