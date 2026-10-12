@@ -166,17 +166,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "bananas_nor_gl",
-      "uri": "textures/bananas_nor_gl_1k.jpg"
+      "uri": "textures/bananas_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "bananas_diff",
-      "uri": "textures/bananas_diff_1k.jpg"
+      "uri": "textures/bananas_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "bananas_rough",
-      "uri": "textures/bananas_arm_1k.jpg"
+      "uri": "textures/bananas_arm_2k.jpg"
     }
   ],
   "accessors": [

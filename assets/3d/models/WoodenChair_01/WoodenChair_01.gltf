@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "WoodenChair_01_nor_gl",
-      "uri": "textures/WoodenChair_01_nor_gl_1k.jpg"
+      "uri": "textures/WoodenChair_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "WoodenChair_01_diff",
-      "uri": "textures/WoodenChair_01_diff_1k.jpg"
+      "uri": "textures/WoodenChair_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "WoodenChair_01_metallic-WoodenChair_01_roughness",
-      "uri": "textures/WoodenChair_01_arm_1k.jpg"
+      "uri": "textures/WoodenChair_01_arm_2k.jpg"
     }
   ],
   "accessors": [

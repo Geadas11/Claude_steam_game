@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "dustpan_nor_gl",
-      "uri": "textures/dustpan_nor_gl_1k.jpg"
+      "uri": "textures/dustpan_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dustpan_diff",
-      "uri": "textures/dustpan_diff_1k.jpg"
+      "uri": "textures/dustpan_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dustpan_metal-dustpan_rough",
-      "uri": "textures/dustpan_arm_1k.jpg"
+      "uri": "textures/dustpan_arm_2k.jpg"
     }
   ],
   "accessors": [

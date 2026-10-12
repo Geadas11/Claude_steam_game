@@ -207,32 +207,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_nor_gl.png",
-      "uri": "textures/alarm_clock_01_nor_gl_1k.jpg"
+      "uri": "textures/alarm_clock_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_diff.png",
-      "uri": "textures/alarm_clock_01_diff_1k.jpg"
+      "uri": "textures/alarm_clock_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_metal.png-alarm_clock_01_rough.png",
-      "uri": "textures/alarm_clock_01_arm_1k.jpg"
+      "uri": "textures/alarm_clock_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_nor_gl",
-      "uri": "textures/alarm_clock_01_nor_gl_1k.jpg"
+      "uri": "textures/alarm_clock_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_diff",
-      "uri": "textures/alarm_clock_01_diff_1k.jpg"
+      "uri": "textures/alarm_clock_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "alarm_clock_01_metal-alarm_clock_01_rough",
-      "uri": "textures/alarm_clock_01_arm_1k.jpg"
+      "uri": "textures/alarm_clock_01_arm_2k.jpg"
     }
   ],
   "accessors": [

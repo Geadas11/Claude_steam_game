@@ -71,17 +71,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "CoffeeTable_01_nor_gl",
-      "uri": "textures/CoffeeTable_01_nor_gl_1k.jpg"
+      "uri": "textures/CoffeeTable_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CoffeeTable_01_diff",
-      "uri": "textures/CoffeeTable_01_diff_1k.jpg"
+      "uri": "textures/CoffeeTable_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CoffeeTable_01_metallic-CoffeeTable_01_roughness",
-      "uri": "textures/CoffeeTable_01_arm_1k.jpg"
+      "uri": "textures/CoffeeTable_01_arm_2k.jpg"
     }
   ],
   "accessors": [

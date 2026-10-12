@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "croissant_nor_gl",
-      "uri": "textures/croissant_nor_gl_1k.jpg"
+      "uri": "textures/croissant_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "croissant_diff",
-      "uri": "textures/croissant_diff_1k.jpg"
+      "uri": "textures/croissant_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "croissant_rough",
-      "uri": "textures/croissant_arm_1k.jpg"
+      "uri": "textures/croissant_arm_2k.jpg"
     }
   ],
   "accessors": [

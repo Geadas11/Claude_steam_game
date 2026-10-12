@@ -140,17 +140,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "classic_laptop_nor_gl",
-      "uri": "textures/classic_laptop_nor_gl_1k.jpg"
+      "uri": "textures/classic_laptop_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "classic_laptop_diff",
-      "uri": "textures/classic_laptop_diff_1k.jpg"
+      "uri": "textures/classic_laptop_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "classic_laptop_metal-classic_laptop_rough",
-      "uri": "textures/classic_laptop_arm_1k.jpg"
+      "uri": "textures/classic_laptop_arm_2k.jpg"
     }
   ],
   "accessors": [

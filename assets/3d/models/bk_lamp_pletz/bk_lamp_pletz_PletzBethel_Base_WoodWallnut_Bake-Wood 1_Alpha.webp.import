@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b0lo0mare0ami"
+path.s3tc="res://.godot/imported/bk_lamp_pletz_PletzBethel_Base_WoodWallnut_Bake-Wood 1_Alpha.webp-e5b3aa1cc30dc8c73c329b1667b7fca4.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "c4532828a410d585b8693a7d7d20d0a2"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_lamp_pletz/bk_lamp_pletz_PletzBethel_Base_WoodWallnut_Bake-Wood 1_Alpha.webp"
+dest_files=["res://.godot/imported/bk_lamp_pletz_PletzBethel_Base_WoodWallnut_Bake-Wood 1_Alpha.webp-e5b3aa1cc30dc8c73c329b1667b7fca4.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=2048
+detect_3d/compress_to=1

@@ -191,47 +191,47 @@
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_strap_nor_gl",
-      "uri": "textures/Camera_01_strap_nor_gl_1k.jpg"
+      "uri": "textures/Camera_01_strap_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_strap_diff",
-      "uri": "textures/Camera_01_strap_diff_1k.jpg"
+      "uri": "textures/Camera_01_strap_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_strap_metallic-Camera_01_strap_roughness",
-      "uri": "textures/Camera_01_strap_arm_1k.jpg"
+      "uri": "textures/Camera_01_strap_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_lens_body_nor_gl",
-      "uri": "textures/Camera_01_lens_body_nor_gl_1k.jpg"
+      "uri": "textures/Camera_01_lens_body_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_lens_body_diff",
-      "uri": "textures/Camera_01_lens_body_diff_1k.jpg"
+      "uri": "textures/Camera_01_lens_body_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_lens_body_metallic-Camera_01_lens_body_roughness",
-      "uri": "textures/Camera_01_lens_body_arm_1k.jpg"
+      "uri": "textures/Camera_01_lens_body_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_body_nor_gl",
-      "uri": "textures/Camera_01_body_nor_gl_1k.jpg"
+      "uri": "textures/Camera_01_body_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_body_diff",
-      "uri": "textures/Camera_01_body_diff_1k.jpg"
+      "uri": "textures/Camera_01_body_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Camera_01_body_metallic-Camera_01_body_roughness",
-      "uri": "textures/Camera_01_body_arm_1k.jpg"
+      "uri": "textures/Camera_01_body_arm_2k.jpg"
     }
   ],
   "accessors": [

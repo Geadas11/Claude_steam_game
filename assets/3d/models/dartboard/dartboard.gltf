@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "dartboard_nor_gl",
-      "uri": "textures/dartboard_nor_gl_1k.jpg"
+      "uri": "textures/dartboard_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dartboard_diff",
-      "uri": "textures/dartboard_diff_1k.jpg"
+      "uri": "textures/dartboard_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dartboard_metal-dartboard_rough",
-      "uri": "textures/dartboard_arm_1k.jpg"
+      "uri": "textures/dartboard_arm_2k.jpg"
     }
   ],
   "accessors": [

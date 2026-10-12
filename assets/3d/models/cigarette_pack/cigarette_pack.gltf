@@ -126,17 +126,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_pack_nor_gl",
-      "uri": "textures/cigarette_pack_nor_gl_1k.jpg"
+      "uri": "textures/cigarette_pack_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_pack_diff",
-      "uri": "textures/cigarette_pack_diff_1k.jpg"
+      "uri": "textures/cigarette_pack_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_pack_metal-cigarette_pack_rough",
-      "uri": "textures/cigarette_pack_arm_1k.jpg"
+      "uri": "textures/cigarette_pack_arm_2k.jpg"
     }
   ],
   "accessors": [

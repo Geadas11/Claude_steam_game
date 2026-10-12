@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "Shelf_01_nor_gl.png",
-      "uri": "textures/Shelf_01_nor_gl_1k.jpg"
+      "uri": "textures/Shelf_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Shelf_01_diff.png",
-      "uri": "textures/Shelf_01_diff_1k.jpg"
+      "uri": "textures/Shelf_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "Shelf_01_metallic.png-Shelf_01_roughness",
-      "uri": "textures/Shelf_01_arm_1k.jpg"
+      "uri": "textures/Shelf_01_arm_2k.jpg"
     }
   ],
   "accessors": [

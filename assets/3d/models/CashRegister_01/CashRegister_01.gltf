@@ -130,32 +130,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_nor_gl",
-      "uri": "textures/CashRegister_01_nor_gl_1k.jpg"
+      "uri": "textures/CashRegister_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_diff",
-      "uri": "textures/CashRegister_01_diff_1k.jpg"
+      "uri": "textures/CashRegister_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_metallic-CashRegister_01_roughness",
-      "uri": "textures/CashRegister_01_arm_1k.jpg"
+      "uri": "textures/CashRegister_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_glass_nor_gl",
-      "uri": "textures/CashRegister_01_glass_nor_gl_1k.jpg"
+      "uri": "textures/CashRegister_01_glass_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_glass_diff-CashRegister_01_glass_opacity",
-      "uri": "textures/CashRegister_01_glass_diff_1k.jpg"
+      "uri": "textures/CashRegister_01_glass_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "CashRegister_01_glass_metallic-CashRegister_01_glass_roughness",
-      "uri": "textures/CashRegister_01_glass_arm_1k.jpg"
+      "uri": "textures/CashRegister_01_glass_arm_2k.jpg"
     }
   ],
   "accessors": [

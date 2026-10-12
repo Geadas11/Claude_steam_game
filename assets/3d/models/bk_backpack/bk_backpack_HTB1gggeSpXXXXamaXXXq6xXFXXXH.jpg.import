@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bjfrn8k12dsuc"
+path.s3tc="res://.godot/imported/bk_backpack_HTB1gggeSpXXXXamaXXXq6xXFXXXH.jpg-d6c814c4c7e20d2d3f1ca118d5747308.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "bbf4f2e9aa5611cbdcf26666f0544afa"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_backpack/bk_backpack_HTB1gggeSpXXXXamaXXXq6xXFXXXH.jpg"
+dest_files=["res://.godot/imported/bk_backpack_HTB1gggeSpXXXXamaXXXq6xXFXXXH.jpg-d6c814c4c7e20d2d3f1ca118d5747308.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=2048
+detect_3d/compress_to=1

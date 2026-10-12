@@ -538,22 +538,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "electric_stove_nor_gl",
-      "uri": "textures/electric_stove_nor_gl_1k.jpg"
+      "uri": "textures/electric_stove_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "electric_stove_diff",
-      "uri": "textures/electric_stove_diff_1k.jpg"
+      "uri": "textures/electric_stove_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "electric_stove_metal-electric_stove_rough",
-      "uri": "textures/electric_stove_arm_1k.jpg"
+      "uri": "textures/electric_stove_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "electric_stove_diff-electric_stove_opacity",
-      "uri": "textures/electric_stove_diff_1k.jpg"
+      "uri": "textures/electric_stove_diff_2k.jpg"
     }
   ],
   "accessors": [

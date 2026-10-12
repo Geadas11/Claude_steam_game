@@ -143,32 +143,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_artwork_nor_gl.png",
-      "uri": "textures/hanging_picture_frame_02_artwork_nor_gl_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_artwork_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_artwork_diff.png",
-      "uri": "textures/hanging_picture_frame_02_artwork_diff_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_artwork_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_artwork_roughness",
-      "uri": "textures/hanging_picture_frame_02_artwork_roughness_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_artwork_roughness_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_nor_gl",
-      "uri": "textures/hanging_picture_frame_02_nor_gl_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_diff",
-      "uri": "textures/hanging_picture_frame_02_diff_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_picture_frame_02_metallic-hanging_picture_frame_02_roughness",
-      "uri": "textures/hanging_picture_frame_02_arm_1k.jpg"
+      "uri": "textures/hanging_picture_frame_02_arm_2k.jpg"
     }
   ],
   "accessors": [

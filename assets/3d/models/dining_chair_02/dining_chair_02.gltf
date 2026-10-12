@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "dining_chair_02_nor_gl.png",
-      "uri": "textures/dining_chair_02_nor_gl_1k.jpg"
+      "uri": "textures/dining_chair_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dining_chair_02_diff.png",
-      "uri": "textures/dining_chair_02_diff_1k.jpg"
+      "uri": "textures/dining_chair_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "dining_chair_02_metal-dining_chair_02_rough.png",
-      "uri": "textures/dining_chair_02_arm_1k.jpg"
+      "uri": "textures/dining_chair_02_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -178,22 +178,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "digital_wrist_watch_nor_gl",
-      "uri": "textures/digital_wrist_watch_nor_gl_1k.jpg"
+      "uri": "textures/digital_wrist_watch_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "digital_wrist_watch_diff",
-      "uri": "textures/digital_wrist_watch_diff_1k.jpg"
+      "uri": "textures/digital_wrist_watch_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "digital_wrist_watch_metal-digital_wrist_watch_rough",
-      "uri": "textures/digital_wrist_watch_arm_1k.jpg"
+      "uri": "textures/digital_wrist_watch_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "digital_wrist_watch_diff-digital_wrist_watch_alpha",
-      "uri": "textures/digital_wrist_watch_diff_1k.jpg"
+      "uri": "textures/digital_wrist_watch_diff_2k.jpg"
     }
   ],
   "accessors": [

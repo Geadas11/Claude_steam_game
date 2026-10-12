@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "carved_wooden_plate_nor_gl",
-      "uri": "textures/carved_wooden_plate_nor_gl_1k.jpg"
+      "uri": "textures/carved_wooden_plate_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "carved_wooden_plate_diff",
-      "uri": "textures/carved_wooden_plate_diff_1k.jpg"
+      "uri": "textures/carved_wooden_plate_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "carved_wooden_plate_rough",
-      "uri": "textures/carved_wooden_plate_arm_1k.jpg"
+      "uri": "textures/carved_wooden_plate_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -100,27 +100,27 @@
     {
       "mimeType": "image/jpeg",
       "name": "boombox_nor_gl",
-      "uri": "textures/boombox_nor_gl_1k.jpg"
+      "uri": "textures/boombox_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "boombox_diff",
-      "uri": "textures/boombox_diff_1k.jpg"
+      "uri": "textures/boombox_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "boombox_metal-boombox_rough",
-      "uri": "textures/boombox_arm_1k.jpg"
+      "uri": "textures/boombox_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "boombox_speakers_diff",
-      "uri": "textures/boombox_speakers_diff_1k.jpg"
+      "uri": "textures/boombox_speakers_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "boombox_speakers_metal-boombox_speakers_rough",
-      "uri": "textures/boombox_speakers_arm_1k.jpg"
+      "uri": "textures/boombox_speakers_arm_2k.jpg"
     }
   ],
   "accessors": [

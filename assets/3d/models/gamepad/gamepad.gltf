@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "gamepad_nor_gl",
-      "uri": "textures/gamepad_nor_gl_1k.jpg"
+      "uri": "textures/gamepad_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "gamepad_diff",
-      "uri": "textures/gamepad_diff_1k.jpg"
+      "uri": "textures/gamepad_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "gamepad_metal-gamepad_rough",
-      "uri": "textures/gamepad_arm_1k.jpg"
+      "uri": "textures/gamepad_arm_2k.jpg"
     }
   ],
   "accessors": [

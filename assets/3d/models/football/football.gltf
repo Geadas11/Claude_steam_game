@@ -99,17 +99,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "football_nor_gl",
-      "uri": "textures/football_nor_gl_1k.jpg"
+      "uri": "textures/football_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "football_diff",
-      "uri": "textures/football_diff_1k.jpg"
+      "uri": "textures/football_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "football_rough",
-      "uri": "textures/football_arm_1k.jpg"
+      "uri": "textures/football_arm_2k.jpg"
     }
   ],
   "accessors": [

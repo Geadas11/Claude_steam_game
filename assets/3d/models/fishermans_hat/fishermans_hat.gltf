@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "fishermans_hat_nor_gl",
-      "uri": "textures/fishermans_hat_nor_gl_1k.jpg"
+      "uri": "textures/fishermans_hat_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "fishermans_hat_diff",
-      "uri": "textures/fishermans_hat_diff_1k.jpg"
+      "uri": "textures/fishermans_hat_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "fishermans_hat_metal-fishermans_hat_rough",
-      "uri": "textures/fishermans_hat_arm_1k.jpg"
+      "uri": "textures/fishermans_hat_arm_2k.jpg"
     }
   ],
   "accessors": [

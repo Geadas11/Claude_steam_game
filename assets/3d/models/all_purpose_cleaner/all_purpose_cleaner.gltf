@@ -86,17 +86,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "all_purpose_cleaner_nor_gl",
-      "uri": "textures/all_purpose_cleaner_nor_gl_1k.jpg"
+      "uri": "textures/all_purpose_cleaner_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "all_purpose_cleaner_diff",
-      "uri": "textures/all_purpose_cleaner_diff_1k.jpg"
+      "uri": "textures/all_purpose_cleaner_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "all_purpose_cleaner_rough",
-      "uri": "textures/all_purpose_cleaner_arm_1k.jpg"
+      "uri": "textures/all_purpose_cleaner_arm_2k.jpg"
     }
   ],
   "accessors": [

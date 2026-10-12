@@ -125,27 +125,27 @@
     {
       "mimeType": "image/jpeg",
       "name": "hanging_industrial_lamp_emissive",
-      "uri": "textures/hanging_industrial_lamp_emissive_1k.jpg"
+      "uri": "textures/hanging_industrial_lamp_emissive_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_industrial_lamp_nor_gl",
-      "uri": "textures/hanging_industrial_lamp_nor_gl_1k.jpg"
+      "uri": "textures/hanging_industrial_lamp_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_industrial_lamp_diff",
-      "uri": "textures/hanging_industrial_lamp_diff_1k.jpg"
+      "uri": "textures/hanging_industrial_lamp_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_industrial_lamp_metal-hanging_industrial_lamp_rough",
-      "uri": "textures/hanging_industrial_lamp_arm_1k.jpg"
+      "uri": "textures/hanging_industrial_lamp_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "hanging_industrial_lamp_glass_nor_gl",
-      "uri": "textures/hanging_industrial_lamp_glass_nor_gl_1k.jpg"
+      "uri": "textures/hanging_industrial_lamp_glass_nor_gl_2k.jpg"
     }
   ],
   "accessors": [

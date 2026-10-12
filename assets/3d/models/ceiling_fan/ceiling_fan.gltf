@@ -109,27 +109,27 @@
     {
       "mimeType": "image/jpeg",
       "name": "ceiling_fan_emissive",
-      "uri": "textures/ceiling_fan_emissive_1k.jpg"
+      "uri": "textures/ceiling_fan_emissive_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ceiling_fan_spec",
-      "uri": "textures/ceiling_fan_spec_1k.jpg"
+      "uri": "textures/ceiling_fan_spec_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ceiling_fan_nor_gl",
-      "uri": "textures/ceiling_fan_nor_gl_1k.jpg"
+      "uri": "textures/ceiling_fan_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ceiling_fan_diff",
-      "uri": "textures/ceiling_fan_diff_1k.jpg"
+      "uri": "textures/ceiling_fan_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ceiling_fan_metal-ceiling_fan_rough",
-      "uri": "textures/ceiling_fan_arm_1k.jpg"
+      "uri": "textures/ceiling_fan_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -284,17 +284,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_case_nor_gl",
-      "uri": "textures/cigarette_case_nor_gl_1k.jpg"
+      "uri": "textures/cigarette_case_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_case_diff",
-      "uri": "textures/cigarette_case_diff_1k.jpg"
+      "uri": "textures/cigarette_case_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cigarette_case_metal-cigarette_case_rough",
-      "uri": "textures/cigarette_case_arm_1k.jpg"
+      "uri": "textures/cigarette_case_arm_2k.jpg"
     }
   ],
   "accessors": [

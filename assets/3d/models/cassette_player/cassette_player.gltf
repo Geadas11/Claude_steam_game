@@ -169,47 +169,47 @@
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_nor_gl",
-      "uri": "textures/cassette_player_body_nor_gl_1k.jpg"
+      "uri": "textures/cassette_player_body_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_diff",
-      "uri": "textures/cassette_player_body_diff_1k.jpg"
+      "uri": "textures/cassette_player_body_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_metallic-cassette_player_body_roughness",
-      "uri": "textures/cassette_player_body_arm_1k.jpg"
+      "uri": "textures/cassette_player_body_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_nor_gl.png",
-      "uri": "textures/cassette_player_body_nor_gl_1k.jpg"
+      "uri": "textures/cassette_player_body_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_diff.png-cassette_player_body_opacity",
-      "uri": "textures/cassette_player_body_diff_1k.jpg"
+      "uri": "textures/cassette_player_body_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_body_metallic.png-cassette_player_body_roughness.png",
-      "uri": "textures/cassette_player_body_arm_1k.jpg"
+      "uri": "textures/cassette_player_body_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_tape_nor_gl",
-      "uri": "textures/cassette_player_tape_nor_gl_1k.jpg"
+      "uri": "textures/cassette_player_tape_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_tape_orangeblue_diff",
-      "uri": "textures/cassette_player_tape_orangeblue_diff_1k.jpg"
+      "uri": "textures/cassette_player_tape_orangeblue_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "cassette_player_tape_metallic-cassette_player_tape_roughness",
-      "uri": "textures/cassette_player_tape_arm_1k.jpg"
+      "uri": "textures/cassette_player_tape_arm_2k.jpg"
     }
   ],
   "accessors": [
