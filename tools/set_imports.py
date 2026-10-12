@@ -2,7 +2,7 @@
 """Give every 3D texture the right import settings (run after Godot creates
 the .import files, then import again):
   - VRAM compressed (S3TC/BPTC) with mipmaps, normal maps flagged;
-  - tiling textures at full resolution (2K), ARM maps 1K, model textures 1K.
+  - tiling textures at full resolution (4K), ARM maps and model textures 2K.
 Safe to run again: it rewrites the settings it owns every time.
 """
 import glob
@@ -21,7 +21,7 @@ for f in glob.glob(os.path.join(ROOT, "**", "*.import"), recursive=True):
     if "nor" in name:
         s = s.replace("compress/normal_map=0", "compress/normal_map=1")
     is_model = os.sep + "models" + os.sep in f
-    limit = 1024 if (is_model or "arm" in name) else 0
+    limit = 2048 if (is_model or "arm" in name) else 0
     s = re.sub(r"process/size_limit=\d+", "process/size_limit=%d" % limit, s)
     if s != s0:
         open(f, "w").write(s)
