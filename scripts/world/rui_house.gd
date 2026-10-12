@@ -134,12 +134,18 @@ func _build_kitchen() -> void:
 	# kitchen along the west wall
 	WB.cabinet(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), Vector3(1, 0, 0), WB.flat(Color(0.6, 0.52, 0.42), 0.7), wood, 5, 0.0, WB.flat(Color(0.3, 0.3, 0.3), 0.4, 0.8))
 	WB.worktop(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), Vector3(1, 0, 0), counter)
-	WB.model(self, "electric_stove", 0.36, 6.6, 90.0)
+	var stove := WB.model(self, "electric_stove", 0.36, 6.6, 90.0)
+	WB.model(self, "pot_enamel_01", 0.4, 6.5, 0.0, 1.0, WB.footprint(stove).end.y, false)
 	WB.box(self, Vector3(0.1, 0.92, 4.2), Vector3(0.6, 0.94, 4.9), WB.flat(Color(0.7, 0.7, 0.7), 0.2, 0.9), false)
 	WB.model(self, "jug_01", 0.35, 3.5, 90.0, 1.0, 0.92, false)
 	WB.model(self, "wooden_cutting_board", 0.35, 5.6, 80.0, 1.0, 0.92, false)
 	# the table where he eats alone, one chair pulled out
-	WB.model(self, "round_wooden_table_01", 2.8, 4.0, 0.0, 0.7)
+	var table := WB.model(self, "round_wooden_table_01", 2.8, 4.0, 0.0, 0.7)
+	var tt := WB.footprint(table).end.y
+	WB.model(self, "bk_plate", 2.6, 4.15, 0.0, 1.0, tt, false)
+	WB.model(self, "cigarette_pack", 3.0, 3.85, 70.0, 1.0, tt, false)
+	# a cream fridge from another decade
+	WB.model(self, "bk_fridge_smeg", 0.45, 2.5, 90.0, 0.92)
 	WB.model(self, "dining_chair_02", 2.1, 4.0, 90.0)
 	WB.model(self, "dining_chair_02", 3.6, 4.6, -120.0)
 	WB.model(self, "dining_chair_02", 2.8, 3.1, 0.0)
@@ -148,6 +154,7 @@ func _build_kitchen() -> void:
 	WB.model(self, "painted_wooden_cabinet", 5.6, 2.6, -90.0)
 	WB.model(self, "ArmChair_01", 4.8, 1.2, -140.0)
 	WB.model(self, "standing_picture_frame_01", 5.62, 2.3, -100.0, 1.2, WB.footprint(get_node("painted_wooden_cabinet")).end.y, false)
+	WB.model(self, "Television_01", 5.6, 2.95, -90.0, 0.8, WB.footprint(get_node("painted_wooden_cabinet")).end.y, false)
 	hotspots.fotografia = Hotspot.add(self, Vector3(5.6, 1.35, 2.3), Vector3(0.3, 0.35, 0.3), _prompt("fotografia"), func(p): _say("fotografia", p))
 	# fishing gear by the yard door
 	WB.model(self, "rubber_boots", 1.0, 7.6, 10.0)
@@ -205,10 +212,9 @@ void fragment() {
 # =================================================================== bedrooms
 func _build_rooms() -> void:
 	# Inês's room, as she left it
-	var bed := WB.model(self, "old_bed_frame", 8.2, 2.2, 0.0)
-	var bb := WB.footprint(bed)
-	WB.box(self, Vector3(bb.position.x + 0.06, 0.36, bb.position.z + 0.06), Vector3(bb.end.x - 0.06, 0.52, bb.end.z - 0.06), WB.flat(Color(0.85, 0.85, 0.82), 0.9), false)
-	WB.box(self, Vector3(bb.position.x + 0.04, 0.52, bb.position.z + 0.4), Vector3(bb.end.x - 0.04, 0.6, bb.end.z - 0.03), WB.flat(Color(0.6, 0.15, 0.14), 0.95), false)
+	# a white iron day bed with a flowered cover, made, never slept in since
+	WB.model(self, "bk_bed_metal", 8.31, 2.05, -90.0)
+	WB.model(self, "hanging_picture_frame_03", 6.02, 1.2, 90.0, 0.8, 1.45, false)
 	WB.model(self, "painted_wooden_nightstand", 8.6, 0.55, 180.0, 0.9)
 	var box := WB.model(self, "cardboard_box_01", 6.8, 3.8, 15.0, 1.2)
 	WB.text(self, "INÊS", WB.footprint(box).get_center() + Vector3(0, 0.15, -0.32), 195.0, 0.06, Color(0.1, 0.1, 0.1))
@@ -232,7 +238,11 @@ func _build_rooms() -> void:
 	# Rui's room: a mattress, clothes on a chair, an ashtray
 	var bed2 := WB.model(self, "old_bed_frame", 8.2, 6.4, 0.0)
 	var b2 := WB.footprint(bed2)
-	WB.box(self, Vector3(b2.position.x + 0.06, 0.36, b2.position.z + 0.06), Vector3(b2.end.x - 0.06, 0.52, b2.end.z - 0.06), WB.flat(Color(0.5, 0.52, 0.5), 0.9), false)
+	WB.fit(self, "bk_mattress", AABB(Vector3(b2.position.x + 0.06, 0.36, b2.position.z + 0.06), Vector3(b2.size.x - 0.12, 0.2, b2.size.z - 0.12)))
+	var ns := WB.model(self, "ClassicNightstand_01", 8.65, 7.72, 180.0, 0.9)
+	var nt := WB.footprint(ns).end.y
+	WB.model(self, "cigarette_pack", 8.55, 7.7, 30.0, 1.0, nt, false)
+	WB.model(self, "round_spectacles", 8.75, 7.65, -20.0, 1.0, nt, false)
 	WB.model(self, "dining_chair_02", 6.6, 7.4, 140.0)
 	var l2 := WB.omni(self, Vector3(7.5, 2.4, 6.2), Color(1.0, 0.85, 0.65), 0.7, 4.0, true)
 	_room("rui", [l2], [])

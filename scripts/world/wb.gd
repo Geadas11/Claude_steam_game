@@ -12,6 +12,7 @@ static var _models := {}
 ## (their baked textures are black): painted over with a plain material.
 ## [colour, roughness, metallic]
 const MODEL_SKIN := {
+	"bk_street_lamp": [Color(0.09, 0.09, 0.09), 0.45, 0.7],
 	"bk_toilet": [Color(0.95, 0.95, 0.93), 0.12, 0.0],
 	"bk_washer": [Color(0.93, 0.93, 0.92), 0.35, 0.0],
 }
@@ -410,6 +411,21 @@ static func model(parent: Node3D, id: String, x: float, z: float, rot_deg := 0.0
 		cs.position = lb.position + lb.size / 2.0
 		sb.add_child(cs)
 		n.add_child(sb)
+	return n
+
+
+## A model stretched to fill `box` exactly (in the parent's space), turned
+## `rot_deg` about Y: a mattress on a bed frame, a rug on a floor.
+static func fit(parent: Node3D, id: String, box: AABB, rot_deg := 0.0) -> Node3D:
+	var c := box.get_center()
+	var n := model(parent, id, c.x, c.z, rot_deg, 1.0, box.position.y, false)
+	var fb := footprint(n)
+	var k := box.size / Vector3(maxf(fb.size.x, 0.001), maxf(fb.size.y, 0.001), maxf(fb.size.z, 0.001))
+	if absf(sin(deg_to_rad(rot_deg))) > 0.5:
+		k = Vector3(k.z, k.y, k.x)
+	n.scale = k
+	fb = footprint(n)
+	n.position += Vector3(c.x - fb.get_center().x, box.position.y - fb.position.y, c.z - fb.get_center().z)
 	return n
 
 

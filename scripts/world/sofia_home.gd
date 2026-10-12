@@ -128,7 +128,10 @@ func _build_sala() -> void:
 	WB.model(self, "throw_pillows_01", 0.6, 1.7, 90.0, 1.0, 0.45, false)
 	WB.model(self, "modern_coffee_table_01", 1.75, 2.3, 90.0)
 	# a rug
-	WB.box(self, Vector3(1.1, 0.0, 1.3), Vector3(3.0, 0.012, 3.3), WB.flat(Color(0.45, 0.22, 0.2), 0.95), false)
+	WB.fit(self, "bk_rug", AABB(Vector3(1.1, 0.003, 1.3), Vector3(1.9, 0.01, 2.0)), 90.0)
+	WB.model(self, "bk_laptop", 1.95, 2.55, 100.0, 1.0, 0.42, false)
+	WB.model(self, "bk_dracaena", 4.5, 3.9, 0.0)
+	WB.model(self, "hanging_picture_frame_01", 0.02, 2.3, 90.0, 1.0, 1.35, false)
 	Books.pile(self, Vector3(1.8, 0.42, 2.0), 3, rng, 0.0)
 	WB.model(self, "wooden_bookshelf_worn", 3.4, 4.25, 180.0)
 	Books.unit(self, Vector3(1.4, 0, 4.38), 180.0, 1.5, 2.0, 0.3, [0.45, 0.9, 1.35, 1.8], WB.mat("dark_wood", 1.0, Color(0.7, 0.6, 0.5)), rng)
@@ -163,12 +166,16 @@ func _build_kitchen() -> void:
 	WB.model(self, "vintage_microwave", 8.6, 0.8, -90.0, 1.0, 0.92, false)
 	WB.model(self, "jug_01", 8.6, 3.5, 0.0, 1.0, 0.92, false)
 	# the fridge with the rota
-	WB.box(self, Vector3(5.15, 0, 3.75), Vector3(5.85, 1.85, 4.4), WB.flat(Color(0.92, 0.92, 0.9), 0.3, 0.1))
-	WB.box(self, Vector3(5.2, 1.0, 3.71), Vector3(5.23, 1.45, 3.74), WB.flat(Color(0.75, 0.75, 0.74), 0.3, 0.9), false, "", 0.0)
+	var fr := WB.model(self, "bk_fridge_smeg", 5.5, 4.05, 180.0)
+	var fz := WB.footprint(fr).position.z
 	var rota := WB.flat(Color(0.98, 0.98, 0.95), 0.9)
-	WB.box(self, Vector3(5.3, 1.2, 3.74), Vector3(5.6, 1.6, 3.745), rota, false)
-	WB.text(self, "TURNOS OUT.", Vector3(5.45, 1.55, 3.735), 180.0, 0.025, Color(0.1, 0.2, 0.5))
-	hotspots.frigorifico = Hotspot.add(self, Vector3(5.5, 1.3, 3.75), Vector3(0.7, 0.6, 0.1), _prompt("frigorifico"), func(p): _say("frigorifico", p))
+	WB.box(self, Vector3(5.3, 1.2, fz - 0.005), Vector3(5.6, 1.6, fz), rota, false)
+	WB.text(self, "TURNOS OUT.", Vector3(5.45, 1.55, fz - 0.01), 180.0, 0.025, Color(0.1, 0.2, 0.5))
+	hotspots.frigorifico = Hotspot.add(self, Vector3(5.5, 1.3, fz), Vector3(0.7, 0.6, 0.1), _prompt("frigorifico"), func(p): _say("frigorifico", p))
+	WB.model(self, "vintage_electric_kettle", 8.62, 1.75, -90.0, 0.9, 0.92, false)
+	WB.model(self, "bk_dish_rack", 8.62, 3.2, -90.0, 1.0, 0.92, false)
+	WB.model(self, "bk_plate", 6.45, 1.75, 0.0, 1.0, 0.72, false)
+	WB.model(self, "lemon", 6.8, 2.05, 0.0, 1.0, 0.72, false)
 	WB.model(self, "round_wooden_table_01", 6.6, 1.9, 0.0, 0.6)
 	WB.model(self, "dining_chair_02", 6.0, 1.9, 90.0)
 	WB.model(self, "dining_chair_02", 7.2, 2.2, -100.0)
@@ -179,10 +186,11 @@ func _build_kitchen() -> void:
 
 # =================================================================== bedroom
 func _build_bedroom() -> void:
-	var bed := WB.model(self, "old_bed_frame", 1.6, 7.6, 90.0)
+	# a double bed, headboard against the west wall
+	var bed := WB.model(self, "bk_bed_wood", 1.12, 7.62, 90.0)
 	var bb := WB.footprint(bed)
-	WB.box(self, Vector3(bb.position.x + 0.06, 0.36, bb.position.z + 0.06), Vector3(bb.end.x - 0.06, 0.52, bb.end.z - 0.06), WB.flat(Color(0.88, 0.88, 0.86), 0.9), false)
-	WB.box(self, Vector3(bb.position.x + 0.4, 0.52, bb.position.z + 0.04), Vector3(bb.end.x - 0.03, 0.6, bb.end.z - 0.04), WB.flat(Color(0.2, 0.3, 0.42), 0.95), false)
+	WB.model(self, "hanging_picture_frame_03", 0.02, 7.62, 90.0, 1.0, 1.4, false)
+	WB.fit(self, "bk_rug", AABB(Vector3(2.3, 0.003, 6.7), Vector3(1.3, 0.01, 1.8)))
 	hotspots.cama = Hotspot.add(self, bb.get_center() + Vector3(0, 0.3, 0), Vector3(bb.size.x, 0.4, bb.size.z), _prompt("cama"), func(p): _say("cama", p))
 	# the nightstand and its drawer
 	drawer = WB.model(self, "painted_wooden_nightstand", 0.35, 6.25, 90.0, 0.9)
@@ -208,6 +216,7 @@ func _build_small_rooms() -> void:
 	WB.box(self, Vector3(8.6, 1.6, 5.62), Vector3(8.9, 1.64, 5.68), WB.flat(Color(0.3, 0.25, 0.2), 0.6), false)
 	WB.box(self, Vector3(8.65, 1.1, 5.6), Vector3(8.72, 1.6, 5.64), WB.flat(Color(0.2, 0.35, 0.6), 0.8), false)
 	WB.box(self, Vector3(8.62, 1.05, 5.59), Vector3(8.75, 1.12, 5.64), WB.flat(Color(0.95, 0.95, 0.95), 0.5), false)
+	WB.model(self, "bk_sneakers", 8.75, 4.68, 90.0, 1.0, 0.0, false)
 	hotspots.cordao = Hotspot.add(self, Vector3(8.7, 1.3, 5.6), Vector3(0.3, 0.6, 0.15), _prompt("cordao"), func(p): _say("cordao", p))
 	_bulb("corredor", Vector3(4.5, H, 5.1), 0.4, 0.8, 5.0)
 	_switch("corredor", Vector3(8.93, 1.2, 4.75), -90.0, ["corredor"])
@@ -222,6 +231,7 @@ func _build_small_rooms() -> void:
 	hotspots.espelho = Hotspot.add(self, Vector3(5.12, 1.6, 7.3), Vector3(0.1, 0.6, 1.0), _prompt("espelho"), func(p): _say("espelho", p))
 	WB.model(self, "bk_bathtub", 6.1, 8.5, 0.0)
 	WB.model(self, "bk_toilet", 6.75, 6.6, -90.0, 1.0, 0.06)
+	WB.model(self, "bk_towels", 6.95, 8.75, -20.0, 1.0, 0.0, false)
 	_plafond("wc", Vector3(6.1, H, 7.3), 0.9)
 	_switch("wc", Vector3(5.5, 1.2, 5.77), 0.0, ["wc"])
 	# storage: boxes, the suitcase she never unpacked from Salgueira

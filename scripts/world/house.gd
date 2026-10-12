@@ -223,7 +223,8 @@ func _build_sala() -> void:
 	WB.model(self, "sofa_03", 2.7, 0.55, 0.0)
 	WB.model(self, "throw_pillows_01", 3.5, 0.5, 8.0, 0.8, 0.42, false)
 	# rug under the coffee table
-	WB.box(self, Vector3(1.6, 0, 1.15), Vector3(3.8, 0.012, 2.45), WB.flat(Color(0.28, 0.12, 0.1), 0.95), false)
+	WB.fit(self, "bk_rug", AABB(Vector3(1.6, 0.003, 1.15), Vector3(2.2, 0.01, 1.3)))
+	WB.model(self, "hanging_picture_frame_01", 0.02, 1.7, 90.0, 1.0, 1.35, false)
 	WB.model(self, "modern_coffee_table_01", 2.7, 1.8, 90.0)
 	WB.model(self, "modern_wooden_cabinet", 2.7, 4.17, 180.0)
 	_tv(Vector3(2.7, 0.68, 4.2))
@@ -332,13 +333,10 @@ func _laptop(at: Vector3) -> void:
 
 
 func _build_quarto() -> void:
-	var bed := WB.model(self, "old_bed_frame", 8.95, 2.75, 90.0)
+	# a single bed, unmade, headboard against the end wall
+	var bed := WB.model(self, "bk_bed_single", 8.85, 2.75, -90.0)
 	var bb := WB.footprint(bed)
-	var linen := WB.flat(Color(0.78, 0.78, 0.76), 0.9)
-	var duvet := WB.flat(Color(0.2, 0.25, 0.32), 0.95)
-	WB.box(self, Vector3(bb.position.x + 0.06, 0.36, bb.position.z + 0.06), Vector3(bb.end.x - 0.06, 0.52, bb.end.z - 0.06), linen, false)
-	WB.box(self, Vector3(bb.position.x + 0.05, 0.52, bb.position.z + 0.02), Vector3(bb.end.x - 0.55, 0.6, bb.end.z - 0.02), duvet, false)
-	WB.box(self, Vector3(bb.end.x - 0.5, 0.52, bb.position.z + 0.15), Vector3(bb.end.x - 0.12, 0.64, bb.end.z - 0.15), linen, false)
+	WB.model(self, "hanging_picture_frame_02", 9.98, 2.75, -90.0, 1.0, 1.3, false)
 	hotspots.bed = Hotspot.add(self, bb.position + bb.size / 2, bb.size, _prompt("bed"), func(p): _say("bed", p))
 	var ns := WB.model(self, "painted_wooden_nightstand", 9.7, 1.75, -90.0)
 	var ntop := WB.footprint(ns).end.y
@@ -366,6 +364,7 @@ func _build_corredor() -> void:
 	hotspots.corridor_picture = Hotspot.add(self, pb.position + pb.size / 2, pb.size + Vector3(0.06, 0, 0), _prompt("corridor_picture"), func(p): _say("corridor_picture", p))
 	# coat hooks and a mat by the front door
 	WB.box(self, Vector3(9.2, 0, 4.9), Vector3(9.85, 0.012, 5.4), WB.flat(Color(0.18, 0.15, 0.12), 1.0), false)
+	WB.model(self, "bk_sneakers", 9.4, 5.2, 80.0, 1.0, 0.012, false)
 	var ph := Hotspot.add(self, Vector3(9.97, 1.55, 5.15), Vector3(0.08, 0.14, 0.14), _prompt("peephole"), func(p): peephole_requested.emit())
 	hotspots.peephole = ph
 	var eye := MeshInstance3D.new()
@@ -406,13 +405,9 @@ func _build_cozinha() -> void:
 	# wall units on the left
 	WB.cabinet(self, Vector3(0.06, 1.5, 8.58), Vector3(2.38, 2.2, 8.94), Vector3(0, 0, -1), body, front, 4, 0.0, metal)
 	# fridge
-	var white := WB.flat(Color(0.88, 0.88, 0.86), 0.3, 0.1)
-	WB.box(self, Vector3(4.6, 0, 8.28), Vector3(5.3, 1.85, 8.94), white)
-	WB.box(self, Vector3(5.18, 1.3, 8.24), Vector3(5.21, 1.75, 8.27), metal, false, "", 0.0)
-	WB.box(self, Vector3(5.18, 0.75, 8.24), Vector3(5.21, 1.12, 8.27), metal, false, "", 0.0)
-	WB.box(self, Vector3(4.61, 1.22, 8.27), Vector3(5.29, 1.235, 8.28), WB.flat(Color(0.3, 0.3, 0.3), 0.5), false)
-	WB.box(self, Vector3(4.66, 1.3, 8.24), Vector3(4.68, 1.7, 8.27), metal, false)
-	WB.box(self, Vector3(4.66, 0.75, 8.24), Vector3(4.68, 1.15, 8.27), metal, false)
+	WB.model(self, "bk_fridge_black", 4.95, 8.62, 180.0)
+	WB.model(self, "bk_kettle", 0.75, 8.66, 200.0, 1.0, 0.9, false)
+	WB.model(self, "food_apple_01", 3.75, 8.7, 0.0, 1.0, 0.9, false)
 	hotspots.fridge = Hotspot.add(self, Vector3(4.95, 0.95, 8.6), Vector3(0.72, 1.9, 0.7), _prompt("fridge"), func(p): _say("fridge", p))
 	# calendar on the wall by the fridge
 	var cal := MeshInstance3D.new()
@@ -466,6 +461,8 @@ func _build_wc() -> void:
 	WB.model(self, "bk_bathtub", 6.44, 8.5, 0.0)
 	# wall-hung toilet against the east wall
 	WB.model(self, "bk_toilet", 7.58, 7.0, -90.0, 1.0, 0.06)
+	WB.model(self, "plunger", 7.75, 7.55, 0.0, 1.0, 0.0, false)
+	WB.model(self, "bk_towels", 7.05, 8.75, 10.0, 1.0, 0.0, false)
 	# vanity with its mirror on the west wall, hung at counter height
 	WB.model(self, "bk_basin", 5.82, 6.65, 90.0, 1.0, 0.42)
 	hotspots.mirror = Hotspot.add(self, Vector3(5.6, 1.6, 6.65), Vector3(0.06, 0.6, 1.0), _prompt("mirror"), func(p): _say("mirror", p))
@@ -495,6 +492,12 @@ func _build_arrumos() -> void:
 	WB.model(self, "cardboard_box_01", 9.72, 6.6, 90.0, 0.9, 0.425, false)
 	WB.model(self, "cardboard_box_01", 9.72, 7.6, 80.0, 0.8, 0.925, false)
 	WB.model(self, "trashbag", 8.6, 8.5, 30.0)
+	# cleaning things on the shelves and the floor
+	WB.model(self, "bleach_bottle", 9.75, 6.2, 80.0, 1.0, 0.425, false)
+	WB.model(self, "all_purpose_cleaner", 9.75, 6.35, 100.0, 1.0, 0.425, false)
+	WB.model(self, "wicker_basket_01", 9.72, 8.3, 0.0, 0.8, 1.425, false)
+	WB.model(self, "plastic_broom", 8.2, 8.75, 0.0)
+	WB.model(self, "dustpan", 8.45, 8.8, 15.0, 1.0, 0.0, false)
 	# fusebox
 	var grey := WB.flat(Color(0.7, 0.7, 0.68), 0.5)
 	WB.box(self, Vector3(8.06, 1.4, 6.05), Vector3(8.14, 1.8, 6.35), grey, false)

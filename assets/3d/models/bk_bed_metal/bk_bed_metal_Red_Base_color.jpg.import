@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://r3mid135ghru"
+path.s3tc="res://.godot/imported/bk_bed_metal_Red_Base_color.jpg-63e1463682edcdf5fb661215a06a6f3f.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "d96ea34fd86df3f9b81a28bcf3065f3e"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_bed_metal/bk_bed_metal_Red_Base_color.jpg"
+dest_files=["res://.godot/imported/bk_bed_metal_Red_Base_color.jpg-63e1463682edcdf5fb661215a06a6f3f.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1

@@ -180,6 +180,9 @@ func _build_gaivotas() -> void:
 	WB.model(self, "covered_car", 14.0, 2.5, 90.0)
 	WB.model(self, "metal_trash_can", -3.0, -5.2, 0.0, 1.0, 0.1)
 	WB.model(self, "fire_hydrant", 30.0, -5.6, 0.0, 1.0, 0.1)
+	WB.model(self, "bk_trash_bin", 25.0, -5.4, 0.0, 1.0, 0.1)
+	WB.model(self, "utility_box_02", 40.0, -5.7, 0.0, 1.0, 0.1)
+	WB.model(self, "water_manhole_cover", 21.0, 0.5, 0.0, 1.0, -0.05, false)
 	WB.text(self, "Rua das Gaivotas", Vector3(-1.0, 3.2, -5.98), 0.0, 0.18, Color(0.15, 0.2, 0.4))
 
 
@@ -279,8 +282,27 @@ func _build_largo() -> void:
 	street_lights.append(nl)
 	hotspots.farol = Hotspot.add(self, Vector3(236, 1.2, -25.8), Vector3(1.4, 2.4, 0.3), _prompt("farol"), func(p): _say("farol", p))
 	# benches, a lamp, cars, bins
-	WB.model(self, "modular_street_seating", 222.0, 6.0, 180.0, 0.6, 0.08)
-	WB.model(self, "modular_street_seating", 212.0, 12.0, 90.0, 0.6, 0.08)
+	WB.model(self, "bk_park_bench", 222.0, 6.0, 180.0, 1.0, 0.08)
+	WB.model(self, "bk_park_bench", 212.0, 12.0, 90.0, 1.0, 0.08)
+	# the café's terrace, chairs left out overnight
+	WB.model(self, "outdoor_table_chair_set_01", 203.8, -23.4, 10.0, 1.0, 0.08)
+	WB.model(self, "outdoor_table_chair_set_01", 207.6, -23.2, -15.0, 1.0, 0.08)
+	WB.model(self, "plastic_monobloc_chair_01", 211.6, -24.6, 160.0, 1.0, 0.08)
+	WB.model(self, "bk_trash_bin", 213.4, -24.9, 0.0, 1.0, 0.08)
+	# an old lantern post in the middle of the square
+	WB.model(self, "bk_street_lamp", 230.0, 2.0, 0.0, 0.9, 0.08)
+	var ll := WB.omni(self, Vector3(230.0, 4.2, 2.0), Color(1.0, 0.78, 0.45), 0.9, 9.0, false)
+	street_lights.append(ll)
+	WB.model(self, "bk_2cv", 243.0, 9.0, 0.0, 1.0, 0.08)
+	# palms round the square, each with a bed of shrubs; only the trunk blocks
+	for p in [Vector2(206.0, 6.0), Vector2(218.0, -7.0), Vector2(234.0, -7.0), Vector2(226.0, 15.0)]:
+		WB.model(self, "bk_palm", p.x, p.y, rng.randf_range(0, 360), 0.6, 0.08, false)
+		WB.model(self, "shrub_01", p.x + 0.6, p.y + 0.4, rng.randf_range(0, 360), 0.8, 0.08, false)
+		WB.box(self, Vector3(p.x - 0.25, 0.08, p.y - 0.25), Vector3(p.x + 0.25, 3.0, p.y + 0.25), WB.flat(Color.WHITE), true).visible = false
+	for x in [216.5, 229.0]:
+		WB.model(self, "planter_box_01", x, -24.9, 0.0, 1.0, 0.08)
+	WB.model(self, "bk_dumpsters", 245.6, -12.0, 90.0, 1.0, 0.08)
+	WB.model(self, "water_manhole_cover", 225.0, -10.0, 0.0, 1.0, 0.08, false)
 	_lamp(222.0, -2.0, 0.0, true, 0.08)
 	_lamp(240.0, 14.0, 180.0, false, 0.08)
 	WB.model(self, "covered_car", 244.0, -6.0, 0.0, 1.0, 0.08)
@@ -367,6 +389,9 @@ func _build_shore_and_quay() -> void:
 	for k in 6:
 		WB.model(self, "plastic_crate_01" if k % 2 == 0 else "wooden_crate_01", 223.5 + rng.randf_range(-0.6, 0.6), 55.0 + k * 0.5, rng.randf_range(0, 360), 1.0, QUAY_Y, false)
 	WB.model(self, "metal_jerrycan", 222.5, 53.0, 30.0, 1.0, QUAY_Y)
+	WB.model(self, "Barrel_01", 219.4, 71.2, 0.0, 1.0, QUAY_Y)
+	WB.model(self, "wooden_crate_02", 221.8, 68.6, 25.0, 1.0, QUAY_Y)
+	WB.model(self, "life_jacket", 224.2, 45.8, 70.0, 1.0, QUAY_Y, false)
 	WB.model(self, "rubber_boots", 219.0, 76.0, 60.0, 1.0, QUAY_Y, false)
 	WB.model(self, "wooden_bucket_01", 218.5, 76.4, 0.0, 1.0, QUAY_Y, false)
 	WB.model(self, "Lantern_01", 214.6, 107.5, 0.0, 1.5, DECK_Y, false)

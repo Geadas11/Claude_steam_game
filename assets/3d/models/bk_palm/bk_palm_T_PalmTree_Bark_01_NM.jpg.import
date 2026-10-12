@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://wpg7vy31k8am"
+path.s3tc="res://.godot/imported/bk_palm_T_PalmTree_Bark_01_NM.jpg-8a1ef22f4a61cf1d182719ca0b7b1b44.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "cd77bfcedae7c26eceb70acde9041ee3"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_palm/bk_palm_T_PalmTree_Bark_01_NM.jpg"
+dest_files=["res://.godot/imported/bk_palm_T_PalmTree_Bark_01_NM.jpg-8a1ef22f4a61cf1d182719ca0b7b1b44.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1

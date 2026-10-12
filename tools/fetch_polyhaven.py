@@ -51,6 +51,22 @@ MODELS = {
     "utility_box_01": "1k", "concrete_road_barrier": "1k", "rollershutter_door": "1k",
     "exterior_aircon_unit": "1k", "security_light": "1k", "street_lamp_02": "1k",
     "shrub_02": "1k", "old_tyre": "1k", "wooden_bucket_01": "1k",
+    # visual pass 2: walls, small things that make rooms lived in, the square
+    "hanging_picture_frame_01": "1k", "hanging_picture_frame_02": "1k", "hanging_picture_frame_03": "1k",
+    "fancy_picture_frame_02": "1k", "standing_picture_frame_02": "1k", "mantel_clock_01": "1k",
+    "Television_01": "1k", "television_02": "1k",
+    "ceiling_fan": "1k", "security_camera_01": "1k", "security_camera_02": "1k",
+    "modern_ceiling_lamp_01": "1k", "industrial_wall_lamp": "1k", "ClassicNightstand_01": "1k",
+    "Shelf_01": "1k", "ceramic_vase_01": "1k", "ceramic_vase_03": "1k", "tea_set_01": "1k",
+    "pot_enamel_01": "1k", "wicker_basket_01": "1k", "plastic_monobloc_chair_01": "1k",
+    "outdoor_table_chair_set_01": "1k", "metal_stool_01": "1k", "Barrel_01": "1k",
+    "wooden_crate_02": "1k", "life_jacket": "1k", "bleach_bottle": "1k", "all_purpose_cleaner": "1k",
+    "plastic_broom": "1k", "dustpan": "1k", "plunger": "1k", "wooden_ladder_02": "1k",
+    "utility_box_02": "1k", "water_manhole_cover": "1k", "food_apple_01": "1k", "lemon": "1k",
+    "croissant": "1k", "classic_laptop": "1k", "cassette_player": "1k",
+    "vintage_radio_transceiver": "1k", "cigarette_pack": "1k", "round_spectacles": "1k",
+    "vintage_electric_kettle": "1k", "Sofa_01": "1k", "mid_century_lounge_chair": "1k", "wooden_display_shelves_01": "1k",
+    "planter_box_01": "1k", "shrub_01": "1k",
     # hall / outside
     "fancy_picture_frame_01": "1k", "street_lamp_01": "1k", "covered_car": "1k",
     "metal_trash_can": "1k", "trashbag": "1k",
@@ -117,7 +133,14 @@ def credits() -> None:
         lines.append(f"- Modelo `{aid}` — https://polyhaven.com/a/{aid}")
     for aid in sorted(TEXTURES):
         lines.append(f"- Textura `{aid}` — https://polyhaven.com/a/{aid}")
-    save(os.path.join(ROOT, "CREDITS.md"), ("\n".join(lines) + "\n").encode())
+    # keep the sections the other fetch scripts own (## ambientCG, ## BlenderKit)
+    path = os.path.join(ROOT, "CREDITS.md")
+    rest = ""
+    if os.path.exists(path):
+        old = open(path).read()
+        if "\n## " in old:
+            rest = "\n## " + old.split("\n## ", 1)[1]
+    save(path, ("\n".join(lines) + "\n" + rest).encode())
 
 
 def main() -> None:

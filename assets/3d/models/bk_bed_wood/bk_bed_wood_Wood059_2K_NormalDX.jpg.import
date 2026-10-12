@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bg2wl34qrhvd8"
+path.s3tc="res://.godot/imported/bk_bed_wood_Wood059_2K_NormalDX.jpg-7f985fa07a9ca2c2d991439781c45872.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "da37a7779710a16d8dc20cf345b74ec3"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_bed_wood/bk_bed_wood_Wood059_2K_NormalDX.jpg"
+dest_files=["res://.godot/imported/bk_bed_wood_Wood059_2K_NormalDX.jpg-7f985fa07a9ca2c2d991439781c45872.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1

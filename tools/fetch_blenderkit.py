@@ -44,6 +44,28 @@ MODELS = {
     "bk_med_stool": "362c3801-81d0-4ed4-84c8-710e454168bd",       # medical stool
     "bk_hospital_bed": "d91eed93-39a3-480e-9e87-ac9814583385",    # Old Hospital Bed (.blend)
     "bk_waiting_bench": "0ba31352-6fac-43c8-902c-9b9dad7cd961",   # Waiting bench chair (.blend)
+    # visual pass 2
+    "bk_fridge_black": "bdc31d4c-3879-4c46-a42d-2273d5ad82f3",    # Refrigerator (.blend)
+    "bk_fridge_smeg": "bd506c1b-3eb0-4004-a45f-8c25cda485e4",     # Smeg fridge freezer (.blend)
+    "bk_kettle": "cefb5bdc-7d0f-4ba8-92fe-a4ece160870e",          # kitchen kettle
+    "bk_bed_wood": "040cfb6b-ee19-4ddd-a039-b58305239617",        # double bed, striped bedding (.blend)
+    "bk_bed_metal": "5a7345ac-2da8-4f86-8d19-15710f25f161",       # white iron bed, floral (.blend)
+    "bk_bed_single": "02ef4a9f-5935-4b49-be06-970846f69d2b",      # IKEA Slattum single bed
+    "bk_mattress": "a007a8b9-7d79-420b-953b-d804dcfc41c1",        # quilted mattress
+    "bk_towels": "74fca3ee-3226-4629-afdb-3b63ca8b3049",          # folded towels (.blend)
+    "bk_sneakers": "bcce2091-e4d6-415f-a8be-5ce145d18552",        # red high-tops
+    "bk_laptop": "e68dc9f3-b6cb-4088-9960-6ec8182c1871",          # 14" laptop
+    "bk_dish_rack": "28315e81-3547-4362-a7fb-984ec783fbbd",       # dish drying rack (.blend)
+    "bk_plate": "b34527f8-854b-4f06-a3ea-8acac490581e",           # white plate (.blend)
+    "bk_dracaena": "c779cc58-abbd-478d-9e30-cf1423d8ccc3",        # dracaena in a pot
+    "bk_street_lamp": "5eef57a2-0b42-4e48-9a62-bfd8afd7de22",     # double lantern post
+    "bk_trash_bin": "29971a13-455e-417a-881f-c6bc14906659",       # concrete bin with bag (.blend)
+    "bk_dumpsters": "d2ce9c7b-fb99-48af-b8fa-edfbd0687589",       # street wheelie bins (photoscan)
+    "bk_park_bench": "0e35aec5-21cf-4e03-883e-008756e7d8bf",      # cast-iron park bench
+    "bk_2cv": "aded2129-2a68-4a74-b8c9-ee00e03943b5",             # Citroen 2CV
+    "bk_rug": "a1891b12-9881-49e0-a4b4-bf425bd9352e",             # patterned rug (.blend)
+    "bk_palm": "f9c65ca8-8ad7-4b2b-80c1-b3634862da1d",          # palm tree for the square
+    "bk_tv": "ad2a1b9a-c3dc-4176-8150-be4715302b74",              # 50" TV
 }
 
 BLEND_EXPORT = """

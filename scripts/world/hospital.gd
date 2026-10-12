@@ -135,6 +135,10 @@ func _build_corridor() -> void:
 	WB.model(self, "korean_fire_extinguisher_01", 23.7, 4.25, 180.0)
 	WB.model(self, "fire_alarm", 24.4, 4.07, 180.0, 1.0, 1.45, false)
 	WB.model(self, "medical_box", 26.5, 4.3, 0.0, 1.0, 1.1, false)
+	for x in [0.3, 27.7]:
+		WB.model(self, "security_camera_02", x, 4.25, 90.0 if x < 1.0 else -90.0, 1.0, 2.4, false)
+	WB.model(self, "hanging_picture_frame_01", 4.0, 6.33, 180.0, 1.0, 1.45, false)
+	WB.model(self, "hanging_picture_frame_03", 25.6, 6.33, 180.0, 1.0, 1.45, false)
 	# the emergency trolley, parked against the wall
 	WB.model(self, "bk_trolley", 13.0, 4.35, 90.0)
 	# a bed left in the corridor, empty, sheets folded
@@ -217,6 +221,7 @@ func _build_staff_room() -> void:
 	WB.cabinet(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.88, 3.9), Vector3(-1, 0, 0), WB.flat(Color(0.85, 0.85, 0.83), 0.6), WB.mat("kitchen_wood", 1.0, Color(0.85, 0.8, 0.72)), 2, 0.16)
 	WB.worktop(self, Vector3(5.3, 0, 2.6), Vector3(5.9, 0.88, 3.9), Vector3(-1, 0, 0), WB.mat("marble_01", 1.0, Color(0.7, 0.7, 0.68)))
 	WB.model(self, "jug_01", 5.6, 2.8, 0.0, 1.0, 0.9, false)
+	WB.model(self, "bk_kettle", 5.6, 3.6, -90.0, 1.0, 0.9, false)
 	var l := WB.omni(self, Vector3(3.0, 2.5, 2.0), COOL, 0.7, 5.0, true)
 	_room("pausa", [l], [])
 	_sw(Vector3(4.4, 1.2, 3.88), 0.0, ["pausa"])
@@ -332,6 +337,9 @@ func _build_lobby() -> void:
 		WB.box(self, Vector3(28.1, 1.2, z + 0.75), Vector3(28.12, 1.3, z + 0.85), WB.emissive(Color(1.0, 0.8, 0.4), 0.8), false)
 	hotspots.elevador = Hotspot.add(self, Vector3(28.15, 1.1, 5.0), Vector3(0.2, 2.2, 5.0), _prompt("elevador"), func(p): _say("elevador", p))
 	WB.model(self, "bk_waiting_bench", 31.6, 5.0, -90.0)
+	WB.model(self, "bk_dracaena", 31.5, 3.2, 0.0)
+	WB.model(self, "bk_dracaena", 31.5, 6.8, 120.0)
+	WB.model(self, "hanging_picture_frame_02", 31.98, 5.0, -90.0, 1.0, 1.5, false)
 	WB.model(self, "potted_plant_01", 31.5, 11.3, 0.0)
 	for x in [30.0]:
 		_tube("elevadores", Vector3(x, 0, 3.0), 0.8)

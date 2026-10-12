@@ -3,41 +3,69 @@
 Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 
 - Modelo `ArmChair_01` — https://polyhaven.com/a/ArmChair_01
+- Modelo `Barrel_01` — https://polyhaven.com/a/Barrel_01
 - Modelo `CashRegister_01` — https://polyhaven.com/a/CashRegister_01
 - Modelo `Chandelier_01` — https://polyhaven.com/a/Chandelier_01
+- Modelo `ClassicNightstand_01` — https://polyhaven.com/a/ClassicNightstand_01
 - Modelo `Lantern_01` — https://polyhaven.com/a/Lantern_01
 - Modelo `Rockingchair_01` — https://polyhaven.com/a/Rockingchair_01
+- Modelo `Shelf_01` — https://polyhaven.com/a/Shelf_01
+- Modelo `Sofa_01` — https://polyhaven.com/a/Sofa_01
+- Modelo `Television_01` — https://polyhaven.com/a/Television_01
 - Modelo `WetFloorSign_01` — https://polyhaven.com/a/WetFloorSign_01
 - Modelo `WoodenTable_02` — https://polyhaven.com/a/WoodenTable_02
 - Modelo `alarm_clock_01` — https://polyhaven.com/a/alarm_clock_01
+- Modelo `all_purpose_cleaner` — https://polyhaven.com/a/all_purpose_cleaner
 - Modelo `binder_notebook` — https://polyhaven.com/a/binder_notebook
+- Modelo `bleach_bottle` — https://polyhaven.com/a/bleach_bottle
 - Modelo `book_encyclopedia_set_01` — https://polyhaven.com/a/book_encyclopedia_set_01
 - Modelo `boulder_01` — https://polyhaven.com/a/boulder_01
 - Modelo `cardboard_box_01` — https://polyhaven.com/a/cardboard_box_01
+- Modelo `cassette_player` — https://polyhaven.com/a/cassette_player
+- Modelo `ceiling_fan` — https://polyhaven.com/a/ceiling_fan
+- Modelo `ceramic_vase_01` — https://polyhaven.com/a/ceramic_vase_01
+- Modelo `ceramic_vase_03` — https://polyhaven.com/a/ceramic_vase_03
+- Modelo `cigarette_pack` — https://polyhaven.com/a/cigarette_pack
+- Modelo `classic_laptop` — https://polyhaven.com/a/classic_laptop
 - Modelo `clipboard` — https://polyhaven.com/a/clipboard
 - Modelo `coast_rocks_01` — https://polyhaven.com/a/coast_rocks_01
 - Modelo `concrete_road_barrier` — https://polyhaven.com/a/concrete_road_barrier
 - Modelo `covered_car` — https://polyhaven.com/a/covered_car
+- Modelo `croissant` — https://polyhaven.com/a/croissant
 - Modelo `desk_lamp_arm_01` — https://polyhaven.com/a/desk_lamp_arm_01
 - Modelo `dining_chair_02` — https://polyhaven.com/a/dining_chair_02
 - Modelo `drawer_cabinet` — https://polyhaven.com/a/drawer_cabinet
+- Modelo `dustpan` — https://polyhaven.com/a/dustpan
 - Modelo `electric_stove` — https://polyhaven.com/a/electric_stove
 - Modelo `exterior_aircon_unit` — https://polyhaven.com/a/exterior_aircon_unit
 - Modelo `fancy_picture_frame_01` — https://polyhaven.com/a/fancy_picture_frame_01
+- Modelo `fancy_picture_frame_02` — https://polyhaven.com/a/fancy_picture_frame_02
 - Modelo `fire_alarm` — https://polyhaven.com/a/fire_alarm
 - Modelo `fire_hydrant` — https://polyhaven.com/a/fire_hydrant
 - Modelo `fishermans_hat` — https://polyhaven.com/a/fishermans_hat
+- Modelo `food_apple_01` — https://polyhaven.com/a/food_apple_01
+- Modelo `hanging_picture_frame_01` — https://polyhaven.com/a/hanging_picture_frame_01
+- Modelo `hanging_picture_frame_02` — https://polyhaven.com/a/hanging_picture_frame_02
+- Modelo `hanging_picture_frame_03` — https://polyhaven.com/a/hanging_picture_frame_03
+- Modelo `industrial_wall_lamp` — https://polyhaven.com/a/industrial_wall_lamp
+- Modelo `jacaranda_tree` — https://polyhaven.com/a/jacaranda_tree
 - Modelo `jug_01` — https://polyhaven.com/a/jug_01
 - Modelo `korean_fire_extinguisher_01` — https://polyhaven.com/a/korean_fire_extinguisher_01
 - Modelo `lateral_sea_marker` — https://polyhaven.com/a/lateral_sea_marker
+- Modelo `lemon` — https://polyhaven.com/a/lemon
+- Modelo `life_jacket` — https://polyhaven.com/a/life_jacket
 - Modelo `lifebuoy` — https://polyhaven.com/a/lifebuoy
 - Modelo `lightbulb_01` — https://polyhaven.com/a/lightbulb_01
 - Modelo `magnifying_glass_01` — https://polyhaven.com/a/magnifying_glass_01
+- Modelo `mantel_clock_01` — https://polyhaven.com/a/mantel_clock_01
 - Modelo `medical_box` — https://polyhaven.com/a/medical_box
 - Modelo `metal_jerrycan` — https://polyhaven.com/a/metal_jerrycan
 - Modelo `metal_office_desk` — https://polyhaven.com/a/metal_office_desk
+- Modelo `metal_stool_01` — https://polyhaven.com/a/metal_stool_01
 - Modelo `metal_trash_can` — https://polyhaven.com/a/metal_trash_can
+- Modelo `mid_century_lounge_chair` — https://polyhaven.com/a/mid_century_lounge_chair
 - Modelo `modern_arm_chair_01` — https://polyhaven.com/a/modern_arm_chair_01
+- Modelo `modern_ceiling_lamp_01` — https://polyhaven.com/a/modern_ceiling_lamp_01
 - Modelo `modern_coffee_table_01` — https://polyhaven.com/a/modern_coffee_table_01
 - Modelo `modern_wooden_cabinet` — https://polyhaven.com/a/modern_wooden_cabinet
 - Modelo `modular_street_seating` — https://polyhaven.com/a/modular_street_seating
@@ -46,43 +74,64 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `office_notepads` — https://polyhaven.com/a/office_notepads
 - Modelo `old_bed_frame` — https://polyhaven.com/a/old_bed_frame
 - Modelo `old_tyre` — https://polyhaven.com/a/old_tyre
+- Modelo `outdoor_table_chair_set_01` — https://polyhaven.com/a/outdoor_table_chair_set_01
 - Modelo `painted_wooden_cabinet` — https://polyhaven.com/a/painted_wooden_cabinet
 - Modelo `painted_wooden_nightstand` — https://polyhaven.com/a/painted_wooden_nightstand
+- Modelo `planter_box_01` — https://polyhaven.com/a/planter_box_01
+- Modelo `plastic_broom` — https://polyhaven.com/a/plastic_broom
 - Modelo `plastic_crate_01` — https://polyhaven.com/a/plastic_crate_01
+- Modelo `plastic_monobloc_chair_01` — https://polyhaven.com/a/plastic_monobloc_chair_01
+- Modelo `plunger` — https://polyhaven.com/a/plunger
 - Modelo `postcard_set_01` — https://polyhaven.com/a/postcard_set_01
+- Modelo `pot_enamel_01` — https://polyhaven.com/a/pot_enamel_01
 - Modelo `potted_plant_01` — https://polyhaven.com/a/potted_plant_01
 - Modelo `potted_plant_02` — https://polyhaven.com/a/potted_plant_02
 - Modelo `potted_plant_04` — https://polyhaven.com/a/potted_plant_04
 - Modelo `rollershutter_door` — https://polyhaven.com/a/rollershutter_door
+- Modelo `round_spectacles` — https://polyhaven.com/a/round_spectacles
 - Modelo `round_wooden_table_01` — https://polyhaven.com/a/round_wooden_table_01
 - Modelo `rubber_boots` — https://polyhaven.com/a/rubber_boots
+- Modelo `security_camera_01` — https://polyhaven.com/a/security_camera_01
+- Modelo `security_camera_02` — https://polyhaven.com/a/security_camera_02
 - Modelo `security_light` — https://polyhaven.com/a/security_light
+- Modelo `shrub_01` — https://polyhaven.com/a/shrub_01
 - Modelo `shrub_02` — https://polyhaven.com/a/shrub_02
 - Modelo `side_table_01` — https://polyhaven.com/a/side_table_01
 - Modelo `sofa_03` — https://polyhaven.com/a/sofa_03
 - Modelo `standing_chalkboard_01` — https://polyhaven.com/a/standing_chalkboard_01
 - Modelo `standing_picture_frame_01` — https://polyhaven.com/a/standing_picture_frame_01
+- Modelo `standing_picture_frame_02` — https://polyhaven.com/a/standing_picture_frame_02
 - Modelo `stationery_supplies` — https://polyhaven.com/a/stationery_supplies
 - Modelo `steel_frame_shelves_01` — https://polyhaven.com/a/steel_frame_shelves_01
 - Modelo `steel_frame_shelves_03` — https://polyhaven.com/a/steel_frame_shelves_03
 - Modelo `street_lamp_01` — https://polyhaven.com/a/street_lamp_01
 - Modelo `street_lamp_02` — https://polyhaven.com/a/street_lamp_02
+- Modelo `tea_set_01` — https://polyhaven.com/a/tea_set_01
+- Modelo `television_02` — https://polyhaven.com/a/television_02
 - Modelo `throw_pillows_01` — https://polyhaven.com/a/throw_pillows_01
 - Modelo `trashbag` — https://polyhaven.com/a/trashbag
 - Modelo `utility_box_01` — https://polyhaven.com/a/utility_box_01
+- Modelo `utility_box_02` — https://polyhaven.com/a/utility_box_02
 - Modelo `vintage_cabinet_01` — https://polyhaven.com/a/vintage_cabinet_01
+- Modelo `vintage_electric_kettle` — https://polyhaven.com/a/vintage_electric_kettle
 - Modelo `vintage_microwave` — https://polyhaven.com/a/vintage_microwave
+- Modelo `vintage_radio_transceiver` — https://polyhaven.com/a/vintage_radio_transceiver
 - Modelo `vintage_suitcase` — https://polyhaven.com/a/vintage_suitcase
 - Modelo `vintage_telephone_wall_clock` — https://polyhaven.com/a/vintage_telephone_wall_clock
 - Modelo `wall_clock` — https://polyhaven.com/a/wall_clock
+- Modelo `water_manhole_cover` — https://polyhaven.com/a/water_manhole_cover
 - Modelo `wheelchair_01` — https://polyhaven.com/a/wheelchair_01
+- Modelo `wicker_basket_01` — https://polyhaven.com/a/wicker_basket_01
 - Modelo `wine_bottles_01` — https://polyhaven.com/a/wine_bottles_01
 - Modelo `wooden_barrels_01` — https://polyhaven.com/a/wooden_barrels_01
 - Modelo `wooden_bookshelf_worn` — https://polyhaven.com/a/wooden_bookshelf_worn
 - Modelo `wooden_bucket_01` — https://polyhaven.com/a/wooden_bucket_01
 - Modelo `wooden_crate_01` — https://polyhaven.com/a/wooden_crate_01
+- Modelo `wooden_crate_02` — https://polyhaven.com/a/wooden_crate_02
 - Modelo `wooden_cutting_board` — https://polyhaven.com/a/wooden_cutting_board
+- Modelo `wooden_display_shelves_01` — https://polyhaven.com/a/wooden_display_shelves_01
 - Modelo `wooden_ladder` — https://polyhaven.com/a/wooden_ladder
+- Modelo `wooden_ladder_02` — https://polyhaven.com/a/wooden_ladder_02
 - Modelo `wooden_stool_01` — https://polyhaven.com/a/wooden_stool_01
 - Textura `asphalt_06` — https://polyhaven.com/a/asphalt_06
 - Textura `coast_sand_02` — https://polyhaven.com/a/coast_sand_02
@@ -120,6 +169,44 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Textura `wood_cabinet_worn_long` — https://polyhaven.com/a/wood_cabinet_worn_long
 - Textura `worn_plaster_wall` — https://polyhaven.com/a/worn_plaster_wall
 
+## BlenderKit
+
+Modelos gratuitos de https://www.blenderkit.com — licença Royalty Free (uso comercial permitido, sem revenda do modelo) ou CC0.
+
+- Modelo `bk_2cv` — «Citroen 2CV» de Aleš Fára, Royalty Free, https://www.blenderkit.com/get-blenderkit/838c8345-9e54-44ba-ba7e-5a83a4ba422e/
+- Modelo `bk_basin` — «Modern basin + mirror» de Yuriy Madar, Royalty Free, https://www.blenderkit.com/get-blenderkit/9a666364-c062-4bc7-a0ff-a6b88d5f6641/
+- Modelo `bk_bathtub` — «Generic Bathtub» de /Unwrapped, Royalty Free, https://www.blenderkit.com/get-blenderkit/ce49d6f4-1d28-4c7d-b420-dfaf554e3ec4/
+- Modelo `bk_bed_metal` — «Bed Metal» de Klo Works, Royalty Free, https://www.blenderkit.com/get-blenderkit/de3d3cd4-3241-4019-81a7-a489deac08cd/
+- Modelo `bk_bed_single` — «Bed IKEA SLATTUM» de Tomasz Czerniak, Royalty Free, https://www.blenderkit.com/get-blenderkit/2692890b-3f42-46c3-874e-844d2f211d25/
+- Modelo `bk_bed_wood` — «Bed» de Leo Villanueva, Royalty Free, https://www.blenderkit.com/get-blenderkit/f5d42e12-db07-40ce-92bc-02e1072fb650/
+- Modelo `bk_bedside` — «BedSide Cabinet Two» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/e41fc12a-ac16-4200-bb61-8d12cc0ef6f6/
+- Modelo `bk_crt_monitor` — «IBM 8513 dirty» de moomoobeef, Royalty Free, https://www.blenderkit.com/get-blenderkit/05b7cd81-0cd9-4c5a-9075-698afa7a31a5/
+- Modelo `bk_dish_rack` — «Folding dish drying rack» de Flareworks Studio, Royalty Free, https://www.blenderkit.com/get-blenderkit/e98f4d1b-2efa-4892-9c29-692dcdb48a55/
+- Modelo `bk_dracaena` — «House Plant Dracaena Lemon Lime» de Pandora Land, Royalty Free, https://www.blenderkit.com/get-blenderkit/113941f2-0fa6-4b99-9357-c845f6f18e92/
+- Modelo `bk_dumpsters` — «Big Trashbins (Photoscan)» de Calvin Serrano, Royalty Free, https://www.blenderkit.com/get-blenderkit/1886062d-51ef-4bd1-bef7-90ca234b7236/
+- Modelo `bk_fridge_black` — «Refrigerator» de Russo 3D, Royalty Free, https://www.blenderkit.com/get-blenderkit/1230db57-51c0-459a-a799-0221d9112d03/
+- Modelo `bk_fridge_smeg` — «Smeg Fridge Freezer» de Mesk911, Royalty Free, https://www.blenderkit.com/get-blenderkit/703d1ec5-161d-4bdb-bceb-2b6280a241fe/
+- Modelo `bk_hospital_bed` — «Old Hospital Bed» de Vavrinec Foltan, CC0, https://www.blenderkit.com/get-blenderkit/79c8a2bf-a3f2-44fc-af25-f6bd1b7685df/
+- Modelo `bk_kettle` — «Kitchen Kettle» de Ken Xie, Royalty Free, https://www.blenderkit.com/get-blenderkit/593501a0-1f9b-47aa-aad4-53befcc9722f/
+- Modelo `bk_laptop` — «Laptop 14 inches Aluminium» de Demycs, Royalty Free, https://www.blenderkit.com/get-blenderkit/b859d115-d541-4337-9a15-177ae38fb95a/
+- Modelo `bk_mattress` — «Diamond Pattern Mattress - Full Size» de Jesús Snz, Royalty Free, https://www.blenderkit.com/get-blenderkit/c694b767-52e1-40b5-93d1-82a485216643/
+- Modelo `bk_mayo_table` — «Mayo Table» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/93ecf386-b1d4-4b35-a838-ac169980a7a9/
+- Modelo `bk_med_stool` — «Askona Medical Stool» de Vixymiles, Royalty Free, https://www.blenderkit.com/get-blenderkit/86fa1a72-9e82-423b-8735-e344aebcf32f/
+- Modelo `bk_monitor` — «27 Inch Monitor» de zack aoki, Royalty Free, https://www.blenderkit.com/get-blenderkit/53f931c9-4931-440b-9f14-96d5029a0f4c/
+- Modelo `bk_palm` — «Palm Tree Medium Dense» de Amanpreet Bajwa, CC0, https://www.blenderkit.com/get-blenderkit/a0afd1bf-1b58-4123-b197-b5f90d239097/
+- Modelo `bk_park_bench` — «Park Bench» de Dal Roron, Royalty Free, https://www.blenderkit.com/get-blenderkit/3c855baf-ec36-4b48-aeb5-773f66fa4e0f/
+- Modelo `bk_plate` — «White Soup Dish/Plate» de Calebe Moreira, Royalty Free, https://www.blenderkit.com/get-blenderkit/32c45099-6ea1-4cda-9310-238f53574491/
+- Modelo `bk_rug` — «Carpet / rug» de ydd 3D, Royalty Free, https://www.blenderkit.com/get-blenderkit/53d9bfdc-5a60-4128-bcce-c9e24fa8daa2/
+- Modelo `bk_sneakers` — «Converse All Star High Top RED Shoe» de Dope Render, Royalty Free, https://www.blenderkit.com/get-blenderkit/b7ccc970-f94f-4d7f-aefb-477d38a4f66b/
+- Modelo `bk_street_lamp` — «Street Lamp Post» de Ashish kumar Maurya, Royalty Free, https://www.blenderkit.com/get-blenderkit/dd126dfc-88f6-45c9-8357-58902e3736f0/
+- Modelo `bk_toilet` — «Toilet (Wall Hung Toilet)» de Mohammad Saeed, Royalty Free, https://www.blenderkit.com/get-blenderkit/bd13bd28-5b63-46c1-b972-3ea46cc3f45c/
+- Modelo `bk_towels` — «Stack of folded towels (fixed bottom)» de Paweł Wałasiewicz, Royalty Free, https://www.blenderkit.com/get-blenderkit/8e72550e-71ea-45f7-bfea-dc2084a9c9f4/
+- Modelo `bk_trash_bin` — «Trash bin» de Alexander Handjiev, CC0, https://www.blenderkit.com/get-blenderkit/01874617-1d08-4dee-a4a2-13ac11add1f2/
+- Modelo `bk_trolley` — «Medi Trolly» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/24fd1a8c-f29b-45b7-9491-94de42581b87/
+- Modelo `bk_tv` — «Television 50 inch» de Jon 13, Royalty Free, https://www.blenderkit.com/get-blenderkit/403a2dba-4f52-42fc-8ca7-94646c22882a/
+- Modelo `bk_waiting_bench` — «Waiting Bench Chair» de Klo Works, Royalty Free, https://www.blenderkit.com/get-blenderkit/6a8e2480-7c01-48aa-aa0e-e63581c86c54/
+- Modelo `bk_washer` — «Modern Flat Washing Machine» de Nobody, Royalty Free, https://www.blenderkit.com/get-blenderkit/9b972156-19bc-4cd6-a55c-cc73a9fd2734/
+
 ## ambientCG
 
 Licença CC0 (domínio público), https://ambientcg.com
@@ -128,20 +215,3 @@ Licença CC0 (domínio público), https://ambientcg.com
 - Material `acg_linen` — Fabric045, https://ambientcg.com/view?id=Fabric045
 - Material `acg_paint` — Paint004, https://ambientcg.com/view?id=Paint004
 - Material `acg_plaster` — Plaster001, https://ambientcg.com/view?id=Plaster001
-
-## BlenderKit
-
-Modelos gratuitos de https://www.blenderkit.com — licença Royalty Free (uso comercial permitido, sem revenda do modelo) ou CC0.
-
-- Modelo `bk_basin` — «Modern basin + mirror» de Yuriy Madar, Royalty Free, https://www.blenderkit.com/get-blenderkit/9a666364-c062-4bc7-a0ff-a6b88d5f6641/
-- Modelo `bk_bathtub` — «Generic Bathtub» de /Unwrapped, Royalty Free, https://www.blenderkit.com/get-blenderkit/ce49d6f4-1d28-4c7d-b420-dfaf554e3ec4/
-- Modelo `bk_bedside` — «BedSide Cabinet Two» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/e41fc12a-ac16-4200-bb61-8d12cc0ef6f6/
-- Modelo `bk_crt_monitor` — «IBM 8513 dirty» de moomoobeef, Royalty Free, https://www.blenderkit.com/get-blenderkit/05b7cd81-0cd9-4c5a-9075-698afa7a31a5/
-- Modelo `bk_hospital_bed` — «Old Hospital Bed» de Vavrinec Foltan, CC0, https://www.blenderkit.com/get-blenderkit/79c8a2bf-a3f2-44fc-af25-f6bd1b7685df/
-- Modelo `bk_mayo_table` — «Mayo Table» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/93ecf386-b1d4-4b35-a838-ac169980a7a9/
-- Modelo `bk_med_stool` — «Askona Medical Stool» de Vixymiles, Royalty Free, https://www.blenderkit.com/get-blenderkit/86fa1a72-9e82-423b-8735-e344aebcf32f/
-- Modelo `bk_monitor` — «27 Inch Monitor» de zack aoki, Royalty Free, https://www.blenderkit.com/get-blenderkit/53f931c9-4931-440b-9f14-96d5029a0f4c/
-- Modelo `bk_toilet` — «Toilet (Wall Hung Toilet)» de Mohammad Saeed, Royalty Free, https://www.blenderkit.com/get-blenderkit/bd13bd28-5b63-46c1-b972-3ea46cc3f45c/
-- Modelo `bk_trolley` — «Medi Trolly» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/24fd1a8c-f29b-45b7-9491-94de42581b87/
-- Modelo `bk_waiting_bench` — «Waiting Bench Chair» de Klo Works, Royalty Free, https://www.blenderkit.com/get-blenderkit/6a8e2480-7c01-48aa-aa0e-e63581c86c54/
-- Modelo `bk_washer` — «Modern Flat Washing Machine» de Nobody, Royalty Free, https://www.blenderkit.com/get-blenderkit/9b972156-19bc-4cd6-a55c-cc73a9fd2734/

@@ -268,6 +268,16 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   lavar no arrumo da Sofia. Os `.blend` convertem-se com o Blender (`apt install blender python3-numpy`);
   texturas acima de 1024 px são reduzidas. Modelos com materiais Blender que não passam para glTF
   levam uma cor própria (`WB.MODEL_SKIN`); os que vêm deitados levantam-se com `WB.MODEL_TILT`.
+- **Passagem visual 2:** mais 47 modelos do Poly Haven e 21 do BlenderKit. Camas a sério em todas as
+  casas (cama individual do Daniel, cama de casal da Sofia, cama de ferro florida da Inês, colchão
+  acolchoado na cama do Rui); frigoríficos (preto no Daniel, Smeg verde na Sofia, creme no Rui);
+  tapetes, quadros nas paredes, sapatilhas à porta, chaleiras, escorredor, toalhas, desentupidor,
+  vassoura e produtos de limpeza; televisão antiga e panela esmaltada em casa do Rui; chá e óculos na
+  secretária da Carla; câmaras de vigilância e plantas na clínica e no hospital; no largo, esplanada do
+  café, bancos de ferro, palmeiras, candeeiro antigo aceso, um 2CV e contentores; na rua, papeleira,
+  caixa elétrica e tampa de esgoto; no cais, barril, caixotes e colete salva-vidas. `WB.fit()` estica
+  um modelo para encher uma caixa (colchões, tapetes). Árvores do Poly Haven ficaram de fora (46 MB a
+  958 MB cada), tal como o exaustor e a sansevieria do BlenderKit (importação/texturas falhadas).
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).

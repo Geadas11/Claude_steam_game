@@ -174,6 +174,7 @@ func _build_reception() -> void:
 	WB.box(self, Vector3(1.2, 0.0, 2.6), Vector3(1.8, 0.42, 3.4), white)
 	Books.pile(self, Vector3(1.5, 0.42, 3.0), 3, rng, 0.08)
 	WB.model(self, "potted_plant_01", 0.5, 5.6, 0.0)
+	WB.model(self, "bk_dracaena", 9.4, 6.5, 30.0)
 	WB.model(self, "potted_plant_01", 3.5, 0.6, 40.0, 0.9)
 	# a TV on the wall, off
 	WB.box(self, Vector3(0.0, 1.55, 2.2), Vector3(0.06, 2.2, 3.4), WB.flat(Color(0.02, 0.02, 0.02), 0.3))
@@ -226,6 +227,10 @@ func _build_corridor() -> void:
 	WB.model(self, "korean_fire_extinguisher_01", 19.65, 7.25, 180.0)
 	WB.model(self, "fire_alarm", 18.9, 7.07, 180.0, 1.0, 1.45, false)
 	WB.model(self, "bk_waiting_bench", 4.9, 7.4, 0.0)
+	# cameras at both ends of the corridor, a painting by the bench
+	WB.model(self, "security_camera_01", 0.25, 7.25, 135.0, 1.0, 2.35, false)
+	WB.model(self, "security_camera_01", 25.75, 7.25, -135.0, 1.0, 2.35, false)
+	WB.model(self, "hanging_picture_frame_01", 4.9, 7.02, 0.0, 1.0, 1.4, false)
 	# exit signs, always lit
 	WB.sign(self, "SAÍDA", Vector3(24.5, 2.4, 7.07), 180.0, Color(0.1, 0.55, 0.25), Color(0.95, 1.0, 0.95))
 	WB.sign(self, "SAÍDA", Vector3(5.0, 2.55, 0.07), 180.0, Color(0.1, 0.55, 0.25), Color(0.95, 1.0, 0.95))

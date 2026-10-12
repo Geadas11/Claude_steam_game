@@ -368,6 +368,8 @@ func _build_office() -> void:
 	WB.box(self, Vector3(1.22, 0, 12.55), Vector3(1.3, 0.74, 13.28), wood, false)
 	WB.model(self, "dining_chair_02", 1.8, 12.1, 180.0)
 	WB.model(self, "binder_notebook", 2.1, 12.9, 20.0, 1.0, 0.79, false)
+	WB.model(self, "round_spectacles", 1.85, 12.7, -30.0, 1.0, 0.79, false)
+	WB.model(self, "tea_set_01", 1.75, 13.1, 10.0, 0.6, 0.79, false)
 	Books.pile(self, Vector3(1.45, 0.79, 13.0), 7, rng)
 	WB.model(self, "desk_lamp_arm_01", 2.55, 13.1, 200.0, 0.9, 0.79, false)
 	var lamp := WB.omni(self, Vector3(2.4, 1.3, 12.9), Color(1.0, 0.78, 0.52), 1.0, 3.5, true)

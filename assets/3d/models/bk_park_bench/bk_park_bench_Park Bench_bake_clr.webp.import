@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://d1to6lablday5"
+path.s3tc="res://.godot/imported/bk_park_bench_Park Bench_bake_clr.webp-80d713975884a1b96d860d30afa4fac6.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8a9b188c3b82a7fc9db001861f64e3f9"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_park_bench/bk_park_bench_Park Bench_bake_clr.webp"
+dest_files=["res://.godot/imported/bk_park_bench_Park Bench_bake_clr.webp-80d713975884a1b96d860d30afa4fac6.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1
