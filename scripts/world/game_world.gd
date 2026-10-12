@@ -106,7 +106,23 @@ func _night_environment() -> Environment:
 	e.ssao_power = 1.6
 	e.ssil_enabled = true
 	e.ssil_intensity = 0.9
+	# wet stone and tiled floors mirror the lamps (on from "alta")
 	e.ssr_enabled = false
+	e.ssr_fade_in = 0.15
+	e.ssr_fade_out = 2.0
+	e.ssr_depth_tolerance = 0.2
+	# light that bounces: a lamp lights the whole room off its walls, and the
+	# night outside comes in through the windows only (from "alta").
+	# Lights switched on and off update it live.
+	e.sdfgi_enabled = false
+	e.sdfgi_use_occlusion = true
+	e.sdfgi_read_sky_light = true
+	e.sdfgi_bounce_feedback = 0.45
+	e.sdfgi_cascades = 4
+	e.sdfgi_energy = 1.0
+	e.sdfgi_normal_bias = 1.1
+	e.sdfgi_probe_bias = 1.1
+	e.sdfgi_y_scale = Environment.SDFGI_Y_SCALE_75_PERCENT
 	e.glow_enabled = true
 	e.glow_intensity = 0.55
 	e.glow_bloom = 0.04
@@ -180,11 +196,30 @@ func _apply_quality() -> void:
 		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if q != "baixa" else Viewport.SCREEN_SPACE_AA_FXAA
 		vp.use_taa = q == "ultra"
 	var soft := q == "alta" or q == "ultra"
-	RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
-	RenderingServer.positional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
+	var sq := RenderingServer.SHADOW_QUALITY_SOFT_MEDIUM if q == "ultra" else (RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
+	RenderingServer.directional_soft_shadow_filter_set_quality(sq)
+	RenderingServer.positional_soft_shadow_filter_set_quality(sq)
+	e.ssr_enabled = soft
+	e.ssr_max_steps = 64 if q == "ultra" else 40
+	RenderingServer.gi_set_use_half_resolution(q != "ultra")
+	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_32 if q == "ultra" else RenderingServer.ENV_SDFGI_RAY_COUNT_16)
+	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_20_FRAMES)
+	RenderingServer.environment_set_sdfgi_frames_to_update_light(RenderingServer.ENV_SDFGI_UPDATE_LIGHT_IN_4_FRAMES)
+	_apply_gi()
 	shadow_budget = {"baixa": 0, "media": 1, "alta": 2, "ultra": 4}.get(q, 2)
 	_cube_shadows = q == "ultra"
 	_lights_of = null   # re-read the place's lights with the new budget
+
+
+## Bounced light on "alta" and up. Indoors the grid is finer than the inner
+## walls (12 cm) so light doesn't leak through them into the next room;
+## outdoors a coarser grid reaches the whole square.
+func _apply_gi() -> void:
+	var q: String = Settings.get_value("graphics", "alta")
+	var e := env.environment
+	e.sdfgi_enabled = q == "alta" or q == "ultra"
+	if location:
+		e.sdfgi_min_cell_size = 0.3 if location.outdoor else 0.1
 
 
 ## Shadows from point lights are the most expensive thing in a room (each one
@@ -207,6 +242,10 @@ func _update_light_budget() -> void:
 			var lt := l as Light3D
 			if not lt.has_meta("shadow"):
 				lt.set_meta("shadow", lt.shadow_enabled)
+				# a bulb has a size: shadows sharp where things touch, soft
+				# further away (and highlights that aren't pin-points)
+				if lt.light_size == 0.0:
+					lt.light_size = 0.06 if lt is OmniLight3D else 0.04
 			lt.distance_fade_enabled = true
 			lt.distance_fade_begin = 32.0
 			lt.distance_fade_length = 8.0
@@ -262,6 +301,7 @@ func go_to(id: String, where := "", fresh := false) -> bool:
 	location.peephole_requested.connect(func(): peek(true))
 	location.hide_requested.connect(hide_in)
 	player.floor_kind = location.floor_kind
+	_apply_gi()
 	env.environment = _night_environment()
 	if location.has_method("tweak_env"):
 		location.tweak_env(env.environment)

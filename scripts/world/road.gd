@@ -656,6 +656,16 @@ func set_rain(on: bool, player: Node3D) -> void:
 	if rain_fx:
 		rain_fx.emitting = on
 		rain_fx.visible = on
+	# wet ground: darker, and glossy enough to mirror the street lamps
+	for m in [m_asphalt, m_pav, m_calcada, m_deck, m_sand]:
+		var bm := m as BaseMaterial3D
+		if not bm.has_meta("dry"):
+			bm.set_meta("dry", [bm.roughness, bm.albedo_color])
+		var dry: Array = bm.get_meta("dry")
+		var c: Color = dry[1]
+		var k := 0.7 if on else 1.0
+		bm.roughness = float(dry[0]) * (0.35 if on else 1.0)
+		bm.albedo_color = Color(c.r * k, c.g * k, c.b * k, c.a)
 
 
 func set_daylight(d: float) -> void:

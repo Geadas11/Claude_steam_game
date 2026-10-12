@@ -1011,6 +1011,9 @@ func _test_presence() -> void:
 	print("-- presence")
 	Saves.use_test_dir("_presence_%d" % OS.get_process_id())
 	Director.new_game()
+	# a new game opens with the prologue, whose cues ("presence off") would
+	# reach the world built below
+	Director.stop()
 	GameState.in_game = true
 	var w := GameWorld.new()
 	add_child(w)
