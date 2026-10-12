@@ -305,6 +305,10 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   toalheiro, radiadores nas enfermarias. Cuidados de desempenho: árvores com `lod_bias` (`WB.TREES`),
   e `WB.clear_cache()` a cada mudança de sítio para a memória de vídeo não se acumular (passou de
   3,6 GB a subir para 1,1–1,8 GB estável).
+- **Exportação dividida:** o Godot 4.3 lê mal os ficheiros que ficam depois dos 2 GB dentro de um
+  `.pck` (até o `project.binary` sai corrompido). `tools/export_split.py "<preset>" <saída>` exporta o
+  executável com um `UNKNOWN.pck` sem `assets/3d` e os recursos 3D em `UNKNOWN_3d_N.pck` de menos de
+  1,7 GB cada, que `Packs` carrega ao arrancar. Os presets deixaram de embutir o pacote no executável.
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).
