@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "plunger_nor_gl",
-      "uri": "textures/plunger_nor_gl_1k.jpg"
+      "uri": "textures/plunger_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plunger_diff",
-      "uri": "textures/plunger_diff_1k.jpg"
+      "uri": "textures/plunger_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plunger_rough",
-      "uri": "textures/plunger_arm_1k.jpg"
+      "uri": "textures/plunger_arm_2k.jpg"
     }
   ],
   "accessors": [

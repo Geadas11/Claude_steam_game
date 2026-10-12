@@ -291,17 +291,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "office_notepads_nor_gl",
-      "uri": "textures/office_notepads_nor_gl_1k.jpg"
+      "uri": "textures/office_notepads_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "office_notepads_diff",
-      "uri": "textures/office_notepads_diff_1k.jpg"
+      "uri": "textures/office_notepads_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "office_notepads_rough",
-      "uri": "textures/office_notepads_arm_1k.jpg"
+      "uri": "textures/office_notepads_arm_2k.jpg"
     }
   ],
   "accessors": [

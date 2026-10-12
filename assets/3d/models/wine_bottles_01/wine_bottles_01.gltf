@@ -559,67 +559,67 @@
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_nor_gl",
-      "uri": "textures/wine_bottles_01_nor_gl_1k.jpg"
+      "uri": "textures/wine_bottles_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_diff",
-      "uri": "textures/wine_bottles_01_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_metal-wine_bottles_01_rough",
-      "uri": "textures/wine_bottles_01_arm_1k.jpg"
+      "uri": "textures/wine_bottles_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_diff-wine_bottles_01_alpha",
-      "uri": "textures/wine_bottles_01_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_paper_nor_gl",
-      "uri": "textures/wine_bottles_01_paper_nor_gl_1k.jpg"
+      "uri": "textures/wine_bottles_01_paper_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_ftero_vinea_01_diff",
-      "uri": "textures/wine_bottles_01_label_ftero_vinea_01_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_ftero_vinea_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_ftero_vinea_01_rough",
-      "uri": "textures/wine_bottles_01_label_ftero_vinea_01_arm_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_ftero_vinea_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_clearwater_crystals_01_diff-wine_bottles_01_label_clearwater_crystals_01_alpha",
-      "uri": "textures/wine_bottles_01_label_clearwater_crystals_01_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_clearwater_crystals_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_clearwater_crystals_01_rough",
-      "uri": "textures/wine_bottles_01_label_clearwater_crystals_01_arm_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_clearwater_crystals_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_intertwine_01_diff-wine_bottles_01_label_intertwine_01_alpha",
-      "uri": "textures/wine_bottles_01_label_intertwine_01_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_intertwine_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_intertwine_01_rough",
-      "uri": "textures/wine_bottles_01_label_intertwine_01_arm_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_intertwine_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_ftero_vinea_02_diff-wine_bottles_01_label_ftero_vinea_02_alpha",
-      "uri": "textures/wine_bottles_01_label_ftero_vinea_02_diff_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_ftero_vinea_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wine_bottles_01_label_ftero_vinea_02_rough",
-      "uri": "textures/wine_bottles_01_label_ftero_vinea_02_arm_1k.jpg"
+      "uri": "textures/wine_bottles_01_label_ftero_vinea_02_arm_2k.jpg"
     }
   ],
   "accessors": [

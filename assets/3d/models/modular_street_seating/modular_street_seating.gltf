@@ -547,62 +547,62 @@
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_armrests_nor_gl",
-      "uri": "textures/modular_street_seating_armrests_nor_gl_1k.jpg"
+      "uri": "textures/modular_street_seating_armrests_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_armrests_diff",
-      "uri": "textures/modular_street_seating_armrests_diff_1k.jpg"
+      "uri": "textures/modular_street_seating_armrests_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_armrests_metal-modular_street_seating_armrests_rough",
-      "uri": "textures/modular_street_seating_armrests_arm_1k.jpg"
+      "uri": "textures/modular_street_seating_armrests_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_supports_nor_gl",
-      "uri": "textures/modular_street_seating_supports_nor_gl_1k.jpg"
+      "uri": "textures/modular_street_seating_supports_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_supports_diff",
-      "uri": "textures/modular_street_seating_supports_diff_1k.jpg"
+      "uri": "textures/modular_street_seating_supports_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_supports_metal-modular_street_seating_supports_rough",
-      "uri": "textures/modular_street_seating_supports_arm_1k.jpg"
+      "uri": "textures/modular_street_seating_supports_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_timber_nor_gl",
-      "uri": "textures/modular_street_seating_timber_nor_gl_1k.jpg"
+      "uri": "textures/modular_street_seating_timber_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_timber_diff",
-      "uri": "textures/modular_street_seating_timber_diff_1k.jpg"
+      "uri": "textures/modular_street_seating_timber_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_timber_rough",
-      "uri": "textures/modular_street_seating_timber_arm_1k.jpg"
+      "uri": "textures/modular_street_seating_timber_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_connectors_nor_gl",
-      "uri": "textures/modular_street_seating_connectors_nor_gl_1k.jpg"
+      "uri": "textures/modular_street_seating_connectors_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_connectors_diff",
-      "uri": "textures/modular_street_seating_connectors_diff_1k.jpg"
+      "uri": "textures/modular_street_seating_connectors_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modular_street_seating_connectors_rough",
-      "uri": "textures/modular_street_seating_connectors_arm_1k.jpg"
+      "uri": "textures/modular_street_seating_connectors_arm_2k.jpg"
     }
   ],
   "accessors": [

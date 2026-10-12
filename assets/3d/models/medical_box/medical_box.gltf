@@ -165,17 +165,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "medical_box_nor_gl",
-      "uri": "textures/medical_box_nor_gl_1k.jpg"
+      "uri": "textures/medical_box_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "medical_box_diff",
-      "uri": "textures/medical_box_diff_1k.jpg"
+      "uri": "textures/medical_box_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "medical_box_metal-medical_box_rough",
-      "uri": "textures/medical_box_arm_1k.jpg"
+      "uri": "textures/medical_box_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -310,22 +310,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "mounted_fluorescent_lights_nor_gl",
-      "uri": "textures/mounted_fluorescent_lights_nor_gl_1k.jpg"
+      "uri": "textures/mounted_fluorescent_lights_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "mounted_fluorescent_lights_diff",
-      "uri": "textures/mounted_fluorescent_lights_diff_1k.jpg"
+      "uri": "textures/mounted_fluorescent_lights_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "mounted_fluorescent_lights_metal-mounted_fluorescent_lights_rough",
-      "uri": "textures/mounted_fluorescent_lights_arm_1k.jpg"
+      "uri": "textures/mounted_fluorescent_lights_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "mounted_fluorescent_lights_emission",
-      "uri": "textures/mounted_fluorescent_lights_emission_1k.jpg"
+      "uri": "textures/mounted_fluorescent_lights_emission_2k.jpg"
     }
   ],
   "accessors": [

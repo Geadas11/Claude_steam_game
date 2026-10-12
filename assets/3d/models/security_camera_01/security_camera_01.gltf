@@ -106,22 +106,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "security_camera_01_nor_gl",
-      "uri": "textures/security_camera_01_nor_gl_1k.jpg"
+      "uri": "textures/security_camera_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_camera_01_diff",
-      "uri": "textures/security_camera_01_diff_1k.jpg"
+      "uri": "textures/security_camera_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_camera_01_metal-security_camera_01_rough",
-      "uri": "textures/security_camera_01_arm_1k.jpg"
+      "uri": "textures/security_camera_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_camera_01_diff-security_camera_01_opacity",
-      "uri": "textures/security_camera_01_diff_1k.jpg"
+      "uri": "textures/security_camera_01_diff_2k.jpg"
     }
   ],
   "accessors": [

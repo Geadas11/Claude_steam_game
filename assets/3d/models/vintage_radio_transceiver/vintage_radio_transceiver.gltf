@@ -484,32 +484,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_nor_gl",
-      "uri": "textures/vintage_radio_transceiver_nor_gl_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_diff",
-      "uri": "textures/vintage_radio_transceiver_diff_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_metal-vintage_radio_transceiver_rough",
-      "uri": "textures/vintage_radio_transceiver_arm_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_accessories_nor_gl",
-      "uri": "textures/vintage_radio_transceiver_accessories_nor_gl_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_accessories_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_accessories_diff",
-      "uri": "textures/vintage_radio_transceiver_accessories_diff_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_accessories_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_radio_transceiver_accessories_metal-vintage_radio_transceiver_accessories_rough",
-      "uri": "textures/vintage_radio_transceiver_accessories_arm_1k.jpg"
+      "uri": "textures/vintage_radio_transceiver_accessories_arm_2k.jpg"
     }
   ],
   "accessors": [

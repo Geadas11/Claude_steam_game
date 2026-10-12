@@ -76,17 +76,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "plastic_crate_02_nor_gl",
-      "uri": "textures/plastic_crate_02_nor_gl_1k.jpg"
+      "uri": "textures/plastic_crate_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_crate_02_diff-plastic_crate_02_opacity",
-      "uri": "textures/plastic_crate_02_diff_1k.jpg"
+      "uri": "textures/plastic_crate_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_crate_02_rough",
-      "uri": "textures/plastic_crate_02_arm_1k.jpg"
+      "uri": "textures/plastic_crate_02_arm_2k.jpg"
     }
   ],
   "accessors": [

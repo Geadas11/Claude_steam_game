@@ -168,22 +168,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "portable_cassette_player_nor_gl",
-      "uri": "textures/portable_cassette_player_nor_gl_1k.jpg"
+      "uri": "textures/portable_cassette_player_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "portable_cassette_player_diff",
-      "uri": "textures/portable_cassette_player_diff_1k.jpg"
+      "uri": "textures/portable_cassette_player_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "portable_cassette_player_metal-portable_cassette_player_rough",
-      "uri": "textures/portable_cassette_player_arm_1k.jpg"
+      "uri": "textures/portable_cassette_player_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "portable_cassette_player_diff-portable_cassette_player_alpha",
-      "uri": "textures/portable_cassette_player_diff_1k.jpg"
+      "uri": "textures/portable_cassette_player_diff_2k.jpg"
     }
   ],
   "accessors": [

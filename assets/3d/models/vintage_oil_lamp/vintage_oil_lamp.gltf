@@ -179,42 +179,42 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_glass_nor_gl",
-      "uri": "textures/vintage_oil_lamp_glass_nor_gl_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_glass_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_glass_diff-vintage_oil_lamp_glass_alpha",
-      "uri": "textures/vintage_oil_lamp_glass_diff_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_glass_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_glass_metal-vintage_oil_lamp_glass_rough",
-      "uri": "textures/vintage_oil_lamp_glass_arm_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_glass_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_nor_gl",
-      "uri": "textures/vintage_oil_lamp_nor_gl_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_diff",
-      "uri": "textures/vintage_oil_lamp_diff_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_metal-vintage_oil_lamp_rough",
-      "uri": "textures/vintage_oil_lamp_arm_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_flame_diff",
-      "uri": "textures/vintage_oil_lamp_flame_diff_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_flame_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_oil_lamp_flame_diff-vintage_oil_lamp_flame_alpha",
-      "uri": "textures/vintage_oil_lamp_flame_diff_1k.jpg"
+      "uri": "textures/vintage_oil_lamp_flame_diff_2k.jpg"
     }
   ],
   "accessors": [

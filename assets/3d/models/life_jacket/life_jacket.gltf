@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "life_jacket_nor_gl",
-      "uri": "textures/life_jacket_nor_gl_1k.jpg"
+      "uri": "textures/life_jacket_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "life_jacket_diff",
-      "uri": "textures/life_jacket_diff_1k.jpg"
+      "uri": "textures/life_jacket_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "life_jacket_metal-life_jacket_rough",
-      "uri": "textures/life_jacket_arm_1k.jpg"
+      "uri": "textures/life_jacket_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -176,8 +176,9 @@ func _apply_quality() -> void:
 	if vp:
 		var hi := q == "alta" or q == "ultra"
 		vp.positional_shadow_atlas_size = 4096 if q == "ultra" else (2048 if hi else 1024)
-		vp.msaa_3d = Viewport.MSAA_2X if hi else Viewport.MSAA_DISABLED
-		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if hi else Viewport.SCREEN_SPACE_AA_FXAA
+		vp.msaa_3d = Viewport.MSAA_4X if hi else (Viewport.MSAA_2X if q == "media" else Viewport.MSAA_DISABLED)
+		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if q != "baixa" else Viewport.SCREEN_SPACE_AA_FXAA
+		vp.use_taa = q == "ultra"
 	var soft := q == "alta" or q == "ultra"
 	RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
 	RenderingServer.positional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
@@ -248,6 +249,8 @@ func go_to(id: String, where := "", fresh := false) -> bool:
 	if location:
 		remove_child(location)
 		location.free()
+		# let the last place's textures leave video memory
+		WB.clear_cache()
 	# rain follows him, but not indoors into the next place
 	for c in player.get_children():
 		if c.has_meta("rain"):

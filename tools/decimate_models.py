@@ -7,7 +7,8 @@ Each model in BUDGET is read from assets/3d/models/<id>/<id>.gltf, decimated
 to about the given number of faces and written as <id>.glb next to it (the
 glTF, its .bin and its textures folder are then removed). WB.model() prefers
 the .glb, and fetch_polyhaven.py skips a model whose folder already exists.
-Foliage is never decimated here: its leaves are alpha cards and fall apart.
+Foliage is only decimated when it is far too heavy (its leaves are alpha
+cards and lose shape): the jacaranda seen from Sofia's window.
 """
 import os
 import shutil
@@ -21,6 +22,8 @@ BUDGET = {
     "concrete_road_barrier": 6000, "book_encyclopedia_set_01": 12000,
     "vintage_cabinet_01": 20000, "rubber_boots": 10000, "tea_set_01": 10000,
     "wheelchair_01": 20000, "old_bed_frame": 20000,
+    # 3.9 million triangles is too much even for a tree seen from a window
+    "jacaranda_tree": 400000,
 }
 
 SCRIPT = """

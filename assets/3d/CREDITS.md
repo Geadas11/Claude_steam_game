@@ -49,6 +49,7 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `concrete_road_barrier` — https://polyhaven.com/a/concrete_road_barrier
 - Modelo `covered_car` — https://polyhaven.com/a/covered_car
 - Modelo `croissant` — https://polyhaven.com/a/croissant
+- Modelo `dandelion_01` — https://polyhaven.com/a/dandelion_01
 - Modelo `dartboard` — https://polyhaven.com/a/dartboard
 - Modelo `desk_lamp_arm_01` — https://polyhaven.com/a/desk_lamp_arm_01
 - Modelo `digital_wrist_watch` — https://polyhaven.com/a/digital_wrist_watch
@@ -59,6 +60,7 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `exterior_aircon_unit` — https://polyhaven.com/a/exterior_aircon_unit
 - Modelo `fancy_picture_frame_01` — https://polyhaven.com/a/fancy_picture_frame_01
 - Modelo `fancy_picture_frame_02` — https://polyhaven.com/a/fancy_picture_frame_02
+- Modelo `fern_02` — https://polyhaven.com/a/fern_02
 - Modelo `fire_alarm` — https://polyhaven.com/a/fire_alarm
 - Modelo `fire_hydrant` — https://polyhaven.com/a/fire_hydrant
 - Modelo `fishermans_hat` — https://polyhaven.com/a/fishermans_hat
@@ -68,11 +70,16 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `football` — https://polyhaven.com/a/football
 - Modelo `gamepad` — https://polyhaven.com/a/gamepad
 - Modelo `garden_gloves_01` — https://polyhaven.com/a/garden_gloves_01
+- Modelo `grass_medium_01` — https://polyhaven.com/a/grass_medium_01
+- Modelo `grass_medium_02` — https://polyhaven.com/a/grass_medium_02
 - Modelo `hanging_industrial_lamp` — https://polyhaven.com/a/hanging_industrial_lamp
 - Modelo `hanging_picture_frame_01` — https://polyhaven.com/a/hanging_picture_frame_01
 - Modelo `hanging_picture_frame_02` — https://polyhaven.com/a/hanging_picture_frame_02
 - Modelo `hanging_picture_frame_03` — https://polyhaven.com/a/hanging_picture_frame_03
 - Modelo `industrial_wall_lamp` — https://polyhaven.com/a/industrial_wall_lamp
+- Modelo `island_tree_01` — https://polyhaven.com/a/island_tree_01
+- Modelo `island_tree_02` — https://polyhaven.com/a/island_tree_02
+- Modelo `jacaranda_tree` — https://polyhaven.com/a/jacaranda_tree
 - Modelo `jug_01` — https://polyhaven.com/a/jug_01
 - Modelo `korean_fire_extinguisher_01` — https://polyhaven.com/a/korean_fire_extinguisher_01
 - Modelo `lantern_chandelier_01` — https://polyhaven.com/a/lantern_chandelier_01
@@ -114,6 +121,7 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `painted_wooden_nightstand` — https://polyhaven.com/a/painted_wooden_nightstand
 - Modelo `painted_wooden_shelves` — https://polyhaven.com/a/painted_wooden_shelves
 - Modelo `planter_box_01` — https://polyhaven.com/a/planter_box_01
+- Modelo `planter_pot_clay` — https://polyhaven.com/a/planter_pot_clay
 - Modelo `plastic_bottle_gallon` — https://polyhaven.com/a/plastic_bottle_gallon
 - Modelo `plastic_broom` — https://polyhaven.com/a/plastic_broom
 - Modelo `plastic_container` — https://polyhaven.com/a/plastic_container
@@ -136,10 +144,14 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `rubber_duck_toy` — https://polyhaven.com/a/rubber_duck_toy
 - Modelo `russian_food_cans_01` — https://polyhaven.com/a/russian_food_cans_01
 - Modelo `screwdriver` — https://polyhaven.com/a/screwdriver
+- Modelo `searsia_lucida` — https://polyhaven.com/a/searsia_lucida
 - Modelo `security_camera_01` — https://polyhaven.com/a/security_camera_01
 - Modelo `security_camera_02` — https://polyhaven.com/a/security_camera_02
 - Modelo `security_light` — https://polyhaven.com/a/security_light
+- Modelo `shrub_01` — https://polyhaven.com/a/shrub_01
 - Modelo `shrub_02` — https://polyhaven.com/a/shrub_02
+- Modelo `shrub_03` — https://polyhaven.com/a/shrub_03
+- Modelo `shrub_04` — https://polyhaven.com/a/shrub_04
 - Modelo `side_table_01` — https://polyhaven.com/a/side_table_01
 - Modelo `small_wooden_table_01` — https://polyhaven.com/a/small_wooden_table_01
 - Modelo `sofa_03` — https://polyhaven.com/a/sofa_03
@@ -227,12 +239,15 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 Modelos gratuitos de https://www.blenderkit.com — licença Royalty Free (uso comercial permitido, sem revenda do modelo) ou CC0.
 
 - Modelo `bk_2cv` — «Citroen 2CV» de Aleš Fára, Royalty Free, https://www.blenderkit.com/get-blenderkit/838c8345-9e54-44ba-ba7e-5a83a4ba422e/
+- Modelo `bk_backpack` — «Pack Bag» de Rex Hans, Royalty Free, https://www.blenderkit.com/get-blenderkit/2953524f-461d-4d49-b33e-76abcdd3a8a0/
 - Modelo `bk_basin` — «Modern basin + mirror» de Yuriy Madar, Royalty Free, https://www.blenderkit.com/get-blenderkit/9a666364-c062-4bc7-a0ff-a6b88d5f6641/
 - Modelo `bk_bathtub` — «Generic Bathtub» de /Unwrapped, Royalty Free, https://www.blenderkit.com/get-blenderkit/ce49d6f4-1d28-4c7d-b420-dfaf554e3ec4/
 - Modelo `bk_bed_metal` — «Bed Metal» de Klo Works, Royalty Free, https://www.blenderkit.com/get-blenderkit/de3d3cd4-3241-4019-81a7-a489deac08cd/
 - Modelo `bk_bed_single` — «Bed IKEA SLATTUM» de Tomasz Czerniak, Royalty Free, https://www.blenderkit.com/get-blenderkit/2692890b-3f42-46c3-874e-844d2f211d25/
 - Modelo `bk_bed_wood` — «Bed» de Leo Villanueva, Royalty Free, https://www.blenderkit.com/get-blenderkit/f5d42e12-db07-40ce-92bc-02e1072fb650/
 - Modelo `bk_bedside` — «BedSide Cabinet Two» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/e41fc12a-ac16-4200-bb61-8d12cc0ef6f6/
+- Modelo `bk_clothes` — «Folded Clothes Stack» de Paweł Wałasiewicz, Royalty Free, https://www.blenderkit.com/get-blenderkit/994f76b2-e72e-4bf2-9a3c-651dff9bcd0b/
+- Modelo `bk_coffee` — «Coffee machine» de Georgy Uvarov, Royalty Free, https://www.blenderkit.com/get-blenderkit/db6fb298-5c04-4321-b5eb-d55b0aba0a44/
 - Modelo `bk_crt_monitor` — «IBM 8513 dirty» de moomoobeef, Royalty Free, https://www.blenderkit.com/get-blenderkit/05b7cd81-0cd9-4c5a-9075-698afa7a31a5/
 - Modelo `bk_dish_rack` — «Folding dish drying rack» de Flareworks Studio, Royalty Free, https://www.blenderkit.com/get-blenderkit/e98f4d1b-2efa-4892-9c29-692dcdb48a55/
 - Modelo `bk_dracaena` — «House Plant Dracaena Lemon Lime» de Pandora Land, Royalty Free, https://www.blenderkit.com/get-blenderkit/113941f2-0fa6-4b99-9357-c845f6f18e92/
@@ -241,18 +256,25 @@ Modelos gratuitos de https://www.blenderkit.com — licença Royalty Free (uso c
 - Modelo `bk_fridge_smeg` — «Smeg Fridge Freezer» de Mesk911, Royalty Free, https://www.blenderkit.com/get-blenderkit/703d1ec5-161d-4bdb-bceb-2b6280a241fe/
 - Modelo `bk_hospital_bed` — «Old Hospital Bed» de Vavrinec Foltan, CC0, https://www.blenderkit.com/get-blenderkit/79c8a2bf-a3f2-44fc-af25-f6bd1b7685df/
 - Modelo `bk_kettle` — «Kitchen Kettle» de Ken Xie, Royalty Free, https://www.blenderkit.com/get-blenderkit/593501a0-1f9b-47aa-aad4-53befcc9722f/
+- Modelo `bk_lamp_pletz` — «Table Lamp Pletz Bethel» de Patrik, Royalty Free, https://www.blenderkit.com/get-blenderkit/6d02f0d3-8901-4063-b5b4-61f18e6f81d3/
 - Modelo `bk_laptop` — «Laptop 14 inches Aluminium» de Demycs, Royalty Free, https://www.blenderkit.com/get-blenderkit/b859d115-d541-4337-9a15-177ae38fb95a/
 - Modelo `bk_mattress` — «Diamond Pattern Mattress - Full Size» de Jesús Snz, Royalty Free, https://www.blenderkit.com/get-blenderkit/c694b767-52e1-40b5-93d1-82a485216643/
 - Modelo `bk_mayo_table` — «Mayo Table» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/93ecf386-b1d4-4b35-a838-ac169980a7a9/
 - Modelo `bk_med_stool` — «Askona Medical Stool» de Vixymiles, Royalty Free, https://www.blenderkit.com/get-blenderkit/86fa1a72-9e82-423b-8735-e344aebcf32f/
 - Modelo `bk_monitor` — «27 Inch Monitor» de zack aoki, Royalty Free, https://www.blenderkit.com/get-blenderkit/53f931c9-4931-440b-9f14-96d5029a0f4c/
 - Modelo `bk_palm` — «Palm Tree Medium Dense» de Amanpreet Bajwa, CC0, https://www.blenderkit.com/get-blenderkit/a0afd1bf-1b58-4123-b197-b5f90d239097/
+- Modelo `bk_pan` — «Black Non-Stick Frying Pan» de Demz Assets, Royalty Free, https://www.blenderkit.com/get-blenderkit/a86f40b2-4fe7-46b4-bedc-208bd2f855d7/
+- Modelo `bk_pan_iron` — «Iron Frying Pan» de calisto3d Costa, Royalty Free, https://www.blenderkit.com/get-blenderkit/7691e7dc-c6e9-4ca9-b9be-f939e5e9f582/
 - Modelo `bk_park_bench` — «Park Bench» de Dal Roron, Royalty Free, https://www.blenderkit.com/get-blenderkit/3c855baf-ec36-4b48-aeb5-773f66fa4e0f/
+- Modelo `bk_pendant` — «White pendant light» de Ekaterina Kuznetsova, Royalty Free, https://www.blenderkit.com/get-blenderkit/c7a215d5-e396-4f3b-8772-9210d9621403/
 - Modelo `bk_plate` — «White Soup Dish/Plate» de Calebe Moreira, Royalty Free, https://www.blenderkit.com/get-blenderkit/32c45099-6ea1-4cda-9310-238f53574491/
+- Modelo `bk_radiator` — «Radiator» de Александр(Alex) Незнайка(Neznayka), Royalty Free, https://www.blenderkit.com/get-blenderkit/b5fdde9c-c173-4316-bb40-82d6107cbc08/
 - Modelo `bk_rug` — «Carpet / rug» de ydd 3D, Royalty Free, https://www.blenderkit.com/get-blenderkit/53d9bfdc-5a60-4128-bcce-c9e24fa8daa2/
 - Modelo `bk_sneakers` — «Converse All Star High Top RED Shoe» de Dope Render, Royalty Free, https://www.blenderkit.com/get-blenderkit/b7ccc970-f94f-4d7f-aefb-477d38a4f66b/
 - Modelo `bk_street_lamp` — «Street Lamp Post» de Ashish kumar Maurya, Royalty Free, https://www.blenderkit.com/get-blenderkit/dd126dfc-88f6-45c9-8357-58902e3736f0/
+- Modelo `bk_toaster_cream` — «Retro Toaster» de Ken Xie, Royalty Free, https://www.blenderkit.com/get-blenderkit/0bcdf554-b1db-4da3-8a89-df05799fc5dd/
 - Modelo `bk_toilet` — «Toilet (Wall Hung Toilet)» de Mohammad Saeed, Royalty Free, https://www.blenderkit.com/get-blenderkit/bd13bd28-5b63-46c1-b972-3ea46cc3f45c/
+- Modelo `bk_towel_rail` — «Bathroom heated towel rail» de Mesk911, Royalty Free, https://www.blenderkit.com/get-blenderkit/95e472bc-464c-4a6e-ad00-cddaeaff8863/
 - Modelo `bk_towels` — «Stack of folded towels (fixed bottom)» de Paweł Wałasiewicz, Royalty Free, https://www.blenderkit.com/get-blenderkit/8e72550e-71ea-45f7-bfea-dc2084a9c9f4/
 - Modelo `bk_trash_bin` — «Trash bin» de Alexander Handjiev, CC0, https://www.blenderkit.com/get-blenderkit/01874617-1d08-4dee-a4a2-13ac11add1f2/
 - Modelo `bk_trolley` — «Medi Trolly» de Yahku le Roux, Royalty Free, https://www.blenderkit.com/get-blenderkit/24fd1a8c-f29b-45b7-9491-94de42581b87/

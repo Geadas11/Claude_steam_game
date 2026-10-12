@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "utility_box_01_nor_gl",
-      "uri": "textures/utility_box_01_nor_gl_1k.jpg"
+      "uri": "textures/utility_box_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "utility_box_01_diff",
-      "uri": "textures/utility_box_01_diff_1k.jpg"
+      "uri": "textures/utility_box_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "utility_box_01_metal-utility_box_01_rough",
-      "uri": "textures/utility_box_01_arm_1k.jpg"
+      "uri": "textures/utility_box_01_arm_2k.jpg"
     }
   ],
   "accessors": [

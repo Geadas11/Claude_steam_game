@@ -148,22 +148,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "rollershutter_door_nor_gl",
-      "uri": "textures/rollershutter_door_nor_gl_1k.jpg"
+      "uri": "textures/rollershutter_door_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "rollershutter_door_diff",
-      "uri": "textures/rollershutter_door_diff_1k.jpg"
+      "uri": "textures/rollershutter_door_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "rollershutter_door_metal-rollershutter_door_rough",
-      "uri": "textures/rollershutter_door_arm_1k.jpg"
+      "uri": "textures/rollershutter_door_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "rollershutter_door_graffiti_diff",
-      "uri": "textures/rollershutter_door_graffiti_diff_1k.jpg"
+      "uri": "textures/rollershutter_door_graffiti_diff_2k.jpg"
     }
   ],
   "accessors": [

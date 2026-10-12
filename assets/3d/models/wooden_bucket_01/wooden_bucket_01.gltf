@@ -98,17 +98,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "wooden_bucket_01_nor_gl",
-      "uri": "textures/wooden_bucket_01_nor_gl_1k.jpg"
+      "uri": "textures/wooden_bucket_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_bucket_01_diff",
-      "uri": "textures/wooden_bucket_01_diff_1k.jpg"
+      "uri": "textures/wooden_bucket_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_bucket_01_metal-wooden_bucket_01_rough",
-      "uri": "textures/wooden_bucket_01_arm_1k.jpg"
+      "uri": "textures/wooden_bucket_01_arm_2k.jpg"
     }
   ],
   "accessors": [

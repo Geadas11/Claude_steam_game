@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "lifebuoy_nor_gl",
-      "uri": "textures/lifebuoy_nor_gl_1k.jpg"
+      "uri": "textures/lifebuoy_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lifebuoy_diff",
-      "uri": "textures/lifebuoy_diff_1k.jpg"
+      "uri": "textures/lifebuoy_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lifebuoy_metal-lifebuoy_rough",
-      "uri": "textures/lifebuoy_arm_1k.jpg"
+      "uri": "textures/lifebuoy_arm_2k.jpg"
     }
   ],
   "accessors": [

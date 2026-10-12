@@ -182,22 +182,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_lighter_nor_gl",
-      "uri": "textures/vintage_lighter_nor_gl_1k.jpg"
+      "uri": "textures/vintage_lighter_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_lighter_diff",
-      "uri": "textures/vintage_lighter_diff_1k.jpg"
+      "uri": "textures/vintage_lighter_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_lighter_metal-vintage_lighter_rough",
-      "uri": "textures/vintage_lighter_arm_1k.jpg"
+      "uri": "textures/vintage_lighter_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_lighter_diff-vintage_lighter_alpha",
-      "uri": "textures/vintage_lighter_diff_1k.jpg"
+      "uri": "textures/vintage_lighter_diff_2k.jpg"
     }
   ],
   "accessors": [

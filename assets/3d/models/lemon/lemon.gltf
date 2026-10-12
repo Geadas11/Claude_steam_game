@@ -86,17 +86,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "lemon_nor_gl",
-      "uri": "textures/lemon_nor_gl_1k.jpg"
+      "uri": "textures/lemon_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lemon_diff",
-      "uri": "textures/lemon_diff_1k.jpg"
+      "uri": "textures/lemon_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lemon_rough",
-      "uri": "textures/lemon_arm_1k.jpg"
+      "uri": "textures/lemon_arm_2k.jpg"
     }
   ],
   "accessors": [

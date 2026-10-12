@@ -142,22 +142,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_flashlight_nor_gl",
-      "uri": "textures/vintage_flashlight_nor_gl_1k.jpg"
+      "uri": "textures/vintage_flashlight_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_flashlight_diff",
-      "uri": "textures/vintage_flashlight_diff_1k.jpg"
+      "uri": "textures/vintage_flashlight_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_flashlight_metal-vintage_flashlight_rough",
-      "uri": "textures/vintage_flashlight_arm_1k.jpg"
+      "uri": "textures/vintage_flashlight_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_flashlight_diff-vintage_flashlight_alpha",
-      "uri": "textures/vintage_flashlight_diff_1k.jpg"
+      "uri": "textures/vintage_flashlight_diff_2k.jpg"
     }
   ],
   "accessors": [

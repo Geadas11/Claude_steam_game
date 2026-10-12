@@ -157,37 +157,37 @@
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_01_nor_gl",
-      "uri": "textures/lantern_chandelier_01_nor_gl_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_01_diff",
-      "uri": "textures/lantern_chandelier_01_diff_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_01_metal-lantern_chandelier_01_rough",
-      "uri": "textures/lantern_chandelier_01_arm_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_glass_01_alpha",
-      "uri": "textures/lantern_chandelier_01_glass_alpha_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_glass_alpha_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_glass_01_nor_gl",
-      "uri": "textures/lantern_chandelier_01_glass_nor_gl_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_glass_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_glass_01_diff",
-      "uri": "textures/lantern_chandelier_01_glass_diff_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_glass_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lantern_chandelier_glass_01_metal-lantern_chandelier_glass_01_rough",
-      "uri": "textures/lantern_chandelier_01_glass_arm_1k.jpg"
+      "uri": "textures/lantern_chandelier_01_glass_arm_2k.jpg"
     }
   ],
   "accessors": [

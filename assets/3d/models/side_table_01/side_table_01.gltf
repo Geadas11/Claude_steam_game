@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "side_table_01_gl_normal",
-      "uri": "textures/side_table_01_nor_gl_1k.jpg"
+      "uri": "textures/side_table_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "side_table_01_BaseColor.png",
-      "uri": "textures/side_table_01_diff_1k.jpg"
+      "uri": "textures/side_table_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "side_table_01_metallic-side_table_01_roughness",
-      "uri": "textures/side_table_01_arm_1k.jpg"
+      "uri": "textures/side_table_01_arm_2k.jpg"
     }
   ],
   "accessors": [

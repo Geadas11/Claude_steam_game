@@ -93,17 +93,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "wooden_crate_02_nor_gl",
-      "uri": "textures/wooden_crate_02_nor_gl_1k.jpg"
+      "uri": "textures/wooden_crate_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_crate_02_diff",
-      "uri": "textures/wooden_crate_02_diff_1k.jpg"
+      "uri": "textures/wooden_crate_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_crate_02_metal-wooden_crate_02_rough",
-      "uri": "textures/wooden_crate_02_arm_1k.jpg"
+      "uri": "textures/wooden_crate_02_arm_2k.jpg"
     }
   ],
   "accessors": [

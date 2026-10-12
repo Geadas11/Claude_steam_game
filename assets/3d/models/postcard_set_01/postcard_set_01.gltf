@@ -651,17 +651,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "postcard_set_01_nor_gl",
-      "uri": "textures/postcard_set_01_nor_gl_1k.jpg"
+      "uri": "textures/postcard_set_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "postcard_set_01_diff",
-      "uri": "textures/postcard_set_01_diff_1k.jpg"
+      "uri": "textures/postcard_set_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "postcard_set_01_rough",
-      "uri": "textures/postcard_set_01_rough_1k.jpg"
+      "uri": "textures/postcard_set_01_rough_2k.jpg"
     }
   ],
   "accessors": [

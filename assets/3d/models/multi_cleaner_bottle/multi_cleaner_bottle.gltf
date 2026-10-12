@@ -89,17 +89,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "multi_cleaner_bottle_nor_gl",
-      "uri": "textures/multi_cleaner_bottle_nor_gl_1k.jpg"
+      "uri": "textures/multi_cleaner_bottle_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "multi_cleaner_bottle_diff",
-      "uri": "textures/multi_cleaner_bottle_diff_1k.jpg"
+      "uri": "textures/multi_cleaner_bottle_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "multi_cleaner_bottle_rough",
-      "uri": "textures/multi_cleaner_bottle_arm_1k.jpg"
+      "uri": "textures/multi_cleaner_bottle_arm_2k.jpg"
     }
   ],
   "accessors": [

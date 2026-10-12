@@ -16,8 +16,20 @@ const MODEL_SKIN := {
 	"bk_toilet": [Color(0.95, 0.95, 0.93), 0.12, 0.0],
 	"bk_washer": [Color(0.93, 0.93, 0.92), 0.35, 0.0],
 }
+## Trees with millions of leaf triangles: [LOD bias, casts shadow]. A low
+## bias makes Godot switch to its simplified versions sooner.
+const TREES := {
+	"jacaranda_tree": [0.04, false], "island_tree_01": [0.35, true], "island_tree_02": [0.35, true],
+}
 ## Models authored lying down: degrees about X to stand them up.
 const MODEL_TILT := {"bk_basin": 90.0, "bk_toilet": 90.0}
+
+
+## Forget cached materials and models, so a place left behind frees its
+## textures (called when the world moves to another place).
+static func clear_cache() -> void:
+	_mats.clear()
+	_models.clear()
 
 
 ## A tiling PBR material in world space (triplanar), `tile` metres per repeat.
@@ -432,6 +444,10 @@ static func model(parent: Node3D, id: String, x: float, z: float, rot_deg := 0.0
 		g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if big > 0.3 else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		g.visibility_range_end = far
 		g.visibility_range_end_margin = far * 0.1
+		if TREES.has(id):
+			g.lod_bias = TREES[id][0]
+			if not TREES[id][1]:
+				g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	if collide:
 		var sb := StaticBody3D.new()
 		var cs := CollisionShape3D.new()

@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "lateral_sea_marker_nor_gl",
-      "uri": "textures/lateral_sea_marker_nor_gl_1k.jpg"
+      "uri": "textures/lateral_sea_marker_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lateral_sea_marker_diff",
-      "uri": "textures/lateral_sea_marker_diff_1k.jpg"
+      "uri": "textures/lateral_sea_marker_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "lateral_sea_marker_metal-lateral_sea_marker_rough",
-      "uri": "textures/lateral_sea_marker_arm_1k.jpg"
+      "uri": "textures/lateral_sea_marker_arm_2k.jpg"
     }
   ],
   "accessors": [

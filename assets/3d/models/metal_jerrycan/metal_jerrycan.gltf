@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "metal_jerrycan_nor_gl",
-      "uri": "textures/metal_jerrycan_nor_gl_1k.jpg"
+      "uri": "textures/metal_jerrycan_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_jerrycan_diff",
-      "uri": "textures/metal_jerrycan_diff_1k.jpg"
+      "uri": "textures/metal_jerrycan_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_jerrycan_metal-metal_jerrycan_rough",
-      "uri": "textures/metal_jerrycan_arm_1k.jpg"
+      "uri": "textures/metal_jerrycan_arm_2k.jpg"
     }
   ],
   "accessors": [

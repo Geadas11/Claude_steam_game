@@ -409,7 +409,7 @@ func _build_cozinha() -> void:
 	# fridge
 	WB.model(self, "bk_fridge_black", 4.95, 8.62, 180.0)
 	WB.model(self, "bk_kettle", 0.75, 8.66, 200.0, 1.0, 0.9, false)
-	WB.model(self, "food_apple_01", 3.75, 8.7, 0.0, 1.0, 0.9, false)
+	WB.model(self, "bk_coffee", 3.78, 8.7, 180.0, 0.9, 0.9, false)
 	hotspots.fridge = Hotspot.add(self, Vector3(4.95, 0.95, 8.6), Vector3(0.72, 1.9, 0.7), _prompt("fridge"), func(p): _say("fridge", p))
 	# calendar on the wall by the fridge
 	var cal := MeshInstance3D.new()
@@ -505,6 +505,10 @@ func _dress() -> void:
 	WB.model(self, "painted_wooden_chair_01", 6.2, 2.4, 100.0)
 	var nt := WB.footprint(get_node("painted_wooden_nightstand"))
 	WB.model(self, "digital_wrist_watch", nt.get_center().x, nt.position.z + 0.12, 70.0, 1.0, nt.end.y, false)
+	WB.model(self, "bk_lamp_pletz", nt.get_center().x, nt.end.z - 0.15, 0.0, 0.8, nt.end.y, false)
+	WB.model(self, "bk_backpack", 6.65, 1.55, 200.0)
+	WB.model(self, "bk_clothes", 6.2, 2.4, 10.0, 0.8, 0.47, false)
+	WB.model(self, "bk_towel_rail", 5.62, 7.72, 90.0, 1.0, 0.35, false)
 	WB.fit(self, "bk_rug", AABB(Vector3(6.9, 0.003, 1.9), Vector3(0.8, 0.01, 1.6)), 90.0)
 	WB.model(self, "football", 7.1, 0.5, 0.0, 1.0, 0.0, false)
 	# corridor: a console by the kitchen door with the keys' bowl
@@ -515,6 +519,7 @@ func _dress() -> void:
 	# kitchen: a pot on the stove, a bowl of pears and the milk on the table, tins
 	var stove := WB.footprint(get_node("electric_stove"))
 	WB.model(self, "brass_pot_01", 1.35, 8.6, 0.0, 1.0, stove.end.y, false)
+	WB.model(self, "bk_pan", 1.58, 8.78, 160.0, 1.0, stove.end.y, false)
 	var tb := WB.footprint(get_node("round_wooden_table_01"))
 	WB.model(self, "carved_wooden_plate", 1.5, 6.95, 0.0, 1.0, tb.end.y, false)
 	WB.model(self, "food_pears_asian_01", 1.5, 6.95, 0.0, 1.0, tb.end.y + 0.02, false)

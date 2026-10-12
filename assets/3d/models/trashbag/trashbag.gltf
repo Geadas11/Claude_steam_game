@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "trashbag_nor_gl",
-      "uri": "textures/trashbag_nor_gl_1k.jpg"
+      "uri": "textures/trashbag_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "trashbag_diff",
-      "uri": "textures/trashbag_diff_1k.jpg"
+      "uri": "textures/trashbag_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "trashbag_rough",
-      "uri": "textures/trashbag_arm_1k.jpg"
+      "uri": "textures/trashbag_arm_2k.jpg"
     }
   ],
   "accessors": [

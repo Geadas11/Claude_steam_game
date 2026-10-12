@@ -173,17 +173,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "shrub_02_nor_gl",
-      "uri": "textures/shrub_02_nor_gl_1k.jpg"
+      "uri": "textures/shrub_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "shrub_02_diff",
-      "uri": "textures/shrub_02_diff_1k.jpg"
+      "uri": "textures/shrub_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "shrub_02_rough",
-      "uri": "textures/shrub_02_arm_1k.jpg"
+      "uri": "textures/shrub_02_arm_2k.jpg"
     }
   ],
   "accessors": [

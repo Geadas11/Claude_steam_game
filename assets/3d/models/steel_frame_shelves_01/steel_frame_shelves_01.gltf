@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_01_nor_gl",
-      "uri": "textures/steel_frame_shelves_01_nor_gl_1k.jpg"
+      "uri": "textures/steel_frame_shelves_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_01_diff",
-      "uri": "textures/steel_frame_shelves_01_diff_1k.jpg"
+      "uri": "textures/steel_frame_shelves_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_01_metal-steel_frame_shelves_01_rough",
-      "uri": "textures/steel_frame_shelves_01_arm_1k.jpg"
+      "uri": "textures/steel_frame_shelves_01_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -146,17 +146,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "long_life_food_nor_gl",
-      "uri": "textures/long_life_food_nor_gl_1k.jpg"
+      "uri": "textures/long_life_food_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "long_life_food_diff",
-      "uri": "textures/long_life_food_diff_1k.jpg"
+      "uri": "textures/long_life_food_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "long_life_food_metal-long_life_food_rough",
-      "uri": "textures/long_life_food_arm_1k.jpg"
+      "uri": "textures/long_life_food_arm_2k.jpg"
     }
   ],
   "accessors": [

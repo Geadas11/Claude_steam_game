@@ -297,6 +297,14 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   tem cómoda, candeeiro a óleo, tapete e banco; no hospital cada doente tem uma coisa na mesinha, a copa
   tem cadeira, rádio e fruta; na clínica há livros e jarras nas mesinhas; o largo tem um chafariz,
   mais bancos e outro carro. Mais 55 modelos pequenos do Poly Haven.
+- **Qualidade sem limite de tamanho (pedido do jogador):** texturas de superfície a 4K e de modelos a
+  2K (`set_imports.py`), BlenderKit com texturas até 2048 px; filtragem anisotrópica 16x; MSAA 4x em
+  Alta, TAA em Ultra. Vegetação: palmeiras com arbustos, duas árvores grandes na esplanada do largo,
+  floreiras de barro, um jacarandá na rua da Sofia (reduzido a 400 mil triângulos). Mais adereços do
+  BlenderKit: máquina de café, frigideiras, torradeira, candeeiros de mesinha, mochila, roupa dobrada,
+  toalheiro, radiadores nas enfermarias. Cuidados de desempenho: árvores com `lod_bias` (`WB.TREES`),
+  e `WB.clear_cache()` a cada mudança de sítio para a memória de vídeo não se acumular (passou de
+  3,6 GB a subir para 1,1–1,8 GB estável).
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).

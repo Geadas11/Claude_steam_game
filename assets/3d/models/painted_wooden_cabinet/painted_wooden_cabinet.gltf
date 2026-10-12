@@ -177,17 +177,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_cabinet_nor_gl",
-      "uri": "textures/painted_wooden_cabinet_nor_gl_1k.jpg"
+      "uri": "textures/painted_wooden_cabinet_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_cabinet_diff",
-      "uri": "textures/painted_wooden_cabinet_diff_1k.jpg"
+      "uri": "textures/painted_wooden_cabinet_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_cabinet_metal-painted_wooden_cabinet_rough",
-      "uri": "textures/painted_wooden_cabinet_arm_1k.jpg"
+      "uri": "textures/painted_wooden_cabinet_arm_2k.jpg"
     }
   ],
   "accessors": [

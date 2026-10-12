@@ -146,32 +146,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_chair_nor_gl",
-      "uri": "textures/outdoor_table_chair_set_01_chair_nor_gl_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_chair_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_chair_diff",
-      "uri": "textures/outdoor_table_chair_set_01_chair_diff_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_chair_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_chair_metal-outdoor_table_chair_set_01_chair_rough",
-      "uri": "textures/outdoor_table_chair_set_01_chair_arm_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_chair_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_table_nor_gl",
-      "uri": "textures/outdoor_table_chair_set_01_table_nor_gl_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_table_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_table_diff",
-      "uri": "textures/outdoor_table_chair_set_01_table_diff_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_table_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "outdoor_table_chair_set_01_table_metal-outdoor_table_chair_set_01_table_rough",
-      "uri": "textures/outdoor_table_chair_set_01_table_arm_1k.jpg"
+      "uri": "textures/outdoor_table_chair_set_01_table_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "tool_cart_nor_gl",
-      "uri": "textures/tool_cart_nor_gl_1k.jpg"
+      "uri": "textures/tool_cart_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "tool_cart_diff",
-      "uri": "textures/tool_cart_diff_1k.jpg"
+      "uri": "textures/tool_cart_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "tool_cart_metal-tool_cart_rough",
-      "uri": "textures/tool_cart_arm_1k.jpg"
+      "uri": "textures/tool_cart_arm_2k.jpg"
     }
   ],
   "accessors": [

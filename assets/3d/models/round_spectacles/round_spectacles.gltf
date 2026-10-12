@@ -118,22 +118,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "round_spectacles_nor_gl",
-      "uri": "textures/round_spectacles_nor_gl_1k.jpg"
+      "uri": "textures/round_spectacles_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "round_spectacles_diff",
-      "uri": "textures/round_spectacles_diff_1k.jpg"
+      "uri": "textures/round_spectacles_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "round_spectacles_metal-round_spectacles_rough",
-      "uri": "textures/round_spectacles_arm_1k.jpg"
+      "uri": "textures/round_spectacles_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "round_spectacles_diff-round_spectacles_alpha",
-      "uri": "textures/round_spectacles_diff_1k.jpg"
+      "uri": "textures/round_spectacles_diff_2k.jpg"
     }
   ],
   "accessors": [

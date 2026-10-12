@@ -106,22 +106,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_microwave_nor_gl",
-      "uri": "textures/vintage_microwave_nor_gl_1k.jpg"
+      "uri": "textures/vintage_microwave_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_microwave_diff",
-      "uri": "textures/vintage_microwave_diff_1k.jpg"
+      "uri": "textures/vintage_microwave_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_microwave_metal-vintage_microwave_rough",
-      "uri": "textures/vintage_microwave_arm_1k.jpg"
+      "uri": "textures/vintage_microwave_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_microwave_diff-vintage_microwave_alpha",
-      "uri": "textures/vintage_microwave_diff_1k.jpg"
+      "uri": "textures/vintage_microwave_diff_2k.jpg"
     }
   ],
   "accessors": [

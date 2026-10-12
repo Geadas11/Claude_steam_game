@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "plastic_container_nor_gl",
-      "uri": "textures/plastic_container_nor_gl_1k.jpg"
+      "uri": "textures/plastic_container_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_container_diff",
-      "uri": "textures/plastic_container_diff_1k.jpg"
+      "uri": "textures/plastic_container_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_container_rough",
-      "uri": "textures/plastic_container_arm_1k.jpg"
+      "uri": "textures/plastic_container_arm_2k.jpg"
     }
   ],
   "accessors": [

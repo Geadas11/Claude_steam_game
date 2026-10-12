@@ -106,22 +106,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "plastic_broom_nor_gl",
-      "uri": "textures/plastic_broom_nor_gl_1k.jpg"
+      "uri": "textures/plastic_broom_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_broom_diff",
-      "uri": "textures/plastic_broom_diff_1k.jpg"
+      "uri": "textures/plastic_broom_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_broom_metal-plastic_broom_rough",
-      "uri": "textures/plastic_broom_arm_1k.jpg"
+      "uri": "textures/plastic_broom_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "plastic_broom_diff-plastic_broom_alpha",
-      "uri": "textures/plastic_broom_diff_1k.jpg"
+      "uri": "textures/plastic_broom_diff_2k.jpg"
     }
   ],
   "accessors": [

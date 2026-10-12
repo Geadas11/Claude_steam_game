@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "medical_tape_nor_gl",
-      "uri": "textures/medical_tape_nor_gl_1k.jpg"
+      "uri": "textures/medical_tape_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "medical_tape_diff",
-      "uri": "textures/medical_tape_diff_1k.jpg"
+      "uri": "textures/medical_tape_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "medical_tape_rough",
-      "uri": "textures/medical_tape_arm_1k.jpg"
+      "uri": "textures/medical_tape_arm_2k.jpg"
     }
   ],
   "accessors": [

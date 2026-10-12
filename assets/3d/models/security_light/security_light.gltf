@@ -152,22 +152,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "security_light_nor_gl",
-      "uri": "textures/security_light_nor_gl_1k.jpg"
+      "uri": "textures/security_light_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_light_diff",
-      "uri": "textures/security_light_diff_1k.jpg"
+      "uri": "textures/security_light_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_light_metal-security_light_rough",
-      "uri": "textures/security_light_arm_1k.jpg"
+      "uri": "textures/security_light_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "security_light_diff-security_light_alpha",
-      "uri": "textures/security_light_diff_1k.jpg"
+      "uri": "textures/security_light_diff_2k.jpg"
     }
   ],
   "accessors": [

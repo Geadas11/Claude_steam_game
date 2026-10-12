@@ -88,17 +88,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "water_manhole_cover_nor_gl",
-      "uri": "textures/water_manhole_cover_nor_gl_1k.jpg"
+      "uri": "textures/water_manhole_cover_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "water_manhole_cover_diff",
-      "uri": "textures/water_manhole_cover_diff_1k.jpg"
+      "uri": "textures/water_manhole_cover_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "water_manhole_cover_metal-water_manhole_cover_rough",
-      "uri": "textures/water_manhole_cover_arm_1k.jpg"
+      "uri": "textures/water_manhole_cover_arm_2k.jpg"
     }
   ],
   "accessors": [

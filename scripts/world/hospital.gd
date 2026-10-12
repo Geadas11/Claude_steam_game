@@ -261,6 +261,7 @@ func _build_wards() -> void:
 			_bed(Vector3(wx + 1.2 + b * 2.2, 0, 10.6), 180.0, occupied[b], true)
 		var l := WB.omni(self, Vector3(wx + 3.5, 2.5, 9.2), Color(0.7, 0.78, 1.0), 0.25, 6.0, true)
 		_room("enf_60%d" % (i + 1), [l], [])
+		WB.model(self, "bk_radiator", wx + 2.2, 11.88, 180.0, 1.0, 0.18, false)
 		_switch("enf_60%d" % (i + 1), Vector3(wx + 2.6, 1.2, 6.47), 0.0, ["enf_60%d" % (i + 1)])
 	# ward 601: an over-bed table and a visitor's stool
 	WB.model(self, "bk_mayo_table", WARD_X[0] + 1.5, 9.1, 90.0)

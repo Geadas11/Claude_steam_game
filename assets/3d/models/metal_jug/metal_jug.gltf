@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "metal_jug_nor_gl",
-      "uri": "textures/metal_jug_nor_gl_1k.jpg"
+      "uri": "textures/metal_jug_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_jug_diff",
-      "uri": "textures/metal_jug_diff_1k.jpg"
+      "uri": "textures/metal_jug_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_jug_rough",
-      "uri": "textures/metal_jug_arm_1k.jpg"
+      "uri": "textures/metal_jug_arm_2k.jpg"
     }
   ],
   "accessors": [

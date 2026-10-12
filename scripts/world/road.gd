@@ -391,6 +391,14 @@ func _build_largo() -> void:
 	for p in [Vector2(199.0, 10.0), Vector2(218.0, -7.0), Vector2(234.0, -7.0), Vector2(226.0, 15.0)]:
 		WB.model(self, "bk_palm", p.x, p.y, rng.randf_range(0, 360), 0.6, 0.08, false)
 		WB.box(self, Vector3(p.x - 0.25, 0.08, p.y - 0.25), Vector3(p.x + 0.25, 3.0, p.y + 0.25), WB.flat(Color.WHITE), true).visible = false
+		WB.model(self, ["shrub_03", "shrub_04"][rng.randi() % 2], p.x + 0.7, p.y + 0.3, rng.randf_range(0, 360), 1.0, 0.08, false)
+	# two big trees shading the café's terrace
+	for t in [Vector2(202.5, -19.0), Vector2(211.0, -19.5)]:
+		WB.model(self, "island_tree_02", t.x, t.y, rng.randf_range(0, 360), 0.8, 0.08, false)
+		WB.box(self, Vector3(t.x - 0.3, 0.08, t.y - 0.3), Vector3(t.x + 0.3, 3.0, t.y + 0.3), WB.flat(Color.WHITE), true).visible = false
+	for x in [205.6, 208.4]:
+		WB.model(self, "planter_pot_clay", x, -25.2, 0.0, 1.6, 0.08)
+		WB.model(self, "shrub_04", x, -25.2, rng.randf_range(0, 360), 0.6, 0.45, false)
 	for x in [216.5, 229.0]:
 		WB.model(self, "planter_box_01", x, -24.9, 0.0, 1.0, 0.08)
 	WB.model(self, "bk_dumpsters", 245.6, -12.0, 90.0, 1.0, 0.08)

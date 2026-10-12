@@ -137,6 +137,7 @@ func _build_kitchen() -> void:
 	WB.worktop(self, Vector3(0.05, 0, 3.0), Vector3(0.65, 0.88, 6.2), Vector3(1, 0, 0), counter)
 	var stove := WB.model(self, "electric_stove", 0.36, 6.6, 90.0)
 	WB.model(self, "pot_enamel_01", 0.4, 6.5, 0.0, 1.0, WB.footprint(stove).end.y, false)
+	WB.model(self, "bk_pan_iron", 0.32, 6.78, 100.0, 1.0, WB.footprint(stove).end.y, false)
 	WB.box(self, Vector3(0.1, 0.92, 4.2), Vector3(0.6, 0.94, 4.9), WB.flat(Color(0.7, 0.7, 0.7), 0.2, 0.9), false)
 	WB.model(self, "jug_01", 0.35, 3.5, 90.0, 1.0, 0.92, false)
 	WB.model(self, "wooden_cutting_board", 0.35, 5.6, 80.0, 1.0, 0.92, false)

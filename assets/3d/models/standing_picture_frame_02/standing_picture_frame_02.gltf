@@ -136,42 +136,42 @@
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_artwork_diff",
-      "uri": "textures/standing_picture_frame_02_artwork_diff_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_artwork_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_artwork_rough",
-      "uri": "textures/standing_picture_frame_02_artwork_rough_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_artwork_rough_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_nor_gl",
-      "uri": "textures/standing_picture_frame_02_nor_gl_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_diff",
-      "uri": "textures/standing_picture_frame_02_diff_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_metal-standing_picture_frame_02_rough",
-      "uri": "textures/standing_picture_frame_02_arm_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_nor_gl.png",
-      "uri": "textures/standing_picture_frame_02_nor_gl_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_diff.png",
-      "uri": "textures/standing_picture_frame_02_diff_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_picture_frame_02_metal.png-standing_picture_frame_02_rough.png",
-      "uri": "textures/standing_picture_frame_02_arm_1k.jpg"
+      "uri": "textures/standing_picture_frame_02_arm_2k.jpg"
     }
   ],
   "accessors": [

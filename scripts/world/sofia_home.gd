@@ -193,6 +193,7 @@ func _dress() -> void:
 	# kitchen: fruit, a big bottle of water, the thermos she takes to work
 	WB.model(self, "bananas", 8.62, 1.3, 10.0, 1.0, 0.92, false)
 	WB.model(self, "plastic_thermos", 8.6, 2.05, 0.0, 1.0, 0.92, false)
+	WB.model(self, "bk_toaster_cream", 8.62, 3.85, -90.0, 1.0, 0.92, false)
 	WB.model(self, "plastic_bottle_gallon", 5.05, 3.55, 0.0)
 	WB.model(self, "wooden_bowl_01", 6.45, 2.15, 0.0, 1.0, 0.72, false)
 	WB.model(self, "food_kiwi_01", 6.45, 2.15, 0.0, 1.0, 0.75, false)
@@ -220,6 +221,7 @@ func _build_bedroom() -> void:
 	drawer = WB.model(self, "painted_wooden_nightstand", 0.35, 6.25, 90.0, 0.9)
 	var nt := WB.footprint(drawer)
 	WB.model(self, "alarm_clock_01", 0.35, 6.25, 60.0, 1.0, nt.end.y, false)
+	WB.model(self, "bk_lamp_pletz", 0.3, 6.05, 0.0, 0.75, nt.end.y, false)
 	hotspots.gaveta = Hotspot.add(self, nt.get_center(), nt.size + Vector3(0.06, 0.06, 0.06), _prompt("gaveta"), func(p): _say("gaveta", p))
 	WB.model(self, "vintage_cabinet_01", 4.6, 7.4, -90.0, 0.8)
 	# her scrubs on the chair
@@ -284,6 +286,8 @@ func _build_outside() -> void:
 	WB.box(self, Vector3(-14, y0 - 0.5, -9.0), Vector3(23, y0, -EXT), WB.mat("cobblestone_floor_04", 1.6, Color(0.75, 0.73, 0.7)))
 	WB.box(self, Vector3(-14, y0, -7.4), Vector3(23, y0 + 0.02, -2.4), WB.mat("asphalt_06", 4.0, Color(0.55, 0.55, 0.55)), false)
 	WB.model(self, "covered_car", 6.0, -3.2, 90.0, 1.0, y0)
+	# a jacaranda on the far pavement, right in front of her windows
+	WB.model(self, "jacaranda_tree", 2.6, -8.3, 40.0, 1.0, y0, false)
 	# the building across the street, windows lit here and there
 	var x := -14.0
 	var i := 0

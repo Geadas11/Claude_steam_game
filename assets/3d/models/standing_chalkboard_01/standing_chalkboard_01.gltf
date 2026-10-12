@@ -105,32 +105,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_frame_nor_gl",
-      "uri": "textures/standing_chalkboard_01_frame_nor_gl_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_frame_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_frame_diff",
-      "uri": "textures/standing_chalkboard_01_frame_diff_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_frame_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_frame_metal-standing_chalkboard_01_frame_rough",
-      "uri": "textures/standing_chalkboard_01_frame_arm_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_frame_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_board_nor_gl",
-      "uri": "textures/standing_chalkboard_01_board_nor_gl_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_board_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_board_diff",
-      "uri": "textures/standing_chalkboard_01_board_diff_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_board_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "standing_chalkboard_01_board_metal-standing_chalkboard_01_board_rough",
-      "uri": "textures/standing_chalkboard_01_board_arm_1k.jpg"
+      "uri": "textures/standing_chalkboard_01_board_arm_2k.jpg"
     }
   ],
   "accessors": [

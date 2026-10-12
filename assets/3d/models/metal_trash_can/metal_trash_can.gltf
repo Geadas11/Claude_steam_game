@@ -332,32 +332,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_nor_gl",
-      "uri": "textures/metal_trash_can_nor_gl_1k.jpg"
+      "uri": "textures/metal_trash_can_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_diff",
-      "uri": "textures/metal_trash_can_diff_1k.jpg"
+      "uri": "textures/metal_trash_can_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_metal-metal_trash_can_rough",
-      "uri": "textures/metal_trash_can_arm_1k.jpg"
+      "uri": "textures/metal_trash_can_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_rust_nor_gl",
-      "uri": "textures/metal_trash_can_rust_nor_gl_1k.jpg"
+      "uri": "textures/metal_trash_can_rust_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_rust_diff",
-      "uri": "textures/metal_trash_can_rust_diff_1k.jpg"
+      "uri": "textures/metal_trash_can_rust_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_trash_can_rust_metal-metal_trash_can_rust_rough",
-      "uri": "textures/metal_trash_can_rust_arm_1k.jpg"
+      "uri": "textures/metal_trash_can_rust_arm_2k.jpg"
     }
   ],
   "accessors": [

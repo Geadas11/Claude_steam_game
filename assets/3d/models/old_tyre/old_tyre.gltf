@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "old_tyre_nor_gl",
-      "uri": "textures/old_tyre_nor_gl_1k.jpg"
+      "uri": "textures/old_tyre_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "old_tyre_diff",
-      "uri": "textures/old_tyre_diff_1k.jpg"
+      "uri": "textures/old_tyre_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "old_tyre_rough",
-      "uri": "textures/old_tyre_arm_1k.jpg"
+      "uri": "textures/old_tyre_arm_2k.jpg"
     }
   ],
   "accessors": [

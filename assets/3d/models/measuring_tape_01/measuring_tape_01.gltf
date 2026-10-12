@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "measuring_tape_01_nor_gl",
-      "uri": "textures/measuring_tape_01_nor_gl_1k.jpg"
+      "uri": "textures/measuring_tape_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "measuring_tape_01_diff",
-      "uri": "textures/measuring_tape_01_diff_1k.jpg"
+      "uri": "textures/measuring_tape_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "measuring_tape_01_metal-measuring_tape_01_rough",
-      "uri": "textures/measuring_tape_01_arm_1k.jpg"
+      "uri": "textures/measuring_tape_01_arm_2k.jpg"
     }
   ],
   "accessors": [

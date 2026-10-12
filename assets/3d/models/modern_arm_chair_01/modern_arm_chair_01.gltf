@@ -105,32 +105,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_legs_nor_gl",
-      "uri": "textures/modern_arm_chair_01_legs_nor_gl_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_legs_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_legs_diff",
-      "uri": "textures/modern_arm_chair_01_legs_diff_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_legs_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_legs_metal-modern_arm_chair_01_legs_rough",
-      "uri": "textures/modern_arm_chair_01_legs_arm_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_legs_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_pillow_nor_gl",
-      "uri": "textures/modern_arm_chair_01_pillow_nor_gl_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_pillow_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_pillow_diff",
-      "uri": "textures/modern_arm_chair_01_pillow_diff_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_pillow_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_arm_chair_01_pillow_metal-modern_arm_chair_01_pillow_rough",
-      "uri": "textures/modern_arm_chair_01_pillow_arm_1k.jpg"
+      "uri": "textures/modern_arm_chair_01_pillow_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -146,17 +146,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "modern_ceiling_lamp_01_gl_normal",
-      "uri": "textures/modern_ceiling_lamp_01_nor_gl_1k.jpg"
+      "uri": "textures/modern_ceiling_lamp_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_ceiling_lamp_01_basecolor",
-      "uri": "textures/modern_ceiling_lamp_01_diff_1k.jpg"
+      "uri": "textures/modern_ceiling_lamp_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "modern_ceiling_lamp_01_metallic-modern_ceiling_lamp_01_roughness",
-      "uri": "textures/modern_ceiling_lamp_01_arm_1k.jpg"
+      "uri": "textures/modern_ceiling_lamp_01_arm_2k.jpg"
     }
   ],
   "accessors": [

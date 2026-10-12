@@ -89,22 +89,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "ocean_buoy_emission",
-      "uri": "textures/ocean_buoy_emission_1k.jpg"
+      "uri": "textures/ocean_buoy_emission_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ocean_buoy_nor_gl",
-      "uri": "textures/ocean_buoy_nor_gl_1k.jpg"
+      "uri": "textures/ocean_buoy_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ocean_buoy_diff",
-      "uri": "textures/ocean_buoy_diff_1k.jpg"
+      "uri": "textures/ocean_buoy_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "ocean_buoy_metal-ocean_buoy_rough",
-      "uri": "textures/ocean_buoy_arm_1k.jpg"
+      "uri": "textures/ocean_buoy_arm_2k.jpg"
     }
   ],
   "accessors": [

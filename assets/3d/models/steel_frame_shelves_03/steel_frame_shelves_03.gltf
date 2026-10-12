@@ -178,32 +178,32 @@
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_nor_gl",
-      "uri": "textures/steel_frame_shelves_03_nor_gl_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_diff",
-      "uri": "textures/steel_frame_shelves_03_diff_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_metal-steel_frame_shelves_03_rough",
-      "uri": "textures/steel_frame_shelves_03_arm_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_drawers_nor_gl",
-      "uri": "textures/steel_frame_shelves_03_drawers_nor_gl_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_drawers_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_drawers_diff",
-      "uri": "textures/steel_frame_shelves_03_drawers_diff_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_drawers_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "steel_frame_shelves_03_drawers_rough",
-      "uri": "textures/steel_frame_shelves_03_drawers_arm_1k.jpg"
+      "uri": "textures/steel_frame_shelves_03_drawers_arm_2k.jpg"
     }
   ],
   "accessors": [

@@ -560,47 +560,47 @@
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel01_nor_gl",
-      "uri": "textures/wooden_barrels_01_barrel01_nor_gl_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel01_diff",
-      "uri": "textures/wooden_barrels_01_barrel01_diff_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel01_metal-wooden_barrels_01_barrel01_rough",
-      "uri": "textures/wooden_barrels_01_barrel01_arm_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel01_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel02_nor_gl",
-      "uri": "textures/wooden_barrels_01_barrel02_nor_gl_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel02_diff",
-      "uri": "textures/wooden_barrels_01_barrel02_diff_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_barrel02_metal-wooden_barrels_01_barrel02_rough",
-      "uri": "textures/wooden_barrels_01_barrel02_arm_1k.jpg"
+      "uri": "textures/wooden_barrels_01_barrel02_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_pieces_nor_gl",
-      "uri": "textures/wooden_barrels_01_pieces_nor_gl_1k.jpg"
+      "uri": "textures/wooden_barrels_01_pieces_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_pieces_diff",
-      "uri": "textures/wooden_barrels_01_pieces_diff_1k.jpg"
+      "uri": "textures/wooden_barrels_01_pieces_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_barrels_01_pieces_metal-wooden_barrels_01_pieces_rough",
-      "uri": "textures/wooden_barrels_01_pieces_arm_1k.jpg"
+      "uri": "textures/wooden_barrels_01_pieces_arm_2k.jpg"
     }
   ],
   "accessors": [

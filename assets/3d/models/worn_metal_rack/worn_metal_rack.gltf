@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "worn_metal_rack_nor_gl",
-      "uri": "textures/worn_metal_rack_nor_gl_1k.jpg"
+      "uri": "textures/worn_metal_rack_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "worn_metal_rack_diff",
-      "uri": "textures/worn_metal_rack_diff_1k.jpg"
+      "uri": "textures/worn_metal_rack_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "worn_metal_rack_metal-worn_metal_rack_rough",
-      "uri": "textures/worn_metal_rack_arm_1k.jpg"
+      "uri": "textures/worn_metal_rack_arm_2k.jpg"
     }
   ],
   "accessors": [

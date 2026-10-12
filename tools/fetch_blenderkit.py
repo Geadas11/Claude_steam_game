@@ -66,6 +66,17 @@ MODELS = {
     "bk_2cv": "aded2129-2a68-4a74-b8c9-ee00e03943b5",             # Citroen 2CV
     "bk_rug": "a1891b12-9881-49e0-a4b4-bf425bd9352e",             # patterned rug (.blend)
     "bk_palm": "f9c65ca8-8ad7-4b2b-80c1-b3634862da1d",          # palm tree for the square
+    # detail pass: no longer limited by size
+    "bk_pendant": "37124311-1106-4306-a4e1-480e0eb5b89f",         # white pendant light
+    "bk_lamp_pletz": "678c8edf-4638-41e5-898e-87c027981bbe",      # table lamp, linen shade
+    "bk_towel_rail": "24198e1f-3111-441a-95ed-c6da10d0fd72",      # heated towel rail (.blend)
+    "bk_radiator": "35341a82-29bb-4304-9a39-8b078917f562",        # panel radiator (.blend)
+    "bk_backpack": "fca3b63f-9def-4ba4-95e8-bf7ba7f9e52f",        # canvas backpack (.blend)
+    "bk_toaster_cream": "be42f0a0-3e4f-46ec-bafa-9434a6ffeea8",   # retro toaster
+    "bk_coffee": "c9d4195e-31d4-46b8-81b3-12a7217e2d1e",          # bean-to-cup coffee machine (.blend)
+    "bk_pan": "9692ec04-0f6a-4103-b0c8-d0fc89d9ef7a",             # non-stick frying pan
+    "bk_pan_iron": "8e08328b-c70b-4d5e-b533-3e1f419f09d3",        # iron frying pan
+    "bk_clothes": "4fdb482d-2642-4388-ae57-8097afa99519",         # folded clothes stack
     "bk_tv": "ad2a1b9a-c3dc-4176-8150-be4715302b74",              # 50" TV
 }
 
@@ -92,8 +103,8 @@ for im in bpy.data.images:
         im.scale(max(1, int(w * k)), max(1, int(h * k)))
 bpy.ops.export_scene.gltf(filepath=out, export_format="GLB", export_apply=True,
                           export_yup=True, use_visible=True, export_image_format="JPEG")
-""".replace("MAX_TEX", "1024")
-SHRINK_ABOVE = 4_000_000  # bytes; bigger GLBs get their textures cut to 1024 px
+""".replace("MAX_TEX", "2048")
+SHRINK_ABOVE = 4_000_000  # bytes; bigger GLBs get their textures cut to 2048 px
 # Most props are seen at arm's length in a dark room: 12k faces is plenty.
 # Bigger things that fill the view get more.
 MAX_FACES = 12000

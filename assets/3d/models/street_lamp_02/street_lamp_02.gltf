@@ -142,22 +142,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "street_lamp_02_nor_gl",
-      "uri": "textures/street_lamp_02_nor_gl_1k.jpg"
+      "uri": "textures/street_lamp_02_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "street_lamp_02_diff",
-      "uri": "textures/street_lamp_02_diff_1k.jpg"
+      "uri": "textures/street_lamp_02_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "street_lamp_02_metal-street_lamp_02_rough",
-      "uri": "textures/street_lamp_02_arm_1k.jpg"
+      "uri": "textures/street_lamp_02_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "street_lamp_02_diff-street_lamp_02_opacity",
-      "uri": "textures/street_lamp_02_diff_1k.jpg"
+      "uri": "textures/street_lamp_02_diff_2k.jpg"
     }
   ],
   "accessors": [

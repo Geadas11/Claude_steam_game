@@ -88,17 +88,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "pot_enamel_01_nor_gl",
-      "uri": "textures/pot_enamel_01_nor_gl_1k.jpg"
+      "uri": "textures/pot_enamel_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "pot_enamel_01_diff",
-      "uri": "textures/pot_enamel_01_diff_1k.jpg"
+      "uri": "textures/pot_enamel_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "pot_enamel_01_metal-pot_enamel_01_rough",
-      "uri": "textures/pot_enamel_01_arm_1k.jpg"
+      "uri": "textures/pot_enamel_01_arm_2k.jpg"
     }
   ],
   "accessors": [

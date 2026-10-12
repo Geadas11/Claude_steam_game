@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "screwdriver_nor_gl",
-      "uri": "textures/screwdriver_nor_gl_1k.jpg"
+      "uri": "textures/screwdriver_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "screwdriver_diff",
-      "uri": "textures/screwdriver_diff_1k.jpg"
+      "uri": "textures/screwdriver_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "screwdriver_metal-screwdriver_rough",
-      "uri": "textures/screwdriver_arm_1k.jpg"
+      "uri": "textures/screwdriver_arm_2k.jpg"
     }
   ],
   "accessors": [

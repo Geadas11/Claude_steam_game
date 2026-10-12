@@ -70,17 +70,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "wooden_cutting_board_nor_gl",
-      "uri": "textures/wooden_cutting_board_nor_gl_1k.jpg"
+      "uri": "textures/wooden_cutting_board_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_cutting_board_diff",
-      "uri": "textures/wooden_cutting_board_diff_1k.jpg"
+      "uri": "textures/wooden_cutting_board_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "wooden_cutting_board_rough",
-      "uri": "textures/wooden_cutting_board_arm_1k.jpg"
+      "uri": "textures/wooden_cutting_board_arm_2k.jpg"
     }
   ],
   "accessors": [

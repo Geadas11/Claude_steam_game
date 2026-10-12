@@ -94,17 +94,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_nightstand_nor_gl",
-      "uri": "textures/painted_wooden_nightstand_nor_gl_1k.jpg"
+      "uri": "textures/painted_wooden_nightstand_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_nightstand_diff",
-      "uri": "textures/painted_wooden_nightstand_diff_1k.jpg"
+      "uri": "textures/painted_wooden_nightstand_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "painted_wooden_nightstand_rough",
-      "uri": "textures/painted_wooden_nightstand_arm_1k.jpg"
+      "uri": "textures/painted_wooden_nightstand_arm_2k.jpg"
     }
   ],
   "accessors": [

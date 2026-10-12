@@ -106,22 +106,22 @@
     {
       "mimeType": "image/jpeg",
       "name": "vintage_electric_kettle_nor_gl",
-      "uri": "textures/vintage_electric_kettle_nor_gl_1k.jpg"
+      "uri": "textures/vintage_electric_kettle_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_electric_kettle_diff",
-      "uri": "textures/vintage_electric_kettle_diff_1k.jpg"
+      "uri": "textures/vintage_electric_kettle_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_electric_kettle_metal-vintage_electric_kettle_rough",
-      "uri": "textures/vintage_electric_kettle_arm_1k.jpg"
+      "uri": "textures/vintage_electric_kettle_arm_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "vintage_electric_kettle_diff-vintage_electric_kettle_alpha",
-      "uri": "textures/vintage_electric_kettle_diff_1k.jpg"
+      "uri": "textures/vintage_electric_kettle_diff_2k.jpg"
     }
   ],
   "accessors": [

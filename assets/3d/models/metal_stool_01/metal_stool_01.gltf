@@ -69,17 +69,17 @@
     {
       "mimeType": "image/jpeg",
       "name": "metal_stool_01_nor_gl",
-      "uri": "textures/metal_stool_01_nor_gl_1k.jpg"
+      "uri": "textures/metal_stool_01_nor_gl_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_stool_01_diff",
-      "uri": "textures/metal_stool_01_diff_1k.jpg"
+      "uri": "textures/metal_stool_01_diff_2k.jpg"
     },
     {
       "mimeType": "image/jpeg",
       "name": "metal_stool_01_metal-metal_stool_01_rough",
-      "uri": "textures/metal_stool_01_arm_1k.jpg"
+      "uri": "textures/metal_stool_01_arm_2k.jpg"
     }
   ],
   "accessors": [
