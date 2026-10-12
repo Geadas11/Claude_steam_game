@@ -29,7 +29,7 @@ var values := {
 	"mouse_sens": 1.0,          # 0.3 .. 3
 	"invert_y": false,
 	"fov": 75.0,                # 60 .. 95
-	"graphics": "alta",         # baixa / media / alta (the 3D house)
+	"graphics": "alta",         # baixa / media / alta / ultra (the 3D world)
 	"threat": "normal",         # normal / reduzida / historia (it never catches him)
 	"seen_3d_hint": false,
 }

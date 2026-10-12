@@ -278,6 +278,16 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   caixa elétrica e tampa de esgoto; no cais, barril, caixotes e colete salva-vidas. `WB.fit()` estica
   um modelo para encher uma caixa (colchões, tapetes). Árvores do Poly Haven ficaram de fora (46 MB a
   958 MB cada), tal como o exaustor e a sansevieria do BlenderKit (importação/texturas falhadas).
+- **Desempenho e arranque (sessão 4):** o prólogo abre em negro com «PRÓLOGO · A NOITE» e o sítio e a
+  hora, o Daniel virado para o cais (`world face`), um candeeiro aceso à entrada do cais e o objetivo no
+  canto (`world goal`). Desempenho: *occlusion culling* com um oclusor por parede (`WB.wall`); só as 2
+  luzes mais próximas fazem sombra (Alta; 1 em Média, 0 em Baixa, 4 em Ultra), em dual paraboloid; a
+  lua com 2 cascatas até 35 m; adereços pequenos deixam de se desenhar ao longe e os minúsculos não
+  fazem sombra; SSIL e SSR só em «Ultra» (novo nível). Modelos pesados reduzidos com o Blender
+  (`tools/decimate_models.py` e `fetch_blenderkit.py --decimate`): as rochas da costa tinham 680 mil
+  triângulos. `MeshBatch` funde caixas por material (fachadas, estantes). Fachadas algarvias: barras
+  coloridas, caixilhos, peitoris, portadas, cornija, chaminés. Resultado medido: o hospital passou de
+  2–2,6 M para 0,15–0,4 M triângulos por imagem, a livraria de 1750 para 780 chamadas de desenho.
 - Teste `--only=world`: cada sítio constrói-se, cada spawn fica de pé, cada esconderijo entra e sai,
   cada coisa examinável tem texto, a navegação gera malha.
 - **Falta (fase 4):** casa e hospital da Sofia em Lisboa (com o cooperativo, fase 5).

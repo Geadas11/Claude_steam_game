@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cxxbu7tok7wwp"
+path.s3tc="res://.godot/imported/rubber_boots_rubber_boots_dirty_nor_gl_1k.jpg-c07ecd2f6eda1e9de2b1a8272e309e81.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "1657ffc6d18580bc74e254f39e83583e"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/rubber_boots/rubber_boots_rubber_boots_dirty_nor_gl_1k.jpg"
+dest_files=["res://.godot/imported/rubber_boots_rubber_boots_dirty_nor_gl_1k.jpg-c07ecd2f6eda1e9de2b1a8272e309e81.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1

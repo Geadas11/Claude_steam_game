@@ -5,6 +5,7 @@ ones.
 
     python3 tools/fetch_blenderkit.py            # everything in MODELS
     python3 tools/fetch_blenderkit.py --force    # download again
+    python3 tools/fetch_blenderkit.py --decimate # bring the ones here under budget
 
 Free BlenderKit assets need no account or key. Only "royalty_free" (commercial
 use, no attribution required, no resale of the asset itself) and "cc_zero"
@@ -70,11 +71,20 @@ MODELS = {
 
 BLEND_EXPORT = """
 import bpy, sys
-out = sys.argv[sys.argv.index("--") + 1]
+argv = sys.argv[sys.argv.index("--") + 1:]
+out = argv[0]
+max_faces = int(argv[1]) if len(argv) > 1 else 0
 if out.endswith(".in.glb"):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=out)
     out = out[:-7] + ".glb"
+meshes = [o for o in bpy.context.scene.objects if o.type == "MESH" and o.visible_get()]
+faces = sum(len(o.data.polygons) for o in meshes)
+if max_faces and faces > max_faces:
+    for o in meshes:
+        mod = o.modifiers.new("decimate", "DECIMATE")
+        mod.ratio = max_faces / faces
+        mod.use_collapse_triangulate = True
 for im in bpy.data.images:
     w, h = im.size
     if max(w, h) > MAX_TEX:
@@ -84,6 +94,12 @@ bpy.ops.export_scene.gltf(filepath=out, export_format="GLB", export_apply=True,
                           export_yup=True, use_visible=True, export_image_format="JPEG")
 """.replace("MAX_TEX", "1024")
 SHRINK_ABOVE = 4_000_000  # bytes; bigger GLBs get their textures cut to 1024 px
+# Most props are seen at arm's length in a dark room: 12k faces is plenty.
+# Bigger things that fill the view get more.
+MAX_FACES = 12000
+FACES = {"bk_bed_single": 90000, "bk_bed_wood": 24000, "bk_bed_metal": 20000, "bk_2cv": 60000,
+         "bk_sneakers": 50000,
+         "bk_dumpsters": 16000, "bk_mattress": 6000, "bk_bedside": 6000, "bk_palm": 16000}
 
 
 def get(url: str) -> bytes:
@@ -110,20 +126,21 @@ def signed(file: dict) -> str:
     return d["filePath"]
 
 
-def blender_run(blend: str, out: str) -> None:
-    """Export `blend` (or, with blend="", re-export the .in.glb `out`) as GLB."""
+def blender_run(blend: str, out: str, max_faces: int = 0) -> None:
+    """Export `blend` (or, with blend="", re-export the .in.glb `out`) as GLB,
+    decimated down to about `max_faces` when it has more."""
     with tempfile.TemporaryDirectory() as tmp:
         script = os.path.join(tmp, "export.py")
         open(script, "w").write(BLEND_EXPORT)
         cmd = [shutil.which("blender"), "-b"] + ([blend] if blend else [])
-        subprocess.run(cmd + ["--python", script, "--", out], check=True,
+        subprocess.run(cmd + ["--python", script, "--", out, str(max_faces)], check=True,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def shrink(glb: str) -> None:
+def shrink(glb: str, max_faces: int = 0) -> None:
     src = glb[:-4] + ".in.glb"
     os.replace(glb, src)
-    blender_run("", src)
+    blender_run("", src, max_faces)
     os.remove(src)
     if not os.path.exists(glb):
         raise SystemExit(f"{glb}: Blender re-export failed")
@@ -136,12 +153,13 @@ def fetch(our_id: str, a: dict) -> bool:
     out = os.path.join(ROOT, "models", our_id)
     glb = os.path.join(out, our_id + ".glb")
     gl = files.get("gltf_godot") or files.get("gltf")
+    limit = face_limit(our_id, a)
     if gl:
         data = get(signed(gl))
         os.makedirs(out, exist_ok=True)
         open(glb, "wb").write(data)
-        if len(data) > SHRINK_ABOVE and shutil.which("blender"):
-            shrink(glb)
+        if (len(data) > SHRINK_ABOVE or limit) and shutil.which("blender"):
+            shrink(glb, limit)
     else:
         blender = shutil.which("blender")
         if not blender:
@@ -151,11 +169,18 @@ def fetch(our_id: str, a: dict) -> bool:
             src = os.path.join(tmp, "asset.blend")
             open(src, "wb").write(get(signed(files["blend"])))
             os.makedirs(out, exist_ok=True)
-            blender_run(src, glb)
+            blender_run(src, glb, limit)
             if not os.path.exists(glb):
                 raise SystemExit(f"{our_id}: Blender export failed")
     print("model", our_id, "<-", a["name"], f"({a['license']})")
     return True
+
+
+def face_limit(our_id: str, a: dict) -> int:
+    """The face budget for this model, or 0 when it is already under it."""
+    limit = FACES.get(our_id, MAX_FACES)
+    faces = (a.get("dictParameters") or {}).get("faceCount") or 0
+    return limit if faces > limit else 0
 
 
 def credits(assets: dict) -> None:
@@ -177,12 +202,17 @@ def credits(assets: dict) -> None:
 
 def main() -> None:
     force = "--force" in sys.argv
+    decimate = "--decimate" in sys.argv   # bring models already here under budget
     have = {}
     for our_id, base in MODELS.items():
         a = info(base)
-        done = os.path.exists(os.path.join(ROOT, "models", our_id, our_id + ".glb"))
+        glb = os.path.join(ROOT, "models", our_id, our_id + ".glb")
+        done = os.path.exists(glb)
         if force or not done:
             done = fetch(our_id, a)
+        elif decimate and face_limit(our_id, a):
+            shrink(glb, face_limit(our_id, a))
+            print("decimated", our_id, "to", face_limit(our_id, a), "faces")
         if done:
             have[our_id] = a
     credits(have)

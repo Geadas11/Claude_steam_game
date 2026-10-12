@@ -66,7 +66,7 @@ MODELS = {
     "croissant": "1k", "classic_laptop": "1k", "cassette_player": "1k",
     "vintage_radio_transceiver": "1k", "cigarette_pack": "1k", "round_spectacles": "1k",
     "vintage_electric_kettle": "1k", "Sofa_01": "1k", "mid_century_lounge_chair": "1k", "wooden_display_shelves_01": "1k",
-    "planter_box_01": "1k", "shrub_01": "1k",
+    "planter_box_01": "1k",
     # hall / outside
     "fancy_picture_frame_01": "1k", "street_lamp_01": "1k", "covered_car": "1k",
     "metal_trash_can": "1k", "trashbag": "1k",

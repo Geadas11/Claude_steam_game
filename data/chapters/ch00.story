@@ -16,16 +16,23 @@
 @beat setup
 set chapter_n=0
 rate 1
+world fade out 0
 ambient sea
 location caminho
 battery 61
 world phone off
 wait 2
 world spawn largo
+world face 222 40
 world rain on
 world presence off
 world figure 227.6 100.8 ines
-wait 3
+world title PRÓLOGO · A NOITE | Salgueira, Algarve — 14 de outubro de 2025, 02:30
+wait 6
+world fade in 2.5
+wait 2
+world goal Ir ter com a Inês ao fim do cais
+wait 1
 world think Chove pouco. O telemóvel antigo, na mão, ainda com a capa rachada no canto.
 wait 5
 world screen Inês «estás a chegar»
@@ -47,7 +54,7 @@ world think Na estrada de cima, um carro passa devagar, de luzes apagadas. Não 
 @end
 
 @beat way_nudge
-@when since("setup", 100) and not flag("w_zone_cais")
+@when since("setup", 50) and not flag("w_zone_cais")
 world think O cais é ao fundo do largo, depois dos barcos. Ela está na ponta.
 @end
 
@@ -62,6 +69,7 @@ set w_zone_fim=true
 @beat meet
 @when flag("w_zone_fim")
 world hold 600
+world goal off
 world say Inês «ouve. não tenho muito tempo»
 wait 5
 world say Inês «se vieste para me dizer que é perigoso, já sei. às dez falo com a Clara e acabou»

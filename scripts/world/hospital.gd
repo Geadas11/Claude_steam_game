@@ -340,7 +340,7 @@ func _build_lobby() -> void:
 	WB.model(self, "bk_dracaena", 31.5, 3.2, 0.0)
 	WB.model(self, "bk_dracaena", 31.5, 6.8, 120.0)
 	WB.model(self, "hanging_picture_frame_02", 31.98, 5.0, -90.0, 1.0, 1.5, false)
-	WB.model(self, "potted_plant_01", 31.5, 11.3, 0.0)
+	WB.model(self, "bk_dracaena", 31.5, 11.3, 0.0, 0.7)
 	for x in [30.0]:
 		_tube("elevadores", Vector3(x, 0, 3.0), 0.8)
 		_tube("elevadores", Vector3(x, 0, 8.0), 0.8)

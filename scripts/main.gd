@@ -190,6 +190,13 @@ func _debug_script(steps: PackedStringArray) -> void:
 				await RenderingServer.frame_post_draw
 				get_viewport().get_texture().get_image().save_png(kv[1])
 			"fast": Director.fast_mode = true
+			"fps":
+				var rs := RenderingServer
+				print("FPS %d  draw_calls %d  objects %d  primitives %d  vram_mb %d" % [Engine.get_frames_per_second(),
+					rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME),
+					rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_OBJECTS_IN_FRAME),
+					rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME),
+					rs.get_rendering_info(rs.RENDERING_INFO_VIDEO_MEM_USED) / 1048576])
 			"time": Clock.set_clock(kv[1] + ":" + kv[2])
 			"beat": GameState.data.beats_done[kv[1]] = 0.0
 			"flag": GameState.set_var(kv[1], true)
@@ -870,11 +877,13 @@ func _on_main_cue(cmd: String, args: Array) -> void:
 			t.tween_property(fade, "modulate:a", 1.0 if args.size() == 0 or args[0] == "out" else 0.0, float(args[1]) if args.size() > 1 else 1.5)
 		"title":
 			# title É isto que tu lembras. — white on black, then gone
-			var l := UI.label(" ".join(PackedStringArray(args)), 26, "text", true)
+			# a " | " in the text breaks the line
+			var l := UI.label(" ".join(PackedStringArray(args)).replace(" | ", "\n"), 26, "text", true)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			l.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-			l.custom_minimum_size = Vector2(800, 0)
-			l.position = Vector2(size.x / 2.0 - 400, size.y / 2.0 - 20)
+			l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			l.autowrap_mode = TextServer.AUTOWRAP_OFF
+			l.size = Vector2(size.x, 160)
+			l.position = Vector2(0, size.y / 2.0 - 80)
 			l.modulate.a = 0.0
 			overlay.add_child(l)
 			var t2 := l.create_tween()

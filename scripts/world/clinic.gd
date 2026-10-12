@@ -173,9 +173,9 @@ func _build_reception() -> void:
 		WB.model(self, "bk_waiting_bench", 0.42, z, 90.0)
 	WB.box(self, Vector3(1.2, 0.0, 2.6), Vector3(1.8, 0.42, 3.4), white)
 	Books.pile(self, Vector3(1.5, 0.42, 3.0), 3, rng, 0.08)
-	WB.model(self, "potted_plant_01", 0.5, 5.6, 0.0)
+	WB.model(self, "bk_dracaena", 0.5, 5.6, 0.0, 0.7)
 	WB.model(self, "bk_dracaena", 9.4, 6.5, 30.0)
-	WB.model(self, "potted_plant_01", 3.5, 0.6, 40.0, 0.9)
+	WB.model(self, "bk_dracaena", 3.5, 0.6, 40.0, 0.7)
 	# a TV on the wall, off
 	WB.box(self, Vector3(0.0, 1.55, 2.2), Vector3(0.06, 2.2, 3.4), WB.flat(Color(0.02, 0.02, 0.02), 0.3))
 	tv_mat = WB.emissive(Color(0.5, 0.55, 0.6), 0.0)
@@ -261,7 +261,7 @@ func _build_office() -> void:
 	for i in 2:
 		Books.unit(self, Vector3(15.3, 0, 2.0 + i * 1.1), -90.0, 1.0, 2.2, 0.32, [0.4, 0.8, 1.2, 1.6], WB.flat(Color(0.85, 0.85, 0.82), 0.4), rng, 0.85)
 	WB.model(self, "drawer_cabinet", 10.32, 5.6, 90.0, 0.8)
-	WB.model(self, "potted_plant_01", 10.6, 0.6, 0.0)
+	WB.model(self, "bk_dracaena", 10.6, 0.6, 0.0, 0.7)
 	for k in 3:
 		var f := WB.model(self, "fancy_picture_frame_01", 10.07, 2.2 + k * 0.75, 90.0, 0.55, 1.6 + (k % 2) * 0.35, false)
 		f.name = "diploma_%d" % k

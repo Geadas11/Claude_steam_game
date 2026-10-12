@@ -83,15 +83,17 @@ static func unit(parent: Node3D, origin: Vector3, yaw: float, w: float, h: float
 	u.rotation_degrees.y = yaw
 	parent.add_child(u)
 	var t := 0.03
-	# carcass: sides, top, back, plinth and each shelf board
-	WB.box(u, Vector3(-w / 2, 0, -d), Vector3(-w / 2 + t, h, 0), wood, false)
-	WB.box(u, Vector3(w / 2 - t, 0, -d), Vector3(w / 2, h, 0), wood, false)
-	WB.box(u, Vector3(-w / 2, h - t, -d), Vector3(w / 2, h, 0.01), wood, false)
-	WB.box(u, Vector3(-w / 2, 0, -d), Vector3(w / 2, h, -d + 0.012), wood, false)
-	WB.box(u, Vector3(-w / 2 + t, 0, -d + 0.01), Vector3(w / 2 - t, 0.08, 0.0), wood, false)
+	# carcass: sides, top, back, plinth and each shelf board, merged into one mesh
+	var mb := MeshBatch.new()
+	mb.add(Vector3(-w / 2, 0, -d), Vector3(-w / 2 + t, h, 0), wood)
+	mb.add(Vector3(w / 2 - t, 0, -d), Vector3(w / 2, h, 0), wood)
+	mb.add(Vector3(-w / 2, h - t, -d), Vector3(w / 2, h, 0.01), wood)
+	mb.add(Vector3(-w / 2, 0, -d), Vector3(w / 2, h, -d + 0.012), wood)
+	mb.add(Vector3(-w / 2 + t, 0, -d + 0.01), Vector3(w / 2 - t, 0.08, 0.0), wood)
 	var boards: Array = [0.08] + rows
 	for y in rows:
-		WB.box(u, Vector3(-w / 2 + t, y - 0.022, -d + 0.012), Vector3(w / 2 - t, y, 0.0), wood, false)
+		mb.add(Vector3(-w / 2 + t, y - 0.022, -d + 0.012), Vector3(w / 2 - t, y, 0.0), wood)
+	mb.commit(u)
 	if collide:
 		var sb := StaticBody3D.new()
 		var cs := CollisionShape3D.new()

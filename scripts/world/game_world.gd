@@ -49,6 +49,11 @@ var _zone_t := 0.0
 var hold_t := 0.0       # story: he stands still (can't move) for a while
 var _shut_unseen: Array = []   # doors that close as soon as he isn't looking (R10)
 var _figures: Array = []
+var shadow_budget := 2          # point/spot lights that may cast shadows at once
+var _cube_shadows := false      # omni shadows as cubes (6 passes) only on Ultra
+var _lights: Array = []
+var _lights_of: Location = null
+var _light_t := 0.0
 
 
 func _ready() -> void:
@@ -60,6 +65,7 @@ func _ready() -> void:
 	sun.light_color = Color(1.0, 0.95, 0.86)
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 30.0
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
 	sun.light_volumetric_fog_energy = 0.4
 	sun.visible = false
 	add_child(sun)
@@ -162,23 +168,64 @@ func set_hour(h: float) -> void:
 func _apply_quality() -> void:
 	var q: String = Settings.get_value("graphics", "alta")
 	var e := env.environment
-	e.ssil_enabled = q == "alta"
+	e.ssil_enabled = q == "ultra"
 	e.ssao_enabled = q != "baixa"
 	e.volumetric_fog_enabled = q != "baixa"
 	e.glow_enabled = q != "baixa"
 	var vp := get_viewport()
 	if vp:
-		vp.positional_shadow_atlas_size = 4096 if q == "alta" else (2048 if q == "media" else 1024)
-		vp.msaa_3d = Viewport.MSAA_2X if q == "alta" else Viewport.MSAA_DISABLED
-		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA if q != "alta" else Viewport.SCREEN_SPACE_AA_DISABLED
-	RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if q == "alta" else RenderingServer.SHADOW_QUALITY_HARD)
-	RenderingServer.positional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if q == "alta" else RenderingServer.SHADOW_QUALITY_HARD)
-	# on low, only the lights that matter most keep their shadows
-	if house:
-		for l in house.find_children("*", "Light3D", true, false):
-			if not l.has_meta("shadow"):
-				l.set_meta("shadow", (l as Light3D).shadow_enabled)
-			(l as Light3D).shadow_enabled = l.get_meta("shadow") and (q != "baixa" or l is SpotLight3D)
+		var hi := q == "alta" or q == "ultra"
+		vp.positional_shadow_atlas_size = 4096 if q == "ultra" else (2048 if hi else 1024)
+		vp.msaa_3d = Viewport.MSAA_2X if hi else Viewport.MSAA_DISABLED
+		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if hi else Viewport.SCREEN_SPACE_AA_FXAA
+	var soft := q == "alta" or q == "ultra"
+	RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
+	RenderingServer.positional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_LOW if soft else RenderingServer.SHADOW_QUALITY_HARD)
+	shadow_budget = {"baixa": 0, "media": 1, "alta": 2, "ultra": 4}.get(q, 2)
+	_cube_shadows = q == "ultra"
+	_lights_of = null   # re-read the place's lights with the new budget
+
+
+## Shadows from point lights are the most expensive thing in a room (each one
+## draws the scene six more times), so only the few lights nearest Daniel
+## that are on cast them; the rest light without shadows, and lights far
+## away fade out. Runs a few times a second.
+func _update_light_budget() -> void:
+	if location == null or player == null:
+		return
+	if _lights_of != location:
+		_lights_of = location
+		_lights.clear()
+		for l in location.find_children("*", "Light3D", true, false):
+			if l is DirectionalLight3D:
+				# the moon is faint: two cascades over a short distance are plenty
+				var dl := l as DirectionalLight3D
+				dl.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+				dl.directional_shadow_max_distance = minf(dl.directional_shadow_max_distance, 35.0)
+				continue
+			var lt := l as Light3D
+			if not lt.has_meta("shadow"):
+				lt.set_meta("shadow", lt.shadow_enabled)
+			lt.distance_fade_enabled = true
+			lt.distance_fade_begin = 32.0
+			lt.distance_fade_length = 8.0
+			lt.distance_fade_shadow = 12.0
+			if lt is OmniLight3D:
+				# two hemispheres instead of six cube faces: a third of the cost
+				(lt as OmniLight3D).omni_shadow_mode = OmniLight3D.SHADOW_CUBE if _cube_shadows else OmniLight3D.SHADOW_DUAL_PARABOLOID
+			_lights.append(lt)
+	var pp := player.global_position
+	var want: Array = []
+	for lt in _lights:
+		if not is_instance_valid(lt):
+			continue
+		if lt.get_meta("shadow") and lt.is_visible_in_tree() and lt.light_energy > 0.05:
+			want.append([pp.distance_squared_to(lt.global_position), lt])
+		else:
+			lt.shadow_enabled = false
+	want.sort_custom(func(a, b): return a[0] < b[0])
+	for k in want.size():
+		(want[k][1] as Light3D).shadow_enabled = k < shadow_budget and want[k][0] < 14.0 * 14.0
 
 
 ## Build (or keep) a place and put Daniel in it. Returns false when the
@@ -351,6 +398,13 @@ func _on_cue(cmd: String, args: Array) -> void:
 				location.set_rain(args.size() == 0 or args[0] == "on", player)
 		"think":
 			player.think(" ".join(PackedStringArray(args)))
+		"goal":
+			# goal <text> | goal off — what he's trying to do, kept on screen
+			hud.set_goal("" if args.is_empty() or args[0] == "off" else " ".join(PackedStringArray(args)))
+		"face":
+			# face x z — turn him to look at a point (the start of a scene)
+			var to := Vector3(float(args[0]), player.global_position.y, float(args[1])) - player.global_position
+			player.set_view(rad_to_deg(atan2(-to.x, -to.z)), -4.0)
 		"say":
 			# say Dra. Helena «Sente-se.» — someone in the room speaks (subtitle)
 			var all := " ".join(PackedStringArray(args))
@@ -409,6 +463,10 @@ func _process(delta: float) -> void:
 	if not active or location == null:
 		return
 	hold_t = maxf(0.0, hold_t - delta)
+	_light_t -= delta
+	if _light_t <= 0.0:
+		_light_t = 0.3
+		_update_light_budget()
 	_zone_t -= delta
 	if _zone_t <= 0.0:
 		_zone_t = 0.4

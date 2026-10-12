@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cstgdnehylwgk"
+path.s3tc="res://.godot/imported/bk_bed_wood_FabricDenim003_COL_VAR2_3K.png-5318465840a483ea5742dc19246b3915.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "c8e15b654722aa43d84f1f2d3b68596c"
+}
+
+[deps]
+
+source_file="res://assets/3d/models/bk_bed_wood/bk_bed_wood_FabricDenim003_COL_VAR2_3K.png"
+dest_files=["res://.godot/imported/bk_bed_wood_FabricDenim003_COL_VAR2_3K.png-5318465840a483ea5742dc19246b3915.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=1024
+detect_3d/compress_to=1

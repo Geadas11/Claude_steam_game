@@ -234,7 +234,7 @@ func _build_sala() -> void:
 	for i in 3:
 		WB.model(self, "book_encyclopedia_set_01", 0.36, 3.45 + i * 0.12, 90.0, 1.0, 0.06 + i * 0.47, false)
 	hotspots.bookshelf = Hotspot.add(self, sb.position + sb.size / 2, sb.size, _prompt("bookshelf"), func(p): _say("bookshelf", p))
-	WB.model(self, "potted_plant_01", 0.4, 0.45, 0.0, 0.9)
+	WB.model(self, "bk_dracaena", 0.4, 0.45, 0.0, 0.7)
 	# desk by the east wall, facing the room
 	var desk := WB.model(self, "metal_office_desk", 5.1, 1.75, -90.0, 0.72)
 	var top := WB.footprint(desk).end.y

@@ -74,14 +74,32 @@ func _ground(x0: float, z0: float, x1: float, z1: float, top: float, m: Material
 ## A row building: front at z_front facing `out` (-1 = facing -z), `floors`
 ## storeys, windows (some lit), a door, eaves.
 func _building(x0: float, x1: float, z_front: float, depth: float, floors: int, out: float, color: Color, door_x := -1.0, number := "", lit := 0.15) -> void:
+	# An Algarve house front: lime-washed walls, a coloured band (barra) at the
+	# foot and round the windows, stone sills, wooden shutters, a cornice, a
+	# chimney. All the trim goes into one MeshBatch: a few draw calls a house.
 	var h := floors * 3.0 + 0.6
 	var zb := z_front - out * depth
 	var mat := WB.mat("painted_plaster_wall", 3.0, color)
 	WB.box(self, Vector3(x0, 0, minf(z_front, zb)), Vector3(x1, h, maxf(z_front, zb)), mat)
-	WB.box(self, Vector3(x0 - 0.05, h, minf(z_front, zb) - 0.3 * absf(out)), Vector3(x1 + 0.05, h + 0.25, maxf(z_front, zb) + 0.3 * absf(out)), WB.flat(Color(0.45, 0.25, 0.18), 0.8))
+	var mb := MeshBatch.new()
+	var accents := [Color(0.16, 0.3, 0.55), Color(0.78, 0.56, 0.18), Color(0.55, 0.53, 0.5), Color(0.2, 0.38, 0.3), Color(0.62, 0.22, 0.16)]
+	var accent := WB.flat(accents[rng.randi() % accents.size()], 0.7)
+	var white := WB.flat(Color(0.9, 0.89, 0.86), 0.6)
+	var stone := WB.mat("concrete_wall_003", 1.0, Color(0.85, 0.83, 0.78))
 	var dark := WB.flat(Color(0.03, 0.035, 0.045), 0.08, 0.3)
-	var frame := WB.flat(Color(0.85, 0.83, 0.8), 0.5)
-	var f := z_front + out * 0.02
+	var wood_cols := [Color(0.16, 0.34, 0.24), Color(0.18, 0.28, 0.45), Color(0.36, 0.24, 0.16)]
+	var shutter := WB.flat(wood_cols[rng.randi() % wood_cols.size()], 0.75)
+	var banded := rng.randf() < 0.7
+	# d0..d1: how far out from the wall face (towards the street)
+	var add := func(xa: float, xb: float, ya: float, yb: float, d0: float, d1: float, m: Material) -> void:
+		mb.add(Vector3(xa, ya, z_front + out * d0), Vector3(xb, yb, z_front + out * d1), m)
+	# the plinth and the cornice
+	add.call(x0, x1, 0.0, 0.75, 0.0, 0.035, accent if banded else stone)
+	add.call(x0 - 0.02, x1 + 0.02, h - 0.32, h - 0.18, 0.0, 0.1, white)
+	add.call(x0 - 0.04, x1 + 0.04, h - 0.18, h, 0.0, 0.18, white)
+	WB.box(self, Vector3(x0 - 0.05, h, minf(z_front, zb) - 0.3 * absf(out)), Vector3(x1 + 0.05, h + 0.25, maxf(z_front, zb) + 0.3 * absf(out)), WB.flat(Color(0.45, 0.25, 0.18), 0.8))
+	for fl in range(1, floors):
+		add.call(x0, x1, fl * 3.0 - 0.06, fl * 3.0 + 0.06, 0.0, 0.05, white)
 	for fl in floors:
 		var x := x0 + 1.0
 		while x < x1 - 1.2:
@@ -89,23 +107,54 @@ func _building(x0: float, x1: float, z_front: float, depth: float, floors: int, 
 				x += 2.2
 				continue
 			var y := 0.9 + fl * 3.0
-			var m: Material = dark
+			# the band round the window, the frame, the glass, the cross bars
+			if banded:
+				add.call(x - 0.16, x + 1.26, y - 0.16, y + 1.66, 0.0, 0.012, accent)
+			var glass: Material = dark
 			if rng.randf() < lit:
 				var e := WB.emissive(Color(0.9, 0.6, 0.32), rng.randf_range(0.12, 0.3))
 				e.set_meta("energy", e.emission_energy_multiplier)
 				lit_windows.append(e)
-				m = e
-			WB.box(self, Vector3(x - 0.06, y - 0.06, minf(f, f + out * 0.04)), Vector3(x + 1.16, y + 1.56, maxf(f, f + out * 0.04)), frame, false)
-			WB.box(self, Vector3(x, y, minf(f + out * 0.04, f + out * 0.05)), Vector3(x + 1.1, y + 1.5, maxf(f + out * 0.04, f + out * 0.05)), m, false)
+				glass = e
+				WB.box(self, Vector3(x, y, minf(z_front + out * 0.014, z_front + out * 0.016)), Vector3(x + 1.1, y + 1.5, maxf(z_front + out * 0.014, z_front + out * 0.016)), e, false, "", 0.0)
+			else:
+				add.call(x, x + 1.1, y, y + 1.5, 0.0, 0.016, glass)
+			add.call(x - 0.05, x + 1.15, y + 1.45, y + 1.55, 0.0, 0.06, white)
+			add.call(x - 0.05, x + 0.05, y, y + 1.5, 0.0, 0.06, white)
+			add.call(x + 1.05, x + 1.15, y, y + 1.5, 0.0, 0.06, white)
+			add.call(x + 0.53, x + 0.57, y, y + 1.45, 0.0, 0.045, white)
+			add.call(x + 0.05, x + 1.05, y + 1.0, y + 1.04, 0.0, 0.045, white)
+			# the sill
+			add.call(x - 0.1, x + 1.2, y - 0.07, y, 0.0, 0.13, stone)
+			# wooden shutters folded back against the wall, on some windows
+			if rng.randf() < 0.45 and x - 0.56 > x0 and x + 1.66 < x1:
+				for sx in [[x - 0.56, x - 0.06], [x + 1.16, x + 1.66]]:
+					add.call(sx[0], sx[1], y, y + 1.5, 0.015, 0.05, shutter)
+					for k in 5:
+						add.call(sx[0] + 0.03, sx[1] - 0.03, y + 0.2 + k * 0.25, y + 0.22 + k * 0.25, 0.05, 0.06, shutter)
 			if fl > 0 and rng.randf() < 0.3:
 				# a little iron balcony
-				WB.box(self, Vector3(x - 0.15, y - 0.1, minf(f, f + out * 0.6)), Vector3(x + 1.25, y - 0.05, maxf(f, f + out * 0.6)), WB.flat(Color(0.12, 0.12, 0.12), 0.5, 0.6), false)
-				WB.box(self, Vector3(x - 0.15, y - 0.05, minf(f + out * 0.57, f + out * 0.6)), Vector3(x + 1.25, y + 0.85, maxf(f + out * 0.57, f + out * 0.6)), WB.flat(Color(0.12, 0.12, 0.12, 0.85), 0.5, 0.6), false)
+				WB.box(self, Vector3(x - 0.15, y - 0.1, minf(z_front, z_front + out * 0.6)), Vector3(x + 1.25, y - 0.05, maxf(z_front, z_front + out * 0.6)), WB.flat(Color(0.12, 0.12, 0.12), 0.5, 0.6), false)
+				WB.box(self, Vector3(x - 0.15, y - 0.05, minf(z_front + out * 0.57, z_front + out * 0.6)), Vector3(x + 1.25, y + 0.85, maxf(z_front + out * 0.57, z_front + out * 0.6)), WB.flat(Color(0.12, 0.12, 0.12, 0.85), 0.5, 0.6), false)
 			x += 2.2
 	if door_x >= 0.0:
-		WB.box(self, Vector3(door_x - 0.6, 0, minf(f, f + out * 0.05)), Vector3(door_x + 0.6, 2.4, maxf(f, f + out * 0.05)), WB.mat("dark_wood", 1.0, Color(0.35, 0.25, 0.18)), false)
+		WB.box(self, Vector3(door_x - 0.6, 0, minf(z_front, z_front + out * 0.05)), Vector3(door_x + 0.6, 2.4, maxf(z_front, z_front + out * 0.05)), WB.mat("dark_wood", 1.0, Color(0.35, 0.25, 0.18)), false)
+		add.call(door_x - 0.76, door_x + 0.76, 0.0, 2.56, 0.0, 0.02, accent if banded else white)
+		add.call(door_x - 0.8, door_x + 0.8, 0.0, 0.14, 0.0, 0.35, stone)
 		if number != "":
-			WB.text(self, number, Vector3(door_x, 2.65, f + out * 0.06), 0.0 if out > 0 else 180.0, 0.16, Color(0.2, 0.2, 0.2))
+			WB.text(self, number, Vector3(door_x, 2.75, z_front + out * 0.06), 0.0 if out > 0 else 180.0, 0.16, Color(0.2, 0.2, 0.2))
+	# an Algarve chimney on some roofs, white with a pierced cap
+	if rng.randf() < 0.55:
+		var cx := rng.randf_range(x0 + 1.0, x1 - 1.0)
+		var cz := z_front - out * depth * 0.35
+		mb.add(Vector3(cx - 0.3, h + 0.25, cz - 0.3), Vector3(cx + 0.3, h + 1.35, cz + 0.3), white)
+		mb.add(Vector3(cx - 0.42, h + 1.35, cz - 0.42), Vector3(cx + 0.42, h + 1.43, cz + 0.42), white)
+		mb.add(Vector3(cx - 0.22, h + 1.43, cz - 0.22), Vector3(cx + 0.22, h + 1.75, cz + 0.22), white)
+		for k in 3:
+			var hx := cx - 0.15 + k * 0.15
+			mb.add(Vector3(hx - 0.04, h + 0.95, cz - 0.305), Vector3(hx + 0.04, h + 1.2, cz + 0.305), dark)
+		mb.add(Vector3(cx - 0.32, h + 1.75, cz - 0.32), Vector3(cx + 0.32, h + 1.8, cz + 0.32), accent)
+	mb.commit(self)
 
 
 func _lamp(x: float, z: float, yaw: float, shadow := true, y := 0.0) -> SpotLight3D:
@@ -294,10 +343,9 @@ func _build_largo() -> void:
 	var ll := WB.omni(self, Vector3(230.0, 4.2, 2.0), Color(1.0, 0.78, 0.45), 0.9, 9.0, false)
 	street_lights.append(ll)
 	WB.model(self, "bk_2cv", 243.0, 9.0, 0.0, 1.0, 0.08)
-	# palms round the square, each with a bed of shrubs; only the trunk blocks
-	for p in [Vector2(206.0, 6.0), Vector2(218.0, -7.0), Vector2(234.0, -7.0), Vector2(226.0, 15.0)]:
+	# palms round the square; only the trunk blocks
+	for p in [Vector2(199.0, 10.0), Vector2(218.0, -7.0), Vector2(234.0, -7.0), Vector2(226.0, 15.0)]:
 		WB.model(self, "bk_palm", p.x, p.y, rng.randf_range(0, 360), 0.6, 0.08, false)
-		WB.model(self, "shrub_01", p.x + 0.6, p.y + 0.4, rng.randf_range(0, 360), 0.8, 0.08, false)
 		WB.box(self, Vector3(p.x - 0.25, 0.08, p.y - 0.25), Vector3(p.x + 0.25, 3.0, p.y + 0.25), WB.flat(Color.WHITE), true).visible = false
 	for x in [216.5, 229.0]:
 		WB.model(self, "planter_box_01", x, -24.9, 0.0, 1.0, 0.08)
@@ -305,6 +353,8 @@ func _build_largo() -> void:
 	WB.model(self, "water_manhole_cover", 225.0, -10.0, 0.0, 1.0, 0.08, false)
 	_lamp(222.0, -2.0, 0.0, true, 0.08)
 	_lamp(240.0, 14.0, 180.0, false, 0.08)
+	# a lamp at the head of the pier: where the eye goes first from the square
+	_lamp(221.0, 18.6, 180.0, false, 0.08)
 	WB.model(self, "covered_car", 244.0, -6.0, 0.0, 1.0, 0.08)
 	WB.model(self, "metal_trash_can", 201.5, -22.0, 90.0, 1.0, 0.08)
 	WB.model(self, "fire_hydrant", 215.0, -24.8, 0.0, 1.0, 0.08)
@@ -521,7 +571,7 @@ func tweak_env(e: Environment) -> void:
 	e.ambient_light_energy = 0.14
 	e.volumetric_fog_density = 0.008
 	e.volumetric_fog_albedo = Color(0.8, 0.78, 0.76)
-	e.ssr_enabled = Settings.get_value("graphics", "alta") == "alta"
+	e.ssr_enabled = Settings.get_value("graphics", "alta") == "ultra"
 	e.ssr_max_steps = 48
 
 

@@ -134,6 +134,12 @@ static func box(parent: Node3D, a: Vector3, b: Vector3, material: Material, coll
 		mi.mesh = bm
 	mi.material_override = material
 	mi.position = (lo + hi) / 2.0
+	# small details (handles, frames, books, trim) drop out at a distance
+	if mx < 0.6:
+		mi.visibility_range_end = 30.0
+		mi.visibility_range_end_margin = 3.0
+		if mx < 0.25:
+			mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(mi)
 	if collide:
 		var sb := StaticBody3D.new()
@@ -365,10 +371,26 @@ static func wall(parent: Node3D, axis: String, at: float, from: float, to: float
 		if y < height:
 			pieces.append([s0, s1, y, height])
 	for p in pieces:
+		var mi: MeshInstance3D
 		if axis == "x":
-			box(parent, Vector3(p[0], p[2], at - thick / 2), Vector3(p[1], p[3], at + thick / 2), material, true, "", 0.0)
+			mi = box(parent, Vector3(p[0], p[2], at - thick / 2), Vector3(p[1], p[3], at + thick / 2), material, true, "", 0.0)
 		else:
-			box(parent, Vector3(at - thick / 2, p[2], p[0]), Vector3(at + thick / 2, p[3], p[1]), material, true, "", 0.0)
+			mi = box(parent, Vector3(at - thick / 2, p[2], p[0]), Vector3(at + thick / 2, p[3], p[1]), material, true, "", 0.0)
+		# a solid wall hides what is behind it: rooms you can't see aren't drawn
+		if thick >= 0.05 and p[1] - p[0] >= 0.8 and p[3] - p[2] >= 1.2:
+			var occ := OccluderInstance3D.new()
+			var bo := BoxOccluder3D.new()
+			bo.size = _occluder_size(axis, p[1] - p[0], p[3] - p[2], thick)
+			occ.occluder = bo
+			mi.add_child(occ)
+
+
+static func _occluder_size(axis: String, along: float, tall: float, thick: float) -> Vector3:
+	# a little smaller than the wall, so it never hides the wall's own edges
+	var a := maxf(along - 0.06, 0.1)
+	var t := maxf(tall - 0.06, 0.1)
+	var d := thick * 0.6
+	return Vector3(a, t, d) if axis == "x" else Vector3(d, t, a)
 
 
 ## A Poly Haven glTF model turned `rot_deg` around Y and scaled, placed so
@@ -377,9 +399,10 @@ static func wall(parent: Node3D, axis: String, at: float, from: float, to: float
 static func model(parent: Node3D, id: String, x: float, z: float, rot_deg := 0.0, scale := 1.0, y := 0.0, collide := true) -> Node3D:
 	var ps: PackedScene = _models.get(id)
 	if ps == null:
-		var path := MODEL % [id, id]
+		# a .glb (BlenderKit, or a decimated Poly Haven model) wins over the .gltf
+		var path := (MODEL % [id, id]).get_basename() + ".glb"
 		if not ResourceLoader.exists(path):
-			path = path.get_basename() + ".glb"
+			path = MODEL % [id, id]
 		ps = load(path)
 		_models[id] = ps
 	var n: Node3D = ps.instantiate()
@@ -400,8 +423,15 @@ static func model(parent: Node3D, id: String, x: float, z: float, rot_deg := 0.0
 	var lb := local_bounds(n)
 	var fb: AABB = Transform3D(n.transform.basis, Vector3.ZERO) * lb
 	n.position = Vector3(x - (fb.position.x + fb.size.x / 2.0), y - fb.position.y, z - (fb.position.z + fb.size.z / 2.0))
+	# small things are not drawn from far away and the smallest cast no shadow:
+	# a cup across the square costs as much to draw as the wall behind it
+	var big := maxf(lb.size.x, maxf(lb.size.y, lb.size.z)) * scale
+	var far := 0.0 if big > 6.0 else (90.0 if big > 2.5 else (45.0 if big > 0.8 else 22.0))
 	for mi in n.find_children("*", "MeshInstance3D", true, false):
-		(mi as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		var g := mi as MeshInstance3D
+		g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if big > 0.3 else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		g.visibility_range_end = far
+		g.visibility_range_end_margin = far * 0.1
 	if collide:
 		var sb := StaticBody3D.new()
 		var cs := CollisionShape3D.new()

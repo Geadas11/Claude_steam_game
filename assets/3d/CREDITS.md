@@ -48,7 +48,6 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `hanging_picture_frame_02` — https://polyhaven.com/a/hanging_picture_frame_02
 - Modelo `hanging_picture_frame_03` — https://polyhaven.com/a/hanging_picture_frame_03
 - Modelo `industrial_wall_lamp` — https://polyhaven.com/a/industrial_wall_lamp
-- Modelo `jacaranda_tree` — https://polyhaven.com/a/jacaranda_tree
 - Modelo `jug_01` — https://polyhaven.com/a/jug_01
 - Modelo `korean_fire_extinguisher_01` — https://polyhaven.com/a/korean_fire_extinguisher_01
 - Modelo `lateral_sea_marker` — https://polyhaven.com/a/lateral_sea_marker
@@ -94,7 +93,6 @@ Todos do [Poly Haven](https://polyhaven.com), licença CC0 (domínio público).
 - Modelo `security_camera_01` — https://polyhaven.com/a/security_camera_01
 - Modelo `security_camera_02` — https://polyhaven.com/a/security_camera_02
 - Modelo `security_light` — https://polyhaven.com/a/security_light
-- Modelo `shrub_01` — https://polyhaven.com/a/shrub_01
 - Modelo `shrub_02` — https://polyhaven.com/a/shrub_02
 - Modelo `side_table_01` — https://polyhaven.com/a/side_table_01
 - Modelo `sofa_03` — https://polyhaven.com/a/sofa_03

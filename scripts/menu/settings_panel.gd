@@ -32,7 +32,7 @@ func _ready() -> void:
 	_slider("Sensibilidade do rato", "mouse_sens", 0.3, 3.0, 0.1)
 	_slider("Campo de visão", "fov", 60.0, 95.0, 1.0)
 	_toggle("Inverter o eixo vertical", "invert_y")
-	_choice("Qualidade gráfica", "graphics", ["baixa", "media", "alta"], ["Baixa", "Média", "Alta"])
+	_choice("Qualidade gráfica", "graphics", ["baixa", "media", "alta", "ultra"], ["Baixa", "Média", "Alta", "Ultra"])
 	_choice("Ameaça", "threat", ["normal", "reduzida", "historia"], ["Normal", "Reduzida", "Só história"])
 	body.add_child(UI.label("Reduzida: repara em ti mais devagar e é mais lenta. Só história: continua lá, mas nunca te apanha.", 12, "faint", true))
 	_section("Controlos")

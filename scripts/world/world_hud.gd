@@ -15,6 +15,7 @@ var _thought_tw: Tween
 var _hint_tw: Tween
 var _dot_on := false
 var _laid_out := Vector2.ZERO
+var goal: Label                  # what he is trying to do, top left (world goal ...)
 var screen_box: PanelContainer   # an old phone's lit screen in his hand (memories)
 var _screen_v: VBoxContainer
 var _screen_tw: Tween
@@ -61,6 +62,12 @@ func _ready() -> void:
 	thought.add_theme_constant_override("shadow_outline_size", 8)
 	thought.modulate.a = 0.0
 	add_child(thought)
+
+	goal = UI.label("", 18, "text")
+	goal.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	goal.add_theme_constant_override("shadow_outline_size", 6)
+	goal.modulate.a = 0.0
+	add_child(goal)
 
 	stamina_bar = ColorRect.new()
 	stamina_bar.color = Color(1, 1, 1, 0.35)
@@ -131,6 +138,19 @@ func _layout() -> void:
 	stamina_bar.size = Vector2(160, 3)
 	stamina_bar.position = Vector2(size.x / 2.0 - 80, size.y - 60)
 	phone_hint.position = Vector2(size.x - 330, size.y - 70)
+	goal.position = Vector2(36, 30)
+	goal.size = Vector2(minf(size.x * 0.5, 560), 0)
+
+
+## The current aim, top left; "" hides it.
+func set_goal(text: String) -> void:
+	var tw := goal.create_tween()
+	if text == "":
+		tw.tween_property(goal, "modulate:a", 0.0, 0.8)
+		return
+	goal.text = "◦  " + text
+	goal.modulate.a = 0.0
+	tw.tween_property(goal, "modulate:a", 0.95, 1.2)
 
 
 func update_from(player: Player) -> void:
