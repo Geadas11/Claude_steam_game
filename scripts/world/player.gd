@@ -36,6 +36,9 @@ var _h := STAND_H
 var _fl_rot := Vector3.ZERO
 var _exhausted := false
 var _shake := 0.0
+var _safe := Vector3.INF      # the last firm ground he stood on
+var _safe_t := 0.0
+var _last_pos := Vector3.ZERO
 
 
 func _ready() -> void:
@@ -176,6 +179,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = -0.1
 	move_and_slide()
+	_keep_on_map(delta)
 	# --- body height (crouch)
 	var target_h := CROUCH_H if crouching else STAND_H
 	_h = lerpf(_h, target_h, clampf(delta * 9.0, 0, 1))
@@ -260,3 +264,21 @@ func _footstep(running: bool) -> void:
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
+
+
+## Never lost under the world: if a gap the level missed lets him fall,
+## he is put back where he last stood firmly. A jump of more than 3 m in
+## one frame is the game moving him (a new place, a spawn), not a fall.
+func _keep_on_map(delta: float) -> void:
+	if global_position.distance_to(_last_pos) > 3.0:
+		_safe = Vector3.INF
+	_last_pos = global_position
+	if is_on_floor():
+		_safe_t -= delta
+		if _safe_t <= 0.0:
+			_safe_t = 0.5
+			_safe = global_position
+	elif _safe != Vector3.INF and global_position.y < _safe.y - 6.0:
+		global_position = _safe + Vector3(0, 0.1, 0)
+		velocity = Vector3.ZERO
+		_last_pos = global_position

@@ -312,6 +312,13 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   Experimentou-se SDFGI e ficou de fora: com ele o Godot ignora a luz ambiente por completo (testado
   numa sala fechada: igual com e sem ambiente), e as cenas foram afinadas com ela; os interiores às
   escuras e de dia ficavam pretos.
+- **Som gravado:** `assets/sound/<nome>.ogg` (ou `_0`, `_1`… tocados ao acaso, com variação de tom)
+  substitui o som sintetizado do mesmo nome; sem ficheiro, continua sintetizado. Gravações CC0/domínio
+  público (Kenney, OpenGameArt, Radio Aporee; lista em `assets/sound/CREDITS.md`), preparadas por
+  `tools/prep_sounds.py` com o volume igual ao do som que substituem. Eco por sítio (barramentos
+  `Room`/`RoomVoice`, `GameWorld.set_acoustics`) e sons do mundo abafados atrás de paredes.
+- **Quedas:** o cais e o muro do largo têm limites em toda a extensão (antes, no início do cais, caía-se
+  no vazio); e o jogador volta ao último chão firme se cair mais de 6 m por um buraco (`Player._keep_on_map`).
 - **Exportação dividida:** o Godot 4.3 lê mal os ficheiros que ficam depois dos 2 GB dentro de um
   `.pck` (até o `project.binary` sai corrompido). `tools/export_split.py "<preset>" <saída>` exporta o
   executável com um `UNKNOWN.pck` sem `assets/3d` e os recursos 3D em `UNKNOWN_3d_N.pck` de menos de

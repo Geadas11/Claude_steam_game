@@ -80,5 +80,87 @@
  "click_far": {
   "src": "kenney/kenney_rpg-audio/Audio/metalClick.ogg",
   "rate": 0.85
+ },
+ "rain": {
+  "src": "found/rain.ogg",
+  "loop": true,
+  "seconds": 60,
+  "stereo": true
+ },
+ "sea": {
+  "src": "found/sea_2.ogg",
+  "loop": true,
+  "seconds": 60,
+  "stereo": true
+ },
+ "night": {
+  "src": "found/night_2.ogg",
+  "loop": true,
+  "seconds": 60,
+  "stereo": true
+ },
+ "room": {
+  "src": "found/room.ogg",
+  "loop": true,
+  "seconds": 45,
+  "stereo": true
+ },
+ "hum": {
+  "src": "found/hum_2.ogg",
+  "loop": true,
+  "seconds": 40,
+  "stereo": true
+ },
+ "breath": {
+  "src": "found/breath.wav"
+ },
+ "scream": {
+  "src": "found/scream.wav"
+ },
+ "switch": {
+  "src": [
+   "found/switch.wav",
+   "found/switch_2.wav"
+  ]
+ },
+ "heartbeat": {
+  "src": "found/heartbeat.wav",
+  "cuts": [
+   [
+    0.0,
+    1.4
+   ]
+  ]
+ },
+ "whisper": {
+  "src": [
+   "found/whisper.ogg",
+   "found/whisper.ogg",
+   "found/whisper_2.ogg"
+  ],
+  "cuts": [
+   [
+    4.0,
+    2.4
+   ],
+   [
+    17.0,
+    2.4
+   ],
+   [
+    9.0,
+    2.4
+   ]
+  ],
+  "gain": -17
+ },
+ "water": {
+  "src": "found/water.ogg",
+  "cuts": [
+   [
+    2.0,
+    2.5
+   ]
+  ]
  }
 }

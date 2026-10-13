@@ -555,8 +555,11 @@ func _build_bounds() -> void:
 		[Vector3(300, -1, 20), Vector3(301, 4, 35)],
 		[Vector3(248, -1, -27), Vector3(249, 4, 20)],
 		[Vector3(199, -1, -27), Vector3(248, 4, -26)],
-		[Vector3(215.6, -2, 34.5), Vector3(216, 4, 90)],     # quay edges
-		[Vector3(226, -2, 34.5), Vector3(226.4, 4, 90)],
+		[Vector3(215.6, -2, 20.0), Vector3(216, 4, 90)],     # quay edges, from the sea wall on
+		[Vector3(226, -2, 20.0), Vector3(226.4, 4, 90)],
+		# the railing along the sea wall (the beach below is only to be seen)
+		[Vector3(150, -1, 20.85), Vector3(215.6, 4, 21.05)],
+		[Vector3(226.4, -1, 20.85), Vector3(300, 4, 21.05)],
 		[Vector3(213.6, -2, 90), Vector3(214, 4, 108.4)],
 		[Vector3(213.6, -2, 108), Vector3(228.4, 4, 108.4)],
 		[Vector3(228, -2, 90), Vector3(228.4, 4, 99.2)],

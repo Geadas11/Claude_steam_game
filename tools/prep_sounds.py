@@ -16,6 +16,9 @@ recipes.json: {"<name>": {"src": [paths under sources_dir], "loop": false, "seco
            the start
   seq      one-shot built from the first src repeated at these delays
            (three knocks)
+  cuts     [[start, seconds], ...] one excerpt per src (the same file may be
+           listed several times to cut several takes from it)
+  stereo   keep a loop in stereo (ambiences: they aren't placed in 3D)
   gain     dB on top of the match (when the recording should sit louder or
            quieter than the old sound)
 Needs ffmpeg (libvorbis).
@@ -66,8 +69,12 @@ def duration(path: str) -> float:
     return int(h) * 3600 + int(mi) * 60 + float(s)
 
 
-def mono(src: str, dst: str, trim: bool) -> None:
-    af = "aformat=channel_layouts=mono,aresample=%d" % RATE
+def mono(src: str, dst: str, trim: bool, cut=None, stereo=False) -> None:
+    af = ""
+    if cut:
+        # an excerpt of a longer recording: [start, seconds]
+        af = "atrim=%f:%f,asetpts=N/SR/TB," % (cut[0], cut[0] + cut[1])
+    af += "aformat=channel_layouts=%s,aresample=%d" % ("stereo" if stereo else "mono", RATE)
     if trim:
         # cut the silence before and after a one-shot
         af += (",silenceremove=start_periods=1:start_threshold=-55dB"
@@ -77,12 +84,12 @@ def mono(src: str, dst: str, trim: bool) -> None:
     ff("-i", src, "-af", af, "-c:a", "pcm_s16le", dst)
 
 
-def make_loop(src: str, dst: str, seconds: float, tmp: str) -> None:
+def make_loop(src: str, dst: str, seconds: float, tmp: str, stereo=False) -> None:
     """Take `seconds` (+ 2 s) and fold the extra 2 s over the start, so the
     end runs into the beginning without a click or a gap."""
     x = 2.0
     whole = os.path.join(tmp, "whole.wav")
-    mono(src, whole, False)
+    mono(src, whole, False, stereo=stereo)
     total = duration(whole)
     seconds = min(seconds or total - x, total - x)
     body = os.path.join(tmp, "body.wav")
@@ -104,8 +111,10 @@ def build(name: str, rec: dict, synth_dir: str, root: str) -> list:
     for k, src in enumerate(srcs):
         with tempfile.TemporaryDirectory() as tmp:
             clean = os.path.join(tmp, "clean.wav")
+            cuts = rec.get("cuts")
+            cut = cuts[k] if cuts else None
             if rec.get("loop"):
-                make_loop(src, clean, float(rec.get("seconds", 0)), tmp)
+                make_loop(src, clean, float(rec.get("seconds", 0)), tmp, bool(rec.get("stereo")))
             elif rec.get("seq"):
                 one = os.path.join(tmp, "one.wav")
                 mono(src, one, True)
@@ -118,7 +127,7 @@ def build(name: str, rec: dict, synth_dir: str, root: str) -> list:
                     "amix=inputs=%d:normalize=0" % len(delays)
                 ff(*ins, "-filter_complex", mix, clean)
             else:
-                mono(src, clean, True)
+                mono(src, clean, True, cut)
             if rec.get("rate", 1.0) != 1.0:
                 r = float(rec["rate"])
                 shifted = os.path.join(tmp, "rate.wav")

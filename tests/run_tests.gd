@@ -51,6 +51,8 @@ func _ready() -> void:
 		await _test_world()
 	if _only == "" or _only == "presence":
 		await _test_presence()
+	if _only == "" or _only == "world":
+		await _test_fall_net()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -998,6 +1000,44 @@ func _test_world() -> void:
 	w.go_to("casa", "sofa")
 	w.set_active(false)
 	ok(not Audio.spatial.is_valid(), "inactive house releases the sound hook")
+	w.queue_free()
+	hud_parent.queue_free()
+	GameState.in_game = false
+
+
+## The quay can't be walked off (it used to drop him into the void at its
+## landward end), and a fall through any gap puts him back on firm ground.
+func _test_fall_net() -> void:
+	print("-- fall net")
+	GameState.in_game = true
+	var w := GameWorld.new()
+	add_child(w)
+	var hud_parent := Control.new()
+	add_child(hud_parent)
+	w.attach_hud(hud_parent)
+	w.set_active(true)
+	w.go_to("caminho", "largo")
+	await _physics(3)
+	var p := w.player
+	# [start, direction, how far along that axis he may get]
+	for walk in [[Vector3(218, 0.6, 25), Vector3(-1, 0, 0), "x", 215.5],
+			[Vector3(205, 0.2, 17), Vector3(0, 0, 1), "z", 21.0],
+			[Vector3(224, 0.6, 28), Vector3(1, 0, 0), "x", 226.5]]:
+		p.global_position = walk[0]
+		await _physics(10)
+		for i in 200:
+			p.velocity = walk[1] * 4.0
+			p.move_and_slide()
+			await get_tree().physics_frame
+		var along: float = p.global_position.x if walk[2] == "x" else p.global_position.z
+		var held: bool = along > walk[3] if (walk[1] as Vector3).dot(Vector3.ONE) < 0 else along < walk[3]
+		ok(held and p.global_position.y > 0.0, "walking off the quay/sea wall from %s is stopped (%s)" % [walk[0], p.global_position])
+	# a gap: stand firmly, then step (under 3 m, so it's not a teleport) over nothing
+	p.global_position = Vector3(217.0, 0.6, 25.0)
+	await _physics(40)
+	p.global_position = Vector3(214.4, 0.6, 25.0)
+	await _physics(150)
+	ok(p.global_position.y > 0.0 and p.global_position.x > 216.0, "a fall through a gap puts him back on the quay (%s)" % p.global_position)
 	w.queue_free()
 	hud_parent.queue_free()
 	GameState.in_game = false
