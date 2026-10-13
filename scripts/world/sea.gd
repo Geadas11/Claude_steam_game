@@ -93,7 +93,8 @@ void fragment() {
 
 ## Rain that follows a node (the player): streaks in a box around it.
 static func rain(follow: Node3D, amount := 7000) -> GPUParticles3D:
-	var p := GPUParticles3D.new()
+	var p := RainParticles.new()
+	p.target = follow
 	p.name = "Rain"
 	p.amount = amount
 	p.lifetime = 1.1
@@ -126,7 +127,6 @@ static func rain(follow: Node3D, amount := 7000) -> GPUParticles3D:
 	q.size = Vector2(0.014, 0.5)
 	q.material = _drop_material(Vector2i(8, 96), 0.7)
 	p.draw_pass_1 = q
-	p.position = Vector3(0, 10, 0)
 	p.set_meta("rain", true)
 	follow.add_child(p)
 	# what the drops collide with: a height map of the world around him,
@@ -156,7 +156,7 @@ static func rain(follow: Node3D, amount := 7000) -> GPUParticles3D:
 	sp.process_material = spm
 	var sq := QuadMesh.new()
 	sq.size = Vector2(0.012, 0.03)
-	sq.material = _drop_material(Vector2i(8, 16), 0.7)
+	sq.material = _drop_material(Vector2i(8, 16), 0.35, false)
 	sp.draw_pass_1 = sq
 	p.add_child(sp)
 	p.sub_emitter = p.get_path_to(sp)
@@ -166,7 +166,7 @@ static func rain(follow: Node3D, amount := 7000) -> GPUParticles3D:
 ## A drop of water as seen falling: a thin streak, soft at the ends and the
 ## edges. It is lit like water (glossy, light passing through), so it shows
 ## where a lamp catches it and all but vanishes in the dark, as rain does.
-static func _drop_material(px: Vector2i, alpha: float) -> StandardMaterial3D:
+static func _drop_material(px: Vector2i, alpha: float, glow := true) -> StandardMaterial3D:
 	var img := Image.create(px.x, px.y, false, Image.FORMAT_RGBA8)
 	for y in px.y:
 		var t := float(y) / (px.y - 1)
@@ -186,8 +186,13 @@ static func _drop_material(px: Vector2i, alpha: float) -> StandardMaterial3D:
 	m.backlight_enabled = true
 	m.backlight = Color(0.55, 0.58, 0.62)
 	# a trace of the night sky's glow so the nearest drops never vanish fully
-	m.emission_enabled = true
+	m.emission_enabled = glow
 	m.emission = Color(0.16, 0.17, 0.19)
+	# a drop right in front of the eye would be a stripe across the screen:
+	# the nearest ones fade out
+	m.distance_fade_mode = BaseMaterial3D.DISTANCE_FADE_PIXEL_ALPHA
+	m.distance_fade_min_distance = 0.4
+	m.distance_fade_max_distance = 1.6
 	m.disable_receive_shadows = true
 	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 	return m
