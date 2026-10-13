@@ -92,34 +92,105 @@ void fragment() {
 
 
 ## Rain that follows a node (the player): streaks in a box around it.
-static func rain(follow: Node3D, amount := 3500) -> GPUParticles3D:
+static func rain(follow: Node3D, amount := 7000) -> GPUParticles3D:
 	var p := GPUParticles3D.new()
+	p.name = "Rain"
 	p.amount = amount
-	p.lifetime = 1.2
-	p.visibility_aabb = AABB(Vector3(-14, -12, -14), Vector3(28, 24, 28))
+	p.lifetime = 1.1
+	p.fixed_fps = 0
+	p.visibility_aabb = AABB(Vector3(-15, -14, -15), Vector3(30, 26, 30))
 	var pm := ParticleProcessMaterial.new()
 	pm.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	pm.emission_box_extents = Vector3(13, 0.5, 13)
-	pm.direction = Vector3(0.12, -1, 0.05)
-	pm.spread = 3.0
-	pm.initial_velocity_min = 13.0
-	pm.initial_velocity_max = 16.0
-	pm.gravity = Vector3(0, -9.8, 0)
+	pm.emission_box_extents = Vector3(14, 0.5, 14)
+	# a light sea breeze: the drops lean a little, not all the same
+	pm.direction = Vector3(0.1, -1, 0.04)
+	pm.spread = 2.5
+	pm.initial_velocity_min = 11.0
+	pm.initial_velocity_max = 14.0
+	pm.gravity = Vector3(0.4, -9.8, 0.15)
+	pm.scale_min = 0.7
+	pm.scale_max = 1.2
+	pm.turbulence_enabled = true
+	pm.turbulence_noise_strength = 0.6
+	pm.turbulence_noise_scale = 6.0
+	pm.turbulence_influence_min = 0.02
+	pm.turbulence_influence_max = 0.06
+	# drops end on what they hit (the ground, a roof, an awning) instead of
+	# falling through it, and splash there
+	pm.collision_mode = ParticleProcessMaterial.COLLISION_HIDE_ON_CONTACT
+	pm.sub_emitter_mode = ParticleProcessMaterial.SUB_EMITTER_AT_COLLISION
+	pm.sub_emitter_amount_at_collision = 2
 	p.process_material = pm
+	p.collision_base_size = 0.02
 	var q := QuadMesh.new()
-	q.size = Vector2(0.008, 0.38)
-	var m := StandardMaterial3D.new()
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	m.albedo_color = Color(0.62, 0.66, 0.7, 0.1)
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y
-	q.material = m
+	q.size = Vector2(0.014, 0.5)
+	q.material = _drop_material(Vector2i(8, 96), 0.7)
 	p.draw_pass_1 = q
 	p.position = Vector3(0, 10, 0)
 	p.set_meta("rain", true)
 	follow.add_child(p)
-	p.top_level = false
+	# what the drops collide with: a height map of the world around him,
+	# kept centred on the camera
+	var hf := GPUParticlesCollisionHeightField3D.new()
+	hf.size = Vector3(32, 24, 32)
+	hf.position = Vector3(0, -8, 0)
+	hf.resolution = GPUParticlesCollisionHeightField3D.RESOLUTION_512
+	hf.update_mode = GPUParticlesCollisionHeightField3D.UPDATE_MODE_ALWAYS
+	hf.follow_camera_enabled = true
+	p.add_child(hf)
+	# splashes: a couple of tiny droplets thrown up where a drop lands
+	var sp := GPUParticles3D.new()
+	sp.name = "Splash"
+	sp.amount = amount
+	sp.lifetime = 0.28
+	sp.emitting = false
+	sp.visibility_aabb = p.visibility_aabb
+	var spm := ParticleProcessMaterial.new()
+	spm.direction = Vector3(0, 1, 0)
+	spm.spread = 70.0
+	spm.initial_velocity_min = 0.6
+	spm.initial_velocity_max = 1.6
+	spm.gravity = Vector3(0, -9.8, 0)
+	spm.scale_min = 0.5
+	spm.scale_max = 1.0
+	sp.process_material = spm
+	var sq := QuadMesh.new()
+	sq.size = Vector2(0.012, 0.03)
+	sq.material = _drop_material(Vector2i(8, 16), 0.7)
+	sp.draw_pass_1 = sq
+	p.add_child(sp)
+	p.sub_emitter = p.get_path_to(sp)
 	return p
+
+
+## A drop of water as seen falling: a thin streak, soft at the ends and the
+## edges. It is lit like water (glossy, light passing through), so it shows
+## where a lamp catches it and all but vanishes in the dark, as rain does.
+static func _drop_material(px: Vector2i, alpha: float) -> StandardMaterial3D:
+	var img := Image.create(px.x, px.y, false, Image.FORMAT_RGBA8)
+	for y in px.y:
+		var t := float(y) / (px.y - 1)
+		var along := smoothstep(0.0, 0.35, t) * smoothstep(1.0, 0.75, t)
+		for x in px.x:
+			var u := absf(float(x) / (px.x - 1) * 2.0 - 1.0)
+			img.set_pixel(x, y, Color(1, 1, 1, pow(1.0 - u, 1.6) * along))
+	var m := StandardMaterial3D.new()
+	m.albedo_texture = ImageTexture.create_from_image(img)
+	m.albedo_color = Color(0.8, 0.85, 0.9, alpha)
+	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	m.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y
+	m.billboard_keep_scale = true
+	m.cull_mode = BaseMaterial3D.CULL_DISABLED
+	m.roughness = 0.08
+	m.metallic_specular = 1.0
+	m.backlight_enabled = true
+	m.backlight = Color(0.55, 0.58, 0.62)
+	# a trace of the night sky's glow so the nearest drops never vanish fully
+	m.emission_enabled = true
+	m.emission = Color(0.16, 0.17, 0.19)
+	m.disable_receive_shadows = true
+	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
+	return m
 
 
 ## A Portuguese fishing boat: a lofted wooden hull painted in stripes, a
