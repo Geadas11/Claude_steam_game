@@ -9,6 +9,20 @@ investigação, escolhas com consequências e cinco finais. Em português europe
 > "Ainda estás acordado?" — uma mensagem de um número desconhecido, às 23:47.
 > O número pertencia a uma pessoa que morreu há um ano.
 
+## Jogar a partir do GitHub (Windows)
+
+1. Descarregar o projeto: **Code → Download ZIP** (cerca de 2,5 GB) e extrair,
+   ou com o GitHub Desktop / `git clone`.
+2. Dar duplo clique em **`JOGAR.bat`**. Da primeira vez descarrega o Godot 4.3
+   portátil (130 MB, fica em `tools/godot/`) e prepara as texturas e os modelos
+   (pode demorar de 20 minutos a mais de uma hora); depois abre logo o jogo.
+3. Para uma versão nova: `git pull` (ou «Fetch/Pull» no GitHub Desktop) e
+   correr o `JOGAR.bat`; só volta a preparar o que mudou. Com um ZIP novo
+   numa pasta nova, a preparação é feita outra vez do início.
+
+Precisa de uma placa gráfica com Vulkan (Windows 10/11 com drivers recentes);
+em Alta, 4 GB de memória de vídeo, idealmente 6 GB.
+
 ## Correr o jogo
 
 Requer **Godot 4.3** (renderizador *Forward+*; Vulkan ou Direct3D 12).

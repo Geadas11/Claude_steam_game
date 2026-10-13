@@ -12,3 +12,5 @@ __pycache__/
 .env
 .env.local
 .env.*.local
+# Godot portatil descarregado pelo JOGAR.bat
+tools/godot/
