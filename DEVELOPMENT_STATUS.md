@@ -305,6 +305,13 @@ Ordem pedida pelo autor: cenários → a coisa que persegue → história nos ce
   toalheiro, radiadores nas enfermarias. Cuidados de desempenho: árvores com `lod_bias` (`WB.TREES`),
   e `WB.clear_cache()` a cada mudança de sítio para a memória de vídeo não se acumular (passou de
   3,6 GB a subir para 1,1–1,8 GB estável).
+- **Luz realista (Alta/Ultra):** luz refletida no ecrã (SSIL; meia resolução em Alta), reflexos no
+  ecrã (SSR), lâmpadas com tamanho (6 cm, focos 4 cm: sombras nítidas junto ao objeto e suaves longe;
+  PCSS média em Ultra). Céu da noite do largo com o brilho laranja-acinzentado da vila. Com chuva,
+  `Road.set_rain` escurece o chão, dá-lhe brilho e tira-lhe metade do relevo.
+  Experimentou-se SDFGI e ficou de fora: com ele o Godot ignora a luz ambiente por completo (testado
+  numa sala fechada: igual com e sem ambiente), e as cenas foram afinadas com ela; os interiores às
+  escuras e de dia ficavam pretos.
 - **Exportação dividida:** o Godot 4.3 lê mal os ficheiros que ficam depois dos 2 GB dentro de um
   `.pck` (até o `project.binary` sai corrompido). `tools/export_split.py "<preset>" <saída>` exporta o
   executável com um `UNKNOWN.pck` sem `assets/3d` e os recursos 3D em `UNKNOWN_3d_N.pck` de menos de

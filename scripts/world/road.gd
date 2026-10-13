@@ -616,15 +616,15 @@ func _build_story_hooks() -> void:
 				m.emission_energy_multiplier = 0.0 if m.emission_energy_multiplier > 0.0 else float(m.get_meta("energy")), "click_far", -24.0)
 
 
-## An overcast night over a small town: the clouds glow a little orange.
+## An overcast night over a small town: the clouds glow a little orange,
+## and so does the sky above the roofs (not black: the palms and the
+## façades stand out against it).
 func tweak_env(e: Environment) -> void:
-	e.background_color = Color(0.03, 0.028, 0.03)
+	e.background_color = Color(0.075, 0.064, 0.058)
 	e.ambient_light_color = Color(0.55, 0.47, 0.42)
 	e.ambient_light_energy = 0.14
 	e.volumetric_fog_density = 0.008
 	e.volumetric_fog_albedo = Color(0.8, 0.78, 0.76)
-	e.ssr_enabled = Settings.get_value("graphics", "alta") == "ultra"
-	e.ssr_max_steps = 48
 
 
 func floor_kind(p: Vector3) -> String:
@@ -656,16 +656,18 @@ func set_rain(on: bool, player: Node3D) -> void:
 	if rain_fx:
 		rain_fx.emitting = on
 		rain_fx.visible = on
-	# wet ground: darker, and glossy enough to mirror the street lamps
+	# wet ground: darker, and glossy enough to mirror the street lamps; the
+	# water fills the joints, so the stones read flatter too
 	for m in [m_asphalt, m_pav, m_calcada, m_deck, m_sand]:
 		var bm := m as BaseMaterial3D
 		if not bm.has_meta("dry"):
-			bm.set_meta("dry", [bm.roughness, bm.albedo_color])
+			bm.set_meta("dry", [bm.roughness, bm.albedo_color, bm.normal_scale])
 		var dry: Array = bm.get_meta("dry")
 		var c: Color = dry[1]
 		var k := 0.7 if on else 1.0
-		bm.roughness = float(dry[0]) * (0.35 if on else 1.0)
+		bm.roughness = float(dry[0]) * (0.2 if on else 1.0)
 		bm.albedo_color = Color(c.r * k, c.g * k, c.b * k, c.a)
+		bm.normal_scale = float(dry[2]) * (0.5 if on else 1.0)
 
 
 func set_daylight(d: float) -> void:
