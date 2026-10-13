@@ -282,6 +282,7 @@ func go_to(id: String, where := "", fresh := false) -> bool:
 	location.peephole_requested.connect(func(): peek(true))
 	location.hide_requested.connect(hide_in)
 	player.floor_kind = location.floor_kind
+	set_acoustics(location.loc_id)
 	env.environment = _night_environment()
 	if location.has_method("tweak_env"):
 		location.tweak_env(env.environment)
@@ -361,7 +362,7 @@ func _spatial_sound(sound_name: String, volume_db: float, pitch: float) -> bool:
 func play_at(sound_name: String, pos: Vector3, volume_db := 0.0, pitch := 1.0) -> void:
 	var p := AudioStreamPlayer3D.new()
 	p.stream = Audio.stream(sound_name)
-	p.bus = "Voice" if sound_name in ["breath", "whisper", "voice", "voice_low"] else "SFX"
+	p.bus = "RoomVoice" if sound_name in ["breath", "whisper", "voice", "voice_low"] else "Room"
 	if Audio.is_sudden(sound_name) and Settings.get_value("soften_sudden", false):
 		volume_db -= 14.0
 	p.volume_db = volume_db + 4.0
@@ -369,10 +370,53 @@ func play_at(sound_name: String, pos: Vector3, volume_db := 0.0, pitch := 1.0) -
 	p.unit_size = 4.0
 	p.max_distance = 30.0
 	p.attenuation_filter_cutoff_hz = 6000.0
+	# behind a wall or a closed door it comes muffled and quieter
+	if _occluded(pos):
+		p.attenuation_filter_cutoff_hz = 900.0
+		p.volume_db -= 5.0
 	p.position = pos
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
+
+
+## Is there something solid (a wall, a closed door) between Daniel's ears
+## and this point?
+func _occluded(pos: Vector3) -> bool:
+	if player == null or not is_inside_tree():
+		return false
+	var ears := player.cam.global_position
+	var q := PhysicsRayQueryParameters3D.create(ears, pos)
+	q.exclude = [player.get_rid()]
+	q.collide_with_areas = false
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	return not hit.is_empty() and (hit.position as Vector3).distance_to(pos) > 0.4
+
+
+## How each place sounds: [room size, damping, wet, pre-delay ms].
+## Small furnished flats barely ring; tiled kitchens and hospital corridors
+## do; books and the open air swallow almost everything.
+const ACOUSTICS := {
+	"casa": [0.22, 0.65, 0.10, 8.0], "sofia_casa": [0.22, 0.65, 0.10, 8.0],
+	"rui": [0.32, 0.35, 0.16, 12.0], "casa_ines": [0.32, 0.35, 0.16, 12.0],
+	"livraria": [0.45, 0.85, 0.09, 15.0],
+	"clinica": [0.55, 0.3, 0.2, 18.0], "hospital": [0.62, 0.25, 0.24, 22.0],
+	"caminho": [0.8, 0.9, 0.04, 40.0], "cais": [0.8, 0.9, 0.04, 40.0],
+}
+
+func set_acoustics(id: String) -> void:
+	var a: Array = ACOUSTICS.get(id, [0.3, 0.6, 0.1, 10.0])
+	for bus in ["Room", "RoomVoice"]:
+		var idx := AudioServer.get_bus_index(bus)
+		if idx == -1 or AudioServer.get_bus_effect_count(idx) == 0:
+			continue
+		var rv := AudioServer.get_bus_effect(idx, 0) as AudioEffectReverb
+		rv.room_size = a[0]
+		rv.damping = a[1]
+		rv.wet = a[2]
+		rv.predelay_msec = a[3]
+		rv.predelay_feedback = 0.25
+		rv.hipass = 0.15
 
 
 # ------------------------------------------------------------ story cues

@@ -1,0 +1,84 @@
+{
+ "_doc": "Fontes em sound_sources/ (ver assets/sound/CREDITS.md). python3 tools/prep_sounds.py tools/sound_recipes.json <synth_wavs> <fontes>",
+ "step": {
+  "src": [
+   "kenney/kenney_impact-sounds/Audio/footstep_wood_000.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_wood_001.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_wood_002.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_wood_003.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_wood_004.ogg"
+  ]
+ },
+ "step_tile": {
+  "src": [
+   "kenney/kenney_impact-sounds/Audio/footstep_concrete_000.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_concrete_001.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_concrete_002.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_concrete_003.ogg",
+   "kenney/kenney_impact-sounds/Audio/footstep_concrete_004.ogg"
+  ]
+ },
+ "door_open": {
+  "src": [
+   "kenney/kenney_rpg-audio/Audio/doorOpen_1.ogg",
+   "kenney/kenney_rpg-audio/Audio/doorOpen_2.ogg"
+  ]
+ },
+ "door_close": {
+  "src": [
+   "kenney/kenney_rpg-audio/Audio/doorClose_1.ogg",
+   "kenney/kenney_rpg-audio/Audio/doorClose_2.ogg",
+   "kenney/kenney_rpg-audio/Audio/doorClose_3.ogg",
+   "kenney/kenney_rpg-audio/Audio/doorClose_4.ogg"
+  ]
+ },
+ "door": {
+  "src": [
+   "kenney/kenney_rpg-audio/Audio/creak1.ogg",
+   "kenney/kenney_rpg-audio/Audio/creak2.ogg",
+   "kenney/kenney_rpg-audio/Audio/creak3.ogg"
+  ]
+ },
+ "door_locked": {
+  "src": "kenney/kenney_rpg-audio/Audio/metalLatch.ogg",
+  "seq": [
+   0.0,
+   0.16,
+   0.38
+  ]
+ },
+ "knock_one": {
+  "src": [
+   "kenney/kenney_impact-sounds/Audio/impactWood_heavy_000.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactWood_heavy_001.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactWood_heavy_002.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactWood_heavy_003.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactWood_heavy_004.ogg"
+  ]
+ },
+ "knock": {
+  "src": "kenney/kenney_impact-sounds/Audio/impactWood_heavy_001.ogg",
+  "seq": [
+   0.0,
+   0.42,
+   0.84
+  ]
+ },
+ "drop": {
+  "src": [
+   "kenney/kenney_impact-sounds/Audio/impactGeneric_light_000.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactGeneric_light_001.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactGeneric_light_002.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactGeneric_light_003.ogg",
+   "kenney/kenney_impact-sounds/Audio/impactGeneric_light_004.ogg"
+  ]
+ },
+ "flashlight": {
+  "src": "kenney/kenney_rpg-audio/Audio/metalClick.ogg",
+  "rate": 1.25
+ },
+ "click_far": {
+  "src": "kenney/kenney_rpg-audio/Audio/metalClick.ogg",
+  "rate": 0.85
+ }
+}

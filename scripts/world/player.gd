@@ -252,7 +252,7 @@ func _footstep(running: bool) -> void:
 		kind = floor_kind.call(global_position)
 	var p := AudioStreamPlayer3D.new()
 	p.stream = Audio.stream("step_tile" if kind == "tile" else "step")
-	p.bus = "SFX"
+	p.bus = "Room"
 	p.volume_db = (-14.0 if crouching else (-4.0 if running else -9.0))
 	p.pitch_scale = randf_range(0.88, 1.1)
 	p.unit_size = 2.0

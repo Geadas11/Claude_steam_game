@@ -144,7 +144,7 @@ func set_open(o: bool, instant := false, speed := 1.0) -> void:
 func _play(sound: String, pitch := 1.0) -> void:
 	var p := AudioStreamPlayer3D.new()
 	p.stream = Audio.stream(sound)
-	p.bus = "SFX"
+	p.bus = "Room"
 	p.pitch_scale = pitch * randf_range(0.94, 1.06)
 	p.unit_size = 3.0
 	p.position = Vector3(width / 2.0, 1.2, 0)

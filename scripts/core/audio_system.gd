@@ -1,6 +1,8 @@
 extends Node
-## Plays synthesised sounds on the right buses. Sounds are generated on a
-## worker thread at startup and cached.
+## Plays the game's sounds on the right buses. A recording in assets/sound
+## (<name>.ogg, or <name>_0.ogg, <name>_1.ogg... picked at random) is used
+## when there is one; otherwise the sound is synthesised (SoundSynth). Both
+## are prepared on a worker thread at startup and cached.
 
 const CAPTIONS := {
 	"breath": "respiração", "knock": "três pancadas", "knock_one": "uma pancada",
@@ -62,17 +64,50 @@ func _exit_tree() -> void:
 		_thread.wait_to_finish()
 
 
-func _get_stream(sound_name: String) -> AudioStreamWAV:
+func _get_stream(sound_name: String) -> AudioStream:
 	_mutex.lock()
-	var s: AudioStreamWAV = _cache.get(sound_name)
+	var s: AudioStream = _cache.get(sound_name)
 	_mutex.unlock()
 	if s:
 		return s
-	# 'key' gets a few variants for a natural typing sound
-	s = _synth.make(sound_name)
+	s = _recorded(sound_name)
+	if s == null:
+		s = _synth.make(sound_name)
 	_mutex.lock()
 	_cache[sound_name] = s
 	_mutex.unlock()
+	return s
+
+
+const SOUND_DIR := "res://assets/sound/"
+
+
+## A recorded sound, or null. Several takes (steps, knocks) become one
+## stream that plays a different take each time, slightly re-pitched, so
+## no two footsteps sound the same.
+func _recorded(sound_name: String) -> AudioStream:
+	var one := SOUND_DIR + sound_name + ".ogg"
+	if ResourceLoader.exists(one):
+		return _loop(sound_name, load(one))
+	var takes: Array[AudioStream] = []
+	while ResourceLoader.exists(SOUND_DIR + "%s_%d.ogg" % [sound_name, takes.size()]):
+		takes.append(load(SOUND_DIR + "%s_%d.ogg" % [sound_name, takes.size()]))
+	if takes.is_empty():
+		return null
+	if takes.size() == 1:
+		return _loop(sound_name, takes[0])
+	var r := AudioStreamRandomizer.new()
+	for k in takes.size():
+		r.add_stream(k, takes[k])
+	r.playback_mode = AudioStreamRandomizer.PLAYBACK_RANDOM_NO_REPEATS
+	r.random_pitch = 1.05
+	r.random_volume_offset_db = 1.5
+	return r
+
+
+func _loop(sound_name: String, s: AudioStream) -> AudioStream:
+	if sound_name in SoundSynth.LOOPS and s is AudioStreamOggVorbis:
+		(s as AudioStreamOggVorbis).loop = true
 	return s
 
 
@@ -107,8 +142,8 @@ func play(sound_name: String, volume_db := 0.0, pitch := 1.0) -> void:
 	_sfx[0].play()
 
 
-## The stream of a synthesised sound (for players in the 3D world).
-func stream(sound_name: String) -> AudioStreamWAV:
+## The stream of a sound (for players in the 3D world).
+func stream(sound_name: String) -> AudioStream:
 	return _get_stream(sound_name)
 
 

@@ -102,6 +102,19 @@ func _setup_audio_buses() -> void:
 			AudioServer.set_bus_name(idx, bus_name)
 			AudioServer.set_bus_send(idx, "Master")
 		_bus_ids[bus_name] = AudioServer.get_bus_index(bus_name)
+	# sounds that happen in the 3D world go through the room they are in
+	# (its echo is set per place by GameWorld.set_acoustics), then on to
+	# their usual bus and volume slider
+	for pair in [["Room", "SFX"], ["RoomVoice", "Voice"]]:
+		if AudioServer.get_bus_index(pair[0]) == -1:
+			AudioServer.add_bus()
+			var idx := AudioServer.bus_count - 1
+			AudioServer.set_bus_name(idx, pair[0])
+			AudioServer.set_bus_send(idx, pair[1])
+			var rv := AudioEffectReverb.new()
+			rv.dry = 1.0
+			rv.wet = 0.12
+			AudioServer.add_bus_effect(idx, rv)
 
 
 func _setup_input() -> void:
