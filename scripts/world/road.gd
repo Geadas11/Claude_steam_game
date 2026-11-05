@@ -19,6 +19,7 @@ var lit_windows: Array[StandardMaterial3D] = []
 var moon: DirectionalLight3D
 var rain_fx: GPUParticles3D
 var raining := true
+var _rain_snd: AudioStreamPlayer
 var broken_lamp: SpotLight3D
 var marker_light: StandardMaterial3D
 var _t := 0.0
@@ -67,6 +68,30 @@ func _ready() -> void:
 
 
 # =================================================================== helpers
+## A slab rising along +z from `lo` (x, y at the low end, z) to `hi`, solid.
+func _ramp(lo: Vector3, hi: Vector3, m: Material, thick := 0.4) -> void:
+	var run := hi.z - lo.z
+	var rise := hi.y - lo.y
+	var a := atan2(rise, run)
+	var size := Vector3(hi.x - lo.x, thick, sqrt(run * run + rise * rise))
+	var xf := Transform3D(Basis(Vector3.RIGHT, -a), Vector3((lo.x + hi.x) / 2, (lo.y + hi.y) / 2 - thick / 2 * cos(a), (lo.z + hi.z) / 2))
+	var mi := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = size
+	mi.mesh = bm
+	mi.material_override = m
+	mi.transform = xf
+	add_child(mi)
+	var sb := StaticBody3D.new()
+	var cs := CollisionShape3D.new()
+	var sh := BoxShape3D.new()
+	sh.size = size
+	cs.shape = sh
+	sb.transform = xf
+	sb.add_child(cs)
+	add_child(sb)
+
+
 func _ground(x0: float, z0: float, x1: float, z1: float, top: float, m: Material) -> void:
 	WB.box(self, Vector3(x0, top - 0.5, z0), Vector3(x1, top, z1), m)
 
@@ -197,7 +222,7 @@ func _fountain(at: Vector3) -> void:
 	add_child(sb)
 
 
-func _lamp(x: float, z: float, yaw: float, shadow := true, y := 0.0) -> SpotLight3D:
+func _lamp(x: float, z: float, yaw: float, y := 0.0) -> SpotLight3D:
 	WB.model(self, "street_lamp_01", x, z, yaw, 1.0, y)
 	var l := SpotLight3D.new()
 	l.position = Vector3(x, y + 3.25, z)
@@ -207,7 +232,8 @@ func _lamp(x: float, z: float, yaw: float, shadow := true, y := 0.0) -> SpotLigh
 	l.spot_range = 16.0
 	l.spot_angle = 74.0
 	l.spot_angle_attenuation = 3.0
-	l.shadow_enabled = shadow
+	# every lamp may cast shadows; GameWorld keeps them for the nearest few
+	l.shadow_enabled = true
 	l.light_volumetric_fog_energy = 1.5
 	add_child(l)
 	var fill := WB.omni(self, Vector3(x, y + 3.0, z), STREET_SODIUM, 0.9, 11.0, false)
@@ -265,7 +291,7 @@ func _build_gaivotas() -> void:
 		x += w
 		i += 1
 	for lx in [-16.0, 3.0, 18.0, 33.0, 48.0]:
-		_lamp(lx, -4.7, 0.0, lx == 3.0, 0.1)
+		_lamp(lx, -4.7, 0.0, 0.1)
 	WB.model(self, "covered_car", 14.0, 2.5, 90.0)
 	WB.model(self, "metal_trash_can", -3.0, -5.2, 0.0, 1.0, 0.1)
 	WB.model(self, "fire_hydrant", 30.0, -5.6, 0.0, 1.0, 0.1)
@@ -280,6 +306,9 @@ func _build_en125() -> void:
 	_ground(60, -3.5, 200, 3.5, -0.05, m_asphalt)
 	_ground(60, -45, 200, -3.5, 0.0, m_ground)
 	_ground(60, 3.5, 150, 22.0, 0.0, m_ground)
+	# the field goes on behind the low wall, down to the sea wall (without it
+	# there was nothing under the verge, right next to the largo)
+	_ground(150, 3.5, 200, 20.0, 0.0, m_ground)
 	# road paint: the centre line and the edges
 	var paint := WB.flat(Color(0.8, 0.8, 0.75), 0.6)
 	var x := 61.0
@@ -311,7 +340,7 @@ func _build_en125() -> void:
 	_sign(66.0, -4.2, 0.0, "EN125")
 	_sign(190.0, -4.2, 0.0, "Cais Velho →")
 	for lx in [80.0, 105.0, 150.0, 175.0, 196.0]:
-		_lamp(lx, -4.2, 0.0, false)
+		_lamp(lx, -4.2, 0.0)
 
 
 # =================================================================== the petrol station
@@ -403,10 +432,10 @@ func _build_largo() -> void:
 		WB.model(self, "planter_box_01", x, -24.9, 0.0, 1.0, 0.08)
 	WB.model(self, "bk_dumpsters", 245.6, -12.0, 90.0, 1.0, 0.08)
 	WB.model(self, "water_manhole_cover", 225.0, -10.0, 0.0, 1.0, 0.08, false)
-	_lamp(222.0, -2.0, 0.0, true, 0.08)
-	_lamp(240.0, 14.0, 180.0, false, 0.08)
+	_lamp(222.0, -2.0, 0.0, 0.08)
+	_lamp(240.0, 14.0, 180.0, 0.08)
 	# a lamp at the head of the pier: where the eye goes first from the square
-	_lamp(221.0, 18.6, 180.0, false, 0.08)
+	_lamp(221.0, 18.6, 180.0, 0.08)
 	WB.model(self, "covered_car", 244.0, -6.0, 0.0, 1.0, 0.08)
 	WB.model(self, "metal_trash_can", 201.5, -22.0, 90.0, 1.0, 0.08)
 	WB.model(self, "fire_hydrant", 215.0, -24.8, 0.0, 1.0, 0.08)
@@ -434,6 +463,9 @@ func _build_shore_and_quay() -> void:
 	# the stone quay
 	WB.box(self, Vector3(216, -4.0, 20), Vector3(226, QUAY_Y, 90), m_stone)
 	WB.box(self, Vector3(216.05, QUAY_Y, 20), Vector3(225.95, QUAY_Y + 0.02, 90), WB.mat("concrete_wall_003", 2.5, Color(0.55, 0.55, 0.53), 0.5), false)
+	# the largo is 42 cm lower than the quay: a gentle cobbled ramp up to it
+	# (a step that high can't be walked up)
+	_ramp(Vector3(216.0, 0.08, 16.0), Vector3(226.0, QUAY_Y, 20.05), m_calcada)
 	# granite kerb on both edges
 	for x in [216.0, 225.7]:
 		WB.box(self, Vector3(x, QUAY_Y, 20), Vector3(x + 0.3, QUAY_Y + 0.18, 90), WB.mat("marble_01", 1.0, Color(0.5, 0.5, 0.48)), false)
@@ -482,8 +514,8 @@ func _build_shore_and_quay() -> void:
 	hotspots.escadas = Hotspot.add(self, Vector3(228.8, DECK_Y - 0.4, 101.7), Vector3(1.6, 1.0, 4.9), _prompt("escadas"), func(p): _say("escadas", p))
 	# lamps on the quay; the one at the end is dying
 	for lz in [30.0, 46.0, 62.0, 78.0]:
-		_lamp(216.7, lz, 90.0, lz == 84.0, QUAY_Y)
-	broken_lamp = _lamp(227.3, 106.8, -90.0, true, DECK_Y)
+		_lamp(216.7, lz, 90.0, QUAY_Y)
+	broken_lamp = _lamp(227.3, 106.8, -90.0, DECK_Y)
 	# fishing life
 	WB.model(self, "lifebuoy", 225.9, 45.0, -90.0, 1.0, QUAY_Y + 1.0, false)
 	WB.box(self, Vector3(225.85, QUAY_Y, 44.95), Vector3(225.95, QUAY_Y + 1.5, 45.05), WB.flat(Color(0.3, 0.3, 0.3), 0.5, 0.6))
@@ -547,6 +579,14 @@ func _build_bounds() -> void:
 		[Vector3(-30, -1, 6.0), Vector3(60, 4, 6.2)],        # house fronts (south)
 		[Vector3(-31, -1, -6.2), Vector3(-30, 4, 6.2)],      # far end of the street
 		[Vector3(60, -1, -46), Vector3(200, 4, -45)],
+		[Vector3(59.8, -1, -46), Vector3(60, 4, -6.0)],      # where the fields begin
+		[Vector3(59.8, -1, 6.0), Vector3(60, 4, 23)],
+		[Vector3(60, -1, 22.0), Vector3(108, 4, 23.0)],
+		[Vector3(200, -1, -46), Vector3(200.2, 4, -26)],
+		[Vector3(150, -1, 20.85), Vector3(150.2, 4, 22.0)],  # round the end of the railing
+		[Vector3(248, -1, 19.9), Vector3(249, 4, 21.05)],
+		[Vector3(213.6, -2, 89.6), Vector3(215.6, 4, 90)],  # where the quay meets the deck
+		[Vector3(226.4, -2, 89.6), Vector3(228.4, 4, 90)],
 		[Vector3(60, -1, 4.6), Vector3(108, 4, 5.4)],        # fields south of the road (walls)
 		[Vector3(108, -1, 22.0), Vector3(150, 4, 23.0)],
 		[Vector3(150, -1, 22), Vector3(151, 4, 34)],
@@ -651,6 +691,26 @@ func _process(delta: float) -> void:
 		(broken_lamp.get_meta("glow") as StandardMaterial3D).emission_energy_multiplier = 4.0 if broken_lamp.visible else 0.3
 
 
+## The rain itself, heard over whatever ambience the chapter plays (the sea).
+func _rain_sound(on: bool) -> void:
+	if Audio.muted_for_tests:
+		return
+	if _rain_snd == null:
+		if not on:
+			return
+		_rain_snd = AudioStreamPlayer.new()
+		_rain_snd.bus = "Ambient"
+		_rain_snd.stream = Audio.stream("rain")
+		_rain_snd.volume_db = -60.0
+		add_child(_rain_snd)
+	if on and not _rain_snd.playing:
+		_rain_snd.play()
+	var t := create_tween()
+	t.tween_property(_rain_snd, "volume_db", -7.0 if on else -60.0, 2.5)
+	if not on:
+		t.tween_callback(_rain_snd.stop)
+
+
 ## Rain on Daniel (follow the player node the world gives us).
 func set_rain(on: bool, player: Node3D) -> void:
 	raining = on
@@ -659,6 +719,7 @@ func set_rain(on: bool, player: Node3D) -> void:
 	if rain_fx:
 		rain_fx.emitting = on
 		rain_fx.visible = on
+	_rain_sound(on)
 	# wet ground: darker, and glossy enough to mirror the street lamps; the
 	# water fills the joints, so the stones read flatter too
 	for m in [m_asphalt, m_pav, m_calcada, m_deck, m_sand]:

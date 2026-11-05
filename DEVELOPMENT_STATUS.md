@@ -130,6 +130,15 @@
   cartão microSD"). Corrigido + fila de avisos + teste. Pistas novas passam a mostrar "Nova pista: …"
   (clicável fora das conversas: abre Notas → Pistas; pode ser desligado nas Definições).
 - Conquistas desbloqueadas ao mesmo tempo sobrepunham-se → empilham.
+- **Estrada/cais (relato do autor, 4 capturas):** faixa sem chão entre a estrada e o muro baixo a oeste
+  do largo (x 150–200) → campo preenchido até ao paredão; mais 6 brechas nas bordas fechadas. O degrau
+  de 42 cm entre o largo e o cais → rampa de calçada. O salto para a ponta do cais às 02:52 é da
+  história (lapso de memória) e passou a ter fade a negro. Ferramenta `tools/reach_probe.tscn
+  -- <sítio> <spawn>` percorre o sítio como o jogador e lista todos os sítios onde se pode cair.
+- Sombras só perto das luzes: candeeiros de rua (spot) com orçamento próprio (8 em Alta, até 40 m) e
+  todos podem fazer sombra; atlas de sombras 4096 em Alta.
+- Zumbido grave: a gravação do mar tinha muito ruído de vento < 60 Hz → corte (`highpass` nas receitas
+  de `tools/prep_sounds.py`). A chuva passou a ouvir-se na estrada (camada própria por cima do mar).
 
 ## Testes
 

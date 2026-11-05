@@ -19,6 +19,7 @@ recipes.json: {"<name>": {"src": [paths under sources_dir], "loop": false, "seco
   cuts     [[start, seconds], ...] one excerpt per src (the same file may be
            listed several times to cut several takes from it)
   stereo   keep a loop in stereo (ambiences: they aren't placed in 3D)
+  highpass Hz: cut the rumble under it (wind on the microphone)
   gain     dB on top of the match (when the recording should sit louder or
            quieter than the old sound)
 Needs ffmpeg (libvorbis).
@@ -128,6 +129,12 @@ def build(name: str, rec: dict, synth_dir: str, root: str) -> list:
                 ff(*ins, "-filter_complex", mix, clean)
             else:
                 mono(src, clean, True, cut)
+            if rec.get("highpass"):
+                hp = os.path.join(tmp, "hp.wav")
+                # twice: a steep cut, the rumble is loud in outdoor recordings
+                f = "highpass=f=%d" % int(rec["highpass"])
+                ff("-i", clean, "-af", f + "," + f, hp)
+                clean = hp
             if rec.get("rate", 1.0) != 1.0:
                 r = float(rec["rate"])
                 shifted = os.path.join(tmp, "rate.wav")

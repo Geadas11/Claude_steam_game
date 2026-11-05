@@ -60,8 +60,12 @@ world think O cais é ao fundo do largo, depois dos barcos. Ela está na ponta.
 
 @beat way_late
 @when at("02:52") and not flag("w_zone_fim")
-world think Não me lembro de ter atravessado o cais. Lembro-me das tábuas molhadas e do casaco dela.
+# a gap in his memory, not a jump: the screen goes black and he is there
+world fade out 1.5
+wait 1.6
 world spawn fim
+world fade in 2.5
+world think Não me lembro de ter atravessado o cais. Lembro-me das tábuas molhadas e do casaco dela.
 set w_zone_fim=true
 @end
 

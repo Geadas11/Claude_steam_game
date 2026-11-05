@@ -85,13 +85,15 @@
   "src": "found/rain.ogg",
   "loop": true,
   "seconds": 60,
-  "stereo": true
+  "stereo": true,
+  "highpass": 120
  },
  "sea": {
   "src": "found/sea_2.ogg",
   "loop": true,
   "seconds": 60,
-  "stereo": true
+  "stereo": true,
+  "highpass": 140
  },
  "night": {
   "src": "found/night_2.ogg",

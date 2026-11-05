@@ -49,7 +49,8 @@ var _zone_t := 0.0
 var hold_t := 0.0       # story: he stands still (can't move) for a while
 var _shut_unseen: Array = []   # doors that close as soon as he isn't looking (R10)
 var _figures: Array = []
-var shadow_budget := 2          # point/spot lights that may cast shadows at once
+var shadow_budget := 2          # point lights that may cast shadows at once
+var spot_budget := 8            # spot lights (street lamps): one pass each, far cheaper
 var _cube_shadows := false      # omni shadows as cubes (6 passes) only on Ultra
 var _lights: Array = []
 var _lights_of: Location = null
@@ -185,7 +186,7 @@ func _apply_quality() -> void:
 	var vp := get_viewport()
 	if vp:
 		var hi := q == "alta" or q == "ultra"
-		vp.positional_shadow_atlas_size = 4096 if q == "ultra" else (2048 if hi else 1024)
+		vp.positional_shadow_atlas_size = 8192 if q == "ultra" else (4096 if hi else 2048)
 		vp.msaa_3d = Viewport.MSAA_4X if hi else (Viewport.MSAA_2X if q == "media" else Viewport.MSAA_DISABLED)
 		vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if q != "baixa" else Viewport.SCREEN_SPACE_AA_FXAA
 		vp.use_taa = q == "ultra"
@@ -199,6 +200,7 @@ func _apply_quality() -> void:
 	RenderingServer.environment_set_ssil_quality(RenderingServer.ENV_SSIL_QUALITY_HIGH if q == "ultra" else RenderingServer.ENV_SSIL_QUALITY_MEDIUM,
 		q != "ultra", 0.5, 4, 50.0, 300.0)
 	shadow_budget = {"baixa": 0, "media": 1, "alta": 2, "ultra": 4}.get(q, 2)
+	spot_budget = {"baixa": 0, "media": 3, "alta": 8, "ultra": 12}.get(q, 8)
 	_cube_shadows = q == "ultra"
 	_lights_of = null   # re-read the place's lights with the new budget
 
@@ -206,7 +208,12 @@ func _apply_quality() -> void:
 ## Shadows from point lights are the most expensive thing in a room (each one
 ## draws the scene six more times), so only the few lights nearest Daniel
 ## that are on cast them; the rest light without shadows, and lights far
-## away fade out. Runs a few times a second.
+## away fade out. Spot lights (the street lamps) cost one pass each, so many
+## more of them keep their shadows, out to where you can still see them: a
+## lamp-lit street without shadows looks flat. Runs a few times a second.
+const SPOT_SHADOW_RANGE := 40.0
+
+
 func _update_light_budget() -> void:
 	if location == null or player == null:
 		return
@@ -227,10 +234,11 @@ func _update_light_budget() -> void:
 				# further away (and highlights that aren't pin-points)
 				if lt.light_size == 0.0:
 					lt.light_size = 0.06 if lt is OmniLight3D else 0.04
+			var spot := lt is SpotLight3D
 			lt.distance_fade_enabled = true
-			lt.distance_fade_begin = 32.0
-			lt.distance_fade_length = 8.0
-			lt.distance_fade_shadow = 12.0
+			lt.distance_fade_begin = 70.0 if spot else 32.0
+			lt.distance_fade_length = 10.0 if spot else 8.0
+			lt.distance_fade_shadow = SPOT_SHADOW_RANGE - 4.0 if spot else 12.0
 			if lt is OmniLight3D:
 				# two hemispheres instead of six cube faces: a third of the cost
 				(lt as OmniLight3D).omni_shadow_mode = OmniLight3D.SHADOW_CUBE if _cube_shadows else OmniLight3D.SHADOW_DUAL_PARABOLOID
@@ -245,8 +253,16 @@ func _update_light_budget() -> void:
 		else:
 			lt.shadow_enabled = false
 	want.sort_custom(func(a, b): return a[0] < b[0])
-	for k in want.size():
-		(want[k][1] as Light3D).shadow_enabled = k < shadow_budget and want[k][0] < 14.0 * 14.0
+	var omnis := 0
+	var spots := 0
+	for w in want:
+		var lt: Light3D = w[1]
+		if lt is SpotLight3D:
+			lt.shadow_enabled = spots < spot_budget and w[0] < SPOT_SHADOW_RANGE * SPOT_SHADOW_RANGE
+			spots += 1
+		else:
+			lt.shadow_enabled = omnis < shadow_budget and w[0] < 14.0 * 14.0
+			omnis += 1
 
 
 ## Build (or keep) a place and put Daniel in it. Returns false when the
