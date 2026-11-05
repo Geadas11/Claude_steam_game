@@ -760,7 +760,10 @@ func _do_cmd(op: Dictionary, g: int) -> bool:
 				Events.toast_requested.emit("[silêncio total — o som da casa desaparece]")
 		"vibrate":
 			Events.vibrate_requested.emit(int(a[0]) if a.size() > 0 else 1)
-			Audio.play("vibrate")
+			# with the real phone (QR) in use, it vibrates in the player's
+			# hand: no buzz from the computer's speakers
+			if Companion.stream_vp == null:
+				Audio.play("vibrate")
 			_caption("vibrate")
 		"glitch":
 			Events.glitch_requested.emit(float(a[0]), float(a[1]))
