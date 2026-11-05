@@ -94,7 +94,7 @@ func _show_choice() -> void:
 	var v := UI.vbox(18)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	m.add_child(v)
-	v.add_child(_kicker("antes de começar"))
+	v.add_child(_kicker("UNKNOWN · antes de começar"))
 	v.add_child(_big("Que telemóvel vais usar?"))
 	v.add_child(UI.label("Mensagens, chamadas, fotografias: é por ele que a história te chega. Escolhe onde o queres ter esta noite.", 17, "dim", true))
 	v.add_child(UI.spacer(10))
@@ -167,8 +167,8 @@ func _show_qr(reconnect: bool) -> void:
 	left.size_flags_stretch_ratio = 1.15
 	left.alignment = BoxContainer.ALIGNMENT_CENTER
 	cols.add_child(left)
-	left.add_child(_kicker("ligação perdida" if reconnect else "o telemóvel do Daniel"))
-	left.add_child(_big("Voltaste? Liga-o outra vez." if reconnect else "Ainda estás acordado?"))
+	left.add_child(_kicker("UNKNOWN · ligação perdida" if reconnect else "UNKNOWN · o telemóvel do Daniel"))
+	left.add_child(_big("Liga-o outra vez." if reconnect else "Liga o teu telemóvel."))
 	if not Companion.running and not Companion.start():
 		left.add_child(UI.label("Não foi possível abrir a ligação na rede local (portas %d–%d ocupadas?)." % [Companion.HTTP_PORT, Companion.HTTP_PORT + 9], 16, "danger", true))
 		left.add_child(_back_row([_alt_button()]))
@@ -235,7 +235,7 @@ func _paper(url: String) -> Control:
 	var q := qr_rect(url)
 	q.custom_minimum_size = Vector2(270, 270)
 	pv.add_child(q)
-	var cap := UI.label("acordado?", 17)
+	var cap := UI.label("UNKNOWN", 17)
 	cap.add_theme_font_override("font", UI.font("italic"))
 	cap.add_theme_color_override("font_color", Color("4a4540"))
 	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

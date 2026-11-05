@@ -664,7 +664,7 @@ func _test_companion() -> void:
 	ok(Companion.url().contains("?k=" + Companion.token), "pairing url carries the code")
 	ok(QR.encode(Companion.url()).size() >= 21, "pairing url fits in a QR code")
 	var page := await _http_get("/?k=x")
-	ok(page.contains("200 OK") and page.contains("Ainda estás acordado?"), "page served over HTTP")
+	ok(page.contains("200 OK") and page.contains("<title>UNKNOWN</title>"), "page served over HTTP")
 	ok(page.contains(":%d/" % Companion.ws_port) and not page.contains("__WS_PORT__"), "page knows the websocket port")
 	ok((await _http_get("/manifest.webmanifest")).contains("fullscreen"), "page can be added to the home screen (manifest)")
 	# a stand-in for the in-game phone, rendered off-screen and streamed

@@ -1,5 +1,4 @@
 # UNKNOWN
-*(antes: «Ainda Estás Acordado?»)*
 
 Thriller de terror psicológico para PC/Steam. O Daniel anda pela casa dele em
 primeira pessoa (3D realista) e a história chega pelo telemóvel: o do jogo, na

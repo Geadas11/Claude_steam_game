@@ -15,7 +15,7 @@ import time
 import urllib.request
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "3d")
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AindaEstasAcordado-assets/1.0"}
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) UNKNOWN-game-assets/1.0"}
 
 # id -> resolution
 MODELS = {

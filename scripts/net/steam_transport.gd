@@ -106,7 +106,7 @@ func _on_lobby_created(result: int, lobby_id: int) -> void:
 		failed.emit("O Steam não conseguiu criar a sala (%d)." % result)
 		return
 	_lobby = lobby_id
-	_steam.call("setLobbyData", lobby_id, "game", "ainda_estas_acordado")
+	_steam.call("setLobbyData", lobby_id, "game", "unknown")
 	_steam.call("setLobbyJoinable", lobby_id, true)
 	hosted.emit(RoomCode.from_lobby(lobby_id))
 
