@@ -53,6 +53,7 @@ func _ready() -> void:
 		await _test_presence()
 	if _only == "" or _only == "world":
 		await _test_fall_net()
+		await _test_camera_live()
 	if _only == "ui":
 		await _playthrough("A")
 		await _ui_smoke("A")
@@ -1038,6 +1039,43 @@ func _test_fall_net() -> void:
 	p.global_position = Vector3(214.4, 0.6, 25.0)
 	await _physics(150)
 	ok(p.global_position.y > 0.0 and p.global_position.x > 216.0, "a fall through a gap puts him back on the quay (%s)" % p.global_position)
+	w.queue_free()
+	hud_parent.queue_free()
+	GameState.in_game = false
+
+
+## In the 3D world the phone's camera shows what Daniel sees, and the photo
+## it takes is that picture (the gallery shows the same one).
+func _test_camera_live() -> void:
+	print("-- camera sees the world")
+	GameState.in_game = true
+	var w := GameWorld.new()
+	add_child(w)
+	var hud_parent := Control.new()
+	add_child(hud_parent)
+	w.attach_hud(hud_parent)
+	w.set_active(true)
+	w.go_to("caminho", "largo")
+	var phone := Phone.new()
+	add_child(phone)
+	await _physics(3)
+	phone.refresh_all()
+	phone.open_app("camera", {"forced": true})
+	await _frames(3)
+	var app = phone.current_app
+	ok(app != null and app._live_vp != null, "camera has a live view of the world")
+	ok(app != null and app._live_cam.global_transform.origin.distance_to(w.player.cam.global_transform.origin) < 0.01, "the live camera is at Daniel's eyes")
+	var before: int = GameState.data.photo_order.size()
+	app._take()
+	await _frames(2)
+	ok(GameState.data.photo_order.size() == before + 1, "a photo is added to the gallery")
+	var pid: String = GameState.data.photo_order[0]
+	ok(GameState.data.photos[pid].has("dyn"), "the photo remembers how it was taken")
+	phone.open_app("gallery", {"forced": true})
+	await _frames(2)
+	phone.current_app._show_photo(pid)
+	await _frames(2)
+	phone.queue_free()
 	w.queue_free()
 	hud_parent.queue_free()
 	GameState.in_game = false

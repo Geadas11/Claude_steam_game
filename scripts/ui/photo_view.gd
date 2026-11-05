@@ -418,9 +418,18 @@ func _books(L: Dictionary, r: Rect2, a: float) -> void:
 
 ## The real photograph for a photo id and variant, if it exists
 ## (art/photos/<ID>.jpg, art/photos/<ID>__<variant>.jpg).
+static var _shots := {}
+
+
 static func photo_texture(id: String, v := "base") -> Texture2D:
 	if id == "":
 		return null
+	if id.begins_with("user://"):
+		# a photo taken with the phone's camera in the 3D world
+		if not _shots.has(id):
+			var img := Image.load_from_file(id) if FileAccess.file_exists(id) else null
+			_shots[id] = ImageTexture.create_from_image(img) if img else null
+		return _shots[id]
 	if v != "" and v != "base":
 		var vp := "res://art/photos/%s__%s.jpg" % [id, v]
 		if ResourceLoader.exists(vp):

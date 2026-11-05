@@ -12,6 +12,13 @@ var _event := ""
 var _event_timer: SceneTreeTimer
 var _flash: ColorRect
 var _hint: Label
+## In the 3D world the camera sees what Daniel sees: a second camera at his
+## eyes renders into this viewport, shown as the viewfinder and saved as the
+## photo. (Story scares armed on the camera keep their own pictures.)
+var _live_vp: SubViewport
+var _live_cam: Camera3D
+var _live_view: TextureRect
+var _world: GameWorld
 
 
 func build() -> void:
@@ -56,9 +63,48 @@ func build() -> void:
 	bottom.add_child(flip)
 	add_child(bottom)
 	_event = str(GameState.data.camera.get("armed", ""))
+	_world = get_tree().get_first_node_in_group("game_world") as GameWorld
+	if _world and _world.active and _world.player and _event == "":
+		_start_live()
 	_update_view()
 	if _event != "":
 		_start_event()
+
+
+func _start_live() -> void:
+	_live_vp = SubViewport.new()
+	_live_vp.size = Vector2i(720, 960)
+	_live_vp.world_3d = _world.get_world_3d()
+	_live_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_live_vp.msaa_3d = Viewport.MSAA_2X
+	_live_cam = Camera3D.new()
+	_live_cam.fov = 64.0
+	_live_vp.add_child(_live_cam)
+	add_child(_live_vp)
+	_live_view = TextureRect.new()
+	_live_view.texture = _live_vp.get_texture()
+	_live_view.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_live_view.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_live_view.position = _pv.position
+	_live_view.size = _pv.size
+	_live_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_live_view)
+	move_child(_live_view, _pv.get_index() + 1)
+	_follow_eyes()
+
+
+func _live() -> bool:
+	return _live_vp != null and not _front
+
+
+func _follow_eyes() -> void:
+	if _live_cam and _world and is_instance_valid(_world.player) and _world.player.cam:
+		_live_cam.global_transform = _world.player.cam.global_transform
+
+
+func _process(_d: float) -> void:
+	if _live_vp:
+		_follow_eyes()
 
 
 func _scene_id() -> String:
@@ -78,6 +124,9 @@ func _update_view() -> void:
 	_pv._build()
 	_pv.live = true
 	_pv.set_process(true)
+	if _live_view:
+		_live_view.visible = _live()
+		_live_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS if _live() else SubViewport.UPDATE_DISABLED
 
 
 func _flip() -> void:
@@ -137,8 +186,15 @@ func _take() -> void:
 	GameState.data.camera.shots = int(GameState.data.camera.get("shots", 0)) + 1
 	var n := 7000 + int(GameState.data.camera.shots)
 	var pid := "IMG_%d" % n
-	GameState.data.photos[pid] = {"variant": "base", "added": Clock.now(), "album": "Câmara", "new": true,
-		"dyn": {"scene_id": _scene_id(), "variant": _variant, "file": pid + ".jpg", "date": _now_str(), "place": _place()}}
+	var dyn := {"scene_id": _scene_id(), "variant": _variant, "file": pid + ".jpg", "date": _now_str(), "place": _place()}
+	if _live():
+		# keep exactly what the viewfinder shows
+		var img := _live_vp.get_texture().get_image()
+		DirAccess.make_dir_recursive_absolute("user://camera")
+		var path := "user://camera/%s_%d.jpg" % [pid, int(Time.get_unix_time_from_system())]
+		if img and img.save_jpg(path, 0.9) == OK:
+			dyn["shot"] = path
+	GameState.data.photos[pid] = {"variant": "base", "added": Clock.now(), "album": "Câmara", "new": true, "dyn": dyn}
 	GameState.data.photo_order.push_front(pid)
 	if _variant != "base":
 		GameState.set_var("photographed_" + _variant, true)

@@ -58,6 +58,7 @@ var _light_t := 0.0
 
 
 func _ready() -> void:
+	add_to_group("game_world")
 	env = WorldEnvironment.new()
 	env.environment = _night_environment()
 	add_child(env)

@@ -25,6 +25,7 @@ html, body { margin:0; height:100%; background:var(--bg); color:var(--text); fon
 .btn:active { transform:scale(.97); }
 .hidden { display:none !important; }
 #msg { background:#000c; z-index:15; }
+#fs { background:#000d; z-index:25; }
 #tip { position:fixed; left:12px; right:12px; bottom:calc(env(safe-area-inset-bottom) + 12px); background:#1e2228f2; border-radius:16px; padding:12px 14px; font-size:13px; color:var(--dim); z-index:12; display:flex; gap:10px; align-items:center; }
 #tip b { color:var(--text); font-weight:600; }
 #tip button { background:none; border:0; color:var(--faint); font-size:20px; padding:0 4px; }
@@ -46,6 +47,7 @@ html, body { margin:0; height:100%; background:var(--bg); color:var(--text); fon
 	<small>Esta página não acede à tua câmara, microfone, contactos, ficheiros nem localização. Mostra apenas o telemóvel do jogo, que corre no teu computador.</small>
 </div>
 <div id="msg" class="layer hidden"><h2 id="mt"></h2><p id="mp"></p></div>
+<div id="fs" class="layer hidden"><h2>Ecrã inteiro</h2><p>Toca em qualquer sítio para voltar ao jogo em ecrã inteiro.</p></div>
 <div id="tip" class="hidden"><span id="tiptext"></span><button id="tipx" aria-label="Fechar">×</button></div>
 <div id="kbd" class="hidden"><input id="kin" autocomplete="off" autocorrect="off" spellcheck="false"><textarea id="kta" class="hidden" rows="2"></textarea><button id="kok">OK</button></div>
 <script>
@@ -61,9 +63,16 @@ const cv = $("scr"), g = cv.getContext("2d");
 function layout() {
 	const dpr = window.devicePixelRatio || 1;
 	const vw = window.innerWidth, vh = window.innerHeight;
+	// fill the whole screen, no bars: the game's phone (420x880) is a little
+	// stretched to the shape of this one (a few %, nothing is cut off); only a
+	// very different shape (a tablet) keeps its proportions, with bars
 	const ar = S.w && S.h ? S.w / S.h : 420 / 880;
-	let w = vw, h = vw / ar;
-	if (h > vh) { h = vh; w = vh * ar; }
+	let w = vw, h = vh;
+	const diff = (vw / vh) / ar;
+	if (diff > 1.18 || diff < 0.82) {
+		w = vw; h = vw / ar;
+		if (h > vh) { h = vh; w = vh * ar; }
+	}
 	S.box = { x: (vw - w) / 2, y: (vh - h) / 2, w, h };
 	cv.style.left = S.box.x + "px"; cv.style.top = S.box.y + "px";
 	cv.style.width = w + "px"; cv.style.height = h + "px";
@@ -133,7 +142,7 @@ function vibrate(p) { if (navigator.vibrate) try { navigator.vibrate(p); } catch
 function ring(on) {
 	if (S.ring) { clearInterval(S.ring); S.ring = null; }
 	if (!on) { vibrate(0); return; }
-	const once = () => { tone([660, 880, 660, 880], 0.18, 0.2); vibrate([400, 200, 400]); };
+	const once = () => tone([660, 880, 660, 880], 0.18, 0.2);
 	once(); S.ring = setInterval(once, 2200);
 }
 
@@ -146,7 +155,7 @@ function onEvent(e) {
 		msg(e.on ? "" : "À espera do jogo", e.on ? "" : "Começa ou continua o jogo no computador e escolhe «O meu telemóvel».");
 		break;
 	case "kbd": kbd(e); break;
-	case "notif": vibrate([120, 80, 120]); tone([880, 1318], 0.12, 0.16); break;
+	case "notif": tone([880, 1318], 0.12, 0.16); break;
 	case "ring": ring(e.on); break;
 	case "vibrate": vibrate(Array(Math.max(1, e.n || 1)).fill(0).flatMap(() => [180, 120])); break;
 	}
@@ -166,11 +175,28 @@ function connect() {
 	};
 }
 const standalone = window.matchMedia("(display-mode: fullscreen)").matches || window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+// Always full screen: a browser only allows it after a touch, so when the
+// player leaves it (back gesture, another app), the next touch puts it back.
+let wantFull = false;
+function goFull() {
+	const de = document.documentElement;
+	if (standalone || !de.requestFullscreen) return;
+	de.requestFullscreen({ navigationUI: "hide" }).then(() => {
+		if (screen.orientation && screen.orientation.lock) screen.orientation.lock("portrait").catch(() => {});
+	}).catch(() => {});
+}
+function checkFull() {
+	const lost = wantFull && !standalone && document.documentElement.requestFullscreen && !document.fullscreenElement;
+	$("fs").classList.toggle("hidden", !lost);
+}
+document.addEventListener("fullscreenchange", () => { checkFull(); setTimeout(layout, 50); });
+$("fs").addEventListener("pointerdown", (e) => { e.preventDefault(); goFull(); $("fs").classList.add("hidden"); });
 $("go").onclick = () => {
 	try { actx().resume(); tone([440], 0.05, 0.01); } catch (e) {}
 	vibrate(30);
 	$("gate").classList.add("hidden");
-	if (!standalone && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+	wantFull = true;
+	goFull();
 	if (navigator.wakeLock) navigator.wakeLock.request("screen").catch(() => {});
 	const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
 	if (ios && !standalone) {
@@ -182,6 +208,7 @@ $("go").onclick = () => {
 $("tipx").onclick = () => $("tip").classList.add("hidden");
 document.addEventListener("visibilitychange", () => {
 	if (!document.hidden) {
+		checkFull();
 		if (navigator.wakeLock) navigator.wakeLock.request("screen").catch(() => {});
 		if (S.ws && S.ws.readyState > 1) connect(); else send({ t: "sync" });
 	}

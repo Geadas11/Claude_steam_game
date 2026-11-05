@@ -166,6 +166,14 @@
 - **Vibração separada do toque:** é um efeito (`Phone.vibrate`): o telemóvel treme, o comando vibra
   e o telemóvel real (QR) vibra. Vibra em todas as notificações (menos em "não incomodar" e na
   conversa aberta) e duas vezes a cada 1,6 s enquanto uma chamada toca.
+- **Telemóvel real (QR), relato do autor:** fica sempre em ecrã inteiro (se o jogador sai, o próximo
+  toque volta a pôr; o navegador não deixa sem toque) e fixa na vertical; a imagem enche o ecrã
+  todo (esticada uns %, sem cortes; só tablets ficam com barras); sem cantos nem câmara desenhados
+  por cima (o telemóvel real tem os seus); a vibração vem só dos eventos do jogo (não a dobrar).
+- **Câmara:** no mundo 3D o visor mostra o que o Daniel vê (segunda câmara nos olhos dele) e a foto
+  guarda essa imagem (`user://camera/`); a galeria mostra a mesma imagem que o visor mostrou
+  (antes desenhava um esboço diferente). Os sustos preparados na câmara mantêm as suas imagens.
+  Teste: `--only=world` → "camera sees the world".
 - **Por fazer:** a página do telemóvel real (`companion/index.html`) ainda tem o desenho antigo.
 
 ## Testes

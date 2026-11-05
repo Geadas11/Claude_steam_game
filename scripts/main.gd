@@ -1090,6 +1090,8 @@ func set_phone_mode(m: String) -> void:
 			add_child(phone_vp)
 		phone.reparent(phone_vp, false)
 		phone.theme = theme
+		# the real phone has its own corners and camera: no drawn ones
+		phone.corners.visible = false
 		phone.scale = Vector2.ONE * STREAM_SCALE
 		phone.position = -Vector2(Phone.BEZEL, Phone.BEZEL) * STREAM_SCALE
 		phone._base_pos = phone.position
@@ -1099,6 +1101,7 @@ func set_phone_mode(m: String) -> void:
 	else:
 		phone.reparent(phone_holder, false)
 		phone.theme = null
+		phone.corners.visible = true
 		phone.scale = Vector2.ONE
 		phone.position = -phone.custom_minimum_size / 2.0
 		phone_holder.visible = true

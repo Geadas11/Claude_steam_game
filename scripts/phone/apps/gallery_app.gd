@@ -149,6 +149,10 @@ static func _set_pv(pv: PhotoView, pid: String) -> void:
 	if st.has("dyn"):
 		var base := Content.get_item("photos", st.dyn.scene_id)
 		pv.set_scene(base.get("scene", {}), st.dyn.get("variant", "base"))
+		# the very picture the viewfinder showed: the shot saved from the 3D
+		# world, or the camera's own photograph of the room (with its variant)
+		pv.image_id = str(st.dyn.get("shot", st.dyn.scene_id))
+		pv._build()
 
 
 func _show_photo(pid: String) -> void:
