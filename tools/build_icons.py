@@ -86,6 +86,9 @@ ICONS = {
     "clock": ("outline", "clock"),
     "battery": ("outline", "battery-2"),
     "torch": ("outline", "bulb"),
+    "desktop": ("outline", "device-desktop"),
+    "mobile": ("outline", "device-mobile"),
+    "qrcode": ("outline", "qrcode"),
 }
 
 

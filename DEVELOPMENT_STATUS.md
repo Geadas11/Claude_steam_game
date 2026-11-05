@@ -174,6 +174,10 @@
   guarda essa imagem (`user://camera/`); a galeria mostra a mesma imagem que o visor mostrou
   (antes desenhava um esboço diferente). Os sustos preparados na câmara mantêm as suas imagens.
   Teste: `--only=world` → "camera sees the world".
+- **Ecrãs "que telemóvel?" e código QR** redesenhados no ambiente do jogo: ecrã inteiro com grão,
+  vinheta e brilho vermelho (`scripts/ui/night_backdrop.gdshader`), título "Ainda estás acordado?",
+  passos numerados, código num papel torto com cantos de visor e linha de leitura, estado com ponto
+  vermelho a pulsar ("Telemóvel ligado. Não o desligues."). Fotos: `tools/qr_shots.tscn -- <pasta>`.
 - **Por fazer:** a página do telemóvel real (`companion/index.html`) ainda tem o desenho antigo.
 
 ## Testes
