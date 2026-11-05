@@ -65,8 +65,25 @@ func _show_list() -> void:
 		prev.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		rv.add_child(prev)
 		var eid: String = en.id
-		v.add_child(UI.row(rv, func(): slide(); _show_email(eid), 82))
-		v.add_child(UI.separator())
+		var row := UI.hbox(12)
+		var dotc := UI.spacer(0, 8)
+		if unread:
+			dotc = Panel.new()
+			dotc.custom_minimum_size = Vector2(8, 8)
+			dotc.add_theme_stylebox_override("panel", UI.box(UI.c("accent"), 4))
+		dotc.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(dotc)
+		row.add_child(UI.initials(who.text, 40))
+		rv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(rv)
+		if unread:
+			who.add_theme_font_override("font", UI.font("semibold"))
+		var r := UI.row(row, func(): slide(); _show_email(eid), 86)
+		r.get_child(0).add_theme_constant_override("margin_left", 8)
+		v.add_child(r)
+		var sep := UI.margin(76, 0, 0, 0)
+		sep.add_child(UI.separator())
+		v.add_child(sep)
 
 
 func _show_email(eid: String) -> void:

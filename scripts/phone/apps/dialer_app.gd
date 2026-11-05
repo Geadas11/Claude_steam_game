@@ -1,7 +1,7 @@
 extends PhoneApp
 ## Phone: recents, favourites, keypad, voicemail.
 
-const TABS := ["Recentes", "Contactos", "Teclado", "Correio de voz"]
+const TABS := ["Recentes", "Contactos", "Teclado", "Voz"]
 
 var _root: VBoxContainer
 var _tab := 0
@@ -61,24 +61,32 @@ func _recents() -> void:
 			"missed":
 				g = "missed"
 				col = "danger"
-		h.add_child(UI.glyph(g, 18, col))
+		var av := UI.avatar("" if c.get("unknown", false) else str(c.who), 42)
+		h.add_child(av)
 		var v := UI.vbox(0)
 		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		v.add_child(UI.label(_who_label(c), 16, "danger" if c.dir == "missed" else "text"))
+		v.alignment = BoxContainer.ALIGNMENT_CENTER
+		var nl := UI.label(_who_label(c), 16, "danger" if c.dir == "missed" else "text")
+		nl.add_theme_font_override("font", UI.font("semibold"))
+		v.add_child(nl)
 		var sub = {"in": "Recebida", "out": "Efetuada", "missed": "Perdida"}.get(c.dir, "")
 		var dur := int(c.get("dur", 0))
 		if c.dir != "missed":
 			sub += " · %d:%02d" % [dur / 60, dur % 60]
-		v.add_child(UI.label(sub, 12, "faint"))
+		var sh := UI.hbox(5)
+		sh.add_child(UI.glyph(g, 13, col))
+		sh.add_child(UI.label(sub, 12, "faint"))
+		v.add_child(sh)
 		h.add_child(v)
 		h.add_child(UI.label(Clock.fmt_relative(float(c.t)) if float(c.t) > 0 else "—", 12, "faint"))
+		h.add_child(UI.glyph("info", 20, "accent"))
 		var who: String = c.who
 		var unknown: bool = c.get("unknown", false)
 		_body.add_child(UI.row(h, func():
 			if unknown:
 				phone.toast("Não é possível ligar para um número privado.")
 			else:
-				Director.player_call(who), 62))
+				Director.player_call(who), 66))
 	Events.content_changed.emit("badges")
 
 
@@ -97,7 +105,11 @@ func _favourites() -> void:
 		v.add_child(UI.label(GameState.contact_name(id), 16))
 		v.add_child(UI.label(str(GameState.contact(id).get("number", "")), 12, "faint"))
 		h.add_child(v)
-		h.add_child(UI.glyph("call", 22, "ok"))
+		var cb := UI.panel(Color(UI.c("ok"), 0.16), 18)
+		cb.custom_minimum_size = Vector2(36, 36)
+		cb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		cb.add_child(UI.glyph("call", 30, "ok"))
+		h.add_child(cb)
 		_body.add_child(UI.row(h, func(): Director.player_call(id), 60))
 
 

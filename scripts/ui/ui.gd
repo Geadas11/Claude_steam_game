@@ -4,20 +4,21 @@ extends RefCounted
 
 const SCREEN := Vector2(420, 880)
 
+## Graphite, frosted glass and one warm light (the "lumen"): champagne gold.
 const PALETTE := {
-	"bg": Color("0b0d10"),
-	"surf": Color("15181d"),
-	"surf2": Color("1e2228"),
-	"line": Color("2a2f37"),
-	"text": Color("e9e6e1"),
-	"dim": Color("a3a9b0"),
-	"faint": Color("858b93"),
-	"accent": Color("d9b26f"),
-	"me": Color("2c4255"),
-	"them": Color("20242b"),
-	"danger": Color("e06c6c"),
-	"ok": Color("6fc59a"),
-	"link": Color("8fb8de"),
+	"bg": Color("09090b"),
+	"surf": Color("141518"),
+	"surf2": Color("1e1f23"),
+	"line": Color("2a2b30"),
+	"text": Color("f4f2ee"),
+	"dim": Color("a4a6ad"),
+	"faint": Color("7c7f87"),
+	"accent": Color("e4bd7c"),
+	"me": Color("8e6631"),
+	"them": Color("1f2024"),
+	"danger": Color("ff6b6b"),
+	"ok": Color("5fd39b"),
+	"link": Color("9ec4ff"),
 }
 
 const HC_PALETTE := {
@@ -63,7 +64,21 @@ static func font(weight := "regular") -> Font:
 				var f: FontFile = load(path)
 				f.fallbacks = [ThemeDB.fallback_font]
 				_fonts[k] = f
+		# the weights Inter has here, thinned or thickened: light for the big
+		# clock, bold for large titles, and tight tracking for both
+		if _fonts.has("regular") and _fonts.has("semibold"):
+			_fonts["light"] = _variant(_fonts.regular, -0.45, -1)
+			_fonts["display"] = _variant(_fonts.regular, -0.6, -3)
+			_fonts["bold"] = _variant(_fonts.semibold, 0.3, -1)
 	return _fonts.get(weight, ThemeDB.fallback_font)
+
+
+static func _variant(base: Font, embolden: float, spacing: int) -> FontVariation:
+	var v := FontVariation.new()
+	v.base_font = base
+	v.variation_embolden = embolden
+	v.spacing_glyph = spacing
+	return v
 
 
 # ------------------------------------------------------------------ motion
@@ -72,6 +87,7 @@ static func font(weight := "regular") -> Font:
 const T_PRESS := 0.09      # finger down
 const T_RELEASE := 0.16    # finger up (slightly slower, springy)
 const T_SCREEN := 0.2      # app / screen in and out
+const T_OPEN := 0.42       # an app growing out of its icon (expo ease: fast, long soft tail)
 
 
 static func motion_ok() -> bool:
@@ -97,6 +113,60 @@ static func press_fx(b: BaseButton, amount := 0.95) -> BaseButton:
 	b.button_down.connect(func(): to.call(amount, T_PRESS, Tween.TRANS_CUBIC))
 	b.button_up.connect(func(): to.call(1.0, T_RELEASE, Tween.TRANS_BACK))
 	return b
+
+
+# ------------------------------------------------------------------ glass
+const R_CARD := 20         # cards, sheets, grouped lists
+const R_CONTROL := 14      # inputs, small cards
+const R_PILL := 999        # pill buttons, chips
+
+static var _glass_mats := {}
+
+
+## Glass is off when the player wants plain, high-contrast panels.
+static func glass_ok() -> bool:
+	return not Settings.get_value("high_contrast", false)
+
+
+## A frosted-glass PanelContainer: what's behind it shows through, blurred.
+## kind: "regular" (cards, dock), "thick" (sheets, banners), "thin" (bars).
+static func glass(radius := R_CARD, l := 0, t := 0, r := 0, b := 0, kind := "regular") -> PanelContainer:
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", glass_box(radius, l, t, r, b, kind))
+	if glass_ok():
+		p.material = glass_material(kind)
+	return p
+
+
+static func glass_box(radius := R_CARD, l := 0, t := 0, r := 0, b := 0, kind := "regular") -> StyleBoxFlat:
+	var tint := _glass_tint(kind)
+	if not glass_ok():
+		return pad(box(c("surf2"), radius, c("line"), 1), l, t, r, b) as StyleBoxFlat
+	var s := box(Color(tint, 1.0), radius)
+	# a hairline of light along the top edge, as on real glass
+	s.border_color = Color(tint.r + 0.09, tint.g + 0.09, tint.b + 0.1)
+	s.border_width_top = 1
+	return pad(s, l, t, r, b) as StyleBoxFlat
+
+
+static func _glass_tint(kind: String) -> Color:
+	match kind:
+		"thick": return Color(0.075, 0.078, 0.09)
+		"heavy": return Color(0.04, 0.042, 0.05)
+		"thin": return Color(0.06, 0.062, 0.07)
+	return Color(0.11, 0.115, 0.13)
+
+
+static func glass_material(kind := "regular") -> ShaderMaterial:
+	if _glass_mats.has(kind):
+		return _glass_mats[kind]
+	var m := ShaderMaterial.new()
+	m.shader = load("res://scripts/ui/glass.gdshader")
+	m.set_shader_parameter("tint", _glass_tint(kind))
+	m.set_shader_parameter("tint_amount", {"thick": 0.72, "thin": 0.6, "heavy": 0.62}.get(kind, 0.5))
+	m.set_shader_parameter("blur", {"thick": 3.6, "thin": 3.0, "heavy": 5.0}.get(kind, 3.3))
+	_glass_mats[kind] = m
+	return m
 
 
 # ------------------------------------------------------------------ theme
@@ -126,14 +196,14 @@ static func build_theme() -> Theme:
 	t.set_color("font_focus_color", "Button", c("text"))
 	t.set_color("font_disabled_color", "Button", c("faint"))
 	t.set_color("font_color", "Label", c("text"))
-	var le := box(c("surf2"), 18)
-	le.content_margin_left = 14
-	le.content_margin_right = 14
-	le.content_margin_top = 8
-	le.content_margin_bottom = 8
+	var le := box(c("surf2"), 20)
+	le.content_margin_left = 16
+	le.content_margin_right = 16
+	le.content_margin_top = 10
+	le.content_margin_bottom = 10
 	t.set_stylebox("normal", "LineEdit", le)
 	var lef := le.duplicate()
-	lef.border_color = c("accent").darkened(0.3)
+	lef.border_color = Color(c("accent"), 0.55)
 	lef.set_border_width_all(1)
 	t.set_stylebox("focus", "LineEdit", lef)
 	t.set_color("font_color", "LineEdit", c("text"))
@@ -143,7 +213,7 @@ static func build_theme() -> Theme:
 	t.set_stylebox("focus", "TextEdit", lef)
 	t.set_color("font_color", "TextEdit", c("text"))
 	# thin scrollbars
-	var grab := box(Color(1, 1, 1, 0.16), 3)
+	var grab := box(Color(1, 1, 1, 0.14), 3)
 	grab.content_margin_left = 3
 	grab.content_margin_right = 3
 	var grab_h := box(Color(1, 1, 1, 0.3), 3)
@@ -163,6 +233,15 @@ static func build_theme() -> Theme:
 	t.set_font_size("normal_font_size", "RichTextLabel", fs(16))
 	t.set_font_size("bold_font_size", "RichTextLabel", fs(16))
 	t.set_font_size("italics_font_size", "RichTextLabel", fs(16))
+	# switches: a pill track and a round knob, drawn once
+	t.set_icon("checked", "CheckButton", _switch_tex(true))
+	t.set_icon("unchecked", "CheckButton", _switch_tex(false))
+	t.set_icon("checked_disabled", "CheckButton", _switch_tex(true))
+	t.set_icon("unchecked_disabled", "CheckButton", _switch_tex(false))
+	t.set_stylebox("normal", "CheckButton", StyleBoxEmpty.new())
+	t.set_stylebox("hover", "CheckButton", StyleBoxEmpty.new())
+	t.set_stylebox("pressed", "CheckButton", StyleBoxEmpty.new())
+	t.set_stylebox("hover_pressed", "CheckButton", StyleBoxEmpty.new())
 	# sliders / checkboxes in menus
 	var slider := box(c("line"), 3)
 	slider.content_margin_top = 3
@@ -171,6 +250,33 @@ static func build_theme() -> Theme:
 	t.set_stylebox("grabber_area", "HSlider", box(c("accent").darkened(0.2), 3))
 	t.set_stylebox("grabber_area_highlight", "HSlider", box(c("accent"), 3))
 	return t
+
+
+static var _switches := {}
+
+
+static func _switch_tex(on: bool) -> Texture2D:
+	if _switches.has(on):
+		return _switches[on]
+	var w := 52
+	var h := 32
+	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	var track := c("ok") if on else Color(1, 1, 1, 0.16)
+	var knob_x := w - h / 2.0 if on else h / 2.0
+	for y in h:
+		for x in w:
+			var p := Vector2(x + 0.5, y + 0.5)
+			# distance to the pill's centre line, then to the knob
+			var q := Vector2(clampf(p.x, h / 2.0, w - h / 2.0), h / 2.0)
+			var dt := p.distance_to(q) - h / 2.0
+			var dk := p.distance_to(Vector2(knob_x, h / 2.0)) - (h / 2.0 - 2.5)
+			var col := Color(track, track.a * clampf(0.5 - dt, 0.0, 1.0))
+			var ka := clampf(0.5 - dk, 0.0, 1.0)
+			col = col.blend(Color(1, 1, 1, ka))
+			img.set_pixel(x, y, col)
+	var tex := ImageTexture.create_from_image(img)
+	_switches[on] = tex
+	return tex
 
 
 static func box(color: Color, radius := 0, border := Color(0, 0, 0, 0), bw := 0) -> StyleBoxFlat:
@@ -198,8 +304,13 @@ static func label(text: String, size := 16, color_key := "text", wrap := false) 
 	l.text = text
 	l.add_theme_font_size_override("font_size", fs(size))
 	l.add_theme_color_override("font_color", c(color_key))
-	# hierarchy by weight, like a phone OS: titles semibold, subheads medium
-	if size >= 20:
+	# hierarchy by weight, like a phone OS: huge numbers light, large titles
+	# bold, titles semibold, subheads medium
+	if size >= 48:
+		l.add_theme_font_override("font", font("display"))
+	elif size >= 26:
+		l.add_theme_font_override("font", font("bold"))
+	elif size >= 20:
 		l.add_theme_font_override("font", font("semibold"))
 	elif size >= 17:
 		l.add_theme_font_override("font", font("medium"))
@@ -239,12 +350,17 @@ static func button(text: String, cb: Callable, size := 16, color_key := "text") 
 
 static func pill_button(text: String, cb: Callable, bg_key := "surf2", fg_key := "text", size := 15) -> Button:
 	var b := button(text, cb, size, fg_key)
-	var n := pad(box(c(bg_key), 18), 16, 8, 16, 8)
-	var h := pad(box(c(bg_key).lightened(0.08), 18), 16, 8, 16, 8)
+	var n := pad(box(c(bg_key), 22), 18, 10, 18, 10)
+	var h := pad(box(c(bg_key).lightened(0.08), 22), 18, 10, 18, 10)
 	b.add_theme_stylebox_override("normal", n)
 	b.add_theme_stylebox_override("hover", h)
 	b.add_theme_stylebox_override("pressed", h)
-	b.add_theme_stylebox_override("focus", pad(box(Color(0, 0, 0, 0), 18, c("accent"), 1), 16, 8, 16, 8))
+	b.add_theme_stylebox_override("focus", pad(box(Color(0, 0, 0, 0), 22, c("accent"), 1), 18, 10, 18, 10))
+	if bg_key == "accent":
+		b.add_theme_color_override("font_color", c("bg"))
+		b.add_theme_color_override("font_hover_color", c("bg"))
+		b.add_theme_color_override("font_pressed_color", c("bg"))
+		b.add_theme_font_override("font", font("semibold"))
 	return b
 
 
@@ -328,10 +444,64 @@ static func expand() -> Control:
 
 static func separator() -> Control:
 	var r := ColorRect.new()
-	r.color = c("line")
+	r.color = Color(1, 1, 1, 0.07) if glass_ok() else c("line")
 	r.custom_minimum_size = Vector2(0, 1)
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return r
+
+
+## A rounded inset card for grouped lists (settings, details): returns the
+## VBox to add rows to; the card is added to `parent` with page margins.
+static func group(parent: Control, title := "") -> VBoxContainer:
+	if title != "":
+		var tm := margin(30, 6, 30, 6)
+		var tl := label(title.to_upper(), 12, "faint")
+		tl.add_theme_font_override("font", font("medium"))
+		tm.add_child(tl)
+		parent.add_child(tm)
+	var card := panel(c("surf"), R_CARD, 0, 4, 0, 4)
+	var v := vbox(0)
+	card.add_child(v)
+	var m := margin(16, 0, 16, 18)
+	m.add_child(card)
+	parent.add_child(m)
+	return v
+
+
+## A glyph on a small coloured rounded tile (settings rows, file types).
+static func tile_glyph(name: String, col: Color, size := 32) -> Control:
+	var p := panel(col, int(size * 0.28))
+	p.custom_minimum_size = Vector2(size, size)
+	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var g := glyph(name, int(size * 0.92), "text")
+	g.color = Color.WHITE
+	p.add_child(g)
+	return p
+
+
+## A round tile with the first letters of a name, its colour taken from
+## the name (mail senders, files: people who aren't contacts).
+static func initials(who: String, size := 40) -> Control:
+	var words := who.replace("—", " ").replace("·", " ").split(" ", false)
+	var txt := ""
+	for w in words:
+		if txt.length() < 2 and w.length() > 0 and w[0] == w[0].to_upper() and w[0] != w[0].to_lower():
+			txt += w[0]
+	if txt == "":
+		txt = who.left(1).to_upper()
+	var hues := [0.02, 0.08, 0.13, 0.36, 0.5, 0.58, 0.66, 0.75, 0.88]
+	var col := Color.from_hsv(hues[absi(who.hash()) % hues.size()], 0.45, 0.62)
+	var p := panel(col, int(size / 2.0))
+	p.custom_minimum_size = Vector2(size, size)
+	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var l := label(txt, int(size * 0.36))
+	l.add_theme_font_override("font", font("semibold"))
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return p
 
 
 static func avatar(contact_id: String, size := 44) -> Avatar:
@@ -400,19 +570,23 @@ static func wrap_button(text: String, cb: Callable, width: float, size := 15, bg
 
 
 ## Standard app header: [back] Title ........ [extra]
+## The top level of an app (no back button) gets a large bold title, as on
+## modern phones; screens inside it get a compact one next to the chevron.
 static func header(title: String, back_cb: Callable, extra: Array = [], subtitle := "") -> Control:
-	var bar := panel(c("bg"), 0, 6, 4, 10, 4)
-	bar.custom_minimum_size = Vector2(0, 56)
+	var large := not back_cb.is_valid() and subtitle == ""
+	var bar := panel(c("bg"), 0, 6, 8 if large else 4, 10, 4)
+	bar.custom_minimum_size = Vector2(0, 64 if large else 56)
 	var h := hbox(4)
 	bar.add_child(h)
 	if back_cb.is_valid():
-		h.add_child(icon_button("back", back_cb, 44))
+		var bb := icon_button("back", back_cb, 44, "accent")
+		h.add_child(bb)
 	else:
-		h.add_child(spacer(0, 10))
+		h.add_child(spacer(0, 12))
 	var tv := vbox(0)
 	tv.alignment = BoxContainer.ALIGNMENT_CENTER
 	tv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var t := label(title, 20 if subtitle == "" else 18)
+	var t := label(title, 30 if large else (19 if subtitle == "" else 17))
 	t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	t.name = "Title"
 	tv.add_child(t)
@@ -426,20 +600,26 @@ static func header(title: String, back_cb: Callable, extra: Array = [], subtitle
 	return bar
 
 
+## A segmented control: a pill track with the chosen segment raised.
 static func tabs(names: Array, current: int, cb: Callable) -> Control:
-	var h := hbox(0)
+	var track := panel(c("surf2"), 12, 3, 3, 3, 3)
+	var h := hbox(2)
+	track.add_child(h)
 	for i in names.size():
-		var b := button(names[i], func(): cb.call(i), 14, "accent" if i == current else "dim")
+		var b := button(names[i], func(): cb.call(i), 14, "text" if i == current else "dim")
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.custom_minimum_size = Vector2(0, 42)
+		b.custom_minimum_size = Vector2(0, 34)
 		if i == current:
-			var under := StyleBoxFlat.new()
-			under.bg_color = Color(0, 0, 0, 0)
-			under.border_color = c("accent")
-			under.border_width_bottom = 2
-			b.add_theme_stylebox_override("normal", under)
+			var on := box(Color("3a3b41"), 10)
+			on.shadow_color = Color(0, 0, 0, 0.35)
+			on.shadow_size = 4
+			b.add_theme_stylebox_override("normal", on)
+			b.add_theme_stylebox_override("hover", on)
+			b.add_theme_font_override("font", font("semibold"))
 		h.add_child(b)
-	return h
+	var m := margin(14, 6, 14, 6)
+	m.add_child(track)
+	return m
 
 
 static func empty_state(text: String, glyph_name := "") -> Control:

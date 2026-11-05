@@ -19,17 +19,21 @@ var _line_player: AudioStreamPlayer
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var bg := ColorRect.new()
-	bg.color = Color("0a0c0f")
+	# whatever was on the screen, deeply blurred behind the call
+	var bg := Panel.new()
+	bg.add_theme_stylebox_override("panel", UI.box(Color("0a0b0d") if not UI.glass_ok() else Color(0.05, 0.05, 0.06), 0))
+	if UI.glass_ok():
+		bg.material = UI.glass_material("heavy")
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	var glow := TextureRect.new()
 	var gt := GradientTexture2D.new()
 	gt.fill_from = Vector2(0.5, 0.0)
 	gt.fill_to = Vector2(0.5, 1.0)
 	var gr := Gradient.new()
-	gr.set_color(0, Color(0.2, 0.35, 0.3, 0.16))
-	gr.set_color(1, Color(0.2, 0.35, 0.3, 0.0))
+	gr.set_color(0, Color(0.89, 0.74, 0.49, 0.12))
+	gr.set_color(1, Color(0.89, 0.74, 0.49, 0.0))
 	gt.gradient = gr
 	glow.texture = gt
 	glow.stretch_mode = TextureRect.STRETCH_SCALE
@@ -39,13 +43,14 @@ func _ready() -> void:
 	add_child(glow)
 	var v := UI.vbox(10)
 	v.set_anchors_preset(Control.PRESET_FULL_RECT)
-	v.offset_top = 80
+	v.offset_top = 92
 	v.offset_bottom = -50
 	add_child(v)
-	_avatar = UI.avatar("", 96)
+	_avatar = UI.avatar("", 104)
 	_avatar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(_avatar)
-	_name = UI.label("", 26)
+	_name = UI.label("", 34)
+	_name.add_theme_font_override("font", UI.font("light"))
 	_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(_name)
 	_status = UI.label("", 15, "dim")
@@ -70,11 +75,17 @@ func _ready() -> void:
 	_active_box = UI.vbox(16)
 	var tools := UI.hbox(0)
 	tools.alignment = BoxContainer.ALIGNMENT_CENTER
-	tools.add_theme_constant_override("separation", 46)
-	for g in ["mic", "keypad", "speaker"]:
-		var b := UI.icon_button(g, func(): pass, 50, "dim")
-		b.add_theme_stylebox_override("normal", UI.box(Color(1, 1, 1, 0.07), 25))
-		tools.add_child(b)
+	tools.add_theme_constant_override("separation", 34)
+	for g in [["mic", "Silenciar"], ["keypad", "Teclado"], ["speaker", "Altifalante"]]:
+		var tv := UI.vbox(6)
+		var b := UI.icon_button(g[0], func(): pass, 64, "text")
+		b.add_theme_stylebox_override("normal", UI.box(Color(1, 1, 1, 0.12), 32))
+		b.add_theme_stylebox_override("hover", UI.box(Color(1, 1, 1, 0.18), 32))
+		tv.add_child(b)
+		var tl := UI.label(g[1], 12, "dim")
+		tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tv.add_child(tl)
+		tools.add_child(tv)
 	_active_box.add_child(tools)
 	var hb := UI.hbox(0)
 	hb.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -87,10 +98,10 @@ func _ready() -> void:
 
 func _round_button(glyph: String, col: Color, label_text: String, cb: Callable) -> Control:
 	var v := UI.vbox(6)
-	var b := UI.icon_button(glyph, cb, 70, "text")
-	b.add_theme_stylebox_override("normal", UI.box(col.darkened(0.15), 35))
-	b.add_theme_stylebox_override("hover", UI.box(col, 35))
-	b.add_theme_stylebox_override("pressed", UI.box(col.lightened(0.1), 35))
+	var b := UI.icon_button(glyph, cb, 74, "text")
+	b.add_theme_stylebox_override("normal", UI.box(col.darkened(0.05), 37))
+	b.add_theme_stylebox_override("hover", UI.box(col.lightened(0.08), 37))
+	b.add_theme_stylebox_override("pressed", UI.box(col.lightened(0.16), 37))
 	b.tooltip_text = label_text
 	v.add_child(b)
 	var l := UI.label(label_text, 13, "dim")

@@ -65,7 +65,7 @@ func _render() -> void:
 		names.sort_custom(func(a, b): return (a.begins_with(".") and not b.begins_with(".")) == false and a < b)
 		for fo in names:
 			var h := UI.hbox(12)
-			h.add_child(UI.glyph("folder", 30, "faint" if fo.begins_with(".") else "accent"))
+			h.add_child(UI.tile_glyph("folder", Color("3a3c42") if fo.begins_with(".") else Color("2a9fd0"), 40))
 			var fv := UI.vbox(0)
 			fv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			fv.add_child(UI.label(fo, 16, "dim" if fo.begins_with(".") else "text"))
@@ -79,10 +79,29 @@ func _render() -> void:
 				_render(), 62))
 		if names.is_empty():
 			v.add_child(UI.empty_state("Sem ficheiros.", "files"))
-		var storage := UI.label("Armazenamento: %s de 128 GB usados" % ("61,4" if GameState.flag("storage_grew") else "38,2"), 12, "faint")
-		storage.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		v.add_child(UI.spacer(14))
-		v.add_child(storage)
+		# storage: a bar, as in a phone's files app
+		var used := 61.4 if GameState.flag("storage_grew") else 38.2
+		var card := UI.panel(UI.c("surf"), UI.R_CARD, 16, 14, 16, 16)
+		var cv := UI.vbox(8)
+		card.add_child(cv)
+		var top := UI.hbox(6)
+		var tl := UI.label("Armazenamento", 15)
+		tl.add_theme_font_override("font", UI.font("semibold"))
+		tl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		top.add_child(tl)
+		top.add_child(UI.label(("%.1f" % used).replace(".", ",") + " de 128 GB", 13, "dim"))
+		cv.add_child(top)
+		var bar := ProgressBar.new()
+		bar.show_percentage = false
+		bar.custom_minimum_size = Vector2(0, 8)
+		bar.value = used / 128.0 * 100.0
+		bar.add_theme_stylebox_override("background", UI.box(UI.c("surf2"), 4))
+		bar.add_theme_stylebox_override("fill", UI.box(UI.c("accent"), 4))
+		bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cv.add_child(bar)
+		var cm := UI.margin(16, 18, 16, 10)
+		cm.add_child(card)
+		v.add_child(cm)
 		return
 	for fid in files:
 		var f := Content.get_item("files", fid)
@@ -90,7 +109,7 @@ func _render() -> void:
 			continue
 		var h2 := UI.hbox(12)
 		var g = {"audio": "audio", "image": "image", "archive": "folder", "log": "doc"}.get(str(f.get("type", "doc")), "doc")
-		h2.add_child(UI.glyph(g, 26, "dim"))
+		h2.add_child(UI.tile_glyph(g, Color({"audio": "#e2525f", "image": "#d9862f", "folder": "#6b6f78"}.get(g, "#4a7bd6")), 38))
 		var fv2 := UI.vbox(0)
 		fv2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var nl := UI.label(str(f.get("name", fid)), 15)

@@ -45,44 +45,60 @@ func _render() -> void:
 		"dev_eco": _dev_eco(v)
 
 
-func _entry(v: VBoxContainer, glyph: String, title: String, sub: String, page: String) -> void:
+## One line of a grouped list: a small coloured tile with the icon, the
+## title (and a line under it), a chevron.
+func _entry(v: VBoxContainer, glyph: String, title: String, sub: String, page: String, tile := "#5b6069") -> void:
+	if v.get_child_count() > 0:
+		var sep := UI.margin(58, 0, 0, 0)
+		sep.add_child(UI.separator())
+		v.add_child(sep)
 	var h := UI.hbox(14)
-	h.add_child(UI.glyph(glyph, 24, "dim"))
+	h.add_child(UI.tile_glyph(glyph, Color(tile), 32))
 	var tv := UI.vbox(0)
 	tv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tv.alignment = BoxContainer.ALIGNMENT_CENTER
 	tv.add_child(UI.label(title, 16))
 	if sub != "":
 		tv.add_child(UI.label(sub, 12, "faint"))
 	h.add_child(tv)
-	h.add_child(UI.glyph("chevron", 16, "faint"))
-	v.add_child(UI.row(h, func():
+	h.add_child(UI.glyph("chevron", 14, "faint"))
+	var r := UI.row(h, func():
 		_page = page
 		GameState.set_var("settings_" + page, true)
 		Director.notify_player_action()
-		_render(), 62))
+		_render(), 58)
+	r.get_child(0).add_theme_constant_override("margin_left", 12)
+	r.get_child(0).add_theme_constant_override("margin_right", 14)
+	v.add_child(r)
 
 
 func _main(v: VBoxContainer) -> void:
 	var prof := UI.hbox(14)
-	prof.add_child(UI.avatar("me", 52))
+	prof.add_child(UI.avatar("me", 56))
 	var pv := UI.vbox(0)
-	pv.add_child(UI.label("Daniel Reis", 18))
+	pv.alignment = BoxContainer.ALIGNMENT_CENTER
+	pv.add_child(UI.label("Daniel Reis", 19))
 	pv.add_child(UI.label("Conta Lumen · daniel.reis@mail.pt", 12, "faint"))
 	prof.add_child(pv)
-	var pm := UI.margin(18, 10, 18, 14)
-	pm.add_child(prof)
+	var pc := UI.panel(UI.c("surf"), UI.R_CARD, 16, 14, 16, 14)
+	pc.add_child(prof)
+	var pm := UI.margin(16, 4, 16, 18)
+	pm.add_child(pc)
 	v.add_child(pm)
-	v.add_child(UI.separator())
-	_entry(v, "wifi", "Wi-Fi", "MEO-7A21" if not GameState.flag("wifi_weird") else "LUMEN-ECO-NODE-04", "wifi")
-	_entry(v, "image", "Ecrã", "Brilho, fundo", "display")
-	_entry(v, "speaker", "Som", "Não incomodar: %s" % ("ativo" if GameState.data.phone.get("dnd", false) else "desativado"), "sound")
-	_entry(v, "dot", "Bateria", "%d%%" % int(GameState.data.battery), "battery")
-	_entry(v, "folder", "Armazenamento", "", "storage")
-	_entry(v, "person", "Contas", "", "accounts")
-	_entry(v, "files", "Ficheiros", "Visibilidade", "files")
-	_entry(v, "info", "Sobre o telefone", "Lumen One · Lumen OS 3.2", "about")
+	var g1 := UI.group(v)
+	_entry(g1, "wifi", "Wi-Fi", "MEO-7A21" if not GameState.flag("wifi_weird") else "LUMEN-ECO-NODE-04", "wifi", "#3d8bfd")
+	_entry(g1, "image", "Ecrã", "Brilho, fundo", "display", "#5a5ff0")
+	_entry(g1, "speaker", "Som", "Não incomodar: %s" % ("ativo" if GameState.data.phone.get("dnd", false) else "desativado"), "sound", "#ef4f6a")
+	var g2 := UI.group(v)
+	_entry(g2, "battery", "Bateria", "%d%%" % int(GameState.data.battery), "battery", "#2fbf71")
+	_entry(g2, "folder", "Armazenamento", "", "storage", "#8c8f96")
+	var g3 := UI.group(v)
+	_entry(g3, "person", "Contas", "", "accounts", "#e39a2d")
+	_entry(g3, "files", "Ficheiros", "Visibilidade", "files", "#20a4c9")
+	_entry(g3, "info", "Sobre o telefone", "Lumen One · Lumen OS 3.2", "about", "#6b6f78")
 	if GameState.data.phone.get("dev_mode", false):
-		_entry(v, "settings", "Opções de programador", "", "dev")
+		var g4 := UI.group(v)
+		_entry(g4, "settings", "Opções de programador", "", "dev", "#3a3d44")
 
 
 func _toggle(v: VBoxContainer, title: String, sub: String, key: String, cb := Callable()) -> void:

@@ -212,6 +212,14 @@ static func draw_glyph(ci: CanvasItem, name: String, r: Rect2, col: Color, lw :=
 			for i in 3:
 				ci.draw_arc(p + Vector2(w * 0.5, h * 0.92), w * (0.18 + i * 0.17), -PI * 0.75, -PI * 0.25, 12, col, t, true)
 			ci.draw_circle(p + Vector2(w * 0.5, h * 0.88), t * 0.8, col)
+		"battery":
+			_rrect_line(ci, Rect2(p + Vector2(0, h * 0.28), Vector2(w * 0.86, h * 0.44)), w * 0.08, col, t * 0.8)
+			ci.draw_rect(Rect2(p + Vector2(w * 0.1, h * 0.36), Vector2(w * 0.5, h * 0.28)), col)
+			ci.draw_rect(Rect2(p + Vector2(w * 0.88, h * 0.42), Vector2(w * 0.08, h * 0.16)), col)
+		"torch":
+			ci.draw_colored_polygon(PackedVector2Array([p + Vector2(w * 0.22, 0), p + Vector2(w * 0.78, 0), p + Vector2(w * 0.66, h * 0.28), p + Vector2(w * 0.34, h * 0.28)]), col)
+			_rrect(ci, Rect2(p + Vector2(w * 0.34, h * 0.32), Vector2(w * 0.32, h * 0.68)), w * 0.06, col)
+			ci.draw_circle(p + Vector2(w * 0.5, h * 0.52), w * 0.06, Color(0, 0, 0, 0.6))
 		"dot":
 			ci.draw_circle(c, w * 0.25, col)
 		_:

@@ -52,12 +52,14 @@ func _show_list() -> void:
 		if letter != last_letter:
 			last_letter = letter
 			var ll := UI.label(letter, 13, "accent")
-			var lm := UI.margin(18, 10, 0, 2)
+			ll.add_theme_font_override("font", UI.font("semibold"))
+			var lm := UI.margin(20, 12, 0, 2)
 			lm.add_child(ll)
 			v.add_child(lm)
 		var h := UI.hbox(12)
-		h.add_child(UI.avatar(id, 40))
+		h.add_child(UI.avatar(id, 42))
 		var name := UI.label(nm, 16)
+		name.add_theme_font_override("font", UI.font("medium"))
 		name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h.add_child(name)
 		v.add_child(UI.row(h, func(): slide(); _show_contact(id), 56))
@@ -82,14 +84,13 @@ func _show_contact(id: String) -> void:
 	m.add_child(v)
 	sc.add_child(m)
 	_root.add_child(sc)
-	var av := UI.avatar(id, 96)
+	var av := UI.avatar(id, 110)
 	av.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(av)
-	var nm := UI.label(GameState.contact_name(id), 24)
+	var nm := UI.label(GameState.contact_name(id), 28)
 	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(nm)
-	var actions := UI.hbox(24)
-	actions.alignment = BoxContainer.ALIGNMENT_CENTER
+	var actions := UI.hbox(10)
 	actions.add_child(_action("messages", "Mensagem", func():
 		GameState.ensure_thread(id)
 		if not GameState.data.thread_order.has(id):
@@ -97,18 +98,21 @@ func _show_contact(id: String) -> void:
 		phone.open_app("messages", {"thread": id})))
 	actions.add_child(_action("call", "Ligar", func(): Director.player_call(id)))
 	v.add_child(actions)
-	v.add_child(UI.separator())
-	_field(v, "Telemóvel", str(c.get("number", "")))
+	var card := UI.panel(UI.c("surf"), UI.R_CARD, 16, 6, 16, 6)
+	var fv := UI.vbox(0)
+	card.add_child(fv)
+	v.add_child(card)
+	_field(fv, "Telemóvel", str(c.get("number", "")))
 	if c.get("email", "") != "":
-		_field(v, "Email", str(c.email))
+		_field(fv, "Email", str(c.email))
 	if c.get("birthday", "") != "":
-		_field(v, "Aniversário", str(c.birthday))
+		_field(fv, "Aniversário", str(c.birthday))
 	if c.get("address", "") != "":
-		_field(v, "Morada", str(c.address))
+		_field(fv, "Morada", str(c.address))
 	if c.get("note", "") != "":
-		_field(v, "Notas", str(c.note))
+		_field(fv, "Notas", str(c.note))
 	if c.get("note2", "") != "" and Director.check(str(c.get("note2_when", "true"))):
-		_field(v, "", str(c.note2))
+		_field(fv, "", str(c.note2))
 	if c.get("last_edit", "") != "":
 		var le := UI.label("Última alteração: " + str(c.last_edit), 11, "faint")
 		v.add_child(le)
@@ -116,18 +120,35 @@ func _show_contact(id: String) -> void:
 		Director.add_clue(cl)
 
 
+## A wide tile: icon over its name (message, call), sharing the row.
 func _action(glyph: String, text: String, cb: Callable) -> Control:
-	var vv := UI.vbox(4)
-	var b := UI.icon_button(glyph, cb, 52, "accent")
-	b.add_theme_stylebox_override("normal", UI.box(UI.c("surf2"), 26))
-	vv.add_child(b)
-	var l := UI.label(text, 12, "dim")
+	var b := UI.button("", cb)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.custom_minimum_size = Vector2(0, 64)
+	b.add_theme_stylebox_override("normal", UI.box(UI.c("surf"), 16))
+	b.add_theme_stylebox_override("hover", UI.box(UI.c("surf2"), 16))
+	b.add_theme_stylebox_override("pressed", UI.box(UI.c("surf2").lightened(0.05), 16))
+	var vv := UI.vbox(2)
+	vv.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vv.alignment = BoxContainer.ALIGNMENT_CENTER
+	var g := UI.glyph(glyph, 24, "accent")
+	g.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	vv.add_child(g)
+	var l := UI.label(text, 12, "accent")
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vv.add_child(l)
-	return vv
+	UI._ignore_mouse(vv)
+	b.add_child(vv)
+	return b
 
 
 func _field(v: VBoxContainer, k: String, val: String) -> void:
+	if v.get_child_count() > 0:
+		v.add_child(UI.separator())
+	var m := UI.margin(0, 9, 0, 9)
+	var fv := UI.vbox(1)
+	m.add_child(fv)
 	if k != "":
-		v.add_child(UI.label(k, 12, "faint"))
-	v.add_child(UI.label(val, 15, "text", true))
+		fv.add_child(UI.label(k, 12, "faint"))
+	fv.add_child(UI.label(val, 15, "text", true))
+	v.add_child(m)

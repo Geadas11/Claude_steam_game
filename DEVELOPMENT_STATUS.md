@@ -140,6 +140,24 @@
 - Zumbido grave: a gravação do mar tinha muito ruído de vento < 60 Hz → corte (`highpass` nas receitas
   de `tools/prep_sounds.py`). A chuva passou a ouvir-se na estrada (camada própria por cima do mar).
 
+## Telemóvel premium (Lumen OS, sessão 4)
+- Pedido do autor: interface mais premium, estilo vidro fosco, sem copiar nenhuma marca.
+- **Vidro fosco** (`scripts/ui/glass.gdshader`, `UI.glass()`/`glass_box()`): desfoca o que está atrás
+  (doca, widget, notificações, cortina, chamada). Com "alto contraste" ligado passa a painéis opacos.
+- **Paleta** grafite + um só acento champanhe (`UI.PALETTE`); bolhas minhas em âmbar escuro.
+- **Letra:** Inter com variações (`UI.font("light"|"display"|"bold")`, via `FontVariation`):
+  relógio grande fino, títulos grandes a negrito nas páginas principais das apps.
+- **Ícones** (`scripts/ui/app_icon.gd`): squircle com gradiente, sombra e reflexo; desenho próprio
+  para cada uma das 13 apps. `UI.tile_glyph`, `UI.initials`, `UI.group` (listas agrupadas).
+- **Moldura** com banda metálica, cantos do ecrã redondos e câmara frontal; barra de estado com
+  bateria desenhada; ecrã de bloqueio com relógio de 100 px, notificações em vidro, lanterna e
+  câmara; teclado do PIN com letras; interruptores desenhados.
+- **Animações:** a app cresce a partir do ícone e volta a encolher para ele; o ecrã principal
+  afunda por trás; desbloqueio com zoom; notificações caem com mola; cortina com fade.
+  "Reduzir movimento" desliga tudo.
+- `tools/phone_shots.tscn -- <pasta> [prefixo|anim]` fotografa todos os ecrãs do telemóvel.
+- **Por fazer:** a página do telemóvel real (`companion/index.html`) ainda tem o desenho antigo.
+
 ## Testes
 
 - `tools/check.sh` — compila todos os scripts (falha em erros de parse).

@@ -56,6 +56,8 @@ var _home_badges := {}
 var _base_pos := Vector2.ZERO
 var using_pad := false
 var _home_has_eco := false
+var _launch_from := Rect2()   # the icon an app was opened from (its zoom grows out of it)
+var _launched := {}           # app id -> icon rect it was opened from (it shrinks back into it)
 
 
 func _ready() -> void:
@@ -101,26 +103,10 @@ func _on_settings_changed() -> void:
 
 # ================================================================= building
 func _build_frame() -> void:
-	var frame := Panel.new()
+	var frame := Frame.new()
 	frame.set_anchors_preset(Control.PRESET_FULL_RECT)
-	var sb := UI.box(Color("0d0e10"), 46, Color("2b2d31"), 2)
-	sb.shadow_color = Color(0, 0, 0, 0.6)
-	sb.shadow_size = 40
-	frame.add_theme_stylebox_override("panel", sb)
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(frame)
-	# side buttons
-	for y in [150.0, 210.0]:
-		var b := ColorRect.new()
-		b.color = Color("1b1c1f")
-		b.position = Vector2(-3, y)
-		b.size = Vector2(3, 46)
-		add_child(b)
-	var pw := ColorRect.new()
-	pw.color = Color("1b1c1f")
-	pw.position = Vector2(size.x, 180)
-	pw.size = Vector2(3, 70)
-	add_child(pw)
 
 
 func _build_screen() -> void:
@@ -179,7 +165,7 @@ func _build_screen() -> void:
 	# status bar must stay above lock screen, apps and calls
 	screen.move_child(status_bar, -1)
 	toast_label = UI.label("", 14)
-	var tp := UI.panel(Color(0.12, 0.13, 0.15, 0.95), 16, 14, 8, 14, 8)
+	var tp := UI.glass(22, 18, 11, 18, 11, "thick")
 	tp.name = "Toast"
 	tp.add_child(toast_label)
 	# anchored to the bottom centre of the screen, growing upwards
@@ -219,6 +205,10 @@ func _build_screen() -> void:
 	off_layer.visible = false
 	off_layer.mouse_filter = Control.MOUSE_FILTER_STOP
 	screen.add_child(off_layer)
+	var corners := ScreenCorners.new()
+	corners.set_anchors_preset(Control.PRESET_FULL_RECT)
+	corners.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	screen.add_child(corners)
 	_build_home()
 	_lock_screen = LockScreen.new()
 	_lock_screen.phone = self
@@ -238,17 +228,19 @@ func _build_status_bar() -> void:
 	status_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen.add_child(status_bar)
 	var h := UI.hbox(6)
-	h.position = Vector2(18, 4)
-	h.size = Vector2(UI.SCREEN.x - 36, 22)
+	h.position = Vector2(26, 5)
+	h.size = Vector2(UI.SCREEN.x - 50, 22)
 	status_bar.add_child(h)
-	_status_time = UI.label("00:00", 14)
+	_status_time = UI.label("00:00", 15)
+	_status_time.add_theme_font_override("font", UI.font("semibold"))
 	h.add_child(_status_time)
 	h.add_child(UI.expand())
-	_status_icons = StatusIcons.new()
-	_status_icons.custom_minimum_size = Vector2(52, 20)
-	h.add_child(_status_icons)
-	_status_batt = UI.label("82%", 13)
+	_status_batt = UI.label("82", 10)
+	_status_batt.visible = false
 	h.add_child(_status_batt)
+	_status_icons = StatusIcons.new()
+	_status_icons.custom_minimum_size = Vector2(78, 20)
+	h.add_child(_status_icons)
 	# the status bar opens the notification shade
 	var hit := Button.new()
 	hit.flat = true
@@ -257,7 +249,7 @@ func _build_status_bar() -> void:
 	hit.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	hit.tooltip_text = "Notificações"
 	hit.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
-	hit.add_theme_stylebox_override("hover", UI.box(Color(1, 1, 1, 0.04), 0))
+	hit.add_theme_stylebox_override("hover", StyleBoxEmpty.new())
 	hit.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
 	hit.pressed.connect(func(): open_shade())
 	status_bar.add_child(hit)
@@ -278,10 +270,10 @@ func _build_nav_bar() -> void:
 	home_b.size = Vector2(120, 26)
 	home_b.tooltip_text = "Ecrã principal (H)"
 	home_b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	var pill := ColorRect.new()
-	pill.color = Color(1, 1, 1, 0.55)
-	pill.size = Vector2(110, 5)
-	pill.position = Vector2(5, 11)
+	var pill := Panel.new()
+	pill.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.7), 3))
+	pill.size = Vector2(124, 5)
+	pill.position = Vector2(-2, 12)
 	pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	home_b.add_child(pill)
 	home_b.pressed.connect(go_home)
@@ -294,26 +286,42 @@ func _build_home() -> void:
 	_home_badges.clear()
 	var v := UI.vbox(0)
 	v.set_anchors_preset(Control.PRESET_FULL_RECT)
-	v.offset_top = STATUS_H + 30
-	v.offset_bottom = -NAV_H - 8
+	v.offset_top = STATUS_H + 14
+	v.offset_bottom = -NAV_H - 6
 	home.add_child(v)
-	# clock widget
-	var w := UI.vbox(2)
-	var t := UI.label("", 54)
-	t.name = "HomeClock"
-	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	w.add_child(t)
-	var d := UI.label("", 15, "dim")
+	# a glass widget: the day and the time
+	var w := UI.glass(26, 20, 16, 20, 16)
+	var wh := UI.hbox(10)
+	w.add_child(wh)
+	var dv := UI.vbox(0)
+	dv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dv.alignment = BoxContainer.ALIGNMENT_CENTER
+	var day := UI.label("", 12, "accent")
+	day.name = "HomeDay"
+	day.add_theme_font_override("font", UI.font("semibold"))
+	dv.add_child(day)
+	var d := UI.label("", 17)
 	d.name = "HomeDate"
-	d.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	w.add_child(d)
-	v.add_child(w)
-	v.add_child(UI.expand())
+	d.add_theme_font_override("font", UI.font("semibold"))
+	dv.add_child(d)
+	var d2 := UI.label("", 12, "dim")
+	d2.name = "HomeWhere"
+	dv.add_child(d2)
+	wh.add_child(dv)
+	var t := UI.label("", 50)
+	t.name = "HomeClock"
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	t.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	wh.add_child(t)
+	var wm := UI.margin(16, 0, 16, 0)
+	wm.add_child(w)
+	v.add_child(wm)
+	v.add_child(UI.spacer(22))
 	var grid := GridContainer.new()
 	grid.columns = 4
-	grid.add_theme_constant_override("h_separation", 6)
-	grid.add_theme_constant_override("v_separation", 18)
-	var gm := UI.margin(14, 0, 14, 0)
+	grid.add_theme_constant_override("h_separation", 0)
+	grid.add_theme_constant_override("v_separation", 14)
+	var gm := UI.margin(12, 0, 12, 0)
 	gm.add_child(grid)
 	v.add_child(gm)
 	var apps: Array = GRID.duplicate()
@@ -322,14 +330,25 @@ func _build_home() -> void:
 		apps.append("eco")
 	for id in apps:
 		grid.add_child(_app_icon(id, true))
-	v.add_child(UI.spacer(26))
-	var dock := UI.panel(Color(1, 1, 1, 0.07), 26, 10, 10, 10, 10)
-	var dh := UI.hbox(6)
+	v.add_child(UI.expand())
+	# page dots
+	var dots := UI.hbox(7)
+	dots.alignment = BoxContainer.ALIGNMENT_CENTER
+	for i in 2:
+		var dot := Panel.new()
+		dot.custom_minimum_size = Vector2(7, 7)
+		dot.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.9 if i == 0 else 0.3), 4))
+		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		dots.add_child(dot)
+	v.add_child(dots)
+	v.add_child(UI.spacer(12))
+	var dock := UI.glass(34, 12, 12, 12, 12)
+	var dh := UI.hbox(0)
 	dh.alignment = BoxContainer.ALIGNMENT_CENTER
 	dock.add_child(dh)
 	for id in DOCK:
 		dh.add_child(_app_icon(id, false))
-	var dm := UI.margin(12, 0, 12, 0)
+	var dm := UI.margin(10, 0, 10, 0)
 	dm.add_child(dock)
 	v.add_child(dm)
 	_update_status()
@@ -339,32 +358,45 @@ func _build_home() -> void:
 func _app_icon(id: String, with_label: bool) -> Control:
 	var info: Dictionary = APPS[id]
 	var b := Button.new()
-	b.custom_minimum_size = Vector2(90, 84 if with_label else 66)
+	b.custom_minimum_size = Vector2(98 if with_label else 92, 92 if with_label else 66)
 	b.focus_mode = Control.FOCUS_ALL
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.tooltip_text = info.name
+	for st in ["hover", "pressed", "hover_pressed"]:
+		b.add_theme_stylebox_override(st, StyleBoxEmpty.new())
+	b.add_theme_stylebox_override("focus", UI.box(Color(1, 1, 1, 0.08), 18))
 	var icon := AppIcon.new()
+	icon.name = "Icon"
 	icon.glyph = info.glyph
 	icon.bg = Color(info.color)
-	icon.size = Vector2(58, 58)
-	icon.position = Vector2(16, 2)
+	icon.size = Vector2(62, 62)
+	icon.position = Vector2((b.custom_minimum_size.x - 62) / 2, 2)
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(icon)
 	if with_label:
 		var l := UI.label(info.name, 12)
-		l.position = Vector2(0, 62)
-		l.size = Vector2(90, 18)
+		l.add_theme_font_override("font", UI.font("medium"))
+		l.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
+		l.add_theme_constant_override("shadow_offset_x", 0)
+		l.add_theme_constant_override("shadow_offset_y", 1)
+		l.position = Vector2(0, 68)
+		l.size = Vector2(b.custom_minimum_size.x, 18)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.add_child(l)
-	var badge := UI.panel(UI.c("danger"), 10, 6, 0, 6, 0)
-	var bl := UI.label("", 11)
+	var badge := UI.panel(Color("ff4545"), 11, 6, 1, 6, 1)
+	var bl := UI.label("", 12)
+	bl.add_theme_font_override("font", UI.font("semibold"))
+	bl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bl.custom_minimum_size = Vector2(10, 0)
 	badge.add_child(bl)
-	badge.position = Vector2(62, -2)
+	badge.position = icon.position + Vector2(48, -6)
 	badge.visible = false
 	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(badge)
 	_home_badges[id] = bl
-	b.pressed.connect(func(): open_app(id))
+	b.pressed.connect(func():
+		_launch_from = icon.get_global_rect()
+		open_app(id))
 	UI.press_fx(b, 0.9)
 	return b
 
@@ -376,6 +408,8 @@ func _refresh_home() -> void:
 ## Rebuild everything that depends on GameState (after new game / load).
 func refresh_all() -> void:
 	_close_current()
+	home.scale = Vector2.ONE
+	home.modulate.a = 1.0
 	var br := float(GameState.data.phone.get("brightness", 1.0))
 	screen.modulate = Color(br, br, br, 1.0)
 	_wallpaper_key = ""
@@ -396,10 +430,16 @@ func _update_status() -> void:
 	var batt := int(GameState.data.get("battery", 80))
 	_status_batt.text = "%d%%" % batt
 	_status_batt.add_theme_color_override("font_color", UI.c("danger") if batt <= 15 else UI.c("text"))
+	if _status_icons:
+		_status_icons.queue_redraw()
 	var hc := home.find_child("HomeClock", true, false)
 	if hc:
 		hc.text = Clock.display_time()
-		home.find_child("HomeDate", true, false).text = Clock.fmt_date_long(Clock.now())
+		var long := Clock.fmt_date_long(Clock.now())
+		var parts := long.split(",", false, 1)
+		home.find_child("HomeDay", true, false).text = parts[0].strip_edges().to_upper()
+		home.find_child("HomeDate", true, false).text = parts[1].strip_edges() if parts.size() > 1 else long
+		home.find_child("HomeWhere", true, false).text = "Bateria %d%%" % batt
 	if _lock_screen:
 		_lock_screen.update_clock()
 
@@ -466,15 +506,29 @@ func open_app(id: String, p := {}) -> void:
 	app.setup(self, p)
 	GameState.data.opened[id] = int(GameState.data.opened.get(id, 0)) + 1
 	GameState.data.chapter_opened[id] = int(GameState.data.chapter_opened.get(id, 0)) + 1
-	home.visible = false
 	Audio.play("app_open", -10.0)
-	if UI.motion_ok():
+	var from := _icon_point()
+	_launched[id] = _launch_from
+	_launch_from = Rect2()
+	if UI.motion_ok() and home.visible and from != Vector2.INF:
+		# the app grows out of its icon while the home screen sinks back
+		app.pivot_offset = from
+		app.scale = Vector2.ONE * 0.16
+		app.modulate.a = 0.0
+		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tw.tween_property(app, "scale", Vector2.ONE, UI.T_OPEN)
+		tw.tween_property(app, "modulate:a", 1.0, UI.T_OPEN * 0.4)
+		_sink_home(true)
+	elif UI.motion_ok():
+		home.visible = false
 		app.modulate.a = 0.0
 		app.scale = Vector2(0.96, 0.96)
 		app.pivot_offset = UI.SCREEN / 2
-		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tw.tween_property(app, "modulate:a", 1.0, UI.T_SCREEN * 0.8)
-		tw.tween_property(app, "scale", Vector2.ONE, UI.T_SCREEN)
+		var tw2 := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw2.tween_property(app, "modulate:a", 1.0, UI.T_SCREEN * 0.8)
+		tw2.tween_property(app, "scale", Vector2.ONE, UI.T_SCREEN)
+	else:
+		home.visible = false
 	Events.app_opened.emit(id)
 	Director.notify_player_action()
 	Clock.notify_activity()
@@ -487,15 +541,22 @@ func _close_current(animate := false) -> void:
 		var old_id := current_app_id
 		var old := current_app
 		if animate and UI.motion_ok():
-			# fade the app away under a blocker so it can't be tapped mid-fade
+			# the app shrinks back into its icon (or just fades, if it wasn't
+			# opened from one), under a blocker so it can't be tapped mid-way
 			var blocker := Control.new()
 			blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
 			blocker.mouse_filter = Control.MOUSE_FILTER_STOP
 			old.add_child(blocker)
-			old.pivot_offset = UI.SCREEN / 2
-			var tw := old.create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-			tw.tween_property(old, "modulate:a", 0.0, UI.T_SCREEN * 0.75)
-			tw.tween_property(old, "scale", Vector2(0.97, 0.97), UI.T_SCREEN * 0.75)
+			var back_to := _icon_of(old_id)
+			var tw := old.create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+			if back_to != Vector2.INF:
+				old.pivot_offset = back_to
+				tw.tween_property(old, "scale", Vector2.ONE * 0.16, UI.T_OPEN * 0.85)
+				tw.tween_property(old, "modulate:a", 0.0, UI.T_OPEN * 0.6).set_delay(UI.T_OPEN * 0.15)
+			else:
+				old.pivot_offset = UI.SCREEN / 2
+				tw.tween_property(old, "modulate:a", 0.0, UI.T_SCREEN * 0.75)
+				tw.tween_property(old, "scale", Vector2(0.97, 0.97), UI.T_SCREEN * 0.75)
 			tw.chain().tween_callback(old.queue_free)
 		else:
 			old.queue_free()
@@ -512,16 +573,55 @@ func go_home() -> void:
 	_close_current(true)
 	home.visible = true
 	if from_app and UI.motion_ok():
-		home.modulate.a = 0.0
-		home.scale = Vector2(1.03, 1.03)
-		home.pivot_offset = UI.SCREEN / 2
-		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tw.tween_property(home, "modulate:a", 1.0, UI.T_SCREEN)
-		tw.tween_property(home, "scale", Vector2.ONE, UI.T_SCREEN)
+		_sink_home(false)
+	else:
+		if _home_tw:
+			_home_tw.kill()
+		home.scale = Vector2.ONE
+		home.modulate.a = 1.0
 	GameState.current_app = "home"
 	_refresh_badges()
 	Clock.notify_activity()
 	focus_first.call_deferred()
+
+
+## Where an app's icon sits on the screen (its centre, in screen
+## coordinates), or INF when there is no icon to grow from / shrink into.
+func _icon_point() -> Vector2:
+	if not _launch_from.has_area():
+		return Vector2.INF
+	var k := screen.get_global_transform().get_scale()
+	return (_launch_from.get_center() - screen.global_position) / k
+
+
+func _icon_of(id: String) -> Vector2:
+	var r: Rect2 = _launched.get(id, Rect2())
+	if not r.has_area():
+		return Vector2.INF
+	var k := screen.get_global_transform().get_scale()
+	return (r.get_center() - screen.global_position) / k
+
+
+## The home screen sinks back and dims while an app is open over it, and
+## rises again when you come back.
+var _home_tw: Tween
+
+
+func _sink_home(sink: bool) -> void:
+	if _home_tw:
+		_home_tw.kill()
+	home.pivot_offset = UI.SCREEN / 2
+	home.visible = true
+	_home_tw = create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	if sink:
+		_home_tw.tween_property(home, "scale", Vector2.ONE * 0.92, UI.T_OPEN)
+		_home_tw.tween_property(home, "modulate:a", 0.0, UI.T_OPEN * 0.7)
+		_home_tw.chain().tween_callback(func(): if current_app: home.visible = false)
+	else:
+		home.scale = Vector2.ONE * 0.92
+		home.modulate.a = 0.0
+		_home_tw.tween_property(home, "scale", Vector2.ONE, UI.T_OPEN)
+		_home_tw.tween_property(home, "modulate:a", 1.0, UI.T_OPEN * 0.6)
 
 
 func back() -> void:
@@ -562,6 +662,16 @@ func unlock(silent := false) -> void:
 	locked = false
 	_lock_screen.hide_lock()
 	home.visible = current_app == null
+	if home.visible and UI.motion_ok() and not silent:
+		home.pivot_offset = UI.SCREEN / 2
+		home.scale = Vector2.ONE * 1.08
+		home.modulate.a = 0.0
+		var tw := create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tw.tween_property(home, "scale", Vector2.ONE, 0.5).set_delay(0.06)
+		tw.tween_property(home, "modulate:a", 1.0, 0.3).set_delay(0.06)
+	else:
+		home.scale = Vector2.ONE
+		home.modulate.a = 1.0
 	if GameState.current_app == "lock" or GameState.current_app == "":
 		GameState.current_app = "home"
 	if not silent:
@@ -707,9 +817,18 @@ func _show_next_banner() -> void:
 			open_app(app_id, n))
 	banner_layer.add_child(b)
 	var tw := create_tween()
-	tw.tween_property(b, "position:y", STATUS_H + 4.0, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if UI.motion_ok():
+		# drops in with a little overshoot, like something with weight
+		b.pivot_offset = Vector2(b.size.x / 2, 0)
+		b.scale = Vector2(0.94, 0.94)
+		tw.set_parallel(true)
+		tw.tween_property(b, "position:y", STATUS_H + 4.0, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(b, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.set_parallel(false)
+	else:
+		tw.tween_property(b, "position:y", STATUS_H + 4.0, 0.01)
 	tw.tween_interval(3.6)
-	tw.tween_property(b, "position:y", -110.0, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tw.tween_property(b, "position:y", -110.0, 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tw.tween_callback(func():
 		b.queue_free()
 		_show_next_banner())
@@ -839,25 +958,67 @@ func restart() -> void:
 
 
 # ================================================================= helpers
-class AppIcon extends Control:
-	var glyph := ""
-	var bg := Color.GRAY
-
-	func _draw() -> void:
-		var sb := UI.box(bg, 16)
-		draw_style_box(sb, Rect2(Vector2.ZERO, size))
-		draw_rect(Rect2(Vector2(0, 0), Vector2(size.x, size.y * 0.5)), Color(1, 1, 1, 0.04))
-		Glyph.draw_glyph(self, glyph, Rect2(size * 0.24, size * 0.52), Color(1, 1, 1, 0.92))
-
-
+## Signal, Wi-Fi and the battery (its level drawn inside it).
 class StatusIcons extends Control:
 	func _draw() -> void:
-		var col := Color(1, 1, 1, 0.9)
+		var col := Color(1, 1, 1, 0.95)
 		var sig := int(GameState.data.phone.get("signal", 4))
 		for i in 4:
-			var h := 4.0 + i * 3.0
-			draw_rect(Rect2(Vector2(i * 5.0, 15 - h), Vector2(3.5, h)), col if i < sig else Color(1, 1, 1, 0.25))
-		Glyph.draw_glyph(self, "wifi", Rect2(Vector2(26, -1), Vector2(18, 18)), col, 1.6)
+			var h := 4.0 + i * 2.6
+			var sb := UI.box(col if i < sig else Color(1, 1, 1, 0.28), 1)
+			draw_style_box(sb, Rect2(Vector2(i * 4.6, 14 - h), Vector2(3.2, h)))
+		Glyph.draw_glyph(self, "wifi", Rect2(Vector2(21, -1), Vector2(17, 17)), col, 1.9)
+		var batt := int(GameState.data.get("battery", 80))
+		var low := batt <= 15
+		var r := Rect2(Vector2(44, 2.5), Vector2(27, 13))
+		draw_style_box(UI.box(Color(0, 0, 0, 0), 4, Color(1, 1, 1, 0.45), 1), r)
+		var fill := Rect2(r.position + Vector2(2, 2), Vector2((r.size.x - 4) * clampf(batt / 100.0, 0.04, 1.0), r.size.y - 4))
+		draw_style_box(UI.box(UI.c("danger") if low else col, 2), fill)
+		draw_style_box(UI.box(Color(1, 1, 1, 0.45), 1), Rect2(r.end.x + 1, r.position.y + 4, 2, 5))
+
+
+## The phone itself: a thin titanium band, a black glass front, the side
+## buttons, and a soft shadow underneath.
+class Frame extends Control:
+	func _draw() -> void:
+		var r := Rect2(Vector2.ZERO, size)
+		var shadow := UI.box(Color(0, 0, 0, 0), 58)
+		shadow.shadow_color = Color(0, 0, 0, 0.55)
+		shadow.shadow_size = 46
+		shadow.shadow_offset = Vector2(0, 16)
+		draw_style_box(shadow, r.grow(-6))
+		# side buttons
+		for y in [150.0, 212.0]:
+			draw_style_box(UI.box(Color("55575c"), 2), Rect2(-3, y, 5, 50))
+		draw_style_box(UI.box(Color("55575c"), 2), Rect2(size.x - 2, 186, 5, 76))
+		# the band: brushed metal, lighter at the top edge
+		var band := UI.box(Color("3c3d42"), 58, Color("75777d"), 1)
+		draw_style_box(band, r)
+		draw_style_box(UI.box(Color("1d1e21"), 55), r.grow(-2.5))
+		draw_style_box(UI.box(Color("030304"), 54), r.grow(-4))
+
+
+## Round screen corners and the front camera, drawn over whatever is on the
+## screen (the screen is a plain rectangle underneath).
+class ScreenCorners extends Control:
+	const R := 42.0
+
+	func _draw() -> void:
+		var black := Color("030304")
+		for k in 4:
+			var corner := Vector2(0 if k % 2 == 0 else size.x, 0 if k < 2 else size.y)
+			var inward := Vector2(1 if k % 2 == 0 else -1, 1 if k < 2 else -1)
+			var centre := corner + inward * R
+			var pts := PackedVector2Array([corner])
+			for i in 13:
+				var a := PI / 2.0 * i / 12.0
+				pts.append(centre - Vector2(cos(a) * inward.x, sin(a) * inward.y) * R)
+			draw_colored_polygon(pts, black)
+		# the front camera, a punch hole between the clock and the icons
+		var cam := Vector2(size.x / 2, 17)
+		draw_circle(cam, 8.5, Color("050506"))
+		draw_circle(cam, 4.2, Color("12151c"))
+		draw_circle(cam + Vector2(-1.4, -1.4), 1.3, Color(0.5, 0.6, 0.9, 0.35))
 
 
 class Banner extends Button:
@@ -867,28 +1028,33 @@ class Banner extends Button:
 		n = p_n
 		focus_mode = Control.FOCUS_NONE
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		var sb := UI.box(Color(0.13, 0.14, 0.16, 0.97), 18)
-		sb.shadow_color = Color(0, 0, 0, 0.5)
-		sb.shadow_size = 12
-		add_theme_stylebox_override("normal", sb)
-		add_theme_stylebox_override("hover", sb)
-		add_theme_stylebox_override("pressed", sb)
+		var sb := UI.glass_box(24, 0, 0, 0, 0, "thick")
+		for st in ["normal", "hover", "pressed", "focus"]:
+			add_theme_stylebox_override(st, sb)
+		if UI.glass_ok():
+			material = UI.glass_material("thick")
 		var h := UI.hbox(12)
-		h.position = Vector2(14, 12)
-		h.size = Vector2(UI.SCREEN.x - 48, 52)
+		h.position = Vector2(14, 13)
+		h.size = Vector2(UI.SCREEN.x - 48, 50)
 		add_child(h)
 		var info: Dictionary = Phone.APPS.get(n.get("app", ""), {"glyph": "dot", "color": "#444444"})
 		var ic := AppIcon.new()
 		ic.glyph = info.glyph
 		ic.bg = Color(info.color)
-		ic.custom_minimum_size = Vector2(36, 36)
+		ic.custom_minimum_size = Vector2(40, 40)
 		h.add_child(ic)
 		var v := UI.vbox(1)
 		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var t := UI.label(str(n.get("title", "")), 14)
+		v.alignment = BoxContainer.ALIGNMENT_CENTER
+		var top := UI.hbox(6)
+		var t := UI.label(str(n.get("title", "")), 15)
+		t.add_theme_font_override("font", UI.font("semibold"))
 		t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		v.add_child(t)
-		var b := UI.label(str(n.get("body", "")), 13, "dim")
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		top.add_child(t)
+		top.add_child(UI.label("agora", 12, "faint"))
+		v.add_child(top)
+		var b := UI.label(str(n.get("body", "")), 14, "dim")
 		b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		v.add_child(b)
 		h.add_child(v)
@@ -910,11 +1076,11 @@ func open_shade() -> void:
 	_shade.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.55)
+	dim.color = Color(0, 0, 0, 0.4)
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
 	dim.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: close_shade())
 	_shade.add_child(dim)
-	var p := UI.panel(Color(0.09, 0.1, 0.12, 0.98), 22, 14, 14, 14, 16)
+	var p := UI.glass(30, 16, 16, 16, 18, "thick")
 	p.position = Vector2(8, STATUS_H + 2)
 	p.size = Vector2(UI.SCREEN.x - 16, 0)
 	p.custom_minimum_size = Vector2(UI.SCREEN.x - 16, 0)
@@ -929,13 +1095,14 @@ func open_shade() -> void:
 		GameState.data.phone.dnd = on
 		Events.phone_state_changed.emit()
 		Director.notify_player_action()))
-	qt.add_child(_quick("dot", "Lanterna", GameState.data.phone.get("torch", false), func(on):
+	qt.add_child(_quick("torch", "Lanterna", GameState.data.phone.get("torch", false), func(on):
 		GameState.data.phone.torch = on
 		Events.phone_state_changed.emit()))
 	qt.add_child(_quick("locate", "Localização", true, func(_on): toast("A localização é gerida pela organização.")))
 	v.add_child(qt)
 	var top := UI.hbox(8)
-	var t := UI.label("Notificações", 14, "dim")
+	var t := UI.label("Notificações", 17)
+	t.add_theme_font_override("font", UI.font("semibold"))
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(t)
 	if not GameState.data.shade.is_empty():
@@ -954,8 +1121,11 @@ func open_shade() -> void:
 	screen.add_child(_shade)
 	screen.move_child(status_bar, -1)
 	if not Settings.get_value("reduce_motion", false):
-		p.position.y = -300
-		create_tween().tween_property(p, "position:y", STATUS_H + 2.0, 0.22).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		p.position.y = -320
+		dim.modulate.a = 0.0
+		var stw := create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		stw.tween_property(p, "position:y", STATUS_H + 2.0, 0.45)
+		stw.tween_property(dim, "modulate:a", 1.0, 0.25)
 	GameState.set_var("opened_shade", true)
 
 
@@ -967,15 +1137,17 @@ func close_shade() -> void:
 
 func _quick(glyph: String, label_text: String, on: bool, cb: Callable) -> Control:
 	var vb := UI.vbox(4)
-	var b := UI.icon_button(glyph, func(): pass, 52, "bg" if on else "dim")
+	var b := UI.icon_button(glyph, func(): pass, 58, "bg" if on else "text")
 	b.toggle_mode = true
 	b.button_pressed = on
-	b.add_theme_stylebox_override("normal", UI.box(UI.c("accent") if on else UI.c("surf2"), 26))
-	b.add_theme_stylebox_override("pressed", UI.box(UI.c("accent"), 26))
-	b.add_theme_stylebox_override("hover_pressed", UI.box(UI.c("accent").lightened(0.1), 26))
+	var off_box := UI.box(Color(1, 1, 1, 0.1), 29)
+	b.add_theme_stylebox_override("normal", off_box)
+	b.add_theme_stylebox_override("hover", UI.box(Color(1, 1, 1, 0.15), 29))
+	b.add_theme_stylebox_override("pressed", UI.box(UI.c("accent"), 29))
+	b.add_theme_stylebox_override("hover_pressed", UI.box(UI.c("accent").lightened(0.1), 29))
 	b.toggled.connect(func(state):
 		var g: Glyph = b.get_child(0)
-		g.color = UI.c("bg") if state else UI.c("dim")
+		g.color = UI.c("bg") if state else UI.c("text")
 		cb.call(state))
 	vb.add_child(b)
 	var l := UI.label(label_text, 10, "dim")
@@ -991,14 +1163,16 @@ func _shade_card(n: Dictionary) -> Control:
 	var ic := AppIcon.new()
 	ic.glyph = info.glyph
 	ic.bg = Color(info.color)
-	ic.custom_minimum_size = Vector2(30, 30)
+	ic.custom_minimum_size = Vector2(36, 36)
+	ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(ic)
 	var tv := UI.vbox(0)
 	tv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var t := UI.label(str(n.get("title", "")), 13)
+	var t := UI.label(str(n.get("title", "")), 14)
+	t.add_theme_font_override("font", UI.font("semibold"))
 	t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	tv.add_child(t)
-	var b := UI.label(str(n.get("body", "")), 12, "dim")
+	var b := UI.label(str(n.get("body", "")), 13, "dim")
 	b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	tv.add_child(b)
 	h.add_child(tv)
@@ -1006,6 +1180,8 @@ func _shade_card(n: Dictionary) -> Control:
 	var r := UI.row(h, func():
 		close_shade()
 		if APPS.has(n.get("app", "")):
-			open_app(n.app, n), 54)
-	r.add_theme_stylebox_override("normal", UI.box(Color(1, 1, 1, 0.04), 12))
+			open_app(n.app, n), 62)
+	r.add_theme_stylebox_override("normal", UI.box(Color(1, 1, 1, 0.06), 18))
+	r.add_theme_stylebox_override("hover", UI.box(Color(1, 1, 1, 0.1), 18))
+	r.add_theme_stylebox_override("pressed", UI.box(Color(1, 1, 1, 0.14), 18))
 	return r

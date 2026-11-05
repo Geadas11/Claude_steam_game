@@ -89,11 +89,13 @@ func _fill_list() -> void:
 
 func _thread_row(th_id: String, last: Dictionary, unread: int) -> Control:
 	var h := UI.hbox(12)
-	h.add_child(UI.avatar(th_id, 46))
+	h.add_child(UI.avatar(th_id, 50))
 	var v := UI.vbox(2)
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var top := UI.hbox(6)
 	var name := UI.label(GameState.contact_name(th_id), 16, "text")
+	name.add_theme_font_override("font", UI.font("semibold"))
 	name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	top.add_child(name)
@@ -113,12 +115,17 @@ func _thread_row(th_id: String, last: Dictionary, unread: int) -> Control:
 	pl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	bottom.add_child(pl)
 	if unread > 0:
-		var badge := UI.panel(UI.c("accent").darkened(0.15), 10, 7, 1, 7, 1)
-		badge.add_child(UI.label(str(unread), 12, "bg"))
+		var badge := UI.panel(UI.c("accent"), 11, 7, 1, 7, 1)
+		badge.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var bl := UI.label(str(unread), 12, "bg")
+		bl.add_theme_font_override("font", UI.font("semibold"))
+		bl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		bl.custom_minimum_size = Vector2(9, 0)
+		badge.add_child(bl)
 		bottom.add_child(badge)
 	v.add_child(bottom)
 	h.add_child(v)
-	return UI.row(h, func(): slide(); _open_thread(th_id), 72)
+	return UI.row(h, func(): slide(); _open_thread(th_id), 76)
 
 
 func _preview(m: Dictionary, th_id := "") -> String:
@@ -144,10 +151,10 @@ func _open_thread(th_id: String) -> void:
 	Events.thread_read.emit(th_id)
 	UI.clear(_root)
 	var c := GameState.contact(th_id)
-	var call_b := UI.icon_button("call", func(): if not c.get("group", false): Director.player_call(th_id), 40, "dim")
+	var call_b := UI.icon_button("call", func(): if not c.get("group", false): Director.player_call(th_id), 40, "accent")
 	call_b.tooltip_text = "Ligar"
 	call_b.visible = not c.get("group", false)
-	var info_b := UI.icon_button("info", func(): phone.open_app("contacts", {"param": th_id}), 40, "dim")
+	var info_b := UI.icon_button("info", func(): phone.open_app("contacts", {"param": th_id}), 40, "accent")
 	info_b.visible = c.get("saved", false) and not c.get("group", false)
 	var sub_txt := ""
 	if c.get("group", false):
@@ -155,6 +162,12 @@ func _open_thread(th_id: String) -> void:
 	elif c.get("saved", false):
 		sub_txt = str(c.get("number", ""))
 	var head := UI.header(GameState.contact_name(th_id), _show_list, [call_b, info_b], sub_txt)
+	var who := UI.avatar(th_id, 36)
+	who.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var hb: HBoxContainer = head.get_child(0)
+	hb.add_child(who)
+	hb.move_child(who, 1)
+	hb.add_theme_constant_override("separation", 8)
 	_root.add_child(head)
 	_root.add_child(UI.separator())
 	_msgs_scroll = UI.scroll()
@@ -176,10 +189,15 @@ func _open_thread(th_id: String) -> void:
 
 
 func _input_bar() -> Control:
-	var p := UI.panel(UI.c("bg"), 0, 10, 6, 10, 8)
+	var p := UI.panel(UI.c("bg"), 0, 12, 6, 12, 8)
 	var h := UI.hbox(8)
 	p.add_child(h)
-	var field := UI.panel(UI.c("surf2"), 20, 16, 10, 16, 10)
+	var plus := UI.icon_button("plus", func(): phone.toast("Não tens nada para enviar."), 38, "dim")
+	plus.add_theme_stylebox_override("normal", UI.box(UI.c("surf2"), 19))
+	plus.size_flags_vertical = Control.SIZE_SHRINK_END
+	h.add_child(plus)
+	var field := UI.panel(UI.c("surf"), 20, 16, 9, 16, 9)
+	field.add_theme_stylebox_override("panel", UI.pad(UI.box(UI.c("surf"), 20, Color(1, 1, 1, 0.1), 1), 16, 9, 16, 9))
 	field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_input = UI.label("Mensagem", 15, "faint")
 	_input.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -187,7 +205,10 @@ func _input_bar() -> Control:
 	h.add_child(field)
 	var send := UI.icon_button("send", func():
 		if not GameState.data.choices.has(_thread):
-			phone.toast("Não sabes o que escrever."), 42, "accent")
+			phone.toast("Não sabes o que escrever."), 38, "bg")
+	send.add_theme_stylebox_override("normal", UI.box(UI.c("accent"), 19))
+	send.add_theme_stylebox_override("hover", UI.box(UI.c("accent").lightened(0.1), 19))
+	send.size_flags_vertical = Control.SIZE_SHRINK_END
 	h.add_child(send)
 	return p
 
@@ -273,15 +294,19 @@ func _bubble(msg: Dictionary, first_of_group: bool) -> Control:
 	if deleted:
 		bg = Color(0, 0, 0, 0)
 	var p := PanelContainer.new()
-	var sb := UI.box(bg, 16)
+	var sb := UI.box(bg, 19)
 	if deleted:
 		sb.border_color = UI.c("line")
 		sb.set_border_width_all(1)
+	elif me:
+		# warm light along the top of my bubbles
+		sb.border_color = bg.lightened(0.28)
+		sb.border_width_top = 1
 	if me:
-		sb.corner_radius_bottom_right = 4
+		sb.corner_radius_bottom_right = 6
 	else:
-		sb.corner_radius_bottom_left = 4
-	p.add_theme_stylebox_override("panel", UI.pad(sb, 12, 8, 12, 6))
+		sb.corner_radius_bottom_left = 6
+	p.add_theme_stylebox_override("panel", UI.pad(sb, 14, 9, 14, 7))
 	var inner := UI.vbox(4)
 	p.add_child(inner)
 	if deleted:
@@ -293,6 +318,8 @@ func _bubble(msg: Dictionary, first_of_group: bool) -> Control:
 		if str(msg.text) != "":
 			inner.add_child(_text_label(str(msg.text)))
 	var tl := UI.label(Clock.fmt_time(float(msg.t)), 10, "faint")
+	if me and not deleted:
+		tl.add_theme_color_override("font_color", Color(1, 1, 1, 0.6))
 	tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	inner.add_child(tl)
 	col.add_child(p)
