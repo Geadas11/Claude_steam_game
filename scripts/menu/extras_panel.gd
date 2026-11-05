@@ -65,8 +65,11 @@ func _credits() -> void:
 	body.add_child(UI.label("CRÉDITOS", 13, "accent"))
 	for line in [
 		"UNKNOWN — terror psicológico na primeira pessoa.",
-		"Feito com Godot Engine (godotengine.org, licença MIT). Tipo de letra predefinido do Godot.",
-		"Todos os sons e fotografias são gerados em tempo real pelo jogo.",
+		"Feito com Godot Engine (godotengine.org, licença MIT).",
+		"Tipo de letra: Inter, de Rasmus Andersson (SIL Open Font License).",
+		"Ícones do telemóvel: Tabler Icons, de Paweł Kuna (tabler.io, licença MIT).",
+		"Modelos 3D e texturas: Poly Haven e ambientCG (CC0) e BlenderKit (Royalty Free / CC0); lista completa em assets/3d/CREDITS.md.",
+		"Sons gravados: Kenney, OpenGameArt e Radio Aporee (CC0 / domínio público); lista em assets/sound/CREDITS.md. Os restantes sons são gerados pelo jogo.",
 		"Epígrafes dos capítulos: Fernando Pessoa, Ricardo Reis e Álvaro de Campos (domínio público).",
 		"Salgueira, a Lumen Systems, a Clínica Atlântico e todas as pessoas desta história são fictícias.",
 		"Se estás a passar por um momento difícil, fala com alguém. Em Portugal: SNS 24 (808 24 24 24) · SOS Voz Amiga (213 544 545).",

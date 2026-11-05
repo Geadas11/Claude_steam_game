@@ -156,6 +156,10 @@
   afunda por trás; desbloqueio com zoom; notificações caem com mola; cortina com fade.
   "Reduzir movimento" desliga tudo.
 - `tools/phone_shots.tscn -- <pasta> [prefixo|anim]` fotografa todos os ecrãs do telemóvel.
+- **Ícones:** pedido do autor — ícones "existentes": **Tabler Icons** (MIT, crédito nos Créditos),
+  guardados em `data/icons.json` por `tools/build_icons.py` e desenhados por `scripts/ui/icons.gd` ao
+  tamanho real no ecrã. Marcas reais (WhatsApp, Gmail…) ficam de fora: risco legal no Steam.
+- Créditos do jogo atualizados (Inter, Tabler, modelos/texturas, sons gravados).
 - **Por fazer:** a página do telemóvel real (`companion/index.html`) ainda tem o desenho antigo.
 
 ## Testes

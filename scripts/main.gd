@@ -328,6 +328,7 @@ func _debug_script(steps: PackedStringArray) -> void:
 				print("TAB after raised=", phone_raised)
 			"quit": get_tree().quit()
 			"spawn": world.spawn(kv[1])
+			"raise": set_phone_raised(kv.size() < 2 or kv[1] != "0")
 			"at":
 				# at:x:z:yaw[:pitch] puts Daniel somewhere, looking somewhere
 				world.player.global_position = Vector3(float(kv[1]), 0.02, float(kv[2]))

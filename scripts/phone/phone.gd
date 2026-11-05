@@ -57,6 +57,7 @@ var _base_pos := Vector2.ZERO
 var using_pad := false
 var _home_has_eco := false
 var _launch_from := Rect2()   # the icon an app was opened from (its zoom grows out of it)
+var corners: Control         # round screen corners + camera: always on top of the screen
 var _launched := {}           # app id -> icon rect it was opened from (it shrinks back into it)
 
 
@@ -205,7 +206,7 @@ func _build_screen() -> void:
 	off_layer.visible = false
 	off_layer.mouse_filter = Control.MOUSE_FILTER_STOP
 	screen.add_child(off_layer)
-	var corners := ScreenCorners.new()
+	corners = ScreenCorners.new()
 	corners.set_anchors_preset(Control.PRESET_FULL_RECT)
 	corners.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen.add_child(corners)
@@ -1120,6 +1121,7 @@ func open_shade() -> void:
 		v.add_child(_shade_card(n))
 	screen.add_child(_shade)
 	screen.move_child(status_bar, -1)
+	screen.move_child(corners, -1)
 	if not Settings.get_value("reduce_motion", false):
 		p.position.y = -320
 		dim.modulate.a = 0.0

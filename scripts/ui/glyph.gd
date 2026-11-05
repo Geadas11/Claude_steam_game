@@ -26,6 +26,10 @@ static func draw_glyph(ci: CanvasItem, name: String, r: Rect2, col: Color, lw :=
 	var p := r.position
 	var c := r.get_center()
 	var t := lw if lw > 0.0 else maxf(1.5, w * 0.085)
+	# the icon set first; the drawings below are for the few it doesn't have
+	var grown := r.grow(w * 0.12)
+	if Icons.draw(ci, name, grown, col):
+		return
 	match name:
 		"messages":
 			_rrect(ci, Rect2(p + Vector2(0, h * 0.08), Vector2(w, h * 0.68)), w * 0.2, col)

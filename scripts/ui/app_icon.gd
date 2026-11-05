@@ -57,6 +57,12 @@ func _draw() -> void:
 			rim.append(p)
 	if rim.size() > 2:
 		draw_polyline(rim, Color(1, 1, 1, 0.22), maxf(1.0, s * 0.012), true)
+	# the app's symbol from the icon set, white, with a faint shadow under it
+	var ir := Rect2(o + Vector2(s, s) * 0.22, Vector2(s, s) * 0.56)
+	if Icons.has("app_" + glyph):
+		Icons.draw(self, "app_" + glyph, Rect2(ir.position + Vector2(0, s * 0.015), ir.size), Color(0, 0, 0, 0.18))
+		Icons.draw(self, "app_" + glyph, ir, Color(1, 1, 1, 0.98) if glyph != "eco" else Color(0.95, 0.3, 0.3))
+		return
 	_art(Rect2(o, Vector2(s, s)), top, bot)
 
 
