@@ -20,6 +20,8 @@ recipes.json: {"<name>": {"src": [paths under sources_dir], "loop": false, "seco
            listed several times to cut several takes from it)
   stereo   keep a loop in stereo (ambiences: they aren't placed in 3D)
   highpass Hz: cut the rumble under it (wind on the microphone)
+  trim     false: keep the file's full length (a ringtone that loops with its
+           own silence between rings)
   gain     dB on top of the match (when the recording should sit louder or
            quieter than the old sound)
 Needs ffmpeg (libvorbis).
@@ -128,7 +130,7 @@ def build(name: str, rec: dict, synth_dir: str, root: str) -> list:
                     "amix=inputs=%d:normalize=0" % len(delays)
                 ff(*ins, "-filter_complex", mix, clean)
             else:
-                mono(src, clean, True, cut)
+                mono(src, clean, bool(rec.get("trim", True)), cut)
             if rec.get("highpass"):
                 hp = os.path.join(tmp, "hp.wav")
                 # twice: a steep cut, the rumble is loud in outdoor recordings

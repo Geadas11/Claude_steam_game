@@ -228,7 +228,6 @@ func start_ring(wrong := false) -> void:
 	_ring.stream = _get_stream("ring_wrong" if wrong else "ring")
 	_ring.volume_db = -3.0
 	_ring.play()
-	play("vibrate_long", -4.0)
 
 
 func start_dialtone() -> void:

@@ -164,5 +164,26 @@
     2.5
    ]
   ]
+ },
+ "ring": {
+  "src": "found/phone/ring.wav",
+  "trim": false
+ },
+ "ring_wrong": {
+  "src": "found/phone/ring_wrong.wav",
+  "trim": false
+ },
+ "msg": {
+  "src": "found/phone/message_sound_sunart1.flac"
+ },
+ "notif": {
+  "src": "found/phone/chime_weak_drooler.flac"
+ },
+ "mail": {
+  "src": "found/phone/crystal_bell_arseniiv.flac"
+ },
+ "vibrate": {
+  "src": "found/phone/vibrates_twice_loganzsound.flac",
+  "highpass": 60
  }
 }

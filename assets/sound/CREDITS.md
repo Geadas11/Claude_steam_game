@@ -21,6 +21,11 @@ ser sintetizado (`scripts/core/sound_synth.gd`).
 | `scream` | [Female Scream 1](https://opengameart.org/content/female-scream-1) | Nocturnal_Vanguard (AuraVoice) | CC0 |
 | `switch` | [Light Switch Turn On And Off](https://opengameart.org/content/light-switch-turn-on-and-off-sfx-0) | FunnyDude | CC0 |
 | `water` | [Dripping water loop](https://opengameart.org/content/dripping-water-loop) | Independent.nu | CC0 |
+| `ring`, `ring_wrong` | [Kalimba C1](https://freesound.org/s/536551/) — uma nota, afinada por `tools/make_ringtone.py` para tocar uma melodia original | dvdfu | CC0 |
+| `msg` | [Message sound](https://freesound.org/s/592772/) | Sunart1 | CC0 |
+| `notif` | [Chime-Weak](https://freesound.org/s/660861/) | drooler | CC0 |
+| `mail` | [crystal bell 08](https://freesound.org/s/614832/) | arseniiv | CC0 |
+| `vibrate` | [iPhone 15 Pro Vibrates twice](https://freesound.org/s/805443/) (só o zumbido da vibração; nenhuma marca no jogo) | loganzsound | CC0 |
 
 As gravações da Radio Aporee foram marcadas como domínio público pelos próprios
 autores (Public Domain Mark 1.0, indicado em cada página do archive.org).

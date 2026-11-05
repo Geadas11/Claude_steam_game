@@ -141,6 +141,10 @@ func _pulse() -> void:
 	tw.tween_callback(_pulse)
 
 
+func ringing() -> bool:
+	return visible and _incoming_box.visible and not _connected
+
+
 func show_connected(call: Dictionary) -> void:
 	_call = call
 	_connected = call.dir != "out"

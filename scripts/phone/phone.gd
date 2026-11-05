@@ -781,13 +781,21 @@ func _on_notification(n: Dictionary) -> void:
 	if locked:
 		_lock_screen.refresh_notifications()
 		Audio.play(_notif_sound(n), -4.0)
-		_wake_bump()
+		_buzz()
 		return
 	if current_app and not current_app.wants_banner(n):
 		return
+	_buzz()
 	_banner_queue.append(n)
 	if not _banner_showing:
 		_show_next_banner()
+
+
+## A notification vibrates the phone once (not in do-not-disturb, and not
+## for the conversation you're already reading).
+func _buzz() -> void:
+	if not GameState.data.phone.get("dnd", false):
+		Events.vibrate_requested.emit(1)
 
 
 func _notif_sound(n: Dictionary) -> String:
@@ -795,10 +803,6 @@ func _notif_sound(n: Dictionary) -> String:
 		"messages": return "msg"
 		"email": return "mail"
 		_: return "notif"
-
-
-func _wake_bump() -> void:
-	vibrate(1)
 
 
 func _show_next_banner() -> void:
@@ -867,6 +871,15 @@ func _on_call(call: Dictionary) -> void:
 	_call_ui.show_incoming(call)
 	if locked:
 		_lock_screen.visible = true
+	_ring_buzz()
+
+
+## While a call rings, the phone vibrates twice every 1.6 s, like a real one.
+func _ring_buzz() -> void:
+	if not _call_ui.visible or not _call_ui.ringing():
+		return
+	Events.vibrate_requested.emit(2)
+	get_tree().create_timer(1.6).timeout.connect(_ring_buzz)
 
 
 func _on_call_started(call: Dictionary) -> void:
@@ -890,7 +903,13 @@ func glitch(intensity: float, duration: float) -> void:
 	_fx_tween.tween_callback(func(): fx_layer.visible = false)
 
 
+## The phone vibrates: a controller rumbles along (if there is one), and the
+## phone shakes on the screen. The companion phone (QR) vibrates for real on
+## the same signal (Events.vibrate_requested). Silent: the buzz you hear is
+## only the "vibrate" sound, for a phone in a pocket or on a table.
 func vibrate(count := 1) -> void:
+	for pad in Input.get_connected_joypads():
+		Input.start_joy_vibration(pad, 0.35, 0.0, 0.22 * count + 0.08 * (count - 1))
 	if Settings.get_value("reduce_motion", false):
 		return
 	if _base_pos == Vector2.ZERO:

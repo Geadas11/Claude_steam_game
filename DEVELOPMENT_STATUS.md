@@ -160,6 +160,12 @@
   guardados em `data/icons.json` por `tools/build_icons.py` e desenhados por `scripts/ui/icons.gd` ao
   tamanho real no ecrã. Marcas reais (WhatsApp, Gmail…) ficam de fora: risco legal no Steam.
 - Créditos do jogo atualizados (Inter, Tabler, modelos/texturas, sons gravados).
+- **Sons do telemóvel** (pedido do autor: "irrealistas"): toque = melodia original tocada com uma nota
+  real de kalimba (`tools/make_ringtone.py`), versão desafinada para números desconhecidos;
+  mensagem, notificação, email e vibração são gravações CC0 (`assets/sound/CREDITS.md`).
+- **Vibração separada do toque:** é um efeito (`Phone.vibrate`): o telemóvel treme, o comando vibra
+  e o telemóvel real (QR) vibra. Vibra em todas as notificações (menos em "não incomodar" e na
+  conversa aberta) e duas vezes a cada 1,6 s enquanto uma chamada toca.
 - **Por fazer:** a página do telemóvel real (`companion/index.html`) ainda tem o desenho antigo.
 
 ## Testes
